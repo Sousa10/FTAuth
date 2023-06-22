@@ -1,0 +1,83 @@
+<!-- {% load static %} -->
+<!-- <!DOCTYPE html> -->
+<!-- <html lang="en"> -->
+
+<!-- <head> -->
+    <!-- <meta charset="UTF-8"> -->
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <!-- <title>Login</title> -->
+<!-- </head> -->
+
+<!-- <body style="background-color:#DDEBF7;"> -->
+
+<!-- <p> -->
+    <!-- KMS Temp text input is allowed, as it doesn't contain the disabled attribute -->
+    <!-- <input type="text" /> -->
+<!-- </p> -->
+<!-- <p>To Main Menu <a href="FTMainMenu/"></a></p> -->
+<!-- <p style="font-size:12px" > -->
+    <!-- <a href="FTMainMenu/"><img src="{% static 'MainMenu.jpg' %}" alt="Admin Tile Missing" width="130" height="130"></a> -->
+    <!-- <a href="FTMainMenu/" style="color:blue">Main Menu</a>&nbsp&nbsp -->
+<!-- </p> -->
+
+
+<!-- <img align="bottom" src="{% static 'sponsor.jpg' %}" alt="Sponsor" width="1170" height="125"> -->
+
+<!-- </body> -->
+<!-- </html> -->
+
+<!-- KMS End Commented out -->
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdn.tailwindcss.com"></script>
+<style>
+body {
+  /* background-image: url({% static 'login.jpg' %});
+  background-repeat: no-repeat;
+  background-attachment: fixed;  
+  background-size: cover;
+  background-size: 50% auto; */
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="w-1/2 my-6 mx-auto p-6 bg-gray-100 rounded-xl">
+        <h1 class="mb-6 text-3xl">Log in</h1>
+    
+        <form method="post" action=".">
+            {% csrf_token %}
+    
+            <div class="mb-3">
+                <label class="inline-block mb-2">Username</label><br>
+                {{ form.username }}
+            </div>
+    
+            <div class="mb-3">
+                <label class="inline-block mb-2">Password</label><br>
+                {{ form.password }}
+            </div>
+    
+            {% if form.errors or form.non_field_errors %}    
+            <div class="mb-3 p-6 bg-red-100 rounded-xl">
+                {% for field in form %}
+                    {{ field.errors }}
+                {% endfor %}
+
+                {{ form.non_field_errors }}
+            </div>
+            {% endif %}
+
+        <button class="py-4 px-8 text-lg bg-teal-500 hover:bg-teal-700 rounded-xl text-white">Submit</button>
+    </form>
+</div>
+
+</div>
+
+</body>
+</html>

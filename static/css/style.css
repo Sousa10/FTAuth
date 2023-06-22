@@ -1,0 +1,11 @@
+.family {
+    margin: auto;
+}
+
+.sponsor {
+    width: 100%;
+}
+.container {
+    padding: 0;
+    overflow-x: hidden;
+}

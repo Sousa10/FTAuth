@@ -1,0 +1,102 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Add this code to your Django template -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+
+</head>
+<body style="background-color:#DDEBF7;">
+<!-- KMS Start -->
+<div class="container" style="max-width: 100%;">
+    <div class="row">
+        <div class="col-md-12">
+            <p>
+                <img style="float: left;" src="{% static 'Finances.jpg' %}" alt="Finances Tile missing" width="100" height="100">
+                <p style="font-size:12px" >
+                    &nbsp&nbsp&nbsp&nbsp<a href="FTAcministration/" style="color:blue">Support</a>&nbsp&nbsp
+                    <a href="FTAcministration/" style="color:blue">Suggestions</a>&nbsp&nbsp
+                    <a href="FTAcministration/" style="color:blue">Service Requests</a>&nbsp&nbsp
+                    <a href="FTAcministration/" style="color:blue">Contact Us</a>&nbsp&nbsp
+                    <a href="FTAcministration/" style="color:blue">About</a>&nbsp&nbsp
+                    <a href="FTAcministration/" style="color:blue">Help</a>&nbsp&nbsp
+                    <img style="float: right;" src="{% static 'HeaderRight.jpg' %}" alt="Login Tile" width="100" height="100">
+                </p>
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp    
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                </a>
+                <img class="family" src="{% static 'FamilyName.jpg' %}" alt="Family Name" width="400" height="150">
+            </p>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-4">
+            <p>
+                <h2>Capture Family Transactions</h2>
+                <a href="{% url 'LoginRegister:LoginRegister' %}" style="color:blue">Capture Transactions</a><br>
+                <a href="{% url 'LoginRegister:LoginRegister' %}" style="color:blue">Monthly Close</a><br>
+            </p>
+            
+            <p>
+                <h2>Family Financial Reports</h2>
+                <a href="{% url 'LoginRegister:LoginRegister' %}" style="color:blue">Family Earnings</a><br>
+                <a href="{% url 'LoginRegister:LoginRegister' %}" style="color:blue">Family Networth</a><br>
+                <a href="{% url 'LoginRegister:LoginRegister' %}" style="color:blue">Cash Flow</a><br>
+            </p>
+            
+            <p>
+            <h2>Family Accounts</h2>
+            <a href="{% url 'LoginRegister:LoginRegister' %}" style="color:blue">Cash In</a><br>
+            <a href="{% url 'LoginRegister:LoginRegister' %}" style="color:blue">Cash Out</a><br>
+            <a href="{% url 'LoginRegister:LoginRegister' %}" style="color:blue">What We Own</a><br>
+            <a href="{% url 'LoginRegister:LoginRegister' %}" style="color:blue">Debts</a><br>
+            <a href="{% url 'LoginRegister:LoginRegister' %}" style="color:blue">Networth</a><br>
+            <a href="{% url 'LoginRegister:LoginRegister' %}" style="color:blue">Grouping Drill Down</a><br>
+            <a href="{% url 'LoginRegister:LoginRegister' %}" style="color:blue">Account Drill Down</a><br>
+        </div>
+        <div class="col-md-4">
+            <form action="." method="post">
+                {% csrf_token %}
+            
+                <div class="form-group">
+                    <label for="{{ form.AccountNumber.id_for_label }}">Account Number</label>
+                    {{ form.AccountNumber }}
+                  </div>
+                  <div class="form-group">
+                    <label for="{{ form.Description.id_for_label }}">Description</label>
+                    {{ form.Description }}
+                  </div>
+                <!-- <div class="space-y-4">
+                    {{ form.as_p }}
+                </div> -->
+            
+                {% if form.errors or form.non_field_errors %}
+                    <div class="mb-3 p-6 bg-red-100 rounded-xl">
+                        {% for field in form %}
+                            {{ field.errors }}
+                        {% endfor %}
+            
+                        {{ form.non_field_errors }}
+                    </div>
+                {% endif %}
+            
+                <button type="submit" class="mt-6 mb-6 py-4 px-8 text-lg bg-teal-500 hover:bg-teal-700 rounded-xl text-white">Submit</button>
+            </form>
+        </div>
+        <div class="md-4"></div>
+        
+    </div>
+    
+    <br>
+    </p>
+    <p>Back to <a href="{% url 'LoginRegister:FTMainMenu' %}">Main Menu</a></p>
+    <br>
+    <img class="sponsor" src="{% static 'sponsor.jpg' %}" alt="Sponsor" width="1170" height="125">
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+</body>
+</html>
