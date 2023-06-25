@@ -3,6 +3,7 @@ from django.template import loader
 from .models import PersonM
 from .forms import CashInAcctMForm
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 
 def LoginRegister(request):
   FTpersons = PersonM.objects.all().values()
@@ -12,6 +13,7 @@ def LoginRegister(request):
   }
   return HttpResponse(template.render(context, request))
 
+@login_required
 def FTMainMenu(request):
   FTpersons = PersonM.objects.all().values()
   template = loader.get_template('FTMainMenu.html')
