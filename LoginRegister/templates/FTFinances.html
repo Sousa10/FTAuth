@@ -70,9 +70,27 @@
                     <label for="{{ form.Description.id_for_label }}">Description</label>
                     {{ form.Description }}
                   </div>
-                <!-- <div class="space-y-4">
-                    {{ form.as_p }}
-                </div> -->
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Account Number</th>
+                        <th>Description</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for cashinacctm in cashinacctms %}
+                      <tr>
+                        <td>{{ cashinacctm.AccountNumber }}</td>
+                        <td>{{ cashinacctm.Description }}</td>
+                        <td>
+                          <a href="{% url 'LoginRegister:cashinacctm_update' cashinacctm.id %}">Edit</a>
+                          <a href="{% url 'LoginRegister:cashinacctm_delete' cashinacctm.id %}">Delete</a>
+                        </td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
             
                 {% if form.errors or form.non_field_errors %}
                     <div class="mb-3 p-6 bg-red-100 rounded-xl">

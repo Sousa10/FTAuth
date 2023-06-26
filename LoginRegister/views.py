@@ -1,8 +1,8 @@
 from django.http import HttpResponse
 from django.template import loader
-from .models import PersonM
+from .models import PersonM, CashInAcctM
 from .forms import CashInAcctMForm
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 
 def LoginRegister(request):
@@ -20,6 +20,7 @@ def FTMainMenu(request):
   return HttpResponse(template.render())
 
 def FTFinances(request):
+  cashinacctms = CashInAcctM.objects.all()
   if request.method == 'POST':
         form = CashInAcctMForm(request.POST)
 
@@ -30,7 +31,29 @@ def FTFinances(request):
       form = CashInAcctMForm()
   return render(request, 'FTFinances.html', {
     'form': form,
+    'cashinacctms': cashinacctms,
   })
+
+def cashinacctm_update(request, pk):
+  cashinacctm = get_object_or_404(CashInAcctM, pk=pk)
+
+  if request.method == 'POST':
+        form = CashInAcctMForm(request.POST, instance=cashinacctm)
+
+        if form.is_valid():
+          form.save()
+          return redirect('LoginRegister:FTFinances')    
+  else:
+      form = CashInAcctMForm()
+  return render(request, 'FTFinances.html', {
+    'form': form,
+  })
+
+def cashinacctm_delete(request, pk):
+  cashinacctm = get_object_or_404(CashInAcctM, pk=pk)
+  cashinacctm.delete()
+
+  return redirect('LoginRegister:FTFinances')
 
 def FTCalendar(request):
   FTpersons = PersonM.objects.all().values()
