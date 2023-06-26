@@ -31,7 +31,6 @@ LOGIN_URL = '/LoginRegister/login/'
 LOGIN_REDIRECT_URL = '/LoginRegister/FTMainMenu'
 LOGOUT_REDIRECT_URL = '/LoginRegister/login/'
 
-
 # Application definition
 
 INSTALLED_APPS = [
