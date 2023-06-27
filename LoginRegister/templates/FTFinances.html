@@ -59,9 +59,40 @@
             <a href="{% url 'LoginRegister:LoginRegister' %}" style="color:blue">Account Drill Down</a><br>
         </div>
         <div class="col-md-4">
-            <form action="." method="post">
+            <table>
+              <thead>
+                <tr>
+                  <th>Account Number</th>
+                  <th>Description</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for cashinacctm in cashinacctms %}
+                <tr>
+                  <td>{{ cashinacctm.AccountNumber }}</td>
+                  <td>{{ cashinacctm.Description }}</td>
+                  <td>
+                    <!-- <a class="add-button" href="{% url 'LoginRegister:FTFinances' %}">Add</a> -->
+                    <a href="{% url 'LoginRegister:cashinacctm_delete' cashinacctm.id %}" class="btn btn-danger">Delete</a>
+                  </td>
+                </tr>
+                {% endfor %}
+                <tr>
+                  <td colspan="3" class="text-center">
+                    <a class="add-button btn btn-info" href="#">Add</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
+        <div class="md-4">
+          <div id="addModal" class="modal">
+            <div class="modal-content">
+              <span class="close">&times</span>
+              <h2>Add Cash In Account</h2>
+              <form action="{% url 'LoginRegister:FTFinances' %}" method="post">
                 {% csrf_token %}
-            
                 <div class="form-group">
                     <label for="{{ form.AccountNumber.id_for_label }}">Account Number</label>
                     {{ form.AccountNumber }}
@@ -69,29 +100,7 @@
                   <div class="form-group">
                     <label for="{{ form.Description.id_for_label }}">Description</label>
                     {{ form.Description }}
-                  </div>
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>Account Number</th>
-                        <th>Description</th>
-                        <th>Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {% for cashinacctm in cashinacctms %}
-                      <tr>
-                        <td>{{ cashinacctm.AccountNumber }}</td>
-                        <td>{{ cashinacctm.Description }}</td>
-                        <td>
-                          <a href="{% url 'LoginRegister:cashinacctm_update' cashinacctm.id %}">Edit</a>
-                          <a href="{% url 'LoginRegister:cashinacctm_delete' cashinacctm.id %}">Delete</a>
-                        </td>
-                      </tr>
-                      {% endfor %}
-                    </tbody>
-                  </table>
-            
+                  </div>            
                 {% if form.errors or form.non_field_errors %}
                     <div class="mb-3 p-6 bg-red-100 rounded-xl">
                         {% for field in form %}
@@ -101,11 +110,11 @@
                         {{ form.non_field_errors }}
                     </div>
                 {% endif %}
-            
                 <button type="submit" class="mt-6 mb-6 py-4 px-8 text-lg bg-teal-500 hover:bg-teal-700 rounded-xl text-white">Submit</button>
-            </form>
+              </form>
+            </div>
+          </div>
         </div>
-        <div class="md-4"></div>
         
     </div>
     
@@ -116,5 +125,6 @@
     <img class="sponsor" src="{% static 'sponsor.jpg' %}" alt="Sponsor" width="1170" height="125">
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+<script src="{% static 'js/child.js' %}"></script>
 </body>
 </html>

@@ -44,7 +44,7 @@ def cashinacctm_update(request, pk):
           form.save()
           return redirect('LoginRegister:FTFinances')    
   else:
-      form = CashInAcctMForm()
+      form = CashInAcctMForm(instance=cashinacctm)
   return render(request, 'FTFinances.html', {
     'form': form,
   })
