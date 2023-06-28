@@ -32,6 +32,7 @@ def FTFinances(request):
   return render(request, 'FTFinances.html', {
     'form': form,
     'cashinacctms': cashinacctms,
+    'title': 'Add Cash In Account',
   })
 
 def cashinacctm_update(request, pk):
@@ -47,6 +48,8 @@ def cashinacctm_update(request, pk):
       form = CashInAcctMForm(instance=cashinacctm)
   return render(request, 'FTFinances.html', {
     'form': form,
+    'cashinacctm': cashinacctm,
+    'title': 'Edit Cash In Account',
   })
 
 def cashinacctm_delete(request, pk):
