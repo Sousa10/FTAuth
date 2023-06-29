@@ -75,7 +75,7 @@
                   <td>
                     <!-- <a class="add-button" href="{% url 'LoginRegister:FTFinances' %}">Add</a> -->
                     <a href="{% url 'LoginRegister:cashinacctm_delete' cashinacctm.id %}" class="btn btn-danger">Delete</a>
-                    <a href="#" class="btn btn-secondary edit-button">Edit</a>
+                    <a href="{% url 'LoginRegister:cashinacctm_update' cashinacctm.id %}" class="btn btn-secondary edit-button">Edit</a>
                   </td>
                 </tr>
                 {% endfor %}
@@ -93,6 +93,7 @@
             <div class="modal-content">
               <span class="close">&times</span>
               <h2>{{ title }}</h2>
+              
               <form action="{% url 'LoginRegister:FTFinances' %}" method="post">
                 {% csrf_token %}
                 <div class="form-group">
@@ -111,7 +112,7 @@
             
                         {{ form.non_field_errors }}
                     </div>
-                {% endif %}
+                    {% endif %}
                 <button type="submit" class="mt-6 mb-6 py-4 px-8 text-lg bg-teal-500 hover:bg-teal-700 rounded-xl text-white">Submit</button>
               </form>
             </div>
@@ -122,28 +123,30 @@
           <div id="editModal" class="modal">
             <div class="modal-content">
               <span class="close">&times</span>
-              <h2>{{ title }}</h2>
-              <form action="." method="post">
-                {% csrf_token %}
-                <div class="form-group">
-                    <label for="{{ form.AccountNumber.id_for_label }}">Account Number</label>
-                    {{ form.AccountNumber }}
-                  </div>
+              
+                <h2>{{ title }}</h2>
+                <form id="editForm" action="." method="post">
+                  {% csrf_token %}
                   <div class="form-group">
-                    <label for="{{ form.Description.id_for_label }}">Description</label>
-                    {{ form.Description }}
-                  </div>            
-                {% if form.errors or form.non_field_errors %}
-                    <div class="mb-3 p-6 bg-red-100 rounded-xl">
-                        {% for field in form %}
-                            {{ field.errors }}
-                        {% endfor %}
-            
-                        {{ form.non_field_errors }}
+                      <label for="{{ form.AccountNumber.id_for_label }}">Account Number</label>
+                      {{ form.AccountNumber }}
                     </div>
-                {% endif %}
-                <button type="submit" class="mt-6 mb-6 py-4 px-8 text-lg bg-teal-500 hover:bg-teal-700 rounded-xl text-white">Submit</button>
-              </form>
+                    <div class="form-group">
+                      <label for="{{ form.Description.id_for_label }}">Description</label>
+                      {{ form.Description }}
+                    </div>            
+                  {% if form.errors or form.non_field_errors %}
+                      <div class="mb-3 p-6 bg-red-100 rounded-xl">
+                          {% for field in form %}
+                              {{ field.errors }}
+                          {% endfor %}
+              
+                          {{ form.non_field_errors }}
+                      </div>
+                    {% endif %}
+                  <button type="submit" class="mt-6 mb-6 py-4 px-8 text-lg bg-teal-500 hover:bg-teal-700 rounded-xl text-white">Submit</button>
+                </form>
+              
             </div>
           </div>
         </div>

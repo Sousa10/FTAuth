@@ -37,7 +37,7 @@ def FTFinances(request):
 
 def cashinacctm_update(request, pk):
   cashinacctm = get_object_or_404(CashInAcctM, pk=pk)
-
+  print (cashinacctm.id)
   if request.method == 'POST':
         form = CashInAcctMForm(request.POST, instance=cashinacctm)
 
@@ -46,7 +46,7 @@ def cashinacctm_update(request, pk):
           return redirect('LoginRegister:FTFinances')    
   else:
       form = CashInAcctMForm(instance=cashinacctm)
-  return render(request, 'FTFinances.html', {
+  return render(request, 'edit.html', {
     'form': form,
     'cashinacctm': cashinacctm,
     'title': 'Edit Cash In Account',
@@ -92,3 +92,33 @@ def FTAcministration(request):
   FTpersons = PersonM.objects.all().values()
   template = loader.get_template('FTAcministration.html')
   return HttpResponse(template.render())
+
+def cashin_list(request):
+    cashin_accounts = CashInAcctM.objects.all()
+    return render(request, 'edit.html', {'cashin_accounts': cashin_accounts})
+
+def cashin_add(request):
+    if request.method == 'POST':
+        account_number = request.POST.get('account_number')
+        description = request.POST.get('description')
+        CashInAcctM.objects.create(AccountNumber=account_number, Description=description)
+        return redirect('LoginRegister:cashin_list')
+    return render(request, 'edit.html')
+
+def cashin_edit(request, account_id):
+    cashin_account = get_object_or_404(CashInAcctM, pk=account_id)
+    if request.method == 'POST':
+        account_number = request.POST.get('account_number')
+        description = request.POST.get('description')
+        cashin_account.AccountNumber = account_number
+        cashin_account.Description = description
+        cashin_account.save()
+        return redirect('LoginRegister:cashin_list')
+    return render(request, 'edit.html', {'cashin_account': cashin_account})
+
+def cashin_delete(request, account_id):
+    cashin_account = get_object_or_404(CashInAcctM, pk=account_id)
+    if request.method == 'POST':
+        cashin_account.delete()
+        return redirect('LoginRegister:cashin_list')
+    return render(request, 'edit.html', {'cashin_account': cashin_account})
