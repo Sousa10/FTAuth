@@ -29,9 +29,12 @@ class PersonM(models.Model):
      return self.firstname
 
 class CashInAcctM(models.Model):
-  AccountNumber = models.CharField(max_length=40, null=True)
+  AccountNumber = models.CharField(max_length=20, null=True)
   Description = models.CharField(max_length=255, null=True)
   DrCrBal = models.CharField(max_length=20, null=True)
+  # AccountNumber = models.CharField(max_length=40, null=True)
+  # Description = models.CharField(max_length=255, null=True)
+  # DrCrBal = models.CharField(max_length=20, null=True)
 
 class CashOutAcctM(models.Model):
   AccountNumber = models.CharField(max_length=40, null=True)
