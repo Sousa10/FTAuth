@@ -19,8 +19,13 @@ urlpatterns = [
     path('LoginRegister/FTGrocery/', views.FTGrocery, name='FTGrocery'),
     path('LoginRegister/FTAcministration/', views.FTAcministration, name='FTAcministration'),
     path('LoginRegister/login/', auth_views.LoginView.as_view(template_name='FTperson_login.html', authentication_form=LoginForm), name='login'),
-    path('cashin/', views.cashin_list, name='cashin_list'),
-    path('cashin/add/', views.cashin_add, name='cashin_add'),
-    path('cashin/edit/<int:account_id>/', views.cashin_edit, name='cashin_edit'),
-    path('cashin/delete/<int:account_id>/', views.cashin_delete, name='cashin_delete'),
+    # KMS 7/3
+    path('LoginRegister/FTFinancesMenu/', views.FTFinancesMenu, name='FTFinancesMenu'),
+    path('LoginRegister/FTFinMenu/', views.FTFinMenu, name='FTFinMenu'),
+    path('LoginRegister/FTDefAcctsMenu/', views.FTDefAcctsMenu, name='FTDefAcctsMenu'),
+    path('LoginRegister/FTRevenueAccts/', views.FTRevenueAccts, name='FTRevenueAccts'),
+    path('LoginRegister/FTExpAccts/', views.FTExpAccts, name='FTExpAccts'),
+    path('cashoutacctm/update/<int:pk>/', views.cashoutacctm_update, name='cashoutacctm_update'),
+    path('cashoutacctm/delete/<int:pk>/', views.cashoutacctm_delete, name='cashoutacctm_delete'),
+    path('LoginRegister/FTExpAccts/', views.FTExpAccts, name='FTExpAccts'),
 ]

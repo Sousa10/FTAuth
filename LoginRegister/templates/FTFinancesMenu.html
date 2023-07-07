@@ -23,18 +23,12 @@
 &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 </a>
-<!-- <img style="float: center;" src="{% static 'FamilyName.jpg' %}" alt="Family Name" width="400" height="150"> -->
+<img style="float: center;" src="{% static 'FamilyName.jpg' %}" alt="Family Name" width="400" height="150">
 </p>
-<div class="h1">
-    <a style="color:rgb(6, 6, 192)">
-      <p style="font-size:40px"
-        <h2>Main Menu</h2>
-      </p>
-    </a>
-  </div> 
+<br>
 
 <p style="text-align:center">
-    <a href="{% url 'LoginRegister:FTFinMenu' %}"><img src="{% static 'Finances.jpg' %}" alt="Finances Tile Missing" width="130" height="130"></a>
+    <a href="{% url 'LoginRegister:FTFinances' %}"><img src="{% static 'Finances.jpg' %}" alt="Finances Tile Missing" width="130" height="130"></a>
     <a> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp </a>
     <a href="{% url 'LoginRegister:FTCalendar' %}"><img src="{% static 'calendar.jpg' %}" alt="Calendar Tile Missing" width="130" height="130"></a>
     <a> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp </a>
@@ -45,7 +39,6 @@
     <a href="{% url 'LoginRegister:FTFamilyTracks' %}"><img src="{% static 'FamilyTracks.jpg' %}" alt="To Do's Tile Missing" width="130" height="130"></a>
 </p>
         
-
 <p style="text-align:center">
     <a href="{% url 'LoginRegister:FTFitnessSports' %}"><img src="{% static 'FitnessSports.jpg' %}" alt="Fitness Sports Tile Missing" width="130" height="130"></a>
     <a> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp </a>
@@ -56,7 +49,10 @@
 
 <br>
 <br>
+<p>Back to <a href="{% url 'LoginRegister:LoginRegister' %}">Login</a></p>     
 <img align="bottom" src="{% static 'sponsor2.jpg' %}" alt="Sponsor" width="1170" height="125">
       
+
+
 </body>
 </html>

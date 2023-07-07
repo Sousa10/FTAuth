@@ -1,10 +1,10 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
-  <style>
-    div.h1 {text-align: center
-    }
-  </style>
+<style>
+div.h2 {text-align: center
+}
+</style>
 
 <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
@@ -16,10 +16,12 @@
 <body style="background-color:#DDEBF7;">
 <!-- KMS Start -->
 <div class="container" style="max-width: 100%;">
-    <div class="row">
+  <div class="row">
         <div class="col-md-12">
             <p>
                 <img style="float: left;" src="{% static 'Finances.jpg' %}" alt="Finances Tile missing" width="100" height="100">
+                <img style="float: right;" src="{% static 'HeaderRight.jpg' %}" alt="Login Tile" width="100" height="100">
+
                 <p style="font-size:12px" >
                     &nbsp&nbsp&nbsp&nbsp<a href="FTAcministration/" style="color:blue">Support</a>&nbsp&nbsp
                     <a href="FTAcministration/" style="color:blue">Suggestions</a>&nbsp&nbsp
@@ -27,31 +29,26 @@
                     <a href="FTAcministration/" style="color:blue">Contact Us</a>&nbsp&nbsp
                     <a href="FTAcministration/" style="color:blue">About</a>&nbsp&nbsp
                     <a href="FTAcministration/" style="color:blue">Help</a>&nbsp&nbsp
-                    <img style="float: right;" src="{% static 'HeaderRight.jpg' %}" alt="Login Tile" width="100" height="100">
+                    <a href="{% url 'LoginRegister:FTDefAcctsMenu' %}"style="color:blue">Back</a></p>
                 </p>
-                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp    
-                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                 &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                 </a>
-                <img class="family" src="{% static 'FamilyName.jpg' %}" alt="Family Name" width="400" height="150">
+                <!-- <img class="family" src="{% static 'FamilyName.jpg' %}" alt="Family Name" width="400" height="150"> -->
             </p>
         </div>
     </div>
-    
+
+    <div class="h2">
+        <a style="color:rgb(6, 6, 192)">
+        <h2>"Cash In" Accounts</h2>
+      </a>
+    </div> 
+
     <div class="row">
-        <div class="col-md-4">
-            
-            <!--KMS 7/3  <p> -->
-            <!--KMS 7/3  <h2>Family Accounts</h2> -->
-            <!--KMS 7/3  <a href="{% url 'LoginRegister:LoginRegister' %}" style="color:blue">Cash In</a><br> -->
-            <!--KMS 7/3  <a href="{% url 'LoginRegister:LoginRegister' %}" style="color:blue">Cash Out</a><br> -->
-            <!--KMS 7/3  <a href="{% url 'LoginRegister:LoginRegister' %}" style="color:blue">What We Own</a><br> -->
-            <!--KMS 7/3  <a href="{% url 'LoginRegister:LoginRegister' %}" style="color:blue">Debts</a><br> -->
-            <!--KMS 7/3  <a href="{% url 'LoginRegister:LoginRegister' %}" style="color:blue">Networth</a><br> -->
-            <!--KMS 7/3  <a href="{% url 'LoginRegister:LoginRegister' %}" style="color:blue">Grouping Drill Down</a><br> -->
-            <!--KMS 7/3  <a href="{% url 'LoginRegister:LoginRegister' %}" style="color:blue">Account Drill Down</a><br> -->
-        </div>
-        <div class="<!-- col-md-4 -->">
+      &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+      &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+      &nbsp&nbsp&nbsp&nbsp&nbsp
+      <div class="<!-- col-md-8 -->">
             <table>
               <thead>
                 <tr>
@@ -66,7 +63,6 @@
                   <td>{{ cashinacctm.AccountNumber }}</td>
                   <td>{{ cashinacctm.Description }}</td>
                   <td>
-                    <!-- <a class="add-button" href="{% url 'LoginRegister:FTFinances' %}">Add</a> -->
                     <a href="{% url 'LoginRegister:cashinacctm_delete' cashinacctm.id %}" class="btn btn-danger">Delete</a>
                     <a href="{% url 'LoginRegister:cashinacctm_update' cashinacctm.id %}" class="btn btn-secondary edit-button">Edit</a>
                   </td>
@@ -81,7 +77,7 @@
             </table>
         </div>
         <!-- Add modal -->
-        <div class="md-4">
+        <div class="md-6">
           <div id="addModal" class="modal">
             <div class="modal-content">
               <span class="close">&times</span>
@@ -146,17 +142,12 @@
         
     </div>
     
-    <br>
+    <!-- <br> -->
     </p>
-    <p>FTFinances.html</p>
-    <p>Back To <a href="{% url 'LoginRegister:FTMainMenu' %}">Main Menu</a></p>
-    <!-- KMS 7/3 -->
-    <!-- <p>To Finances Main Menu <a href="{% url 'LoginRegister:FTFinancesMenu' %}"></a></p> -->
-
-    <br>
-    <img class="sponsor" src="{% static 'sponsor2.jpg' %}" alt="Sponsor" width="1170" height="125">
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 <script src="{% static 'js/child.js' %}"></script>
+<img align="bottom" src="{% static 'sponsor2.jpg' %}" alt="Sponsor" width="1170" height="125">
+
 </body>
 </html>
