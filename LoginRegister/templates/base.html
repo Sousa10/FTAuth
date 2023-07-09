@@ -1,51 +1,58 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
+<style>
+    div.h1 {
+        text-align: center
+    }
+</style>
 
 <head>
+
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
     <title>{% block title %}{% endblock %} | FamilyTracker</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Add this code to your Django template -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 </head>
 
 <body style="background-color:#DDEBF7;">
-    <nav class="py-6 px-6 flex justify-between items-center border-b border-gray-200">
-        {% block content %}{% endblock %}
-        <div class="space-x-6">
-            <a href="{% url 'item:new' %}" class="text-lg font-semibold hover:text-gray-500">New Item</a>
-            <a href="#" class="text-lg font-semibold hover:text-gray-500">Browse</a>
-
-            {% if request.user.is_authenticated %}
-                <a href="#" class="px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Inbox</a>
-                <a href="{% url 'dashboard:index' %}" class="px-6 py-3 text-lg font-semibold bg-gray-500 text-white rounded-xl hover:bg-gray-700">Dashboard</a>
-            {% else %}
-                <a href="{% url 'core:signup' %}" class="px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Sign up</a>
-                <a href="{% url 'core:login' %}" class="px-6 py-3 text-lg font-semibold bg-gray-500 text-white rounded-xl hover:bg-gray-700">Log in</a>
-            {% endif %}
+    <!-- KMS Start -->
+    <header>
+        <div class="row">
+            <div class="col-md-12">
+                <p style="font-size:12px">
+                    {% block pageimage %}{% endblock %}
+                    <p style="font-size:12px" >
+                        &nbsp&nbsp&nbsp&nbsp<a href="FTAcministration/" style="color:blue">Support</a>&nbsp&nbsp
+                        <a href="FTAcministration/" style="color:blue">Suggestions</a>&nbsp&nbsp
+                        <a href="FTAcministration/" style="color:blue">Service Requests</a>&nbsp&nbsp
+                        <a href="FTAcministration/" style="color:blue">Contact Us</a>&nbsp&nbsp
+                        <a href="FTAcministration/" style="color:blue">About</a>&nbsp&nbsp
+                        <a href="FTAcministration/" style="color:blue">Help</a>&nbsp&nbsp
+                        <a href="{% block backurl %}{% endblock %}"style="color:blue">Back</a></p>
+                    <img style="float: right;" src="{% static 'HeaderRight.jpg' %}" alt="Login Tile" width="100"
+                        height="100">
+                </p>
+            </div>
         </div>
-    </nav>
-    <div class="px-6 py-6">
+        </nav>
+    </header>
+
+    <main class="container mt-4">
         {% block content %}
         {% endblock %}
-    </div>
-    <footer class="py-6 px-6 flex justify-between bg-gray-800">
-        <div class="w-2/3 pr-10">
-            <h3 class="mb-5 font-semibold text-gray-400">About</h3>
-
-            <p class="text-lg text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate natus debitis officiis in omnis unde voluptatem ut praesentium, quo accusamus provident eligendi numquam ad quae quisquam consequatur deleniti labore sed!</p>
-        </div>
-
-        <div class="w-1/3">
-            <h3 class="mb-5 font-semibold text-gray-400">Menu</h3>
-            <ul class="space-y-2">
-                <li><a href="#" class="text-lg text-teal-500 hover:text-teal-700">About</a></li>
-                <li><a href="{% url 'core:contact' %}" class="text-lg text-teal-500 hover:text-teal-700">Contact</a></li>
-                <li><a href="#" class="text-lg text-teal-500 hover:text-teal-700">Privacy Policy</a></li>
-                <li><a href="#" class="text-lg text-teal-500 hover:text-teal-700">Term of Use</a></li>
-            </ul>
-        </div>
+    </main>
+    <footer class="mt-4 text-center">
+        <!-- Add footer content here -->
+        <img class="sponsor" src="{% static 'sponsor2.jpg' %}" alt="Sponsor">
     </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
+    <script src="{% static 'js/child.js' %}"></script>
 </body>
 
 </html>

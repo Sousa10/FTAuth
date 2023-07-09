@@ -9,12 +9,10 @@ div.h2 {text-align: center
 <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Add this code to your Django template -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-
 </head>
+
 <body style="background-color:#DDEBF7;">
-<!-- KMS Start -->
 <div class="container" style="max-width: 100%;">
   <div class="row">
         <div class="col-md-12">
@@ -33,14 +31,13 @@ div.h2 {text-align: center
                 </p>
                 &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                 </a>
-                <!-- <img class="family" src="{% static 'FamilyName.jpg' %}" alt="Family Name" width="400" height="150"> -->
             </p>
         </div>
     </div>
 
     <div class="h2">
         <a style="color:rgb(6, 6, 192)">
-        <h2>"Cash Out" Accounts</h2>
+        <h2>"What We Own" Accounts</h2>
       </a>
     </div> 
 
@@ -58,13 +55,13 @@ div.h2 {text-align: center
                 </tr>
               </thead>
               <tbody>
-                {% for cashoutacctm in cashoutacctms %}
+                {% for assetacctm in assetacctms %}
                 <tr>
-                  <td>{{ cashoutacctm.AccountNumber }}</td>
-                  <td>{{ cashoutacctm.Description }}</td>
+                  <td>{{ assetacctm.AccountNumber }}</td>
+                  <td>{{ assetacctm.Description }}</td>
                   <td>
-                    <a href="{% url 'LoginRegister:cashoutacctm_delete' cashoutacctm.id %}" class="btn btn-danger">Delete</a>
-                    <a href="{% url 'LoginRegister:cashoutacctm_update' cashoutacctm.id %}" class="btn btn-secondary edit-button">Edit</a>
+                    <a href="{% url 'LoginRegister:assetacctm_delete' assetacctm.id %}" class="btn btn-danger">Delete</a>
+                    <a href="{% url 'LoginRegister:assetacctm_update' assetacctm.id %}" class="btn btn-secondary edit-button">Edit</a>
                   </td>
                 </tr>
                 {% endfor %}
@@ -83,7 +80,7 @@ div.h2 {text-align: center
               <span class="close">&times</span>
               <h2>{{ title }}</h2>
               
-              <form action="{% url 'LoginRegister:FTExpAccts' %}" method="post">
+              <form action="{% url 'LoginRegister:FTAssetAccts' %}" method="post">
                 {% csrf_token %}
                 <div class="form-group">
                     <label for="{{ form.AccountNumber.id_for_label }}">Account Number</label>
@@ -135,14 +132,10 @@ div.h2 {text-align: center
                     {% endif %}
                   <button type="submit" class="mt-6 mb-6 py-4 px-8 text-lg bg-teal-500 hover:bg-teal-700 rounded-xl text-white">Submit</button>
                 </form>
-              
             </div>
           </div>
         </div>
-        
     </div>
-    
-    <!-- <br> -->
     </p>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>

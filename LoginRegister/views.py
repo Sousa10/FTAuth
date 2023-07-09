@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 
 def LoginRegister(request):
   FTpersons = PersonM.objects.all().values()
-  template = loader.get_template('FTperson_login.html')
+  template = loader.get_template('base.html')
   context = {
     'FTpersons': FTpersons,
   }
@@ -125,7 +125,9 @@ def FTRevenueAccts(request):
     'cashinacctms': cashinacctms,
     'title': 'Add Cash In Account',
   })
-
+# 
+#   KMS Expense Accounts Starts here
+# 
 def FTExpAccts(request):
   cashoutacctms = CashOutAcctM.objects.all()
   if request.method == 'POST':
@@ -164,42 +166,42 @@ def cashoutacctm_delete(request, pk):
 
     return redirect('LoginRegister:FTExpAccts')
 # 
-# KMS start Here
-# 
-# def FTAssetAccts(request):
-  # assetacctms = WhatWeOwnAcctM.objects.all()
-  # if request.method == 'POST':
-        # form = CashOutAcctMForm(request.POST)
+# KMS Asset Accounts start Here
+#
+def FTAssetAccts(request):
+  assetacctms = WhatWeOwnAcctM.objects.all()
+  if request.method == 'POST':
+        form = WhatWeOwnAcctMForm(request.POST)
+                 
+        if form.is_valid():
+          form.save()
+          return redirect('LoginRegister:FTAssetAccts')    
+  else:
+      form = WhatWeOwnAcctMForm()
+  return render(request, 'FTAssetAccts.html', {
+    'form': form,
+    'assetacctms': assetacctms,
+    'title': 'Add Asset Out Account',
+  })
 
-        # if form.is_valid():
-          # form.save()
-          # return redirect('LoginRegister:FTExpAccts')    
-  # else:
-      # form = CashOutAcctMForm()
-  # return render(request, 'FTExpAccts.html', {
-    # 'form': form,
-    # 'cashoutacctms': cashoutacctms,
-    # 'title': 'Add Cash Out Account',
-  # })
+def assetacctm_update(request, pk):
+    assetacctm = get_object_or_404(WhatWeOwnAcctM, pk=pk)
+    if request.method == 'POST':
+          form = WhatWeOwnAcctMForm(request.POST, instance=assetacctm)
 
-# def cashoutacctm_update(request, pk):
-    # cashoutacctm = get_object_or_404(CashOutAcctM, pk=pk)
-    # if request.method == 'POST':
-          # form = CashOutAcctMForm(request.POST, instance=cashoutacctm)
+          if form.is_valid():
+            form.save()
+            return redirect('LoginRegister:FTAssetAccts')    
+    else:
+        form = WhatWeOwnAcctMForm(instance=assetacctm)
+    return render(request, 'edit_assetacct.html', {
+      'form': form,
+      'assetacctm': assetacctm,
+      'title': 'Edit Asset Account',
+    })
 
-          # if form.is_valid():
-            # form.save()
-            # return redirect('LoginRegister:FTExpAccts')    
-    # else:
-        # form = CashOutAcctMForm(instance=cashoutacctm)
-    # return render(request, 'edit_cashoutacct.html', {
-      # 'form': form,
-      # 'cashoutacctm': cashoutacctm,
-      # 'title': 'Edit Cash In Account',
-    # })
+def assetacctm_delete(request, pk):
+    assetacctm = get_object_or_404(WhatWeOwnAcctM, pk=pk)
+    assetacctm.delete()
 
-# def cashoutacctm_delete(request, pk):
-    # cashoutacctm = get_object_or_404(CashOutAcctM, pk=pk)
-    # cashoutacctm.delete()
-
-    # return redirect('LoginRegister:FTExpAccts')
+    return redirect('LoginRegister:FTAssetAccts')

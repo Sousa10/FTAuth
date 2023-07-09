@@ -27,5 +27,9 @@ urlpatterns = [
     path('LoginRegister/FTExpAccts/', views.FTExpAccts, name='FTExpAccts'),
     path('cashoutacctm/update/<int:pk>/', views.cashoutacctm_update, name='cashoutacctm_update'),
     path('cashoutacctm/delete/<int:pk>/', views.cashoutacctm_delete, name='cashoutacctm_delete'),
-    path('LoginRegister/FTExpAccts/', views.FTExpAccts, name='FTExpAccts'),
+    path('LoginRegister/FTAssetAccts/', views.FTAssetAccts, name='FTAssetAccts'),
+    path('assetacctm/update/<int:pk>/', views.assetacctm_update, name='assetacctm_update'),
+    path('assetacctm/delete/<int:pk>/', views.assetacctm_delete, name='assetacctm_delete'),
+
+
 ]
