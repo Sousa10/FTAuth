@@ -1,9 +1,10 @@
 from django.http import HttpResponse
 from django.template import loader
-from .models import PersonM, CashInAcctM, CashOutAcctM, WhatWeOwnAcctM
+from .models import PersonM, CashInAcctM, CashOutAcctM, WhatWeOwnAcctM, DebtsAcctM
 from .forms import CashInAcctMForm
 from .forms import CashOutAcctMForm
 from .forms import WhatWeOwnAcctMForm
+from .forms import DebtsAcctMForm
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 
@@ -205,3 +206,43 @@ def assetacctm_delete(request, pk):
     assetacctm.delete()
 
     return redirect('LoginRegister:FTAssetAccts')
+# 
+# KMS Liab Accounts start Here
+#
+def FTLiabAccts(request):
+  liabacctms = DebtsAcctM.objects.all()
+  if request.method == 'POST':
+        form = DebtsAcctMForm(request.POST)
+                 
+        if form.is_valid():
+          form.save()
+          return redirect('LoginRegister:FTLiabAccts')    
+  else:
+      form = DebtsAcctMForm()
+  return render(request, 'FTLiabAccts.html', {
+    'form': form,
+    'liabacctms': liabacctms,
+    'title': 'Add Liability Out Account',
+  })
+
+def liabacctm_update(request, pk):
+    liabacctm = get_object_or_404(DebtsAcctM, pk=pk)
+    if request.method == 'POST':
+          form = DebtsAcctMForm(request.POST, instance=liabacctm)
+
+          if form.is_valid():
+            form.save()
+            return redirect('LoginRegister:FTLiabAccts')    
+    else:
+        form = DebtsAcctMForm(instance=liabacctm)
+    return render(request, 'edit_liabacct.html', {
+      'form': form,
+      'liabacctm': liabacctm,
+      'title': 'Edit Liability Account',
+    })
+
+def liabacctm_delete(request, pk):
+    liabacctm = get_object_or_404(DebtsAcctM, pk=pk)
+    liabacctm.delete()
+
+    return redirect('LoginRegister:FTLiabAccts')
