@@ -63,10 +63,9 @@
         <a href="{% url 'LoginRegister:LoginRegister' %}" style="color:blue">Account Drill Down</a><br>
       </div>
       <div class="col-md-4">
-        <!-- <div id="editModal" class="modal"> -->
-        <!-- <div class="modal-content"> -->
-        <!-- <span class="close">&times</span> -->
-
+        <!--  -->
+        <!-- Cash In -->
+        <!--  -->
         <h2>{{ title }}</h2>
         <form id="editForm" action="{% url 'LoginRegister:cashinacctm_update' cashinacctm.id %}" method="post">
           {% csrf_token %}

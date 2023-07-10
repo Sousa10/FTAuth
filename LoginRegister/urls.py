@@ -30,6 +30,7 @@ urlpatterns = [
     path('LoginRegister/FTAssetAccts/', views.FTAssetAccts, name='FTAssetAccts'),
     path('assetacctm/update/<int:pk>/', views.assetacctm_update, name='assetacctm_update'),
     path('assetacctm/delete/<int:pk>/', views.assetacctm_delete, name='assetacctm_delete'),
-
-
+    path('LoginRegister/FTLiabAccts/', views.FTLiabAccts, name='FTLiabAccts'),
+    path('liabacctm/update/<int:pk>/', views.liabacctm_update, name='liabacctm_update'),
+    path('liabacctm/delete/<int:pk>/', views.liabacctm_delete, name='liabacctm_delete'),
 ]
