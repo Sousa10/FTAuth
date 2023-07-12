@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, User
 
 class PersonM(models.Model):
   LocationID = models.IntegerField(null=True)
@@ -60,3 +60,15 @@ class AcctRollupsM(models.Model):
   RollUpName = models.CharField(max_length=255, null=True)
   Statement = models.CharField(max_length=255, null=True)
   AcctType = models.CharField(max_length=80, null=True)
+
+class ListHeaderT(models.Model):
+    PersonFK = models.ForeignKey(User, on_delete=models.CASCADE)
+    LHName = models.CharField(max_length=240)
+    LHDescription = models.CharField(max_length=240)
+
+class ListDetailsT(models.Model):
+    ListHeaderFK = models.ForeignKey('ListHeaderT', on_delete=models.CASCADE)
+    ListDetailFK = models.ForeignKey('self', null=True, blank=True, on_delete=models.SET_NULL, related_name='predecessor')
+    LNNumber = models.IntegerField()
+    LHName = models.CharField(max_length=240)
+    LHDescription = models.CharField(max_length=480)

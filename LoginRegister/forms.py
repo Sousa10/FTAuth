@@ -1,9 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
-from .models import CashInAcctM
-from .models import CashOutAcctM
-from .models import WhatWeOwnAcctM
-from .models import DebtsAcctM
+from .models import CashInAcctM, CashOutAcctM, WhatWeOwnAcctM, DebtsAcctM, ListHeaderT, ListDetailsT
 
 INPUT_CLASSES = 'w-full py-4 px-6 rounded-xl border form-control'
 
@@ -65,6 +62,35 @@ class DebtsAcctMForm(forms.ModelForm):
                 'class': INPUT_CLASSES
             }),
             'Description': forms.TextInput(attrs={
+                'class': INPUT_CLASSES
+            })
+        }
+
+class ListHeaderTForm(forms.ModelForm):
+    class Meta:
+        model = ListHeaderT
+        fields = ('AccountNumber', 'Description',)
+        widgets = {
+            'LHName': forms.TextInput(attrs={
+                'class': INPUT_CLASSES
+            }),
+            'LHDescription': forms.TextInput(attrs={
+                'class': INPUT_CLASSES
+            })
+        }
+
+class ListDetailsTFrom(forms.ModelForm):
+    class Meta:
+        model = ListDetailsT
+        fields = ('AccountNumber', 'Description',)
+        widgets = {
+            'LHName': forms.TextInput(attrs={
+                'class': INPUT_CLASSES
+            }),
+            'LHName': forms.TextInput(attrs={
+                'class': INPUT_CLASSES
+            }),
+            'LHDescription': forms.TextInput(attrs={
                 'class': INPUT_CLASSES
             })
         }
