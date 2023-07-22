@@ -2,24 +2,21 @@
 <!DOCTYPE html>
 <html>
 <style>
-div.h2 {text-align: center
-}
+    div.h2 {text-align: center
+     }
 </style>
 
 <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Add this code to your Django template -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-
 </head>
 <body style="background-color:#DDEBF7;">
-<!-- KMS Start -->
 <div class="container" style="max-width: 100%;">
   <div class="row">
         <div class="col-md-12">
             <p>
-                <img style="float: left;" src="{% static 'Finances.jpg' %}" alt="Finances Tile missing" width="100" height="100">
+                <img style="float: left;" src="{% static 'Cashin.jpg' %}" alt="Finances Tile missing" width="100" height="100">
                 <img style="float: right;" src="{% static 'HeaderRight.jpg' %}" alt="Login Tile" width="100" height="100">
 
                 <p style="font-size:12px" >
@@ -33,16 +30,15 @@ div.h2 {text-align: center
                 </p>
                 &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                 </a>
-                <!-- <img class="family" src="{% static 'FamilyName.jpg' %}" alt="Family Name" width="400" height="150"> -->
             </p>
-        </div>
-    </div>
+        </div> 
+   </div>
 
     <div class="h2">
         <a style="color:rgb(6, 6, 192)">
         <h2>"Cash In" Accounts</h2>
       </a>
-    </div> 
+    </div>
 
     <div class="row">
       &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
@@ -83,7 +79,7 @@ div.h2 {text-align: center
               <span class="close">&times</span>
               <h2>{{ title }}</h2>
               
-              <form action="{% url 'LoginRegister:FTFinances' %}" method="post">
+              <form action="{% url 'LoginRegister:FTRevenueAccts' %}" method="post">
                 {% csrf_token %}
                 <div class="form-group">
                     <label for="{{ form.AccountNumber.id_for_label }}">Account Number</label>
@@ -142,7 +138,7 @@ div.h2 {text-align: center
         
     </div>
     
-    <!-- <br> -->
+    <br>
     </p>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
