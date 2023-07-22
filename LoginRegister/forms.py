@@ -4,6 +4,7 @@ from .models import CashInAcctM
 from .models import CashOutAcctM
 from .models import WhatWeOwnAcctM
 from .models import DebtsAcctM
+from .models import NetworthAcctM
 
 INPUT_CLASSES = 'w-full py-4 px-6 rounded-xl border form-control'
 
@@ -68,3 +69,17 @@ class DebtsAcctMForm(forms.ModelForm):
                 'class': INPUT_CLASSES
             })
         }
+
+class EquityAcctMForm(forms.ModelForm):
+    class Meta:
+        model = NetworthAcctM
+        fields = ('AccountNumber', 'Description',)
+        widgets = {
+            'AccountNumber': forms.TextInput(attrs={
+                'class': INPUT_CLASSES
+            }),
+            'Description': forms.TextInput(attrs={
+                'class': INPUT_CLASSES
+            })
+        }
+       
