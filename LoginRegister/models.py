@@ -32,9 +32,6 @@ class CashInAcctM(models.Model):
   AccountNumber = models.CharField(max_length=20, null=True)
   Description = models.CharField(max_length=255, null=True)
   DrCrBal = models.CharField(max_length=20, null=True)
-  # AccountNumber = models.CharField(max_length=40, null=True)
-  # Description = models.CharField(max_length=255, null=True)
-  # DrCrBal = models.CharField(max_length=20, null=True)
 
 class CashOutAcctM(models.Model):
   AccountNumber = models.CharField(max_length=40, null=True)
@@ -58,8 +55,22 @@ class NetworthAcctM(models.Model):
 
 class AcctRollupsM(models.Model):
   RollUpName = models.CharField(max_length=255, null=True)
-  Statement = models.CharField(max_length=255, null=True)
   AcctType = models.CharField(max_length=80, null=True)
+
+class AcctRollupsD(models.Model):
+  RollUpName = models.CharField(max_length=255, null=True)
+  AcctType = models.CharField(max_length=80, null=True)
+  AccountNumber = models.CharField(max_length=40, null=True)
+  Description = models.CharField(max_length=255, null=True)
+  DrCrBal = models.CharField(max_length=20, null=True)
+
+class TransactionsT(models.Model):
+  AccountNumber = models.CharField(max_length=40, null=True)
+  Description = models.CharField(max_length=255, null=True)
+  DrCr = models.CharField(max_length=20, null=True)
+  Amount = models.IntegerField
+  Created = models.DateField
+  LastUpdated = models.DateField  
 
 class ListHeaderT(models.Model):
     PersonFK = models.ForeignKey(User, on_delete=models.CASCADE)

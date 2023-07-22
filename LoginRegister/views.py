@@ -1,10 +1,12 @@
 from django.http import HttpResponse
 from django.template import loader
-from .models import PersonM, CashInAcctM, CashOutAcctM, WhatWeOwnAcctM, DebtsAcctM
+from .models import PersonM, CashInAcctM, CashOutAcctM, WhatWeOwnAcctM
+from .models import DebtsAcctM, NetworthAcctM
 from .forms import CashInAcctMForm
 from .forms import CashOutAcctMForm
 from .forms import WhatWeOwnAcctMForm
 from .forms import DebtsAcctMForm
+from .forms import EquityAcctMForm
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 
@@ -110,7 +112,30 @@ def FTDefAcctsMenu(request):
   FTpersons = PersonM.objects.all().values()
   template = loader.get_template('FTDefAcctsMenu.html')
   return HttpResponse(template.render())
-
+# 
+#   KMS Account Groupings Starts Here
+#  
+def FTAcctGroupings(request):
+  FTpersons = PersonM.objects.all().values()
+  template = loader.get_template('FTAcctGroupings.html')
+  return HttpResponse(template.render())
+# 
+#   KMS Grouping Drill-Down Starts Here
+#  
+def FTGroupingDrillDown(request):
+  FTpersons = PersonM.objects.all().values()
+  template = loader.get_template('FTGroupingDrillDown.html')
+  return HttpResponse(template.render())
+# 
+#   KMS Account Drill-Down Starts Here
+#  
+def FTAccountDrillDown(request):
+  FTpersons = PersonM.objects.all().values()
+  template = loader.get_template('FTAccountDrillDown.html')
+  return HttpResponse(template.render())
+# 
+#   KMS Revenue Accounts Start here
+# 
 def FTRevenueAccts(request):
   cashinacctms = CashInAcctM.objects.all()
   if request.method == 'POST':
@@ -126,6 +151,28 @@ def FTRevenueAccts(request):
     'cashinacctms': cashinacctms,
     'title': 'Add Cash In Account',
   })
+
+def cashinacctm_update(request, pk):
+    cashinacctm = get_object_or_404(CashInAcctM, pk=pk)
+    if request.method == 'POST':
+          form = CashInAcctMForm(request.POST, instance=cashinacctm)
+          if form.is_valid():
+            form.save()
+            return redirect('LoginRegister:FTRevenueAccts')    
+    else:
+        form = CashInAcctMForm(instance=cashinacctm)
+    return render(request, 'jjjji.html', {
+      'form': form,
+      'cashinacctm': cashinacctm,
+      'title': 'Edit Cash In Account',
+    })
+
+def cashinacctm_delete(request, pk):
+    cashinacctm = get_object_or_404(CashInAcctM, pk=pk)
+    cashinacctm.delete()
+
+    return redirect('LoginRegister:FTRevenueAccts')
+
 # 
 #   KMS Expense Accounts Starts here
 # 
@@ -246,3 +293,46 @@ def liabacctm_delete(request, pk):
     liabacctm.delete()
 
     return redirect('LoginRegister:FTLiabAccts')
+# 
+# KMS Equity Accounts start Here
+#
+def FTEquityAccts(request):
+  equityacctms = NetworthAcctM.objects.all()
+  if request.method == 'POST':
+        form = EquityAcctMForm(request.POST)
+                 
+        if form.is_valid():
+          form.save()
+          return redirect('LoginRegister:FTEquityAccts')    
+  else:
+      form = EquityAcctMForm()
+  return render(request, 'FTEquityAccts.html', {
+    'form': form,
+    'equityacctms': equityacctms,
+    'title': 'Add Equity Account',
+  })
+
+def equityacctm_update(request, pk):
+    equityacctm = get_object_or_404(NetworthAcctM, pk=pk)
+    if request.method == 'POST':
+          form = EquityAcctMForm(request.POST, instance=equityacctm)
+
+          if form.is_valid():
+            form.save()
+            return redirect('LoginRegister:FTEquityAccts')    
+    else:
+        form = EquityAcctMForm(instance=equityacctm)
+    return render(request, 'edit_equityacct.html', {
+      'form': form,
+      'equityacctm': equityacctm,
+      'title': 'Edit Equity Account',
+    })
+
+def equityacctm_delete(request, pk):
+    equityacctm = get_object_or_404(NetworthAcctM, pk=pk)
+    equityacctm.delete()
+
+    return redirect('LoginRegister:FTEquityAccts')
+# 
+# KMS Account Groupings start Here
+#
