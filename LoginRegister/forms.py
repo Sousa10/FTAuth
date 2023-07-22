@@ -69,7 +69,7 @@ class DebtsAcctMForm(forms.ModelForm):
 class ListHeaderTForm(forms.ModelForm):
     class Meta:
         model = ListHeaderT
-        fields = ('AccountNumber', 'Description',)
+        fields = ('LHName', 'LHDescription',)
         widgets = {
             'LHName': forms.TextInput(attrs={
                 'class': INPUT_CLASSES
@@ -82,9 +82,15 @@ class ListHeaderTForm(forms.ModelForm):
 class ListDetailsTFrom(forms.ModelForm):
     class Meta:
         model = ListDetailsT
-        fields = ('AccountNumber', 'Description',)
+        fields = ('ListHeaderFK', 'ListDetailFK', 'LNNumber', 'LHName', 'LHDescription')
         widgets = {
-            'LHName': forms.TextInput(attrs={
+            'ListHeaderFK': forms.TextInput(attrs={
+                'class': INPUT_CLASSES
+            }),
+            'ListDetailFK': forms.TextInput(attrs={
+                'class': INPUT_CLASSES
+            }),
+            'LNNumber': forms.TextInput(attrs={
                 'class': INPUT_CLASSES
             }),
             'LHName': forms.TextInput(attrs={
