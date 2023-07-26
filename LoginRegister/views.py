@@ -176,7 +176,7 @@ def cashinacctm_update(request, pk):
             return redirect('LoginRegister:FTRevenueAccts')    
     else:
         form = CashInAcctMForm(instance=cashinacctm)
-    return render(request, 'jjjji.html', {
+    return render(request, 'edit_cashinacct.html', {
       'form': form,
       'cashinacctm': cashinacctm,
       'title': 'Edit Cash In Account',

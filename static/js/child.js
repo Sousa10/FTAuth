@@ -16,21 +16,21 @@
         modal.style.display = "block";
     }
     
-    editButtons.forEach(function(button) {
-        button.onclick = function() {
-            var row = button.parentNode.parentNode;
-            var accountNumber = row.cells[0].textContent;
-            var description = row.cells[1].textContent;
+    // editButtons.forEach(function(button) {
+    //     button.onclick = function() {
+    //         var row = button.parentNode.parentNode;
+    //         var accountNumber = row.cells[0].textContent;
+    //         var description = row.cells[1].textContent;
             
-            // Populate the form fields with existing data
-            var editForm = document.getElementById("editForm");
-            console.log(editForm)
-            editForm.elements["AccountNumber"].value = accountNumber;
-            editForm.elements["Description"].value = description;
+    //         // Populate the form fields with existing data
+    //         var editForm = document.getElementById("editForm");
+    //         console.log(editForm)
+    //         editForm.elements["AccountNumber"].value = accountNumber;
+    //         editForm.elements["Description"].value = description;
             
-            editModal.style.display = "block";
-        };
-    });
+    //         editModal.style.display = "block";
+    //     };
+    // });
 
     // When the user clicks on <span> (x), close the modal
     closeBtn.onclick = function() {

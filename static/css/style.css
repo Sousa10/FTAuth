@@ -1,3 +1,7 @@
+body {
+    overflow-x: hidden;
+}
+
 .family {
     margin: auto;
 }
@@ -59,4 +63,8 @@ th {
     color: black;
     text-decoration: none;
     cursor: pointer;
+}
+
+.modal-backdrop {
+    z-index: 10;
 }
