@@ -73,7 +73,7 @@ class TransactionsT(models.Model):
   LastUpdated = models.DateField  
 
 class ListHeaderT(models.Model):
-    PersonFK = models.ForeignKey(User, on_delete=models.CASCADE)
+    PersonFK = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
     LHName = models.CharField(max_length=240)
     LHDescription = models.CharField(max_length=240)
 

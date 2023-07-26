@@ -1,12 +1,13 @@
 from django.http import HttpResponse
 from django.template import loader
-from .models import PersonM, CashInAcctM, CashOutAcctM, WhatWeOwnAcctM
+from .models import PersonM, CashInAcctM, CashOutAcctM, WhatWeOwnAcctM, ListHeaderT, ListDetailsT
 from .models import DebtsAcctM, NetworthAcctM
 from .forms import CashInAcctMForm
 from .forms import CashOutAcctMForm
 from .forms import WhatWeOwnAcctMForm
 from .forms import DebtsAcctMForm
 from .forms import EquityAcctMForm
+from .forms import ListHeaderTForm, ListDetailsTFrom
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 
@@ -27,6 +28,7 @@ def FTMainMenu(request):
 def FTFinances(request):
   cashinacctms = CashInAcctM.objects.all()
   if request.method == 'POST':
+        print(request)
         form = CashInAcctMForm(request.POST)
 
         if form.is_valid():
@@ -74,9 +76,22 @@ def FTToDos(request):
   return HttpResponse(template.render())
 
 def FTListChores(request):
-  FTpersons = PersonM.objects.all().values()
-  template = loader.get_template('FTListChores.html')
-  return HttpResponse(template.render())
+  listheaders = ListHeaderT.objects.all().values()
+  listdetails = ListDetailsT.objects.all().values()
+  if request.method == 'POST':
+        form = ListHeaderTForm(request.POST)
+
+        if form.is_valid():
+          form.save()
+          return redirect('LoginRegister:FTListChores')    
+  else:
+      form = ListHeaderTForm()
+  return render(request, 'FTListChores.html', {
+    'form': form,
+    'listheaders': listheaders,
+    'listdetails': listdetails,
+    'title': 'List and Chores',
+  })
 
 def FTFamilyTracks(request):
   FTpersons = PersonM.objects.all().values()
@@ -333,6 +348,48 @@ def equityacctm_delete(request, pk):
     equityacctm.delete()
 
     return redirect('LoginRegister:FTEquityAccts')
+
+# 
+# KMS List & Chores start Here
+#
+def FTEquityAccts(request):
+  equityacctms = NetworthAcctM.objects.all()
+  if request.method == 'POST':
+        form = EquityAcctMForm(request.POST)
+                 
+        if form.is_valid():
+          form.save()
+          return redirect('LoginRegister:FTEquityAccts')    
+  else:
+      form = EquityAcctMForm()
+  return render(request, 'FTEquityAccts.html', {
+    'form': form,
+    'equityacctms': equityacctms,
+    'title': 'Add Equity Account',
+  })
+
+def list_update(request, pk):
+    equityacctm = get_object_or_404(NetworthAcctM, pk=pk)
+    if request.method == 'POST':
+          form = EquityAcctMForm(request.POST, instance=equityacctm)
+
+          if form.is_valid():
+            form.save()
+            return redirect('LoginRegister:FTEquityAccts')    
+    else:
+        form = EquityAcctMForm(instance=equityacctm)
+    return render(request, 'edit_equityacct.html', {
+      'form': form,
+      'equityacctm': equityacctm,
+      'title': 'Edit Equity Account',
+    })
+
+def equityacctm_delete(request, pk):
+    equityacctm = get_object_or_404(NetworthAcctM, pk=pk)
+    equityacctm.delete()
+
+    return redirect('LoginRegister:FTEquityAccts')
+
 # 
 # KMS Account Groupings start Here
 #

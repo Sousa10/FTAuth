@@ -22,7 +22,7 @@
 
   </div>
   <div class="<!-- col-md-4 -->">
-    <table>
+    <table style="border-bottom: none!important;">
       <thead>
         <tr>
           <th style="text-align: center;">List</th>
@@ -32,50 +32,160 @@
         <tr>
           <td style="text-align: center; white-space: nowrap;">
             <!-- <a class="add-button" href="{% url 'LoginRegister:FTFinances' %}">Add</a> -->
-            <a href="#" class="btn btn-primary" style="border-top: 3px solid red; border-bottom: 3px solid red; border-left: 3px solid red; border-radius: 0%; margin-right: -5px;">New</a>
-            <a href="#" class="btn btn-primary edit-button" style="border: 3px solid red; border-radius: 0%; margin: 0;">Existing</a>
+            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+              style="border-top: 3px solid red; border-bottom: 3px solid red; border-left: 3px solid red; border-radius: 0%; margin-right: -5px;">New</a>
+            <a href="#" class="btn btn-primary edit-button"
+              style="border: 3px solid red; border-radius: 0%; margin: 0;">Existing</a>
           </td>
         </tr>
         <tr>
           <td colspan="3" class="text-center">
-            <a class="add-button btn btn-info" href="#">Add</a>
+            <table style="margin-top: 0%;">
+              <!-- <thead>
+                <tr>
+                  <th>List Header</th>
+                  <th>Description</th>
+                  <th>Actions</th>
+                </tr>
+              </thead> -->
+              <tbody>
+                {% for listheader in listheaders %}
+                <tr>
+                  <!-- <td>{{ listheader.LHName }}</td> -->
+                  <td colspan="2">{{ listheader.LHDescription }}</td>
+                  <td>
+                    <!-- <a class="add-button" href="{% url 'LoginRegister:FTFinances' %}">Add</a> -->
+                    <a href="#" class="btn btn-danger">Delete</a>
+                    <a href="#" class="btn btn-secondary edit-button">Edit</a>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table style="margin-top: 0%;">
+      <thead>
+        <tr>
+          <th style="text-align: center;">Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="text-align: center; white-space: nowrap;">
+            <table style="margin-top: 0%;">
+              <!-- <thead>
+                <tr>
+                  <th>List Header</th>
+                  <th>Description</th>
+                  <th>Actions</th>
+                </tr>
+              </thead> -->
+              <tbody>
+                {% for listdetail in listdetails %}
+                <tr>
+                  <td>{{ listdetail.id }}</td>
+                  <td>{{ listdetail.ListDetailFK }}</td>
+                  <td>{{ listdetail.LHDescription }}</td>
+                  <td>
+                    <!-- <a class="add-button" href="{% url 'LoginRegister:FTFinances' %}">Add</a> -->
+                    <a href="#" class="btn btn-danger">Delete</a>
+                    <a href="#" class="btn btn-secondary edit-button">Edit</a>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3" class="text-center">
+            <a class="add-button btn btn-primary" href="#" style="border: 3px solid red; border-radius: 0%;" data-bs-toggle="modal" data-bs-target="#detailModal">Add</a>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
-  <!-- Add modal -->
-  <div class="md-4">
-    <div id="addModal" class="modal">
+
+  <!-- List Header Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    data-backdrop="false">
+    <div class="modal-dialog">
       <div class="modal-content">
-        <span class="close">&times</span>
-        <h2>{{ title }}</h2>
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">{{ title }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="{% url 'LoginRegister:FTListChores' %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="{{ form.AccountNumber.id_for_label }}">Header Name</label>
+              {{ form.LHName }}
+            </div>
+            <div class="form-group">
+              <label for="{{ form.Description.id_for_label }}">Description</label>
+              {{ form.LHDescription }}
+            </div>
+            {% if form.errors or form.non_field_errors %}
+            <div class="mb-3 p-6 bg-red-100 rounded-xl">
+              {% for field in form %}
+              {{ field.errors }}
+              {% endfor %}
 
-        <form action="{% url 'LoginRegister:FTFinances' %}" method="post">
-          {% csrf_token %}
-          <div class="form-group">
-            <label for="{{ form.AccountNumber.id_for_label }}">Account Number</label>
-            {{ form.AccountNumber }}
-          </div>
-          <div class="form-group">
-            <label for="{{ form.Description.id_for_label }}">Description</label>
-            {{ form.Description }}
-          </div>
-          {% if form.errors or form.non_field_errors %}
-          <div class="mb-3 p-6 bg-red-100 rounded-xl">
-            {% for field in form %}
-            {{ field.errors }}
-            {% endfor %}
-
-            {{ form.non_field_errors }}
-          </div>
-          {% endif %}
-          <button type="submit"
-            class="mt-6 mb-6 py-4 px-8 text-lg bg-teal-500 hover:bg-teal-700 rounded-xl text-white">Submit</button>
+              {{ form.non_field_errors }}
+            </div>
+            {% endif %}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
         </form>
       </div>
     </div>
   </div>
+  <!-- List Detail Modal -->
+  <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    data-backdrop="false">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">{{ title }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="{% url 'LoginRegister:FTListChores' %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="{{ form.AccountNumber.id_for_label }}">Header Name</label>
+              {{ form.LHName }}
+            </div>
+            <div class="form-group">
+              <label for="{{ form.Description.id_for_label }}">Description</label>
+              {{ form.LHDescription }}
+            </div>
+            {% if form.errors or form.non_field_errors %}
+            <div class="mb-3 p-6 bg-red-100 rounded-xl">
+              {% for field in form %}
+              {{ field.errors }}
+              {% endfor %}
+
+              {{ form.non_field_errors }}
+            </div>
+            {% endif %}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
   <!-- Edit modal -->
   <div class="md-4">
     <div id="editModal" class="modal">
