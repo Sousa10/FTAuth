@@ -1,146 +1,116 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html>
-<style>
-div.h2 {text-align: center
-}
-</style>
 
-<head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-</head>
+{% block title %}"What we Owe" Accounts{% endblock %}
 
-<body style="background-color:#DDEBF7;">
-<div class="container" style="max-width: 100%;">
-  <div class="row">
-        <div class="col-md-12">
-            <p>
-                <img style="float: left;" src="{% static 'WhatWeOwe.jpg' %}" alt="Finances Tile missing" width="100" height="100">
-                <img style="float: right;" src="{% static 'HeaderRight.jpg' %}" alt="Login Tile" width="100" height="100">
-                <p style="font-size:12px" >
-                    &nbsp&nbsp&nbsp&nbsp<a href="FTAcministration/" style="color:blue">Support</a>&nbsp&nbsp
-                    <a href="FTAcministration/" style="color:blue">Suggestions</a>&nbsp&nbsp
-                    <a href="FTAcministration/" style="color:blue">Service Requests</a>&nbsp&nbsp
-                    <a href="FTAcministration/" style="color:blue">Contact Us</a>&nbsp&nbsp
-                    <a href="FTAcministration/" style="color:blue">About</a>&nbsp&nbsp
-                    <a href="FTAcministration/" style="color:blue">Help</a>&nbsp&nbsp
-                    <a href="{% url 'LoginRegister:FTDefAcctsMenu' %}"style="color:blue">Back</a></p>
-  
-                </p>
-                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                </a>
-            </p>
-        </div>
-  </div>
+{% block pageimage %}
+<img style="float: left;" src="{% static 'WhatWeOwe.jpg' %}" alt="What We Owe Tile Missing" width="100" height="100">
+{% endblock %}
 
-    <div class="h2">
-        <a style="color:rgb(6, 6, 192)">
-        <h2>"What We Owe" Accounts</h2>
-      </a>
-    </div> 
-    <div class="row">
-      &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-      &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-      &nbsp&nbsp&nbsp&nbsp&nbsp
-      <div class="<!-- col-md-8 -->">
-            <table>
-              <thead>
-                <tr>
-                  <th>Account Number</th>
-                  <th>Description</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for liabacctm in liabacctms %}
-                <tr>
-                  <td>{{ liabacctm.AccountNumber }}</td>
-                  <td>{{ liabacctm.Description }}</td>
-                  <td>
-                    <a href="{% url 'LoginRegister:liabacctm_delete' liabacctm.id %}" class="btn btn-danger">Delete</a>
-                    <a href="{% url 'LoginRegister:liabacctm_update' liabacctm.id %}" class="btn btn-secondary edit-button">Edit</a>
-                  </td>
-                </tr>
-                {% endfor %}
-                <tr>
-                  <td colspan="3" class="text-center">
-                    <a class="add-button btn btn-info" href="#">Add</a>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-        </div>
-        <!-- Add modal -->
-        <div class="md-6">
-          <div id="addModal" class="modal">
-            <div class="modal-content">
-              <span class="close">&times</span>
-              <h2>{{ title }}</h2>
-              
-              <form action="{% url 'LoginRegister:FTLiabAccts' %}" method="post">
-                {% csrf_token %}
-                <div class="form-group">
-                    <label for="{{ form.AccountNumber.id_for_label }}">Account Number</label>
-                    {{ form.AccountNumber }}
-                  </div>
-                  <div class="form-group">
-                    <label for="{{ form.Description.id_for_label }}">Description</label>
-                    {{ form.Description }}
-                  </div>            
-                {% if form.errors or form.non_field_errors %}
-                    <div class="mb-3 p-6 bg-red-100 rounded-xl">
-                        {% for field in form %}
-                            {{ field.errors }}
-                        {% endfor %}
-            
-                        {{ form.non_field_errors }}
-                    </div>
-                    {% endif %}
-                <button type="submit" class="mt-6 mb-6 py-4 px-8 text-lg bg-teal-500 hover:bg-teal-700 rounded-xl text-white">Submit</button>
-              </form>
-            </div>
-          </div>
-        </div>
-        <!-- Edit modal -->
-        <div class="md-4">
-          <div id="editModal" class="modal">
-            <div class="modal-content">
-              <span class="close">&times</span>
-              
-                <h2>{{ title }}</h2>
-                <form id="editForm" action="." method="post">
-                  {% csrf_token %}
-                  <div class="form-group">
-                      <label for="{{ form.AccountNumber.id_for_label }}">Account Number</label>
-                      {{ form.AccountNumber }}
-                    </div>
-                    <div class="form-group">
-                      <label for="{{ form.Description.id_for_label }}">Description</label>
-                      {{ form.Description }}
-                    </div>            
-                  {% if form.errors or form.non_field_errors %}
-                      <div class="mb-3 p-6 bg-red-100 rounded-xl">
-                          {% for field in form %}
-                              {{ field.errors }}
-                          {% endfor %}
-              
-                          {{ form.non_field_errors }}
-                      </div>
-                    {% endif %}
-                  <button type="submit" class="mt-6 mb-6 py-4 px-8 text-lg bg-teal-500 hover:bg-teal-700 rounded-xl text-white">Submit</button>
-                </form>
-            </div>
-          </div>
-        </div>
-    </div>
+{% block backurl %}{%url 'LoginRegister:FTDefAcctsMenu'%}{% endblock %}
+{% block pageTitle %}
+<div class="h1">
+  <a style="color:rgb(6, 6, 192)">
+    <p style="font-size:40px">
+      <h2>"What we Owe" Accounts</h2>
     </p>
+  </a>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-<script src="{% static 'js/child.js' %}"></script>
+{% endblock %}
 
-<img align="bottom" src="{% static 'sponsor2.jpg' %}" alt="Sponsor" width="1170" height="125">
+{% block content %}
+  <div>
+    <table>
+      <thead>
+        <tr>
+          <th>Account Number</th>
+          <th>Description</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for liabacctm in liabacctms %}
+        <tr>
+          <td>{{ liabacctm.AccountNumber }}</td>
+          <td>{{ liabacctm.Description }}</td>
+          <td>
+            <a href="{% url 'LoginRegister:liabacctm_delete' liabacctm.id %}" class="btn btn-danger">Delete</a>
+            <a href="{% url 'LoginRegister:liabacctm_update' liabacctm.id %}"
+              class="btn btn-secondary edit-button">Edit</a>
+          </td>
+        </tr>
+        {% endfor %}
+        <tr>
+          <td colspan="3" class="text-center">
+            <a class="add-button btn btn-info" href="#">Add</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- Add modal -->
+  <div class="md-6">
+    <div id="addModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times</span>
+        <h2>{{ title }}</h2>
 
-</body>
-</html>
+        <form action="{% url 'LoginRegister:FTLiabAccts' %}" method="post">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="{{ form.AccountNumber.id_for_label }}">Account Number</label>
+            {{ form.AccountNumber }}
+          </div>
+          <div class="form-group">
+            <label for="{{ form.Description.id_for_label }}">Description</label>
+            {{ form.Description }}
+          </div>
+          {% if form.errors or form.non_field_errors %}
+          <div class="mb-3 p-6 bg-red-100 rounded-xl">
+            {% for field in form %}
+            {{ field.errors }}
+            {% endfor %}
+
+            {{ form.non_field_errors }}
+          </div>
+          {% endif %}
+          <button type="submit"
+            class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- Edit modal -->
+  <div class="md-4">
+    <div id="editModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times</span>
+
+        <h2>{{ title }}</h2>
+        <form id="editForm" action="." method="post">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="{{ form.AccountNumber.id_for_label }}">Account Number</label>
+            {{ form.AccountNumber }}
+          </div>
+          <div class="form-group">
+            <label for="{{ form.Description.id_for_label }}">Description</label>
+            {{ form.Description }}
+          </div>
+          {% if form.errors or form.non_field_errors %}
+          <div class="mb-3 p-6 bg-red-100 rounded-xl">
+            {% for field in form %}
+            {{ field.errors }}
+            {% endfor %}
+
+            {{ form.non_field_errors }}
+          </div>
+          {% endif %}
+          <button type="submit"
+            class="mt-6 mb-6 py-4 px-8 text-lg bg-teal-500 hover:bg-teal-700 rounded-xl text-white">Submit</button>
+        </form>
+
+      </div>
+    </div>
+  </div>
+{% endblock %}
