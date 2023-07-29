@@ -88,7 +88,7 @@
                 <tr>
                   <td>{{ listdetail.LNNumber }}</td>
                   <td>{{ listdetail.ListDetailFK.LHName }}</td>
-                  <td>{{ listdetail.LHDescription }}</td>
+                  <td>{{ listdetail.LHName }}</td>
                   <td>
                     <!-- <a class="add-button" href="{% url 'LoginRegister:FTFinances' %}">Add</a> -->
                     <a href="{% url 'LoginRegister:listDetail_delete' listdetail.id %}" class="btn btn-danger">Delete</a>
