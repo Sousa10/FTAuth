@@ -89,3 +89,9 @@ th {
 .modal-backdrop {
     z-index: 10;
 }
+
+.listheaderbuttons {
+    background-color: #213186;
+    color: #fff;
+    margin-right: 2px;
+}
