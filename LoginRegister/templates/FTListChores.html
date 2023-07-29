@@ -50,9 +50,10 @@
               <tbody>
                 {% for listheader in listheaders %}
                 <tr>
-                  <!-- <td>{{ listheader.LHName }}</td> -->
+                  <td>{{ listheader.LHName }}</td>
                   <td colspan="2">{{ listheader.LHDescription }}</td>
-                  <td>
+                  <td colspan="2"></td>
+                  <td style="text-align: center;">
                     <!-- <a class="add-button" href="{% url 'LoginRegister:FTFinances' %}">Add</a> -->
                     <a href="{% url 'LoginRegister:listHeader_delete' listheader.id %}" class="btn btn-danger">Delete</a>
                     <a href="#" class="btn btn-secondary edit-button">Edit</a>
