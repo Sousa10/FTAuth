@@ -95,3 +95,7 @@ th {
     color: #fff;
     margin-right: 2px;
 }
+
+.ads {
+    max-width: 70%!important;
+}
