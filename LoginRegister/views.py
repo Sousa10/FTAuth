@@ -7,7 +7,7 @@ from .forms import CashOutAcctMForm
 from .forms import WhatWeOwnAcctMForm
 from .forms import DebtsAcctMForm
 from .forms import EquityAcctMForm
-from .forms import ListHeaderTForm, ListDetailsTFrom
+from .forms import ListHeaderTForm, ListDetailsTForm
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 
@@ -78,20 +78,47 @@ def FTToDos(request):
 def FTListChores(request):
   listheaders = ListHeaderT.objects.all().values()
   listdetails = ListDetailsT.objects.all().values()
-  if request.method == 'POST':
-        form = ListHeaderTForm(request.POST)
 
-        if form.is_valid():
-          form.save()
-          return redirect('LoginRegister:FTListChores')    
+  listHeaderForm = ListHeaderTForm()
+  listDetailForm = ListDetailsTForm()
+
+  if request.method == 'POST':
+        form_type = request.POST.get('form_type')
+        if form_type == 'ListHeaderTForm':
+          listHeaderForm = ListHeaderTForm(request.POST)
+          if listHeaderForm.is_valid():
+             listHeaderForm.save()
+
+             return redirect('LoginRegister:FTListChores')
+          
+        elif form_type == 'ListDetailsTForm':
+          listDetailForm = ListDetailsTForm(request.POST)
+          if listDetailForm.is_valid():
+            listDetailForm.save()
+
+            return redirect('LoginRegister:FTListChores')
   else:
-      form = ListHeaderTForm()
+      listHeaderForm = ListHeaderTForm()
+      listDetailForm = ListDetailsTForm()
   return render(request, 'FTListChores.html', {
-    'form': form,
+    'listHeaderForm': listHeaderForm,
+    'listDetailForm': listDetailForm,
     'listheaders': listheaders,
     'listdetails': listdetails,
     'title': 'List and Chores',
   })
+
+def listHeader_delete(request, pk):
+  listHeader = get_object_or_404(ListHeaderT, pk=pk)
+  listHeader.delete()
+
+  return redirect('LoginRegister:FTListChores')
+
+def listDetail_delete(request, pk):
+  listDetail = get_object_or_404(ListDetailsT, pk=pk)
+  listDetail.delete()
+
+  return redirect('LoginRegister:FTListChores')
 
 def FTFamilyTracks(request):
   FTpersons = PersonM.objects.all().values()

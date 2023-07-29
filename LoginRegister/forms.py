@@ -95,7 +95,7 @@ class ListHeaderTForm(forms.ModelForm):
             })
         }
 
-class ListDetailsTFrom(forms.ModelForm):
+class ListDetailsTForm(forms.ModelForm):
     class Meta:
         model = ListDetailsT
         fields = ('ListHeaderFK', 'ListDetailFK', 'LNNumber', 'LHName', 'LHDescription')
@@ -116,3 +116,5 @@ class ListDetailsTFrom(forms.ModelForm):
                 'class': INPUT_CLASSES
             })
         }
+    ListHeaderFK = forms.ModelChoiceField(queryset=ListHeaderT.objects.all(), widget=forms.Select(attrs={'class': INPUT_CLASSES}))
+    ListDetailFK = forms.ModelChoiceField(queryset=ListDetailsT.objects.all(), widget=forms.Select(attrs={'class': INPUT_CLASSES}), required=False)
