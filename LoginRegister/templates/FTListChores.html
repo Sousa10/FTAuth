@@ -87,7 +87,7 @@
                 {% for listdetail in listdetails %}
                 <tr>
                   <td>{{ listdetail.LNNumber }}</td>
-                  <td>{{ listdetail.ListDetailFK }}</td>
+                  <td>{{ listdetail.ListDetailFK.LHName }}</td>
                   <td>{{ listdetail.LHDescription }}</td>
                   <td>
                     <!-- <a class="add-button" href="{% url 'LoginRegister:FTFinances' %}">Add</a> -->

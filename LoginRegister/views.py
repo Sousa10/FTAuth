@@ -76,9 +76,9 @@ def FTToDos(request):
   return HttpResponse(template.render())
 
 def FTListChores(request):
-  listheaders = ListHeaderT.objects.all().values()
-  listdetails = ListDetailsT.objects.all().values()
-
+  listheaders = ListHeaderT.objects.all()
+  listdetails = ListDetailsT.objects.all()
+  print (listdetails)
   listHeaderForm = ListHeaderTForm()
   listDetailForm = ListDetailsTForm()
 
