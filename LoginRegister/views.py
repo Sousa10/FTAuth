@@ -10,6 +10,7 @@ from .forms import EquityAcctMForm
 from .forms import ListHeaderTForm, ListDetailsTForm
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 
 def LoginRegister(request):
   FTpersons = PersonM.objects.all().values()
@@ -27,6 +28,9 @@ def FTMainMenu(request):
 
 def FTFinances(request):
   cashinacctms = CashInAcctM.objects.all()
+  paginator = Paginator(cashinacctms, 3)  # Show 25 contacts per page.
+  page_number = request.GET.get("page")
+  cashinacctms_paginated = paginator.get_page(page_number)
   if request.method == 'POST':
         print(request)
         form = CashInAcctMForm(request.POST)
@@ -38,7 +42,7 @@ def FTFinances(request):
       form = CashInAcctMForm()
   return render(request, 'FTFinances.html', {
     'form': form,
-    'cashinacctms': cashinacctms,
+    "cashinacctms_paginated": cashinacctms_paginated,
     'title': 'Add Cash In Account',
   })
 
@@ -77,8 +81,17 @@ def FTToDos(request):
 
 def FTListChores(request):
   listheaders = ListHeaderT.objects.all()
-  listdetails = ListDetailsT.objects.all()
-  print (listdetails)
+  #listdetails = ListDetailsT.objects.all()
+
+  listdetails_dict = {}
+
+  for header in listheaders:
+      listdetails = ListDetailsT.objects.filter(ListHeaderFK=header)
+      paginator = Paginator(listdetails, 2)  # Show 10 ListDetailsT objects per page
+      page_number = request.GET.get(f'page_{header.id}', 1)  # get page number for each ListHeaderT instance
+      page = paginator.get_page(page_number)
+      listdetails_dict[header.id] = page
+  
   listHeaderForm = ListHeaderTForm()
   listDetailForm = ListDetailsTForm()
 
@@ -106,6 +119,7 @@ def FTListChores(request):
     'listheaders': listheaders,
     'listdetails': listdetails,
     'title': 'List and Chores',
+    'listdetails_dict': listdetails_dict,
   })
 
 def listHeader_delete(request, pk):
