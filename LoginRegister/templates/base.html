@@ -26,13 +26,12 @@
                     {% block pageimage %}{% endblock %}
                     <img style="float: right; height: 90px;" src="{% static 'HeaderRight.jpg' %}" alt="Login Tile"
                         width="100" height="100">
-
-                    &nbsp&nbsp&nbsp&nbsp<a href="FTAcministration/" style="color:blue">Support</a>&nbsp&nbsp
-                    <a href="FTAcministration/" style="color:blue">Suggestions</a>&nbsp&nbsp
-                    <a href="FTAcministration/" style="color:blue">Service Requests</a>&nbsp&nbsp
-                    <a href="FTAcministration/" style="color:blue">Contact Us</a>&nbsp&nbsp
-                    <a href="FTAcministration/" style="color:blue">About Our Sponsors</a>&nbsp&nbsp
-                    <a href="FTAcministration/" style="color:blue">Help</a>&nbsp&nbsp
+                   
+                    <a href="#Supp1" data-bs-toggle="modal" style="color:blue">Support</a>&nbsp&nbsp
+                    <a href="#Sugg1" data-bs-toggle="modal" style="color:blue">Suggestions</a>&nbsp&nbsp                    
+                    <a href="#Serv1" data-bs-toggle="modal" style="color:blue">Service Requests</a>&nbsp&nbsp
+                    <a href="#About1" data-bs-toggle="modal" style="color:blue">About Us</a>&nbsp&nbsp
+                     <a href="FTAcministration/" style="color:blue">Help</a>&nbsp&nbsp
                     <a href="{% block backurl %}{% endblock %}" style="color:blue">Back</a>
 
                     {% block pageTitle %}
@@ -102,9 +101,16 @@
                 
             </div>
     </main>
+
     <footer class="mt-4 text-center">
-        <img class="sponsor" src="{% static 'AdvSpot5A.jpg' %}" style="height: 200px" alt="Sponsor">
+        <!-- Spot 7 -->
+        <div style="width: 100%; height: 170px; background-color: #DDEBF7;">
+            <a href="#ad7Modal" data-bs-toggle="modal">
+                <img class="sponsor" src="{% static 'AdvSpot5A.jpg' %}" style="height: 200px" alt="Sponsor">
+            </a>
+        </div>
     </footer>
+
     <br>
     <!-- Modal AdvSpot1 -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -195,7 +201,81 @@
                 </div>
             </div>
         </div>
- 
+
+        <!-- Modal AdvSpot7 -->
+        <div class="modal fade" id="ad7Modal" tabindex="-1" aria-labelledby="ad7ModalLabel" aria-hidden="true">
+            <div class="modal-dialog ads">
+                <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="ad7ModalLabel">Paradise Island in the Bahamas!!!</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        </div>
+                        <div class="modal-body">
+                            The name Paradise Island could not be more fitting. Awaiting you here are idyllic beaches, exciting nightlife and popular attractions like Atlantis, the largest resort in the Caribbean, with a casino, water park and aquarium.<br><br>To let you experience an all-inclusive Paradise Island holiday, RIU Hotels & Resorts offers you the Hotel Riu Palace Paradise Island, located on the beachfront of the heavenly Cabbage Beach. There you can relax under the warm Caribbean sun, enjoy a pleasant stroll on the shore, or practise different aquatic sports like water skiing, jet ski, windsurfing and kite surfing.<br><br>On Paradise Island you'll enjoy a cuisine rich in fish and seafood typical of the region, like conch (a type of mollusk), tuna, red lobster and shrimp. You can also savour delicious fish and vegetable soups, bean soups and a variety of tropical fruits native to the country, like soursops, sapodilla and jujubes.<br><br>"https://RUIBahamasReservations"<br>"https://RUIBahamasGallery"<br>For more information: (111) 222-3333"
+                        </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Supp1 -->
+        <div class="modal fade" id="Supp1" tabindex="-1" aria-labelledby="Supp1Label" aria-hidden="true">
+            <div class="modal-dialog ads">
+                <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="Supp1Label">Support: 24-hours/day 365-days/year!!!</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        </div>
+                        <div class="modal-body">
+                            Family Tracker refuses to accept anything short of a delighted user.  If we can help in any way, or you run into issues, please feel free to call: (800) 333-4444.<br><br>For less urgent requests or issues, please log a "Service Request" and we will respond via email, or contact you at your convenience.<br><br>Our intent is to constantly improve, make Family Tracker the most family friendly, easy to use, and useful internet application on the market today.<br><br>Thank you for your continued support and using Family Tracker.<br><br>We appreciate all feedback!<br><br>Thank you,<br><br>Kirk Shelton<br>Founder & CEO
+                        </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Sugg1 -->
+        <div class="modal fade" id="Sugg1" tabindex="-1" aria-labelledby="Sugg1Label" aria-hidden="true">
+            <div class="modal-dialog ads">
+                <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="Sugg1Label">Thoughts? Help us Make Family Tracker Better</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        </div>
+                        <div class="modal-body">
+                            Family Tracker welcomes thoughts and suggestions.<br><br>Please feel free to call: (800) 333-4444.<br> Or, Email us: "https://www.FamilyTrackerSuggestions.com"<br><br>We will answer all calls or contact you at your convenience.<br><br>Thank you for your continued support and using Family Tracker.<br><br>We appreciate all feedback!
+                        </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Serv1 -->
+        <div class="modal fade" id="Serv1" tabindex="-1" aria-labelledby="Serv1Label" aria-hidden="true">
+            <div class="modal-dialog ads">
+                <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="Serv1Label">Send Us a Service Request</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        </div>
+                        <div class="modal-body">
+                            <br>If you run into any issues, or just have a Navigation or Feature question, please feel free to call:<br>(800) 111-2222<br><br>Alternatively, Email us: "https://www.FamilyTrackerServiceRequest.com"<br><br>Please includ the following in your Email:<br>  1.  Preference to be called or Email Response<br>  2.  Issue or question short description<br>  3.  Issue or question full description, including navigation<br>  4.  How long you have been experiencing the issue<br>  5.  Best time to call if that is your preference<br><br>We will answer all calls or contact you at your convenience.<br><br>Thank you for your continued support and using Family Tracker.
+                        </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal About1 -->
+        <div class="modal fade" id="About1" tabindex="-1" aria-labelledby="About1Label" aria-hidden="true">
+            <div class="modal-dialog ads">
+                <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="About1Label">A Story of Success</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        </div>
+                        <div class="modal-body">
+                            <br>Family Tracker was founded by Kirk Shelton the founder and Managing Principal of "Cliffs Software Solutions".  Kirk is the Chief Technical Officer (CTO) and the lead engineer for the Family Tracker application.<br><br>Cliffs Software Solutions is now a subsidiary of "Round Table Venture Group LLC".<br><br>Round Table Venture Group (RTVG) is a private investment group and family office owned and managed by their Principals.  RTVG invests primarily in direct to consumer growth-oriented companies including e-commerce, health and fitness, technology, healthcare and other core businesses.  The RTVG focus is on providing capital and operational expertise to dynamic and disruptive growth companies.<br><br>RTVG Principals each bring a unique skill set and RTVG collectively works as a team with our portfolio companies to achieve success.   Our Principals have operated businesses as CEOs, COOs and other leadership positions.  We tend to invest in companies that see the value of our active involvement.<br><br>It was a natural fit between Cliffs Software Solution and the Round Table Venture Group with a<br><br>Shared Philosophy:<br><br>    * We believe in passionate people that are curious and like to win… because we like to win.<br><br>    * We believe in open dialogue and honest debate.<br><br>    * We believe in building true partnerships and working closely with our portfolio companies.<br><br>    * We believe in execution.<br><br>    * We believe in learning from others and applying what we’ve learned.<br><br>We also offwe custom development services to bring our clients systems and solutions visions quickly into focus and production deployment.<br<br>For more information regarding custom solution development:<br><br>Please send an Email to https://FamilyTrackerDevInq.com<br>or call us: (800) 111-2222<br><br>We will promptly respond to all inquiries.<br><br>Thank you for using "Family Tracker".
+                        </div>
+                </div>
+            </div>
+        </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"

@@ -234,6 +234,9 @@ def cashinacctm_delete(request, pk):
 # 
 def FTExpAccts(request):
   cashoutacctms = CashOutAcctM.objects.all()
+  paginator = Paginator(cashoutacctms, 7)  # Show 7 accounts per page.
+  page_number = request.GET.get("page")
+  cashoutacctms_paginated = paginator.get_page(page_number)
   if request.method == 'POST':
         form = CashOutAcctMForm(request.POST)
 
@@ -244,7 +247,7 @@ def FTExpAccts(request):
       form = CashOutAcctMForm()
   return render(request, 'FTExpAccts.html', {
     'form': form,
-    'cashoutacctms': cashoutacctms,
+    'cashoutacctms_paginated': cashoutacctms_paginated,
     'title': 'Add Cash Out Account',
   })
 
