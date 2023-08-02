@@ -65,15 +65,16 @@
             </tr>
           </thead>
           <tbody>
-            {% for cashinacctm in cashinacctms_paginated  %}
+            {% for cashinacctm in cashinacctms_paginated %}
             <tr>
               <td>{{ cashinacctm.AccountNumber }}</td>
               <td>{{ cashinacctm.Description }}</td>
               <td>
                 <!-- <a class="add-button" href="{% url 'LoginRegister:FTFinances' %}">Add</a> -->
                 <a href="{% url 'LoginRegister:cashinacctm_delete' cashinacctm.id %}" class="btn btn-danger">Delete</a>
-                <a href="{% url 'LoginRegister:cashinacctm_update' cashinacctm.id %}"
-                  class="btn btn-secondary edit-button">Edit</a>
+                <a href="#" data-id="{{ cashinacctm.id }}" data-account="{{ cashinacctm.AccountNumber }}"
+                  data-description="{{ cashinacctm.Description }}" class="btn btn-secondary edit-button">Edit</a>
+
               </td>
             </tr>
             {% endfor %}
@@ -141,7 +142,7 @@
             <span class="close">&times</span>
 
             <h2>{{ title }}</h2>
-            <form id="editForm" action="." method="post">
+            <form id="editForm" action="" method="post">
               {% csrf_token %}
               <div class="form-group">
                 <label for="{{ form.AccountNumber.id_for_label }}">Account Number</label>
@@ -184,6 +185,35 @@
     integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
     crossorigin="anonymous"></script>
   <script src="{% static 'js/child.js' %}"></script>
+  <script src="{% static 'js/jquery-3.7.0.min.js' %}"></script>
+  <script>
+    $(document).ready(function () {
+      $('.edit-button').click(function (e) {
+        e.preventDefault();
+
+        let accountId = $(this).data('id');
+        let accountNumber = $(this).data('account');
+        let accountDescription = $(this).data('description');
+
+        // Fill the form with data
+        $('#editForm input[name="AccountNumber"]').val(accountNumber);
+        $('#editForm input[name="Description"]').val(accountDescription);
+
+        // Update form's action attribute
+        // Assuming your URL for updating account is '/update_account/<id>'
+        $('#editForm').attr('action', '/cashinacctm/update/' + accountId + '/');
+
+        // Show the modal
+        $('#editModal').show();
+      });
+
+      // Close the modal when 'close' span is clicked
+      $('.close').click(function () {
+        $('#editModal').hide();
+      });
+    });
+  </script>
+
 </body>
 
 </html>
