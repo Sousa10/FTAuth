@@ -46,7 +46,7 @@ def FTFinances(request):
     'title': 'Add Cash In Account',
   })
 
-def cashinacctm_update(request, pk):
+def financesacct_update(request, pk):
   cashinacctm = get_object_or_404(CashInAcctM, pk=pk)
   print (cashinacctm.id)
   if request.method == 'POST':
@@ -87,7 +87,7 @@ def FTListChores(request):
 
   for header in listheaders:
       listdetails = ListDetailsT.objects.filter(ListHeaderFK=header)
-      paginator = Paginator(listdetails, 2)  # Show 10 ListDetailsT objects per page
+      paginator = Paginator(listdetails, 4)  # Show 10 ListDetailsT objects per page
       page_number = request.GET.get(f'page_{header.id}', 1)  # get page number for each ListHeaderT instance
       page = paginator.get_page(page_number)
       listdetails_dict[header.id] = page
