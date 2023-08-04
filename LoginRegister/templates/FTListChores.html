@@ -49,7 +49,6 @@
                 </tr>
               </thead> -->
               <tbody>
-                {% for listheader in listheaders %}
                 <tr>
                   <td>{{ listheader.LHName }}</td>
                   <td colspan="2">{{ listheader.LHDescription }}</td>
@@ -58,7 +57,8 @@
                     <!-- <a class="add-button" href="{% url 'LoginRegister:FTFinances' %}">Add</a> -->
                     <a href="{% url 'LoginRegister:listHeader_delete' listheader.id %}"
                       class="btn btn-danger">Delete</a>
-                    <a href="#" class="btn btn-secondary edit-button" data-bs-toggle="modal" data-bs-target="#editHeaderModal">Edit</a>
+                    <a href="#" class="btn btn-secondary edit-button" data-bs-toggle="modal"
+                      data-bs-target="#editHeaderModal">Edit</a>
                   </td>
                 </tr>
 
@@ -87,7 +87,7 @@
                 </tr>
               </thead>
               <tbody>
-                {% for listdetail in listdetails_dict|get_item:listheader.id %}
+                {% for listdetail in listdetails %}
                 <tr>
                   <td>{{ listdetail.LNNumber }}</td>
                   <td>{{ listdetail.ListDetailFK.LHName }}</td>
@@ -100,29 +100,24 @@
                   </td>
                 </tr>
                 {% endfor %}
-                <tr>
-                  <!-- Add navigation links. -->
-                  <div class="pagination">
-                    <span class="step-links">
-                      {% with page=listdetails_dict|get_item:listheader.id %}
-                      {% if page.has_previous %}
-                      <a href="?page_{{ header.id }}={{ page.previous_page_number }}">previous</a>
-                      {% endif %}
-
-                      <span class="current">
-                        Page {{ page.number }} of {{ page.paginator.num_pages }}.
-                      </span>
-
-                      {% if page.has_next %}
-                      <a href="?page_{{ header.id }}={{ page.next_page_number }}">next</a>
-                      {% endif %}
-                      {% endwith %}
-                    </span>
-                  </div>
-                </tr>
-              {% endfor %}
               </tbody>
             </table>
+            <!-- Add navigation links. -->
+            <div class="pagination">
+              <span class="step-links">
+                {% if listdetails.has_previous %}
+                <a href="?page={{ listdetails.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                  Page {{ listdetails.number }} of {{ listdetails.paginator.num_pages }}.
+                </span>
+
+                {% if listdetails.has_next %}
+                <a href="?page={{ listdetails.next_page_number }}">next</a>
+                {% endif %}
+              </span>
+            </div>
           </td>
         </tr>
         <tr>

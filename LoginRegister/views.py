@@ -80,17 +80,15 @@ def FTToDos(request):
   return HttpResponse(template.render())
 
 def FTListChores(request):
-  listheaders = ListHeaderT.objects.all()
-  #listdetails = ListDetailsT.objects.all()
+  listheader = ListHeaderT.objects.first()
 
-  listdetails_dict = {}
+  #listdetails_dict = {}
 
-  for header in listheaders:
-      listdetails = ListDetailsT.objects.filter(ListHeaderFK=header)
-      paginator = Paginator(listdetails, 4)  # Show 10 ListDetailsT objects per page
-      page_number = request.GET.get(f'page_{header.id}', 1)  # get page number for each ListHeaderT instance
-      page = paginator.get_page(page_number)
-      listdetails_dict[header.id] = page
+  listdetails = ListDetailsT.objects.filter(ListHeaderFK=listheader)
+  paginator = Paginator(listdetails, 2)  # Show 10 ListDetailsT objects per page
+  page_number = request.GET.get('page', 1)  # get page number for each ListHeaderT instance
+  page = paginator.get_page(page_number)
+  #listdetails_dict[header.id] = page
   
   listHeaderForm = ListHeaderTForm()
   listDetailForm = ListDetailsTForm()
@@ -116,10 +114,9 @@ def FTListChores(request):
   return render(request, 'FTListChores.html', {
     'listHeaderForm': listHeaderForm,
     'listDetailForm': listDetailForm,
-    'listheaders': listheaders,
-    'listdetails': listdetails,
+    'listheader': listheader,
+    'listdetails': page,
     'title': 'List and Chores',
-    'listdetails_dict': listdetails_dict,
   })
 
 def listHeader_delete(request, pk):
