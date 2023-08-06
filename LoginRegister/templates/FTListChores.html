@@ -55,10 +55,12 @@
                   <td colspan="2"></td>
                   <td style="text-align: center;">
                     <!-- <a class="add-button" href="{% url 'LoginRegister:FTFinances' %}">Add</a> -->
+                    {% if listheader %}
                     <a href="{% url 'LoginRegister:listHeader_delete' listheader.id %}"
                       class="btn btn-danger">Delete</a>
                     <a href="#" class="btn btn-secondary edit-button" data-bs-toggle="modal"
                       data-bs-target="#editHeaderModal">Edit</a>
+                    {% endif %}
                   </td>
                 </tr>
 
@@ -93,10 +95,12 @@
                   <td>{{ listdetail.ListDetailFK.LHName }}</td>
                   <td>{{ listdetail.LHName }}</td>
                   <td>
+                    {% if listdetail %}
                     <!-- <a class="add-button" href="{% url 'LoginRegister:FTFinances' %}">Add</a> -->
                     <a href="{% url 'LoginRegister:listDetail_delete' listdetail.id %}"
                       class="btn btn-danger">Delete</a>
                     <a href="#" class="btn btn-secondary edit-button">Edit</a>
+                    {% endif %}
                   </td>
                 </tr>
                 {% endfor %}
