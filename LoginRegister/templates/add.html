@@ -1,0 +1,42 @@
+<!-- List Header Modal -->
+<div class="modal fade" id="{% block modal-id %}{% endblock %}" tabindex="-1" aria-labelledby="{% block modal-label %}{% endblock %}" aria-hidden="true"
+data-backdrop="false">
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="{% block modal-label %}{% endblock %}">{% block modal-title %} {% endblock %}</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+
+    <form action="{% block form-action %}{% endblock %}" method="post">
+      <div class="modal-body">
+        {% csrf_token %}
+        {% block form-fields %}
+        <div class="form-group">
+          <label for="{{ form.AccountNumber.id_for_label }}">Header Name</label>
+          {{ listHeaderForm.LHName }}
+        </div>
+        <div class="form-group">
+          <label for="{{ form.Description.id_for_label }}">Description</label>
+          {{ listHeaderForm.LHDescription }}
+        </div>
+        {% if listHeaderForm.errors or listHeaderForm.non_field_errors %}
+        <div class="mb-3 p-6 bg-red-100 rounded-xl">
+          {% for field in listHeaderForm %}
+          {{ field.errors }}
+          {% endfor %}
+
+          {{ listHeaderForm.non_field_errors }}
+        </div>
+        {% endif %}
+      </div>
+      {% endblock %}
+      <div class="modal-footer">
+        <input type="hidden" name="form_type" value="{% block form-type %}{% endblock %}">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>
+</div>
