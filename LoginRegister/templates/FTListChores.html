@@ -1,7 +1,5 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load my_extras %}
-
 
 {% block title %}List & Chores{% endblock %}
 
@@ -35,7 +33,7 @@
             <!-- <a class="add-button" href="{% url 'LoginRegister:FTFinances' %}">Add</a> -->
             <a href="#" class="btn listheaderbuttons" data-bs-toggle="modal" data-bs-target="#listHeaderModal"
               style="border-radius: 0%;">New</a>
-            <a href="#" class="btn edit-button listheaderbuttons" style="border-radius: 0%; margin: 0;">Existing</a>
+            <a href="#" class="btn listheaderbuttons" style="border-radius: 0%; margin: 0;">Existing</a>
           </td>
         </tr>
         <tr>
@@ -58,8 +56,9 @@
                     {% if listheader %}
                     <a href="{% url 'LoginRegister:listHeader_delete' listheader.id %}"
                       class="btn btn-danger">Delete</a>
-                    <a href="#" class="btn btn-secondary edit-button" data-bs-toggle="modal"
-                      data-bs-target="#editHeaderModal">Edit</a>
+                    <a href="#" class="btn btn-secondary edit-header-button" data-bs-toggle="modal"
+                      data-bs-target="#editHeaderModal" data-id="{{ listheader.id }}"
+                      data-LHName="{{ listheader.LHName }}" data-LHDescription="{{ listheader.LHDescription }}">Edit</a>
                     {% endif %}
                   </td>
                 </tr>
@@ -99,7 +98,10 @@
                     <!-- <a class="add-button" href="{% url 'LoginRegister:FTFinances' %}">Add</a> -->
                     <a href="{% url 'LoginRegister:listDetail_delete' listdetail.id %}"
                       class="btn btn-danger">Delete</a>
-                    <a href="#" class="btn btn-secondary edit-button">Edit</a>
+                    <a href="#" class="btn btn-secondary edit-detail-button" data-bs-toggle="modal"
+                      data-bs-target="#editdetailModal" data-id="{{ listdetail.id }}"
+                      data-LNNumber="{{ listdetail.LNNumber }}" data-LHName="{{ listdetail.ListDetailFK.LHName }}"
+                      data-LDetailName="{{ listdetail.LHName }}">Edit</a>
                     {% endif %}
                   </td>
                 </tr>
@@ -136,7 +138,7 @@
   <div class="col-md-1">
   </div>
 
-  <!-- List Header Modal -->
+  <!-- List Header Add Modal -->
   <div class="modal fade" id="listHeaderModal" tabindex="-1" aria-labelledby="listHeaderModalLabel" aria-hidden="true"
     data-backdrop="false">
     <div class="modal-dialog">
@@ -150,7 +152,7 @@
           <div class="modal-body">
             {% csrf_token %}
             <div class="form-group">
-              <label for="{{ form.AccountNumber.id_for_label }}">Header Name</label>
+              <label for="{{ form.AccountNumber.id_for_label }}">List Name</label>
               {{ listHeaderForm.LHName }}
             </div>
             <div class="form-group">
@@ -176,7 +178,7 @@
       </div>
     </div>
   </div>
-  <!-- List Detail Modal -->
+  <!-- List Detail Add Modal -->
   <div class="modal fade" id="listDetailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true"
     data-backdrop="false">
     <div class="modal-dialog">
@@ -228,17 +230,57 @@
     </div>
   </div>
 
-  <!-- Edit  header modal -->
-  <div class="modal fade" id="editHeaderModal" tabindex="-1" aria-labelledby="editHeaderModalLabel" aria-hidden="true"
+  <!-- Edit header modal -->
+  <div class="modal" id="editHeaderModal" tabindex="-1" aria-labelledby="editHeaderModalLabel" aria-hidden="true"
     data-backdrop="false">
     <div class="modal-dialog">
       <div class="modal-content">
-        <div class="modal-header">
+        <div class="modal-header text-center">
           <h5 class="modal-title" id="exampleModalLabel">{{ title }}</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
 
-        <form action="{% url 'LoginRegister:FTListChores' %}" method="post">
+        <form action="" method="post" id="editHeaderForm">
+          <div class="modal-body">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="{{ form.AccountNumber.id_for_label }}">Header Name</label>
+              {{ listHeaderForm.LHName }}
+            </div>
+            <div class="form-group">
+              <label for="{{ form.Description.id_for_label }}">Description</label>
+              {{ listHeaderForm.LHDescription }}
+            </div>
+            {% if listHeaderForm.errors or listHeaderForm.non_field_errors %}
+            <div class="mb-3 p-6 bg-red-100 rounded-xl">
+              {% for field in listHeaderForm %}
+              {{ field.errors }}
+              {% endfor %}
+
+              {{ listHeaderForm.non_field_errors }}
+            </div>
+            {% endif %}
+          </div>
+          <div class="modal-footer">
+            <input type="hidden" name="form_type" value="ListHeaderTForm">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- Edit detail modal -->
+  <div class="modal" id="editDetailModal" tabindex="-1" aria-labelledby="editDetailModalLabel" aria-hidden="true"
+    data-backdrop="false">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-detail text-center">
+          <h5 class="modal-title" id="exampleModalLabel">{{ title }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <form action="" method="post" id="editHeaderForm">
           <div class="modal-body">
             {% csrf_token %}
             <div class="form-group">
@@ -270,4 +312,27 @@
   </div>
 
 </div>
+{% endblock %}
+{% block modal-script %}
+<script>
+  $(document).ready(function () {
+    $('.edit-header-button').click(function (e) {
+      e.preventDefault();
+
+      let listId = $(this).data('id');
+      let listName = $(this).data('lhname');
+      let listheaderDescription = $(this).data('lhdescription');
+
+      // Fill the form with data
+      $('#editHeaderForm input[name="LHName"]').val(listName);
+      $('#editHeaderForm input[name="LHDescription"]').val(listheaderDescription);
+
+      // Update form's action attribute
+      // Assuming your URL for updating account is '/update_account/<id>'
+      $('#editHeaderForm').attr('action', '/listHeader_update/update/' + listId + '/');
+
+    });
+
+  });
+</script>
 {% endblock %}

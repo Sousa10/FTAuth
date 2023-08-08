@@ -119,6 +119,22 @@ def FTListChores(request):
     'title': 'List and Chores',
   })
 
+def listHeader_update(request, pk):
+  listHeader = get_object_or_404(ListHeaderT, pk=pk)
+  if request.method == 'POST':
+        form = ListHeaderTForm(request.POST, instance=listHeader)
+
+        if form.is_valid():
+          form.save()
+          return redirect('LoginRegister:FTListChores')    
+  else:
+      form = ListHeaderTForm(instance=listHeader)
+  return render(request, 'FTListChores.html', {
+    'form': form,
+    'listHeader': listHeader,
+    'title': 'Edit Cash In Account',
+  })
+
 def listHeader_delete(request, pk):
   listHeader = get_object_or_404(ListHeaderT, pk=pk)
   listHeader.delete()
