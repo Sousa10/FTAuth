@@ -139,8 +139,7 @@
   </div>
 
   <!-- List Header Add Modal -->
-  <div class="modal fade" id="listHeaderModal" tabindex="-1" aria-labelledby="listHeaderModalLabel" aria-hidden="true"
-    data-backdrop="false">
+  <div class="modal fade" id="listHeaderModal" tabindex="-1" aria-labelledby="listHeaderModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -179,8 +178,7 @@
     </div>
   </div>
   <!-- List Detail Add Modal -->
-  <div class="modal fade" id="listDetailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true"
-    data-backdrop="false">
+  <div class="modal fade" id="listDetailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -191,23 +189,23 @@
           <form action="{% url 'LoginRegister:FTListChores' %}" method="post">
             {% csrf_token %}
             <div class="form-group">
-              <label for="{{ form.AccountNumber.id_for_label }}">List Header</label>
+              <label for="{{ listDetailForm.ListHeaderFK }}">List Header</label>
               {{ listDetailForm.ListHeaderFK }}
             </div>
             <div class="form-group">
-              <label for="{{ form.AccountNumber.id_for_label }}">Predecessor</label>
+              <label for="{{ listDetailForm.ListDetailFK }}">Predecessor</label>
               {{ listDetailForm.ListDetailFK }}
             </div>
             <div class="form-group">
-              <label for="{{ form.AccountNumber.id_for_label }}">List Item Number</label>
+              <label for="{{ listDetailForm.LNNumber }}">List Item Number</label>
               {{ listDetailForm.LNNumber }}
             </div>
             <div class="form-group">
-              <label for="{{ form.AccountNumber.id_for_label }}">List Detail Name</label>
+              <label for="{{ listDetailForm.LHName }}">List Detail Name</label>
               {{ listDetailForm.LHName }}
             </div>
             <div class="form-group">
-              <label for="{{ form.Description.id_for_label }}">Description</label>
+              <label for="{{ listDetailForm.LHDescription }}">Description</label>
               {{ listDetailForm.LHDescription }}
             </div>
             {% if listDetailForm.errors or listHeaderForm.non_field_errors %}
@@ -231,8 +229,7 @@
   </div>
 
   <!-- Edit header modal -->
-  <div class="modal" id="editHeaderModal" tabindex="-1" aria-labelledby="editHeaderModalLabel" aria-hidden="true"
-    data-backdrop="false">
+  <div class="modal" id="editHeaderModal" tabindex="-1" aria-labelledby="editHeaderModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header text-center">
@@ -271,8 +268,7 @@
     </div>
   </div>
   <!-- Edit detail modal -->
-  <div class="modal" id="editDetailModal" tabindex="-1" aria-labelledby="editDetailModalLabel" aria-hidden="true"
-    data-backdrop="false">
+  <div class="modal" id="editDetailModal" tabindex="-1" aria-labelledby="editDetailModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-detail text-center">
@@ -280,29 +276,41 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
 
-        <form action="" method="post" id="editHeaderForm">
+        <form action="" method="post" id="editDetailForm">
           <div class="modal-body">
             {% csrf_token %}
             <div class="form-group">
-              <label for="{{ form.AccountNumber.id_for_label }}">Header Name</label>
-              {{ listHeaderForm.LHName }}
+              <label for="{{ listDetailForm.ListHeaderFK }}">List Header</label>
+              {{ listDetailForm.ListHeaderFK }}
             </div>
             <div class="form-group">
-              <label for="{{ form.Description.id_for_label }}">Description</label>
-              {{ listHeaderForm.LHDescription }}
+              <label for="{{ listDetailForm.ListDetailFK }}">Predecessor</label>
+              {{ listDetailForm.ListDetailFK }}
             </div>
-            {% if listHeaderForm.errors or listHeaderForm.non_field_errors %}
+            <div class="form-group">
+              <label for="{{ listDetailForm.LNNumber }}">List Item Number</label>
+              {{ listDetailForm.LNNumber }}
+            </div>
+            <div class="form-group">
+              <label for="{{ listDetailForm.LHName }}">List Detail Name</label>
+              {{ listDetailForm.LHName }}
+            </div>
+            <div class="form-group">
+              <label for="{{ listDetailForm.LHDescription }}">Description</label>
+              {{ listDetailForm.LHDescription }}
+            </div>
+            {% if listDetailForm.errors or listHeaderForm.non_field_errors %}
             <div class="mb-3 p-6 bg-red-100 rounded-xl">
-              {% for field in listHeaderForm %}
+              {% for field in listDetailForm %}
               {{ field.errors }}
               {% endfor %}
 
-              {{ listHeaderForm.non_field_errors }}
+              {{ listDetailForm.non_field_errors }}
             </div>
             {% endif %}
           </div>
           <div class="modal-footer">
-            <input type="hidden" name="form_type" value="ListHeaderTForm">
+            <input type="hidden" name="form_type" value="ListDetailTForm">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary">Submit</button>
           </div>
@@ -333,6 +341,14 @@
 
     });
 
+  });
+
+  $(document).ready(function () {
+    $('.edit-detail-button').click(function (e) {
+      e.preventDefault();
+
+      $('#editDetailModal').modal('show');
+    });
   });
 </script>
 {% endblock %}
