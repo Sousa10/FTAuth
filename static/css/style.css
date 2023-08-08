@@ -99,3 +99,12 @@ th {
 .ads {
     max-width: 70%!important;
 }
+
+.pagination {
+    display: flex;
+    justify-content: center;
+}
+
+.step-links {
+    margin: 10px;
+}
