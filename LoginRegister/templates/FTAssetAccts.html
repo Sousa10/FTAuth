@@ -29,7 +29,7 @@
       </tr>
     </thead>
     <tbody>
-      {% for assetacctm in assetacctms %}
+      {% for assetacctm in assetacctms_paginated %} 
       <tr>
         <td>{{ assetacctm.AccountNumber }}</td>
         <td>{{ assetacctm.Description }}</td>
@@ -47,6 +47,23 @@
       </tr>
     </tbody>
   </table>
+  <div class="pagination">
+    <span class="step-links">
+      {% if assetacctms_paginated.has_previous %}
+      <a href="?page=1">&laquo; first</a>
+      <a href="?page={{ assetacctms_paginated.previous_page_number }}">previous</a>
+      {% endif %}
+
+      <span class="current">
+        Page {{ assetacctms_paginated.number }} of {{ assetacctms_paginated.paginator.num_pages }}.
+      </span>
+
+      {% if assetacctms_paginated.has_next %}
+      <a href="?page={{ assetacctms_paginated.next_page_number }}">next</a>
+      <a href="?page={{ assetacctms_paginated.paginator.num_pages }}">last &raquo;</a>
+      {% endif %}
+    </span>
+  </div>
 </div>
 <!-- Add modal -->
 <div class="md-6">

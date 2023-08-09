@@ -21,7 +21,6 @@ urlpatterns = [
     path('LoginRegister/FTGrocery/', views.FTGrocery, name='FTGrocery'),
     path('LoginRegister/FTAcministration/', views.FTAcministration, name='FTAcministration'),
     path('LoginRegister/login/', auth_views.LoginView.as_view(template_name='FTperson_login.html', authentication_form=LoginForm), name='login'),
-    # KMS 7/3
     path('LoginRegister/FTFinancesMenu/', views.FTFinancesMenu, name='FTFinancesMenu'),
     path('LoginRegister/FTFinMenu/', views.FTFinMenu, name='FTFinMenu'),
     path('LoginRegister/FTDefAcctsMenu/', views.FTDefAcctsMenu, name='FTDefAcctsMenu'),
@@ -43,4 +42,8 @@ urlpatterns = [
     path('LoginRegister/FTAcctGroupings/', views.FTAcctGroupings, name='FTAcctGroupings'),
     path('LoginRegister/FTGroupingDrillDown/', views.FTGroupingDrillDown, name='FTGroupingDrillDown'),
     path('LoginRegister/FTAccountDrillDown/', views.FTAccountDrillDown, name='FTAccountDrillDown'),
+    path('LoginRegister/FTFamilySecurity/', views.FTFamilySecurity, name='FTFamilySecurity'),
+    path('LoginRegister/FTApple/', views.FTApple, name='FTApple'),
+    path('LoginRegister/FTAndroid/', views.FTAndroid, name='FTAndroid'),
+    path('LoginRegister/FTSponRateTbl/', views.FTSponRateTbl, name='FTSponRateTbl'),
 ]

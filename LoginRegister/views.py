@@ -234,7 +234,7 @@ def cashinacctm_delete(request, pk):
 # 
 def FTExpAccts(request):
   cashoutacctms = CashOutAcctM.objects.all()
-  paginator = Paginator(cashoutacctms, 7)  # Show 7 accounts per page.
+  paginator = Paginator(cashoutacctms, 6)  # Show 6 accounts per page.
   page_number = request.GET.get("page")
   cashoutacctms_paginated = paginator.get_page(page_number)
   if request.method == 'POST':
@@ -277,6 +277,9 @@ def cashoutacctm_delete(request, pk):
 #
 def FTAssetAccts(request):
   assetacctms = WhatWeOwnAcctM.objects.all()
+  paginator = Paginator(assetacctms, 6)  # Show 6 accounts per page.
+  page_number = request.GET.get("page")
+  assetacctms_paginated = paginator.get_page(page_number)
   if request.method == 'POST':
         form = WhatWeOwnAcctMForm(request.POST)
                  
@@ -287,7 +290,7 @@ def FTAssetAccts(request):
       form = WhatWeOwnAcctMForm()
   return render(request, 'FTAssetAccts.html', {
     'form': form,
-    'assetacctms': assetacctms,
+    'assetacctms_paginated' : assetacctms_paginated,
     'title': 'Add Asset Out Account',
   })
 
@@ -433,7 +436,32 @@ def equityacctm_delete(request, pk):
     equityacctm.delete()
 
     return redirect('LoginRegister:FTEquityAccts')
-
 # 
-# KMS Account Groupings start Here
+# KMS Family Security start Here
 #
+def FTFamilySecurity(request):
+  FTpersons = PersonM.objects.all().values()
+  template = loader.get_template('FTFamilySecurity.html')
+  return HttpResponse(template.render())
+# 
+# KMS Apple start Here
+#
+def FTApple(request):
+  FTpersons = PersonM.objects.all().values()
+  template = loader.get_template('FTApple.html')
+  return HttpResponse(template.render())
+# 
+# KMS Android start Here
+#
+def FTAndroid(request):
+  FTpersons = PersonM.objects.all().values()
+  template = loader.get_template('FTAndroid.html')
+  return HttpResponse(template.render())
+#
+# KMS Sponsor Rate Table
+#
+def FTSponRateTbl(request):
+  FTpersons = PersonM.objects.all().values()
+  template = loader.get_template('FTSponRateTbl.html')
+  return HttpResponse(template.render())
+  

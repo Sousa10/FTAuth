@@ -31,8 +31,22 @@
                     <a href="#Sugg1" data-bs-toggle="modal" style="color:blue">Suggestions</a>&nbsp&nbsp                    
                     <a href="#Serv1" data-bs-toggle="modal" style="color:blue">Service Requests</a>&nbsp&nbsp
                     <a href="#About1" data-bs-toggle="modal" style="color:blue">About Us</a>&nbsp&nbsp
-                    <a href="FTAcministration/" style="color:blue">Help</a>&nbsp&nbsp
                     <a href="{% block backurl %}{% endblock %}" style="color:blue">Back</a>
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    <a href="#SponMsg" data-bs-toggle="modal" style="color:blue">Message to Prospective Sponsors</a>&nbsp&nbsp
+                    <!-- <a href="#SponRate" data-bs-toggle="modal" style="color:blue">Sponsor Rate Table</a>&nbsp&nbsp -->
+                    <a href="{% url 'LoginRegister:FTSponRateTbl' %}">Sponsor Rate Table</a>
 
                     {% block pageTitle %}
                     {% endblock %}
@@ -277,6 +291,36 @@
             </div>
         </div>
 
+        <!-- Modal SponMsg -->
+        <div class="modal fade" id="SponMsg" tabindex="-1" aria-labelledby="SponMsgLabel" aria-hidden="true">
+            <div class="modal-dialog ads">
+                <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="SponMsgLabel">A Message to Prospective Sponsors</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        </div>
+                        <div class="modal-body">
+                            <br>Message to prospective sponsors goes here
+                        </div>
+                </div>
+            </div>
+        </div>
+
+            <!-- Modal SponRateTable -->
+            <div class="modal fade" id="SponRate" tabindex="-1" aria-labelledby="SponRateLabel" aria-hidden="true">
+                <div class="modal-dialog ads">
+                    <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="SponRateLabel">Sponsor Rate Table</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                            </div>
+                            <div class="modal-body">
+                                <br>Rate table goes here, new page
+                            </div>
+                    </div>
+                </div>
+            </div>
+        
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
         crossorigin="anonymous"></script>
