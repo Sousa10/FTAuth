@@ -55,7 +55,7 @@
                     <!-- <a class="add-button" href="{% url 'LoginRegister:FTFinances' %}">Add</a> -->
                     {% if listheader %}
                     <a href="{% url 'LoginRegister:listHeader_delete' listheader.id %}"
-                      class="btn btn-danger">Delete</a>
+                      class="btn btn-danger delete-button">Delete</a>
                     <a href="#" class="btn btn-secondary edit-header-button" data-bs-toggle="modal"
                       data-bs-target="#editHeaderModal" data-id="{{ listheader.id }}"
                       data-LHName="{{ listheader.LHName }}" data-LHDescription="{{ listheader.LHDescription }}">Edit</a>
@@ -97,10 +97,11 @@
                     {% if listdetail %}
                     <!-- <a class="add-button" href="{% url 'LoginRegister:FTFinances' %}">Add</a> -->
                     <a href="{% url 'LoginRegister:listDetail_delete' listdetail.id %}"
-                      class="btn btn-danger">Delete</a>
+                      class="btn btn-danger delete-button">Delete</a>
                     <a href="#" class="btn btn-secondary edit-detail-button" data-bs-toggle="modal"
                       data-bs-target="#editdetailModal" data-id="{{ listdetail.id }}"
-                      data-ListHeaderFK="{{ listdetail.ListHeaderFK.LHName }}" data-ListItemName="{{ listdetail.LHName }}" data-LNNumber="{{ listdetail.LNNumber }}"
+                      data-ListHeaderFK="{{ listdetail.ListHeaderFK.LHName }}"
+                      data-ListItemName="{{ listdetail.LHName }}" data-LNNumber="{{ listdetail.LNNumber }}"
                       data-ListDetailFK="{{ listdetail.ListDetailFK.LHName }}">Edit</a>
                     {% endif %}
                   </td>
@@ -336,10 +337,6 @@
     $('.edit-detail-button').click(function (e) {
       e.preventDefault();
 
-      // data - id="{{ listdetail.id }}" data - ListHeaderFK = "{{ listdetail.ListHeaderFK.LHName }}"
-      // data - LNNumber="{{ listdetail.LNNumber }}" data - LHName="{{ listdetail.ListDetailFK.LHName }}"
-      // data - LDetailName="{{ listdetail.LHName }}
-
       let listDetailId = $(this).data('id');
       let ListHeaderFK = $(this).data('listheaderfk');
       let predecessor = $(this).data('listdetailfk');
@@ -347,12 +344,23 @@
       let ListItemName = $(this).data('listitemname');
 
       // Fill the form with data
-      $('#editDetailForm input[name="ListHeaderFK"]').val(ListHeaderFK);
+      $("#id_ListHeaderFK option").each(function () {
+        if ($(this).text() == ListHeaderFK) {
+          $(this).attr('selected', 'selected');
+        }
+      });
+      $("#id_ListDetailFK option").each(function () {
+        if ($(this).text() == predecessor) {
+          $(this).attr('selected', 'selected');
+        }
+      });
       $('#editDetailForm input[name="ListDetailFK"]').val(predecessor);
       $('#editDetailForm input[name="LNNumber"]').val(listDetailNumber);
       $('#editDetailForm input[name="LHName"]').val(ListItemName);
 
       $('#editDetailModal').modal('show');
+
+      $('#editDetailForm').attr('action', '/listDetail_update/update/' + listDetailId + '/');
     });
 
   });

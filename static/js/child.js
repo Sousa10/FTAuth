@@ -53,3 +53,14 @@
     //         editModal.style.display = "none";
     //     }
     // }    
+    $(document).ready(function () {
+        $('.delete-button').on('click', function(e) {
+            e.preventDefault(); // Prevent the default action (navigation)
+    
+            var confirmation = confirm("Are you sure you want to delete this data?");
+    
+            if (confirmation) {
+                window.location.href = $(this).attr('href'); // If confirmed, proceed with the deletion by navigating to the delete URL
+            }
+        });
+    });
