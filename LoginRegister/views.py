@@ -7,7 +7,7 @@ from .forms import CashOutAcctMForm
 from .forms import WhatWeOwnAcctMForm
 from .forms import DebtsAcctMForm
 from .forms import EquityAcctMForm
-from .forms import ListHeaderTForm, ListDetailsTForm
+from .forms import ListHeaderTForm, ListDetailsTForm, ListHeaderSelectForm
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
@@ -80,18 +80,20 @@ def FTToDos(request):
   return HttpResponse(template.render())
 
 def FTListChores(request):
+  #listheader = None
   listheader = ListHeaderT.objects.first()
-
-  #listdetails_dict = {}
 
   listdetails = ListDetailsT.objects.filter(ListHeaderFK=listheader)
   paginator = Paginator(listdetails, 2)  # Show 10 ListDetailsT objects per page
   page_number = request.GET.get('page', 1)  # get page number for each ListHeaderT instance
   page = paginator.get_page(page_number)
-  #listdetails_dict[header.id] = page
+  #listdetails = None
+  # paginator = None
+  # page = None
   
   listHeaderForm = ListHeaderTForm()
   listDetailForm = ListDetailsTForm()
+  selectedHeaderForm = ListHeaderSelectForm()
 
   if request.method == 'POST':
         form_type = request.POST.get('form_type')
@@ -108,12 +110,28 @@ def FTListChores(request):
             listDetailForm.save()
 
             return redirect('LoginRegister:FTListChores')
+          
+        elif form_type == 'SelectedHeaderTForm':
+          print(form_type)
+          selectedHeaderForm = ListHeaderSelectForm(request.POST)
+          if selectedHeaderForm.is_valid():
+            listheaderName = selectedHeaderForm.cleaned_data['LHName']
+            selected_listheader = ListHeaderT.objects.get(LHName=listheaderName)
+            listheader = selected_listheader
+            listdetails = selected_listheader.listdetailst_set.all()
+            paginator = Paginator(listdetails, 2)  # Show 10 ListDetailsT objects per page
+            page_number = request.GET.get('page', 1)  # get page number for each ListHeaderT instance
+            page = paginator.get_page(page_number)
+            print(type(page))
+
+            return redirect('LoginRegister:FTListChores')
   else:
       listHeaderForm = ListHeaderTForm()
       listDetailForm = ListDetailsTForm()
   return render(request, 'FTListChores.html', {
     'listHeaderForm': listHeaderForm,
     'listDetailForm': listDetailForm,
+    'selectedHeaderForm': selectedHeaderForm,
     'listheader': listheader,
     'listdetails': page,
     'title': 'List and Chores',

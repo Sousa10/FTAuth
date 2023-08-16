@@ -33,7 +33,8 @@
             <!-- <a class="add-button" href="{% url 'LoginRegister:FTFinances' %}">Add</a> -->
             <a href="#" class="btn listheaderbuttons" data-bs-toggle="modal" data-bs-target="#listHeaderModal"
               style="border-radius: 0%;">New</a>
-            <a href="#" class="btn listheaderbuttons" style="border-radius: 0%; margin: 0;">Existing</a>
+            <a href="#" class="btn listheaderbuttons" style="border-radius: 0%; margin: 0;" data-bs-toggle="modal"
+            data-bs-target="#selectedHeaderModal">Existing</a>
           </td>
         </tr>
         <tr>
@@ -62,7 +63,6 @@
                     {% endif %}
                   </td>
                 </tr>
-
               </tbody>
             </table>
           </td>
@@ -304,6 +304,42 @@
           </div>
           <div class="modal-footer">
             <input type="hidden" name="form_type" value="ListDetailTForm">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- selected header modal -->
+  <div class="modal fade" id="selectedHeaderModal" tabindex="-1" aria-labelledby="selectedHeaderModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">{{ title }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <form action="{% url 'LoginRegister:FTListChores' %}" method="post">
+          <div class="modal-body">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="{{ listHeaderForm.LHName.id_for_label }}">List Name</label>
+              {{ selectedHeaderForm.LHName }}
+            </div>
+            {% if selectedHeaderForm.errors or selectedHeaderForm.non_field_errors %}
+            <div class="mb-3 p-6 bg-red-100 rounded-xl">
+              {% for field in selectedHeaderForm %}
+              {{ field.errors }}
+              {% endfor %}
+
+              {{ selectedHeaderForm.non_field_errors }}
+            </div>
+            {% endif %}
+          </div>
+          <div class="modal-footer">
+            <input type="hidden" name="form_type" value="SelectedHeaderTForm">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary">Submit</button>
           </div>

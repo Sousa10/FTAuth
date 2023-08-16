@@ -115,3 +115,10 @@ class ListDetailsTForm(forms.ModelForm):
         }
     ListHeaderFK = forms.ModelChoiceField(queryset=ListHeaderT.objects.all(), widget=forms.Select(attrs={'class': INPUT_CLASSES}))
     ListDetailFK = forms.ModelChoiceField(queryset=ListDetailsT.objects.all(), widget=forms.Select(attrs={'class': INPUT_CLASSES}), required=False)
+
+class ListHeaderSelectForm(forms.ModelForm):
+    class Meta:
+        model = ListHeaderT
+        fields = ['LHName']
+
+    LHName = forms.ModelChoiceField(queryset=ListHeaderT.objects.all(), widget=forms.Select(attrs={'class': INPUT_CLASSES}))
