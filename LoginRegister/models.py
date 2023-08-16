@@ -89,3 +89,24 @@ class ListDetailsT(models.Model):
 
     def __str__(self):
         return self.LHName
+
+class SponRates(models.Model):
+  Sequence = models.CharField(max_length=10, null=True)  
+  Geography = models.CharField(max_length=120, null=True)
+  Population = models.CharField(max_length=40, null=True)
+  FTUserCount = models.CharField(max_length=40, null=True)
+  Spots1_6Rate = models.CharField(max_length=40, null=True)
+  Spot7Rate = models.CharField(max_length=40, null=True)
+
+class CalendarIncrements(models.Model):
+  Sequence = models.IntegerField(null=True)
+  FamilyID = models.IntegerField(null=True)
+  PersonID = models.IntegerField(null=True)
+  CalendarID = models.CharField(max_length=120, null=True)
+  IncrementDate = models.DateField()
+  IncrementTime = models.TimeField()
+
+
+
+
+
