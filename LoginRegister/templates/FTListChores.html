@@ -49,6 +49,7 @@
               </thead> -->
               <tbody>
                 <tr>
+                  {% if listheader %}
                   <td>{{ listheader.LHName }}</td>
                   <td colspan="2">{{ listheader.LHDescription }}</td>
                   <td colspan="2"></td>
@@ -60,6 +61,7 @@
                     <a href="#" class="btn btn-secondary edit-header-button" data-bs-toggle="modal"
                       data-bs-target="#editHeaderModal" data-id="{{ listheader.id }}"
                       data-LHName="{{ listheader.LHName }}" data-LHDescription="{{ listheader.LHDescription }}">Edit</a>
+                    {% endif %}
                     {% endif %}
                   </td>
                 </tr>
