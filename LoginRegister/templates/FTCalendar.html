@@ -25,4 +25,36 @@
   <h6>"Date" Selection Drop Box to Right of "Date" designation (this is the date that drives the Day, Week of Month view)&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</h6>
   <h6>"New" _Button Opens popup where can schedule any date, start & end times. (Title and brief descripion of entry)&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</h6>
 </a>
+
+<form method="POST" class="form-horizontal">
+  {% csrf_token %}
+  <div class="box-body">
+    DefaultParams
+    <div class="form-group">
+      <label for="{{ form.club.club_id.id_for_label }}" class="col-sm-2 control-lable">Calendar</label>
+      <div class="col-sm-10">
+
+        <!-- Not sure how ? -->
+
+        <select id="{{ form.club.club_id.id_for_label }}" name="club" class="form-control">
+          <option value="None"></option>
+          {% for club in clubs %}
+          <option value="{{ club.club_id }}" selected="selected">{{ club.nickname }}</option>
+          {% endfor %}
+        </select>
+
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="{{ form.club_name.id_for_label }}" class="col-sm-2 control-lable">View</label>
+      <div class="col-sm-10">
+        <input id="{{ form.short_name.id_for_label }}" type="text" name="short_name" maxlength="100" class="form-control" required />
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="{{ form.club_name.id_for_label }}" class="col-sm-2 control-lable">Date</label>
+      <div class="col-sm-10">
+        <input id="{{ form.nickname.id_for_label }}" type="text" name="nickname" maxlength="6" class="form-control" required />
+
+
 {% endblock %}

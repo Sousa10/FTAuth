@@ -3,6 +3,7 @@ from django.template import loader
 from .models import PersonM, CashInAcctM, CashOutAcctM, WhatWeOwnAcctM, ListHeaderT, ListDetailsT
 from .models import DebtsAcctM, NetworthAcctM
 from .models import SponRates
+from .models import DefaultParams
 from .forms import CashInAcctMForm
 from .forms import CashOutAcctMForm
 from .forms import WhatWeOwnAcctMForm
@@ -527,3 +528,18 @@ def FTSponRateTbl(request):
     'sponratesms_paginated': sponratesms_paginated,
     'title': 'Sponsor Rates',
   })
+
+# 
+# New 8/16 Start here, drop boxes for Calendar template
+# 
+class DefaultParamsViewCreate():
+    template_name = 'fafl/defaultSquad_form.html'
+    model = DefaultParams
+    fields = ['Calendar', 'View', 'Date']
+    # success_url = reverse_lazy('fafl:DefaultParams-list')
+
+    # def get_context_data(self, **kwargs):
+        # context = super(DefaultParamsView, self).get_context_data(**kwargs)
+        # context['clubs'] = Clubs.objects.all().order_by('club_id')
+        # context['players'] = Players.objects.all().order_by('player_id')
+        # return context

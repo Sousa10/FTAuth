@@ -146,7 +146,7 @@ class DefaultParams(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'default_squads'
+        db_table = 'default_params'
 # 
 # End New 8/16 Start here, drop boxes for Calendar template
 # 
