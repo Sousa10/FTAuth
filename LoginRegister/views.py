@@ -134,7 +134,22 @@ def listHeader_update(request, pk):
   return render(request, 'FTListChores.html', {
     'form': form,
     'listHeader': listHeader,
-    'title': 'Edit Cash In Account',
+    'title': 'Edit Header',
+  })
+def listDetail_update(request, pk):
+  listDetail = get_object_or_404(ListDetailsT, pk=pk)
+  if request.method == 'POST':
+        form = ListDetailsTForm(request.POST, instance=listDetail)
+
+        if form.is_valid():
+          form.save()
+          return redirect('LoginRegister:FTListChores')    
+  else:
+      form = ListDetailsTForm(instance=listDetail)
+  return render(request, 'FTListChores.html', {
+    'form': form,
+    'listHeader': listDetail,
+    'title': 'Edit List Detail',
   })
 
 def listHeader_delete(request, pk):

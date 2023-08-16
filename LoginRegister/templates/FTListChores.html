@@ -55,7 +55,7 @@
                     <!-- <a class="add-button" href="{% url 'LoginRegister:FTFinances' %}">Add</a> -->
                     {% if listheader %}
                     <a href="{% url 'LoginRegister:listHeader_delete' listheader.id %}"
-                      class="btn btn-danger">Delete</a>
+                      class="btn btn-danger delete-button">Delete</a>
                     <a href="#" class="btn btn-secondary edit-header-button" data-bs-toggle="modal"
                       data-bs-target="#editHeaderModal" data-id="{{ listheader.id }}"
                       data-LHName="{{ listheader.LHName }}" data-LHDescription="{{ listheader.LHDescription }}">Edit</a>
@@ -97,11 +97,12 @@
                     {% if listdetail %}
                     <!-- <a class="add-button" href="{% url 'LoginRegister:FTFinances' %}">Add</a> -->
                     <a href="{% url 'LoginRegister:listDetail_delete' listdetail.id %}"
-                      class="btn btn-danger">Delete</a>
+                      class="btn btn-danger delete-button">Delete</a>
                     <a href="#" class="btn btn-secondary edit-detail-button" data-bs-toggle="modal"
                       data-bs-target="#editdetailModal" data-id="{{ listdetail.id }}"
-                      data-LNNumber="{{ listdetail.LNNumber }}" data-LHName="{{ listdetail.ListDetailFK.LHName }}"
-                      data-LDetailName="{{ listdetail.LHName }}">Edit</a>
+                      data-ListHeaderFK="{{ listdetail.ListHeaderFK.LHName }}"
+                      data-ListItemName="{{ listdetail.LHName }}" data-LNNumber="{{ listdetail.LNNumber }}"
+                      data-ListDetailFK="{{ listdetail.ListDetailFK.LHName }}">Edit</a>
                     {% endif %}
                   </td>
                 </tr>
@@ -151,11 +152,11 @@
           <div class="modal-body">
             {% csrf_token %}
             <div class="form-group">
-              <label for="{{ form.AccountNumber.id_for_label }}">List Name</label>
+              <label for="{{ listHeaderForm.LHName.id_for_label }}">List Name</label>
               {{ listHeaderForm.LHName }}
             </div>
             <div class="form-group">
-              <label for="{{ form.Description.id_for_label }}">Description</label>
+              <label for="{{ listHeaderForm.LHDescription.id_for_label }}">Description</label>
               {{ listHeaderForm.LHDescription }}
             </div>
             {% if listHeaderForm.errors or listHeaderForm.non_field_errors %}
@@ -189,24 +190,20 @@
           <form action="{% url 'LoginRegister:FTListChores' %}" method="post">
             {% csrf_token %}
             <div class="form-group">
-              <label for="{{ listDetailForm.ListHeaderFK }}">List Header</label>
+              <label for="{{ listDetailForm.ListHeaderFK.id_for_label }}">List Header</label>
               {{ listDetailForm.ListHeaderFK }}
             </div>
             <div class="form-group">
-              <label for="{{ listDetailForm.ListDetailFK }}">Predecessor</label>
+              <label for="{{ listDetailForm.ListDetailFK.id_for_label }}">Predecessor</label>
               {{ listDetailForm.ListDetailFK }}
             </div>
             <div class="form-group">
-              <label for="{{ listDetailForm.LNNumber }}">List Item Number</label>
+              <label for="{{ listDetailForm.LNNumber.id_for_label }}">List Item Number</label>
               {{ listDetailForm.LNNumber }}
             </div>
             <div class="form-group">
-              <label for="{{ listDetailForm.LHName }}">List Detail Name</label>
+              <label for="{{ listDetailForm.LHName.id_for_label }}">List Item Name</label>
               {{ listDetailForm.LHName }}
-            </div>
-            <div class="form-group">
-              <label for="{{ listDetailForm.LHDescription }}">Description</label>
-              {{ listDetailForm.LHDescription }}
             </div>
             {% if listDetailForm.errors or listHeaderForm.non_field_errors %}
             <div class="mb-3 p-6 bg-red-100 rounded-xl">
@@ -268,11 +265,11 @@
     </div>
   </div>
   <!-- Edit detail modal -->
-  <div class="modal" id="editDetailModal" tabindex="-1" aria-labelledby="editDetailModalLabel" aria-hidden="true">
+  <div class="modal fade" id="editDetailModal" tabindex="-1" aria-labelledby="editDetailModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
-        <div class="modal-detail text-center">
-          <h5 class="modal-title" id="exampleModalLabel">{{ title }}</h5>
+        <div class="modal-detail">
+          <h5 class="modal-title" id="detailModalLabel">{{ title }}</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
 
@@ -280,24 +277,20 @@
           <div class="modal-body">
             {% csrf_token %}
             <div class="form-group">
-              <label for="{{ listDetailForm.ListHeaderFK }}">List Header</label>
+              <label for="{{ listDetailForm.ListHeaderFK.id_for_label }}">List Header</label>
               {{ listDetailForm.ListHeaderFK }}
             </div>
             <div class="form-group">
-              <label for="{{ listDetailForm.ListDetailFK }}">Predecessor</label>
+              <label for="{{ listDetailForm.ListDetailFK.id_for_label }}">Predecessor</label>
               {{ listDetailForm.ListDetailFK }}
             </div>
             <div class="form-group">
-              <label for="{{ listDetailForm.LNNumber }}">List Item Number</label>
+              <label for="{{ listDetailForm.LNNumber.id_for_label }}">List Item Number</label>
               {{ listDetailForm.LNNumber }}
             </div>
             <div class="form-group">
-              <label for="{{ listDetailForm.LHName }}">List Detail Name</label>
+              <label for="{{ listDetailForm.LHName.id_for_label }}">List Item Name</label>
               {{ listDetailForm.LHName }}
-            </div>
-            <div class="form-group">
-              <label for="{{ listDetailForm.LHDescription }}">Description</label>
-              {{ listDetailForm.LHDescription }}
             </div>
             {% if listDetailForm.errors or listHeaderForm.non_field_errors %}
             <div class="mb-3 p-6 bg-red-100 rounded-xl">
@@ -341,14 +334,36 @@
 
     });
 
-  });
-
-  $(document).ready(function () {
     $('.edit-detail-button').click(function (e) {
       e.preventDefault();
 
+      let listDetailId = $(this).data('id');
+      let ListHeaderFK = $(this).data('listheaderfk');
+      let predecessor = $(this).data('listdetailfk');
+      let listDetailNumber = $(this).data('lnnumber');
+      let ListItemName = $(this).data('listitemname');
+
+      // Fill the form with data
+      $("#id_ListHeaderFK option").each(function () {
+        if ($(this).text() == ListHeaderFK) {
+          $(this).attr('selected', 'selected');
+        }
+      });
+      $("#id_ListDetailFK option").each(function () {
+        if ($(this).text() == predecessor) {
+          $(this).attr('selected', 'selected');
+        }
+      });
+      $('#editDetailForm input[name="ListDetailFK"]').val(predecessor);
+      $('#editDetailForm input[name="LNNumber"]').val(listDetailNumber);
+      $('#editDetailForm input[name="LHName"]').val(ListItemName);
+
       $('#editDetailModal').modal('show');
+
+      $('#editDetailForm').attr('action', '/listDetail_update/update/' + listDetailId + '/');
     });
+
   });
+
 </script>
 {% endblock %}
