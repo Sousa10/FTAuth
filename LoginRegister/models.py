@@ -105,7 +105,51 @@ class CalendarIncrements(models.Model):
   IncrementDate = models.DateField()
   IncrementTime = models.TimeField()
 
+# 
+# New 8/16 Start here, drop boxes for Calendar template
+# 
+class Calendars(models.Model):
+   calendar = models.CharField(primary_key=True, max_length=40)
+   name = models.CharField(max_length=64, blank=True, null=True)
+   description = models.CharField(max_length=4000, blank=True, null=True)
+   calendar_type = models.CharField(max_length=8, blank=True, null=True)
 
+   class Meta:
+      managed = False
+      db_table = 'calendars'
+
+class Views(models.Model):
+   view = models.CharField(primary_key=True, max_length=20)
+   name = models.CharField(max_length=64, blank=True, null=True)
+   description = models.CharField(max_length=4000, blank=True, null=True)
+   view_type = models.CharField(max_length=8, blank=True, null=True)
+
+   class Meta:
+      managed = False
+      db_table = 'views'
+
+class Dates(models.Model):
+   date = models.CharField(primary_key=True, max_length=20)
+   name = models.CharField(max_length=64, blank=True, null=True)
+   description = models.CharField(max_length=4000, blank=True, null=True)
+   date_type = models.CharField(max_length=8, blank=True, null=True)
+
+   class Meta:
+      managed = False
+      db_table = 'dates'
+
+class DefaultParams(models.Model):
+    default_param_id = models.AutoField(primary_key=True)
+    calendar = models.ForeignKey(Calendars, models.DO_NOTHING)
+    view = models.ForeignKey('Views', models.DO_NOTHING)
+    date = models.ForeignKey('Dates', models.DO_NOTHING, db_column='position_code', blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'default_squads'
+# 
+# End New 8/16 Start here, drop boxes for Calendar template
+# 
 
 
 
