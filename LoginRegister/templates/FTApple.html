@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}Calendar{% endblock %}
+{% block title %}Family Tracker Mobile Solution{% endblock %}
 
 {% block pageimage %}
-<img style="float: left;" src="{% static 'Apple.jpg' %}" alt="iPhone Tile missing" width="100"
+<img style="float: left;" src="{% static 'FamilyTrackerMobile.jpg' %}" alt="Mobile Tile missing" width="100"
   height="100">
 {% endblock %}
 {% block backurl %}{%url 'LoginRegister:FTAcministration'%}{% endblock %}
@@ -12,12 +12,26 @@
 <div class="h1">
   <a style="color:rgb(6, 6, 192)">
     <p style="font-size:40px">
-      <h2>Download the Family Tracker iPhone Application</h2>
+      <h2>Family Tracker Mobile Solution</h2>
     </p>
   </a>
 </div>
 {% endblock %}
 
 {% block content %}
+<br>
+<br>
+<a style="color:rgb(6, 6, 192)">
+    <h5>With "Family Tracker Mobile" there is no need to download, install and maintain a smart phone application!</h5>
+    <br>
+    <h5>"Family Tracker Mobile" has been optimized to work on your mobile device using the browser of your choice.  Simply enter "Family Tracker Mobile.com" as the URL in the bowser and "Family Tracker Mobile" will immediately load on your mobile phone or device.</h5>
+    <br>
+    <h5>The following modules are available on your mobile device:</h5>
+    <h5> * Calendar</h5>
+    <h5> * Lists & Planning</h5>
+    <h5> * Family Tracks</h5>
+    <h5> * Fitness & Sports</h5>
+    <h5> * Grocery</h5>
+</a>
 
 {% endblock %}

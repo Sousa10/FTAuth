@@ -2,12 +2,15 @@ from django.http import HttpResponse
 from django.template import loader
 from .models import PersonM, CashInAcctM, CashOutAcctM, WhatWeOwnAcctM, ListHeaderT, ListDetailsT
 from .models import DebtsAcctM, NetworthAcctM
+from .models import SponRates
 from .forms import CashInAcctMForm
 from .forms import CashOutAcctMForm
 from .forms import WhatWeOwnAcctMForm
 from .forms import DebtsAcctMForm
 from .forms import EquityAcctMForm
 from .forms import ListHeaderTForm, ListDetailsTForm, ListHeaderSelectForm
+from .forms import ListHeaderTForm, ListDetailsTForm
+from .forms import SponRatesForm
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
@@ -503,11 +506,24 @@ def FTAndroid(request):
   FTpersons = PersonM.objects.all().values()
   template = loader.get_template('FTAndroid.html')
   return HttpResponse(template.render())
-#
-# KMS Sponsor Rate Table
-#
+# 
+#   KMS Sponsor Rate Table Starts here
+# 
 def FTSponRateTbl(request):
-  FTpersons = PersonM.objects.all().values()
-  template = loader.get_template('FTSponRateTbl.html')
-  return HttpResponse(template.render())
-  
+  sponratesms = SponRates.objects.all()
+  paginator = Paginator(sponratesms, 11)  # Show 11 accounts per page.
+  page_number = request.GET.get("page")
+  sponratesms_paginated = paginator.get_page(page_number)
+  if request.method == 'POST':
+        form = SponRatesForm(request.POST)
+
+        if form.is_valid():
+          form.save()
+          return redirect('LoginRegister:FTSponRateTbl')    
+  else:
+      form = SponRatesForm(), 
+  return render(request, 'FTSponRateTbl.html', {
+    'form': form,
+    'sponratesms_paginated': sponratesms_paginated,
+    'title': 'Sponsor Rates',
+  })

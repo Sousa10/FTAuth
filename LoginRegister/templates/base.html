@@ -8,7 +8,6 @@
 </style>
 
 <head>
-
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %} | FamilyTracker</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -30,7 +29,7 @@
                     <a href="#Supp1" data-bs-toggle="modal" style="color:blue">Support</a>&nbsp&nbsp
                     <a href="#Sugg1" data-bs-toggle="modal" style="color:blue">Suggestions</a>&nbsp&nbsp
                     <a href="#Serv1" data-bs-toggle="modal" style="color:blue">Service Requests</a>&nbsp&nbsp
-                    <a href="#About1" data-bs-toggle="modal" style="color:blue">About Us</a>&nbsp&nbsp
+                    <a href="#About1" data-bs-toggle="modal" style="color:blue">Page Tutorial Video</a>&nbsp&nbsp
                     <a href="{% block backurl %}{% endblock %}" style="color:blue">Back</a>
                     &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                     &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
@@ -41,11 +40,8 @@
                     &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                     &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                     &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                    <a href="#SponMsg" data-bs-toggle="modal" style="color:blue">Message to Prospective
-                        Sponsors</a>&nbsp&nbsp
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    <a href="#SponMsg" data-bs-toggle="modal" style="color:blue">Message to Prospective Sponsors</a>&nbsp&nbsp
                     <!-- <a href="#SponRate" data-bs-toggle="modal" style="color:blue">Sponsor Rate Table</a>&nbsp&nbsp -->
                     <a href="{% url 'LoginRegister:FTSponRateTbl' %}">Sponsor Rate Table</a>
 
@@ -85,6 +81,7 @@
 
             </div>
             <!-- Center Open Area -->
+            <!-- <div class="col-md-8" style="text-align: center;"> -->
             <div class="col-md-8" style="text-align: center;">
                 {% block content %}
                 {% endblock %}
@@ -115,6 +112,7 @@
                 </div>
 
             </div>
+        </div>
     </main>
 
     <footer class="mt-4 text-center">
@@ -350,20 +348,20 @@
         </div>
     </div>
 
-    <!-- Modal SponMsg -->
-    <div class="modal fade" id="SponMsg" tabindex="-1" aria-labelledby="SponMsgLabel" aria-hidden="true">
-        <div class="modal-dialog ads">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="SponMsgLabel">A Message to Prospective Sponsors</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                </div>
-                <div class="modal-body">
-                    <br>Message to prospective sponsors goes here
+        <!-- Modal SponMsg -->
+        <div class="modal fade" id="SponMsg" tabindex="-1" aria-labelledby="SponMsgLabel" aria-hidden="true">
+            <div class="modal-dialog ads">
+                <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="SponMsgLabel">The Next Big Thing</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        </div>
+                        <div class="modal-body">
+                            <br>Welcome to our prospective sponsors and thank you for considering Family Tracker as a potential component to your advertising and promotion strategy.<br><br>Family Tracker is a fun, family oriented and easy to use application that is extremely helpful and FREE to our customers.  Family Tracker enables common family activities and bookkeeping.  With Family Tracker, when it comes to tax time, you have all the information you need, in one spot, whether you do your own taxes or hire a professional, Family Tracker will save hours of time collecting information when preparing forms.  Tracker also measures and reports on family financial performance, networth and supports family budgeting.<br><br>Other applications support secured messaging, project planning, list management and other important aspects of today's family life.<br><br>Family Tracker helps restore a fading sense of family and team work. With computers and mobile devices becoming a staple for most households our potential user base is nearly un-limited.<br><br>Family Tracker presents potential sponsors with the opportunity for "Smart Advertising" to targeted markets with comprehensive reporting including use of Promo codes and monthly reporting on the number of times your advertising spot has been "clicked"… by postal code, state and region.<br><br>The rate table reflects 1/2 of one percent of the population using family tracker which is our forcast. Fees represent $.01 per Family Tracker user per geography where the spot is being run.<br><br>Until we reach forecast numbers, advertising rates are materially discounted, you can lock in your rate at extreme discount with nothing but upside as our numbers grow.  If for any reason you or your organization is less than satisified, you can cancel at any time with 30 day notice.<br><br>As the founder and Chief Operating Officer (COO) of Family Tracker, I work personally with each sponsor to help determine the option(s) that best suit their needs and to ensure on-going satisfaction with the advertising decision.<br><br>Thank You,<br>Kirk Shelton
+                        </div>
                 </div>
             </div>
         </div>
-    </div>
 
     <!-- Modal SponRateTable -->
     <div class="modal fade" id="SponRate" tabindex="-1" aria-labelledby="SponRateLabel" aria-hidden="true">

@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 
-from .models import CashInAcctM, CashOutAcctM, WhatWeOwnAcctM, DebtsAcctM, ListHeaderT, ListDetailsT, NetworthAcctM
+from .models import CashInAcctM, CashOutAcctM, WhatWeOwnAcctM, DebtsAcctM, ListHeaderT, ListDetailsT, NetworthAcctM, SponRates
 
 
 INPUT_CLASSES = 'w-full py-4 px-6 rounded-xl border form-control'
@@ -68,7 +68,6 @@ class DebtsAcctMForm(forms.ModelForm):
             })
         }
 
-
 class EquityAcctMForm(forms.ModelForm):
     class Meta:
         model = NetworthAcctM
@@ -81,7 +80,32 @@ class EquityAcctMForm(forms.ModelForm):
                 'class': INPUT_CLASSES
             })
         }
-       
+
+class SponRatesForm(forms.ModelForm):  
+    class Meta:
+        model = SponRates
+        fields = ('Sequence', 'Geography', 'Population', 'FTUserCount', 'Spots1_6Rate', 'Spot7Rate')
+        widgets = {
+            'Sequence': forms.TextInput(attrs={
+                'class': INPUT_CLASSES
+            }),
+            'Geography': forms.TextInput(attrs={
+                'class': INPUT_CLASSES
+            }),
+            'Population': forms.TextInput(attrs={
+                'class': INPUT_CLASSES
+            }),
+            'FTUserCount': forms.TextInput(attrs={
+                'class': INPUT_CLASSES
+            }),
+            'Spots1_6Rate': forms.TextInput(attrs={
+                'class': INPUT_CLASSES
+            }),
+            'Spot7Rate': forms.TextInput(attrs={
+                'class': INPUT_CLASSES
+            })
+        }
+
 class ListHeaderTForm(forms.ModelForm):
     class Meta:
         model = ListHeaderT
