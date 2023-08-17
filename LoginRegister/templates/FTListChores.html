@@ -150,7 +150,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
 
-        <form action="{% url 'LoginRegister:FTListChores' %}" method="post">
+        <form action="{% url 'LoginRegister:FTListChores' listheader.id|default:'new' %}" method="post">
           <div class="modal-body">
             {% csrf_token %}
             <div class="form-group">
@@ -189,7 +189,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form action="{% url 'LoginRegister:FTListChores' %}" method="post">
+          <form action="{% url 'LoginRegister:FTListChores' listheader.id|default:'new' %}" method="post">
             {% csrf_token %}
             <div class="form-group">
               <label for="{{ listDetailForm.ListHeaderFK.id_for_label }}">List Header</label>
@@ -323,7 +323,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
 
-        <form action="{% url 'LoginRegister:FTListChores' %}" method="post">
+        <form action="{% url 'LoginRegister:FTListChores' listheader.id|default:'new' %}" method="post">
           <div class="modal-body">
             {% csrf_token %}
             <div class="form-group">

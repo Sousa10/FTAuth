@@ -83,17 +83,17 @@ def FTToDos(request):
   template = loader.get_template('FTToDos.html')
   return HttpResponse(template.render())
 
-def FTListChores(request):
+def FTListChores(request, listheader_id=None):
   #listheader = None
-  listheader = ListHeaderT.objects.first()
-
-  listdetails = ListDetailsT.objects.filter(ListHeaderFK=listheader)
-  paginator = Paginator(listdetails, 2)  # Show 10 ListDetailsT objects per page
-  page_number = request.GET.get('page', 1)  # get page number for each ListHeaderT instance
-  page = paginator.get_page(page_number)
-  #listdetails = None
-  #paginator = None
-  #page = None
+  if listheader_id:
+    listheader = ListHeaderT.objects.get(id=listheader_id)
+    listdetails = ListDetailsT.objects.filter(ListHeaderFK=listheader)
+    paginator = Paginator(listdetails, 2)  # Show 10 ListDetailsT objects per page
+    page_number = request.GET.get('page', 1)  # get page number for each ListHeaderT instance
+    page = paginator.get_page(page_number)
+  else:
+    listdetails = None
+    page = None
   
   listHeaderForm = ListHeaderTForm()
   listDetailForm = ListDetailsTForm()
@@ -106,14 +106,14 @@ def FTListChores(request):
           if listHeaderForm.is_valid():
              listHeaderForm.save()
 
-             return redirect('LoginRegister:FTListChores')
+             return redirect('LoginRegister:FTListChores', listheader_id=listheader.id)
           
         elif form_type == 'ListDetailsTForm':
           listDetailForm = ListDetailsTForm(request.POST)
           if listDetailForm.is_valid():
             listDetailForm.save()
 
-            return redirect('LoginRegister:FTListChores')
+            return redirect('LoginRegister:FTListChores', listheader_id=listheader.id)
           
         elif form_type == 'SelectedHeaderTForm':
           print(form_type)
@@ -127,13 +127,15 @@ def FTListChores(request):
             page = paginator.get_page(page_number)
             print(type(listheader))
 
-            return render(request, 'FTListChores.html', {
-              'listHeaderForm': listHeaderForm,
-              'listDetailForm': listDetailForm,
-              'selectedHeaderForm': selectedHeaderForm,
-              'listheader': listheader,
-              'listdetails': page,
-            })
+            return redirect('LoginRegister:FTListChores', listheader_id=listheader.id)
+
+            # return render(request, 'FTListChores.html', {
+            #   'listHeaderForm': listHeaderForm,
+            #   'listDetailForm': listDetailForm,
+            #   'selectedHeaderForm': selectedHeaderForm,
+            #   'listheader': listheader,
+            #   'listdetails': page,
+            # })
   else:
       listHeaderForm = ListHeaderTForm()
       listDetailForm = ListDetailsTForm()
@@ -153,7 +155,7 @@ def listHeader_update(request, pk):
 
         if form.is_valid():
           form.save()
-          return redirect('LoginRegister:FTListChores')    
+          return redirect('LoginRegister:FTListChores', listheader_id=listHeader.id)    
   else:
       form = ListHeaderTForm(instance=listHeader)
   return render(request, 'FTListChores.html', {
@@ -168,7 +170,7 @@ def listDetail_update(request, pk):
 
         if form.is_valid():
           form.save()
-          return redirect('LoginRegister:FTListChores')    
+          return redirect('LoginRegister:FTListChores', listheader_id=listDetail.ListHeaderFK.id)    
   else:
       form = ListDetailsTForm(instance=listDetail)
   return render(request, 'FTListChores.html', {
@@ -181,13 +183,13 @@ def listHeader_delete(request, pk):
   listHeader = get_object_or_404(ListHeaderT, pk=pk)
   listHeader.delete()
 
-  return redirect('LoginRegister:FTListChores')
+  return redirect('LoginRegister:FTListChores', listheader_id=listHeader.id)
 
 def listDetail_delete(request, pk):
   listDetail = get_object_or_404(ListDetailsT, pk=pk)
   listDetail.delete()
 
-  return redirect('LoginRegister:FTListChores')
+  return redirect('LoginRegister:FTListChores', listheader_id=listDetail.ListHeaderFK.id)
 
 def FTFamilyTracks(request):
   FTpersons = PersonM.objects.all().values()
