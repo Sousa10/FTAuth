@@ -1,22 +1,24 @@
 {% extends 'base.html' %}
 {% load static %}
-
-{% block title %}List & Chores{% endblock %}
+{% block title %}Lists & Planning{% endblock %}
 
 {% block pageimage %}
-<img style="float: left;" src="{% static 'ListChores.jpg' %}" alt="To Do'a Tile Missing" width="100" height="100">
+<img style="float: left;" src="{% static 'ListsAndPlanning.jpg' %}" alt="Liststs and Planning Tile Missing" width="100" height="100">
 {% endblock %}
 
 {% block backurl %}{%url 'LoginRegister:FTMainMenu'%}{% endblock %}
 
-{% block content %}
+{% block pageTitle %}
 <div class="h1">
   <a style="color:rgb(6, 6, 192)">
     <p style="font-size:40px">
-      <h2>List & Chores</h2>
+      <h2>Lists & Planning</h2>
     </p>
   </a>
 </div>
+{% endblock %}
+
+{% block content %}
 <div class="row text-center">
   <div class="col-md-1">
   </div>
@@ -24,7 +26,7 @@
     <table style="border-bottom: none!important;">
       <thead>
         <tr>
-          <th style="text-align: center;">List</th>
+          <th style="text-align: center;">List or Plan</th>
         </tr>
       </thead>
       <tbody>
@@ -154,7 +156,7 @@
           <div class="modal-body">
             {% csrf_token %}
             <div class="form-group">
-              <label for="{{ listHeaderForm.LHName.id_for_label }}">List Name</label>
+              <label for="{{ listHeaderForm.LHName.id_for_label }}">List or Plan Name</label>
               {{ listHeaderForm.LHName }}
             </div>
             <div class="form-group">
@@ -199,10 +201,10 @@
               <label for="{{ listDetailForm.ListDetailFK.id_for_label }}">Predecessor</label>
               {{ listDetailForm.ListDetailFK }}
             </div>
-            <div class="form-group">
-              <label for="{{ listDetailForm.LNNumber.id_for_label }}">List Item Number</label>
-              {{ listDetailForm.LNNumber }}
-            </div>
+            <!-- <div class="form-group"> -->
+              <!-- <label for="{{ listDetailForm.LNNumber.id_for_label }}">List Item Number</label> -->
+              <!-- {{ listDetailForm.LNNumber }} -->
+            <!-- </div> -->
             <div class="form-group">
               <label for="{{ listDetailForm.LHName.id_for_label }}">List Item Name</label>
               {{ listDetailForm.LHName }}
@@ -286,10 +288,10 @@
               <label for="{{ listDetailForm.ListDetailFK.id_for_label }}">Predecessor</label>
               {{ listDetailForm.ListDetailFK }}
             </div>
-            <div class="form-group">
-              <label for="{{ listDetailForm.LNNumber.id_for_label }}">List Item Number</label>
-              {{ listDetailForm.LNNumber }}
-            </div>
+            <!-- <div class="form-group"> -->
+              <!-- <label for="{{ listDetailForm.LNNumber.id_for_label }}">List Item Number</label> -->
+              <!-- {{ listDetailForm.LNNumber }} -->
+            <!-- </div> -->
             <div class="form-group">
               <label for="{{ listDetailForm.LHName.id_for_label }}">List Item Name</label>
               {{ listDetailForm.LHName }}
@@ -327,7 +329,7 @@
           <div class="modal-body">
             {% csrf_token %}
             <div class="form-group">
-              <label for="{{ listHeaderForm.LHName.id_for_label }}">List Name</label>
+              <label for="{{ listHeaderForm.LHName.id_for_label }}">List or Plan Name</label>
               {{ selectedHeaderForm.LHName }}
             </div>
             {% if selectedHeaderForm.errors or selectedHeaderForm.non_field_errors %}

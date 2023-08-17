@@ -84,16 +84,16 @@ def FTToDos(request):
   return HttpResponse(template.render())
 
 def FTListChores(request):
-  #listheader = None
-  listheader = ListHeaderT.objects.first()
+  listheader = None
+  #listheader = ListHeaderT.objects.first()
 
-  listdetails = ListDetailsT.objects.filter(ListHeaderFK=listheader)
-  paginator = Paginator(listdetails, 2)  # Show 10 ListDetailsT objects per page
-  page_number = request.GET.get('page', 1)  # get page number for each ListHeaderT instance
-  page = paginator.get_page(page_number)
-  #listdetails = None
-  #paginator = None
-  #page = None
+  #listdetails = ListDetailsT.objects.filter(ListHeaderFK=listheader)
+  #paginator = Paginator(listdetails, 5)  # Show 10 ListDetailsT objects per page
+  #page_number = request.GET.get('page', 1)  # get page number for each ListHeaderT instance
+  #page = paginator.get_page(page_number)
+  listdetails = None
+  paginator = None
+  page = None
   
   listHeaderForm = ListHeaderTForm()
   listDetailForm = ListDetailsTForm()
@@ -113,7 +113,7 @@ def FTListChores(request):
           if listDetailForm.is_valid():
             listDetailForm.save()
 
-            return redirect('LoginRegister:FTListChores')
+            #return redirect('LoginRegister:FTListChores')
           
         elif form_type == 'SelectedHeaderTForm':
           print(form_type)
@@ -122,7 +122,7 @@ def FTListChores(request):
             listheaderName = selectedHeaderForm.cleaned_data['LHName']
             listheader = ListHeaderT.objects.get(LHName=listheaderName)
             listdetails = listheader.listdetailst_set.all()
-            paginator = Paginator(listdetails, 2)  # Show 10 ListDetailsT objects per page
+            paginator = Paginator(listdetails, 5)  # Show 10 ListDetailsT objects per page
             page_number = request.GET.get('page', 1)  # get page number for each ListHeaderT instance
             page = paginator.get_page(page_number)
             print(type(listheader))
