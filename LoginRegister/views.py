@@ -24,11 +24,14 @@ def LoginRegister(request):
   }
   return HttpResponse(template.render(context, request))
 
-@login_required
+#@login_required
 def FTMainMenu(request):
-  FTpersons = PersonM.objects.all().values()
+  listHeader = ListHeaderT.objects.first()
   template = loader.get_template('FTMainMenu.html')
-  return HttpResponse(template.render())
+  context = {
+    'listHeader': listHeader,
+  }
+  return HttpResponse(template.render(context, request))
 
 def FTFinances(request):
   cashinacctms = CashInAcctM.objects.all()
