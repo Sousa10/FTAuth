@@ -31,7 +31,7 @@
   <a> &nbsp&nbsp&nbsp&nbsp </a>
   <!-- <a href="{% url 'LoginRegister:FTToDos' %}"><img src="{% static 'ToDos.jpg' %}" alt="To Do's Tile Missing" width="130" height="130"></a> -->
   <!-- <a> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp </a> -->
-  <a href="{% url 'LoginRegister:FTListChores' %}"><img src="{% static 'ListsAndPlanning.jpg' %}" alt="To Do's Tile Missing" width="130" height="130"></a>>
+  <a href="{% url 'LoginRegister:FTListChores' listHeader.id|default:'new' %}"><img src="{% static 'ListsAndPlanning.jpg' %}" alt="To Do's Tile Missing" width="130" height="130"></a>
   <a> &nbsp&nbsp&nbsp&nbsp </a>
   <a href="{% url 'LoginRegister:FTFamilyTracks' %}"><img src="{% static 'FamilyTracks.jpg' %}" alt="To Do's Tile Missing" width="130" height="130"></a>
   <a> &nbsp&nbsp&nbsp&nbsp </a>
