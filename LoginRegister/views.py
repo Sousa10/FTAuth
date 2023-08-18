@@ -99,7 +99,8 @@ def FTListChores(request, listheader_id=None):
     page = None
   
   listHeaderForm = ListHeaderTForm()
-  listDetailForm = ListDetailsTForm()
+  selected_header = ListHeaderT.objects.get(id=listheader_id)
+  listDetailForm = ListDetailsTForm(list_header = selected_header)
   selectedHeaderForm = ListHeaderSelectForm()
 
   if request.method == 'POST':
@@ -141,7 +142,8 @@ def FTListChores(request, listheader_id=None):
             # })
   else:
       listHeaderForm = ListHeaderTForm()
-      listDetailForm = ListDetailsTForm()
+      selected_header = ListHeaderT.objects.get(id=listheader_id)
+      listDetailForm = ListDetailsTForm(list_header = selected_header)
   return render(request, 'FTListChores.html', {
     'listHeaderForm': listHeaderForm,
     'listDetailForm': listDetailForm,
