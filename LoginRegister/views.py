@@ -125,7 +125,7 @@ def FTListChores(request, listheader_id=None):
             listheaderName = selectedHeaderForm.cleaned_data['LHName']
             listheader = ListHeaderT.objects.get(LHName=listheaderName)
             listdetails = listheader.listdetailst_set.all()
-            paginator = Paginator(listdetails, 2)  # Show 10 ListDetailsT objects per page
+            paginator = Paginator(listdetails, 5)  # Show 10 ListDetailsT objects per page
             page_number = request.GET.get('page', 1)  # get page number for each ListHeaderT instance
             page = paginator.get_page(page_number)
             print(type(listheader))
