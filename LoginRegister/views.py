@@ -542,10 +542,10 @@ def FTSponRateTbl(request):
 # 
 # New 8/16 Start here, drop boxes for Calendar template
 # 
-class DefaultParamsViewCreate():
-    template_name = 'fafl/defaultSquad_form.html'
-    model = DefaultParams
-    fields = ['Calendar', 'View', 'Date']
+# class DefaultParamsViewCreate():
+    # template_name = 'fafl/defaultSquad_form.html'
+    # model = DefaultParams
+    # fields = ['Calendar', 'View', 'Date']
     # success_url = reverse_lazy('fafl:DefaultParams-list')
 
     # def get_context_data(self, **kwargs):

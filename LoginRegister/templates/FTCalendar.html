@@ -16,45 +16,139 @@
     </p>
   </a>
 </div>
+<br>
+
+<a style="color:rgb(6, 6, 192)">
+  <form action="/action_page.php">
+    &nbsp&nbsp&nbsp&nbsp&nbsp<label for="Views">Choose a Calendar</label>&nbsp
+    <select style="background-color:#98b2c9;" name="calendars" id="calendars">
+      <option style="background-color:#98b2c9;" value="Family">Family</option>
+      <option style="background-color:#98b2c9;" value="Lisa's">Lisa's</option>
+      <option style="background-color:#98b2c9;" value="Maddy's">Maddy's</option>
+      <option style="background-color:#98b2c9;" value="Kirk's">Kirk's</option>
+    </select>
+    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="submit" value="Submit">&nbsp<button type="button">Add New Calendar</button>  </form>
+  <form action="/acgittion_page.php">
+    &nbsp&nbsp&nbsp&nbsp&nbsp<label for="Views">Choose a View</label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+    <select style="background-color:#98b2c9;" name="views" id="views">
+      <option style="background-color:#98b2c9;" value="One Day">One Day</option>
+      <option style="background-color:#98b2c9;" value="Weekly">Weekly</option>
+      <option style="background-color:#98b2c9;" value="Monthly">Monthly</option>
+    </select>
+    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="submit" value="Submit">
+  </form>
+  <form action="/action_page.php">
+    &nbsp&nbsp&nbsp&nbsp&nbsp<label for="Days">Choose a Day</label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+    <select style="background-color:#98b2c9;" name="days" id="days">
+      <option style="background-color:#98b2c9;" value="08/18/23">08/18 - Friday</option><option value="08/19/23">08/19 - Saturday</option><option value="08/20/23">08/20 - Sunday</option><option value="08/21/23">08/21 - Monday</option><option value="08/22/23">08/22 - Tuesday</option><option value="08/23/23">08/23 - Wednesday</option><option value="08/18/24">08/24 - Thursday</option>
+      <option style="background-color:#98b2c9;" value="08/25/23">08/25 - Friday</option><option value="08/26/23">08/26 - Saturday</option><option value="08/27/23">08/27 - Sunday</option><option value="08/28/23">08/28 - Monday</option><option value="08/29/23">08/29 - Tuesday</option><option value="08/30/23">08/30 - Wednesday</option><option value="08/31/24">08/31 - Thursday</option>
+      <option style="background-color:#98b2c9;" value="09/01/23">09/01 - Friday</option><option value="09/02/23">09/02 - Saturday</option><option value="09/03/23">09/03 - Sunday</option><option value="09/04/23">09/04 - Monday</option><option value="09/05/23">09/05 - Tuesday</option><option value="09/06/23">09/06 - Wednesday</option><option value="09/07/24">09/07 - Thursday</option>
+      <option style="background-color:#98b2c9;" style="background-color:#98b2c9;" value="09/08/23">09/08 - Friday</option><option value="09/09/23">09/09 - Saturday</option><option value="09/10/23">09/10 - Sunday</option><option value="09/11/23">09/11 - Monday</option><option value="09/12/23">09/12 - Tuesday</option><option value="09/13/23">09/13 - Wednesday</option><option value="09/14/24">09/14 - Thursday</option>
+      <option value="09/15/23">09/15 - Friday</option><option value="09/16/23">09/16 - Saturday</option><option value="09/17/23">09/17 - Sunday</option><option value="09/18/23">09/18 - Monday</option><option value="09/19/23">09/19 - Tuesday</option><option value="09/20/23">09/20 - Wednesday</option><option value="09/21/24">09/21 - Thursday</option>
+    </select>
+    &nbsp<input type="submit" value="Submit">
+  </form>
+  <!-- <button type="button">Add New Calendar</button> -->
+</a>
+
 {% endblock %}
 
 {% block content %}
-<a style="color:rgb(6, 6, 192)">
-  <h6>"Calendar" Selection Drop Box to Right of "Calendar" designation (this is the owner - e.g. Family, Kirk, Lisa, Maddy)&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</h6>
-  <h6>"View" Selection Drop Box to Right of "View" designation (this is the view to be presented - Day, Week, or Month)&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</h6>
-  <h6>"Date" Selection Drop Box to Right of "Date" designation (this is the date that drives the Day, Week of Month view)&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</h6>
-  <h6>"New" _Button Opens popup where can schedule any date, start & end times. (Title and brief descripion of entry)&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</h6>
-</a>
+<div>
+  <table>
+    <thead>
+      <tr>
+        <th>Account Number</th>
+        <th>Description</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for cashinacctm in cashinacctms %}
+      <tr>
+        <td>{{ cashinacctm.AccountNumber }}</td>
+        <td>{{ cashinacctm.Description }}</td>
+        <td>
+          <a href="{% url 'LoginRegister:cashinacctm_delete' cashinacctm.id %}" class="btn btn-danger">Delete</a>
+          <a href="{% url 'LoginRegister:cashinacctm_update' cashinacctm.id %}"
+            class="btn btn-secondary edit-button">Edit</a>
+        </td>
+      </tr>
+      {% endfor %}
+      <tr>
+        <td colspan="3" class="text-center">
+          <a class="add-button btn btn-info" href="#">Add</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!-- Add modal -->
+<div class="md-6">
+  <div id="addModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times</span>
+      <h2>{{ title }}</h2>
 
-<form method="POST" class="form-horizontal">
-  {% csrf_token %}
-  <div class="box-body">
-    DefaultParams
-    <div class="form-group">
-      <label for="{{ form.club.club_id.id_for_label }}" class="col-sm-2 control-lable">Calendar</label>
-      <div class="col-sm-10">
-
-        <!-- Not sure how ? -->
-
-        <select id="{{ form.club.club_id.id_for_label }}" name="club" class="form-control">
-          <option value="None"></option>
-          {% for club in clubs %}
-          <option value="{{ club.club_id }}" selected="selected">{{ club.nickname }}</option>
+      <form action="{% url 'LoginRegister:FTRevenueAccts' %}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="{{ form.AccountNumber.id_for_label }}">Account Number</label>
+          {{ form.AccountNumber }}
+        </div>
+        <div class="form-group">
+          <label for="{{ form.Description.id_for_label }}">Description</label>
+          {{ form.Description }}
+        </div>
+        {% if form.errors or form.non_field_errors %}
+        <div class="mb-3 p-6 bg-red-100 rounded-xl">
+          {% for field in form %}
+          {{ field.errors }}
           {% endfor %}
-        </select>
 
-      </div>
+          {{ form.non_field_errors }}
+        </div>
+        {% endif %}
+        <button type="submit"
+          class="btn btn-primary">Submit</button>
+      </form>
     </div>
-    <div class="form-group">
-      <label for="{{ form.club_name.id_for_label }}" class="col-sm-2 control-lable">View</label>
-      <div class="col-sm-10">
-        <input id="{{ form.short_name.id_for_label }}" type="text" name="short_name" maxlength="100" class="form-control" required />
-      </div>
+  </div>
+</div>
+<!-- Edit modal -->
+<div class="md-4">
+  <div id="editModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times</span>
+
+      <h2>{{ title }}</h2>
+      <form id="editForm" action="." method="post">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="{{ form.AccountNumber.id_for_label }}">Account Number</label>
+          {{ form.AccountNumber }}
+        </div>
+        <div class="form-group">
+          <label for="{{ form.Description.id_for_label }}">Description</label>
+          {{ form.Description }}
+        </div>
+        {% if form.errors or form.non_field_errors %}
+        <div class="mb-3 p-6 bg-red-100 rounded-xl">
+          {% for field in form %}
+          {{ field.errors }}
+          {% endfor %}
+
+          {{ form.non_field_errors }}
+        </div>
+        {% endif %}
+        <button type="submit"
+          class="mt-6 mb-6 py-4 px-8 text-lg bg-teal-500 hover:bg-teal-700 rounded-xl text-white">Submit</button>
+      </form>
+
     </div>
-    <div class="form-group">
-      <label for="{{ form.club_name.id_for_label }}" class="col-sm-2 control-lable">Date</label>
-      <div class="col-sm-10">
-        <input id="{{ form.nickname.id_for_label }}" type="text" name="nickname" maxlength="6" class="form-control" required />
+  </div>
+</div>
+
 
 
 {% endblock %}
