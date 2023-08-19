@@ -120,6 +120,13 @@ class ListHeaderTForm(forms.ModelForm):
         }
 
 class ListDetailsTForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        list_header = kwargs.pop('list_header', None)  # Get the passed list_header and remove from kwargs
+        super(ListDetailsTForm, self).__init__(*args, **kwargs)
+        if list_header:
+            self.fields['ListHeaderFK'].initial = list_header
+            self.fields['ListDetailFK'].queryset = ListDetailsT.objects.filter(ListHeaderFK=list_header)
+
     class Meta:
         model = ListDetailsT
         fields = ('ListHeaderFK', 'ListDetailFK', 'LNNumber', 'LHName')
