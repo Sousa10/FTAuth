@@ -48,4 +48,5 @@ urlpatterns = [
     path('LoginRegister/FTApple/', views.FTApple, name='FTApple'),
     path('LoginRegister/FTAndroid/', views.FTAndroid, name='FTAndroid'),
     path('LoginRegister/FTSponRateTbl/', views.FTSponRateTbl, name='FTSponRateTbl'),
+    path('transactions/', views.FTTransactions, name='FTTransactions'),
 ]

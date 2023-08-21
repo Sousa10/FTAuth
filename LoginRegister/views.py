@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.template import loader
-from .models import PersonM, CashInAcctM, CashOutAcctM, WhatWeOwnAcctM, ListHeaderT, ListDetailsT
+from .models import PersonM, CashInAcctM, CashOutAcctM, WhatWeOwnAcctM, ListHeaderT, ListDetailsT, Transactions
 from .models import DebtsAcctM, NetworthAcctM
 from .models import SponRates
 from .models import DefaultParams
@@ -9,13 +9,15 @@ from .forms import CashOutAcctMForm
 from .forms import WhatWeOwnAcctMForm
 from .forms import DebtsAcctMForm
 from .forms import EquityAcctMForm
-from .forms import ListHeaderTForm, ListDetailsTForm, ListHeaderSelectForm
+from .forms import ListHeaderTForm, ListDetailsTForm, ListHeaderSelectForm, UploadExcelForm
 from .forms import ListHeaderTForm, ListDetailsTForm
 from .forms import SponRatesForm
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.views.generic.edit import CreateView
+import openpyxl
+from io import BytesIO
 
 def LoginRegister(request):
   FTpersons = PersonM.objects.all().values()
@@ -542,8 +544,53 @@ def FTSponRateTbl(request):
     'title': 'Sponsor Rates',
   })
 # 
-#   KMS Start Day Picker
-#
-class PromiseCreateView(CreateView):
-    model = Promise
-    form_class = PromiseForm
+# New 8/16 Start here, drop boxes for Calendar template
+# 
+class DefaultParamsViewCreate():
+    template_name = 'fafl/defaultSquad_form.html'
+    model = DefaultParams
+    fields = ['Calendar', 'View', 'Date']
+    # success_url = reverse_lazy('fafl:DefaultParams-list')
+
+    # def get_context_data(self, **kwargs):
+        # context = super(DefaultParamsView, self).get_context_data(**kwargs)
+        # context['clubs'] = Clubs.objects.all().order_by('club_id')
+        # context['players'] = Players.objects.all().order_by('player_id')
+        # return context
+def populate_from_excel(excel_file):
+    workbook = openpyxl.load_workbook(filename=BytesIO(excel_file.read()))
+    sheet = workbook.active
+
+    for row in sheet.iter_rows(min_row=2, values_only=True):  # Skipping header
+        description, date, note = row
+
+        Transactions.objects.create(
+            description=description,
+            date=date,
+            note=note
+        )
+def FTTransactions(request):
+    if request.method == 'POST':
+      form = UploadExcelForm(request.POST, request.FILES)
+      if form.is_valid():
+          excel_file = request.FILES['excel_file']
+          populate_from_excel(excel_file)
+          return redirect('LoginRegister:FTTransactions')  # Redirect back to the same view
+    else:
+      form = UploadExcelForm()
+
+    transactions = Transactions.objects.all()
+    paginator = Paginator(transactions, 11)  # Show 11 accounts per page.
+    page_number = request.GET.get("page")
+    transactions_paginated = paginator.get_page(page_number)
+    context = {
+      'form': form,
+      'transactions': transactions_paginated
+    }
+    return render(request, 'transaction.html', context)
+
+def transaction_delete(request, pk):
+    transaction = get_object_or_404(Transactions, pk=pk)
+    transaction.delete()
+
+    return redirect('LoginRegister:FTTransactions')
