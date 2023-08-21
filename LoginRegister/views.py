@@ -570,17 +570,27 @@ def populate_from_excel(excel_file):
             note=note
         )
 def FTTransactions(request):
-  form = UploadExcelForm(request.POST, request.FILES)
-  if form.is_valid():
-      excel_file = request.FILES['excel_file']
-      populate_from_excel(excel_file)
-      return redirect('transactions_view')  # Redirect back to the same view
-  else:
-    form = UploadExcelForm()
+    if request.method == 'POST':
+      form = UploadExcelForm(request.POST, request.FILES)
+      if form.is_valid():
+          excel_file = request.FILES['excel_file']
+          populate_from_excel(excel_file)
+          return redirect('LoginRegister:FTTransactions')  # Redirect back to the same view
+    else:
+      form = UploadExcelForm()
 
-  transactions = Transactions.objects.all()
-  context = {
-  'form': form,
-  'transactions': transactions
-  }
-  return render(request, 'transactions.html', context)
+    transactions = Transactions.objects.all()
+    paginator = Paginator(transactions, 11)  # Show 11 accounts per page.
+    page_number = request.GET.get("page")
+    transactions_paginated = paginator.get_page(page_number)
+    context = {
+      'form': form,
+      'transactions': transactions_paginated
+    }
+    return render(request, 'transaction.html', context)
+
+def transaction_delete(request, pk):
+    transaction = get_object_or_404(Transactions, pk=pk)
+    transaction.delete()
+
+    return redirect('LoginRegister:FTTransactions')
