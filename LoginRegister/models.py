@@ -148,8 +148,12 @@ class DefaultParams(models.Model):
         managed = False
         db_table = 'default_params'
 # 
-# End New 8/16 Start here, drop boxes for Calendar template
-# 
+#   KMS Start Day Picker
+#
+class Promise(models):
+    title = models.CharField(max_length=300)
+    description = models.TextField(blank=True)
+    made_on = models.DateField()
 
 
 

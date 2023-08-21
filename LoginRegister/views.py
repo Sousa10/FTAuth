@@ -15,6 +15,7 @@ from .forms import SponRatesForm
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
+from django.views.generic.edit import CreateView
 
 def LoginRegister(request):
   FTpersons = PersonM.objects.all().values()
@@ -540,18 +541,9 @@ def FTSponRateTbl(request):
     'sponratesms_paginated': sponratesms_paginated,
     'title': 'Sponsor Rates',
   })
-
 # 
-# New 8/16 Start here, drop boxes for Calendar template
-# 
-# class DefaultParamsViewCreate():
-    # template_name = 'fafl/defaultSquad_form.html'
-    # model = DefaultParams
-    # fields = ['Calendar', 'View', 'Date']
-    # success_url = reverse_lazy('fafl:DefaultParams-list')
-
-    # def get_context_data(self, **kwargs):
-        # context = super(DefaultParamsView, self).get_context_data(**kwargs)
-        # context['clubs'] = Clubs.objects.all().order_by('club_id')
-        # context['players'] = Players.objects.all().order_by('player_id')
-        # return context
+#   KMS Start Day Picker
+#
+class PromiseCreateView(CreateView):
+    model = Promise
+    form_class = PromiseForm
