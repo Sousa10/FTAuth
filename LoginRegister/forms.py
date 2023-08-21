@@ -153,3 +153,6 @@ class ListHeaderSelectForm(forms.ModelForm):
         fields = ['LHName']
 
     LHName = forms.ModelChoiceField(queryset=ListHeaderT.objects.all(), widget=forms.Select(attrs={'class': INPUT_CLASSES}))
+
+class UploadExcelForm(forms.Form):
+    excel_file = forms.FileField()

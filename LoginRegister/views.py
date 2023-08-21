@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.template import loader
-from .models import PersonM, CashInAcctM, CashOutAcctM, WhatWeOwnAcctM, ListHeaderT, ListDetailsT
+from .models import PersonM, CashInAcctM, CashOutAcctM, WhatWeOwnAcctM, ListHeaderT, ListDetailsT, Transactions
 from .models import DebtsAcctM, NetworthAcctM
 from .models import SponRates
 from .models import DefaultParams
@@ -9,12 +9,14 @@ from .forms import CashOutAcctMForm
 from .forms import WhatWeOwnAcctMForm
 from .forms import DebtsAcctMForm
 from .forms import EquityAcctMForm
-from .forms import ListHeaderTForm, ListDetailsTForm, ListHeaderSelectForm
+from .forms import ListHeaderTForm, ListDetailsTForm, ListHeaderSelectForm, UploadExcelForm
 from .forms import ListHeaderTForm, ListDetailsTForm
 from .forms import SponRatesForm
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
+import openpyxl
+from io import BytesIO
 
 def LoginRegister(request):
   FTpersons = PersonM.objects.all().values()
@@ -555,3 +557,30 @@ class DefaultParamsViewCreate():
         # context['clubs'] = Clubs.objects.all().order_by('club_id')
         # context['players'] = Players.objects.all().order_by('player_id')
         # return context
+def populate_from_excel(excel_file):
+    workbook = openpyxl.load_workbook(filename=BytesIO(excel_file.read()))
+    sheet = workbook.active
+
+    for row in sheet.iter_rows(min_row=2, values_only=True):  # Skipping header
+        description, date, note = row
+
+        Transactions.objects.create(
+            description=description,
+            date=date,
+            note=note
+        )
+def FTTransactions(request):
+  form = UploadExcelForm(request.POST, request.FILES)
+  if form.is_valid():
+      excel_file = request.FILES['excel_file']
+      populate_from_excel(excel_file)
+      return redirect('transactions_view')  # Redirect back to the same view
+  else:
+    form = UploadExcelForm()
+
+  transactions = Transactions.objects.all()
+  context = {
+  'form': form,
+  'transactions': transactions
+  }
+  return render(request, 'transactions.html', context)
