@@ -64,13 +64,28 @@ class AcctRollupsD(models.Model):
   Description = models.CharField(max_length=255, null=True)
   DrCrBal = models.CharField(max_length=20, null=True)
 
-class TransactionsT(models.Model):
+class TransBatch(models.Model):
+  TransBatchName = models.CharField(max_length=120, null=True)
+  TransBatchDate = models.DateField()
+  Created = models.DateField()
+  LastUpdated = models.DateField() 
+
+class TransHeader(models.Model):
+  TransBatchID = models.IntegerField(null=True)
+  TransDescription = models.CharField(max_length=120, null=True)
+  TransDate = models.DateField()
+  TransNote = models.CharField(max_length=240, null=True)
+  Created = models.DateField()
+  LastUpdated = models.DateField() 
+
+class TransDetail(models.Model):
+  TransHeaderID = models.IntegerField(null=True)
   AccountNumber = models.CharField(max_length=40, null=True)
   Description = models.CharField(max_length=255, null=True)
-  DrCr = models.CharField(max_length=20, null=True)
-  Amount = models.IntegerField
-  Created = models.DateField
-  LastUpdated = models.DateField  
+  DrAmount = models.IntegerField()
+  CrAmount = models.IntegerField()
+  Created = models.DateField()
+  LastUpdated = models.DateField() 
 
 class ListHeaderT(models.Model):
     PersonFK = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
@@ -150,13 +165,6 @@ class DefaultParams(models.Model):
 # 
 #   KMS Start Day Picker
 #
-class Promise(models):
-    title = models.CharField(max_length=300)
-    description = models.TextField(blank=True)
-    made_on = models.DateField()
-
-
-
 class Transactions(models.Model):
     description = models.CharField(max_length=255)
     date = models.DateField()
