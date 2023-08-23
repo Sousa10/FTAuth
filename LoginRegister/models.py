@@ -79,7 +79,7 @@ class TransHeader(models.Model):
   LastUpdated = models.DateField() 
 
 class TransDetail(models.Model):
-  TransHeaderID = models.IntegerField(null=True)
+  TransHeaderID = models.ForeignKey('TransHeader', on_delete=models.CASCADE)
   AccountNumber = models.CharField(max_length=40, null=True)
   Description = models.CharField(max_length=255, null=True)
   DrAmount = models.IntegerField()

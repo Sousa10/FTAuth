@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.template import loader
-from .models import PersonM, CashInAcctM, CashOutAcctM, WhatWeOwnAcctM, ListHeaderT, ListDetailsT, Transactions
+from .models import PersonM, CashInAcctM, CashOutAcctM, WhatWeOwnAcctM, ListHeaderT, ListDetailsT, TransBatch, TransDetail, TransHeader
 from .models import DebtsAcctM, NetworthAcctM
 from .models import SponRates
 from .models import DefaultParams
@@ -579,7 +579,7 @@ def FTTransactions(request):
     else:
       form = UploadExcelForm()
 
-    transactions = Transactions.objects.all()
+    transactions = TransDetail.objects.all()
     paginator = Paginator(transactions, 11)  # Show 11 accounts per page.
     page_number = request.GET.get("page")
     transactions_paginated = paginator.get_page(page_number)
@@ -587,10 +587,10 @@ def FTTransactions(request):
       'form': form,
       'transactions': transactions_paginated
     }
-    return render(request, 'transaction.html', context)
+    return render(request, 'FTTransactions.html', context)
 
 def transaction_delete(request, pk):
-    transaction = get_object_or_404(Transactions, pk=pk)
+    transaction = get_object_or_404(TransDetail, pk=pk)
     transaction.delete()
 
     return redirect('LoginRegister:FTTransactions')
