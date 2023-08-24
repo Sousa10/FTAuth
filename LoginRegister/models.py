@@ -67,16 +67,16 @@ class AcctRollupsD(models.Model):
 class TransBatch(models.Model):
   TransBatchName = models.CharField(max_length=120, null=True)
   TransBatchDate = models.DateField()
-  Created = models.DateField()
-  LastUpdated = models.DateField() 
+  Created = models.DateTimeField(auto_now_add=True)
+  LastUpdated = models.DateTimeField(auto_now=True) 
 
 class TransHeader(models.Model):
-  TransBatchID = models.IntegerField(null=True)
+  TransBatchID = models.ForeignKey('TransBatch', on_delete=models.CASCADE)
   TransDescription = models.CharField(max_length=120, null=True)
   TransDate = models.DateField()
   TransNote = models.CharField(max_length=240, null=True)
-  Created = models.DateField()
-  LastUpdated = models.DateField() 
+  Created = models.DateTimeField(auto_now_add=True)
+  LastUpdated = models.DateTimeField(auto_now=True) 
 
 class TransDetail(models.Model):
   TransHeaderID = models.ForeignKey('TransHeader', on_delete=models.CASCADE)
@@ -84,8 +84,8 @@ class TransDetail(models.Model):
   Description = models.CharField(max_length=255, null=True)
   DrAmount = models.IntegerField()
   CrAmount = models.IntegerField()
-  Created = models.DateField()
-  LastUpdated = models.DateField() 
+  Created = models.DateTimeField(auto_now_add=True)
+  LastUpdated = models.DateTimeField(auto_now=True) 
 
 class ListHeaderT(models.Model):
     PersonFK = models.ForeignKey(User, null=True, on_delete=models.CASCADE)

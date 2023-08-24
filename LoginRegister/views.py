@@ -564,7 +564,7 @@ def populate_from_excel(excel_file):
     for row in sheet.iter_rows(min_row=2, values_only=True):  # Skipping header
         description, date, note = row
 
-        Transactions.objects.create(
+        TransDetail.objects.create(
             description=description,
             date=date,
             note=note
