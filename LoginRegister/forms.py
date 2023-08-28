@@ -2,7 +2,7 @@ from django import forms
 from django.forms import ModelForm
 from django.contrib.auth.forms import AuthenticationForm
 
-from .models import CashInAcctM, CashOutAcctM, WhatWeOwnAcctM, DebtsAcctM, ListHeaderT, ListDetailsT, NetworthAcctM, SponRates
+from .models import CashInAcctM, CashOutAcctM, WhatWeOwnAcctM, DebtsAcctM, ListHeaderT, ListDetailsT, NetworthAcctM, SponRates, TransBatch
 
 
 INPUT_CLASSES = 'w-full py-4 px-6 rounded-xl border form-control'
@@ -162,3 +162,14 @@ class DateInput(forms.DateInput):
 
 class UploadExcelForm(forms.Form):
     excel_file = forms.FileField()
+
+class TransBatchForm(forms.ModelForm):
+    TransBatchName = forms.CharField(label="Batch Name", required=True)
+    TransBatchDate = forms.CharField(label="Batch Date", required=True)
+
+    class Meta:
+        model = TransBatch
+        fields = ['TransBatchName', 'TransBatchDate']
+        # widgets = {
+        #     'TransBatchDate': DateInput(),
+        # }

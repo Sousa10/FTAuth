@@ -1,17 +1,7 @@
 from django.http import HttpResponse
 from django.template import loader
-from .models import PersonM, CashInAcctM, CashOutAcctM, WhatWeOwnAcctM, ListHeaderT, ListDetailsT, TransBatch, TransDetail, TransHeader
-from .models import DebtsAcctM, NetworthAcctM
-from .models import SponRates
-from .models import DefaultParams
-from .forms import CashInAcctMForm
-from .forms import CashOutAcctMForm
-from .forms import WhatWeOwnAcctMForm
-from .forms import DebtsAcctMForm
-from .forms import EquityAcctMForm
-from .forms import ListHeaderTForm, ListDetailsTForm, ListHeaderSelectForm, UploadExcelForm
-from .forms import ListHeaderTForm, ListDetailsTForm
-from .forms import SponRatesForm
+from .models import PersonM, CashInAcctM, CashOutAcctM, WhatWeOwnAcctM, ListHeaderT, ListDetailsT, TransBatch, TransDetail, TransHeader, DefaultParams, SponRates, DebtsAcctM, NetworthAcctM
+from .forms import ListHeaderTForm, ListDetailsTForm, ListHeaderSelectForm, UploadExcelForm, ListHeaderTForm, ListDetailsTForm, SponRatesForm, EquityAcctMForm, DebtsAcctMForm, WhatWeOwnAcctMForm, CashOutAcctMForm, CashInAcctMForm, TransBatchForm
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
@@ -557,35 +547,57 @@ class DefaultParamsViewCreate():
         # context['clubs'] = Clubs.objects.all().order_by('club_id')
         # context['players'] = Players.objects.all().order_by('player_id')
         # return context
-def populate_from_excel(excel_file):
+def populate_from_excel(excel_file, trans_batch):
     workbook = openpyxl.load_workbook(filename=BytesIO(excel_file.read()))
     sheet = workbook.active
+    current_header = None
 
     for row in sheet.iter_rows(min_row=2, values_only=True):  # Skipping header
-        description, date, note = row
+        TransDescription, TransDate, TransNote, AccountNumber, Description, DrAmount, CrAmount = row
 
-        TransDetail.objects.create(
-            description=description,
-            date=date,
-            note=note
-        )
+        # If TransDescription is present, create a new TransHeader record.
+        if TransDescription:
+            current_header = TransHeader.objects.create(
+                TransBatchID=trans_batch,
+                TransDescription=TransDescription,
+                TransDate=TransDate,
+                TransNote=TransNote
+            )
+        if current_header:
+            TransDetail.objects.create(
+                TransHeaderID=current_header,
+                AccountNumber=AccountNumber,
+                Description=Description,
+                DrAmount=DrAmount,
+                CrAmount=CrAmount
+            )
+
 def FTTransactions(request):
     if request.method == 'POST':
-      form = UploadExcelForm(request.POST, request.FILES)
-      if form.is_valid():
-          excel_file = request.FILES['excel_file']
-          populate_from_excel(excel_file)
-          return redirect('LoginRegister:FTTransactions')  # Redirect back to the same view
+      batchForm = TransBatchForm(request.POST)
+      excelForm = UploadExcelForm(request.POST, request.FILES)
+      
+      if batchForm.is_valid():
+          trans_batch = batchForm.save()
+          if excelForm.is_valid():
+            excel_file = request.FILES['excel_file']
+            populate_from_excel(excel_file, trans_batch)
+            return redirect('LoginRegister:FTTransactions')  # Redirect back to the same view
     else:
-      form = UploadExcelForm()
+      batchForm = TransBatchForm()
+      excelForm = UploadExcelForm()
 
     transactions = TransDetail.objects.all()
+    # Assuming you want to display all the batches, headers, and details on the same page
+    batches = TransBatch.objects.all()
     paginator = Paginator(transactions, 11)  # Show 11 accounts per page.
     page_number = request.GET.get("page")
     transactions_paginated = paginator.get_page(page_number)
     context = {
-      'form': form,
-      'transactions': transactions_paginated
+      'batchForm': batchForm,
+      'excelForm': excelForm,
+      'transactions': transactions_paginated,
+      'batches': batches
     }
     return render(request, 'FTTransactions.html', context)
 

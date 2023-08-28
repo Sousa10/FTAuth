@@ -63,4 +63,5 @@
                 window.location.href = $(this).attr('href'); // If confirmed, proceed with the deletion by navigating to the delete URL
             }
         });
+        $("#id_TransBatchDate").datepicker();
     });
