@@ -1,12 +1,12 @@
 from django.http import HttpResponse
 from django.template import loader
 from .models import PersonM, CashInAcctM, CashOutAcctM, WhatWeOwnAcctM, ListHeaderT, ListDetailsT, TransBatch, TransDetail, TransHeader, DefaultParams, SponRates, DebtsAcctM, NetworthAcctM
-from .forms import ListHeaderTForm, ListDetailsTForm, ListHeaderSelectForm, UploadExcelForm, ListHeaderTForm, ListDetailsTForm, SponRatesForm, EquityAcctMForm, DebtsAcctMForm, WhatWeOwnAcctMForm, CashOutAcctMForm, CashInAcctMForm, TransBatchForm
+from .forms import ListHeaderTForm, ListDetailsTForm, ListHeaderSelectForm, UploadExcelForm, ListHeaderTForm, ListDetailsTForm, SponRatesForm, EquityAcctMForm, DebtsAcctMForm, WhatWeOwnAcctMForm, CashOutAcctMForm, CashInAcctMForm, TransBatchForm, TemplateActionForm
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.views.generic.edit import CreateView
-import openpyxl
+import openpyxl, os
 from io import BytesIO
 
 def LoginRegister(request):
@@ -574,18 +574,27 @@ def populate_from_excel(excel_file, trans_batch):
 
 def FTTransactions(request):
     if request.method == 'POST':
-      batchForm = TransBatchForm(request.POST)
-      excelForm = UploadExcelForm(request.POST, request.FILES)
+      # batchForm = TransBatchForm(request.POST)
+      # excelForm = UploadExcelForm(request.POST, request.FILES)
+      form = TemplateActionForm(request.POST, request.FILES)
       
-      if batchForm.is_valid():
-          trans_batch = batchForm.save()
-          if excelForm.is_valid():
-            excel_file = request.FILES['excel_file']
-            populate_from_excel(excel_file, trans_batch)
-            return redirect('LoginRegister:FTTransactions')  # Redirect back to the same view
+      if form.is_valid():
+          #trans_batch = batchForm.save()
+          if form.cleaned_data['action'] == 'download':
+              # Use the pre-existing Excel file for download
+            filename = os.path.join(os.path.dirname(os.path.dirname(__file__)), "resources", "template.xlsx")
+            with open(filename, "rb") as excel:
+                response = HttpResponse(excel.read(), content_type='application/vnd.ms-excel')
+                response['Content-Disposition'] = 'inline; filename=' + os.path.basename(filename)
+            return response
+          # if excelForm.is_valid():
+          #   excel_file = request.FILES['excel_file']
+          #   #populate_from_excel(excel_file, trans_batch)
+          #   return redirect('LoginRegister:FTTransactions')  # Redirect back to the same view
     else:
-      batchForm = TransBatchForm()
-      excelForm = UploadExcelForm()
+      form = TemplateActionForm()
+      # batchForm = TransBatchForm()
+      # excelForm = UploadExcelForm()
 
     transactions = TransDetail.objects.all()
     # Assuming you want to display all the batches, headers, and details on the same page
@@ -594,8 +603,9 @@ def FTTransactions(request):
     page_number = request.GET.get("page")
     transactions_paginated = paginator.get_page(page_number)
     context = {
-      'batchForm': batchForm,
-      'excelForm': excelForm,
+      # 'batchForm': batchForm,
+      # 'excelForm': excelForm,
+      'form': form,
       'transactions': transactions_paginated,
       'batches': batches
     }

@@ -16,19 +16,26 @@
     </p>
   </a>
 </div>
-{% endblock %}
 
-{% block content %}
 <div class="forms">
-  <form method="post" enctype="multipart/form-data" style="text-align: initial; font-size: 12px; font-weight: bold;">
+  <!-- <form method="post" enctype="multipart/form-data" style="text-align: initial; font-size: 12px; font-weight: bold;">
     {% csrf_token %}
     {{ batchForm.as_p }}
     {{ excelForm.as_p }}
     <button type="submit">Create Batch</button>
-  </form>
-
+  </form> -->
+  <form id="templateActionForm" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.action }}
+    <div id="uploadField" style="display:none;">
+        {{ form.excel_file }}
+    </div>
+    <button type="submit">Submit</button>
+</form>
 </div>
+{% endblock %}
 
+{% block content %}
 <!-- <h2>Transactions</h2> -->
 <table>
   <thead>
@@ -99,6 +106,15 @@
 </div>
 {% block modal-script %}
 <script>
+  const dropdown = document.querySelector("#id_action");
+    const uploadField = document.querySelector("#uploadField");
+    dropdown.addEventListener("change", function() {
+        if (this.value === "upload") {
+            uploadField.style.display = "block";
+        } else {
+            uploadField.style.display = "none";
+        }
+    });
 </script>
 {% endblock %}
 

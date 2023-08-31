@@ -126,6 +126,7 @@ class ListDetailsTForm(forms.ModelForm):
         super(ListDetailsTForm, self).__init__(*args, **kwargs)
         if list_header:
             self.fields['ListHeaderFK'].initial = list_header
+
             self.fields['ListDetailFK'].queryset = ListDetailsT.objects.filter(ListHeaderFK=list_header)
 
     class Meta:
@@ -173,3 +174,13 @@ class TransBatchForm(forms.ModelForm):
         # widgets = {
         #     'TransBatchDate': DateInput(),
         # }
+
+class TemplateActionForm(forms.Form):
+    ACTION_CHOICES = [
+        ('', 'Choose an action...'),
+        ('download', 'Download Template'),
+        ('upload', 'Upload Template'),
+    ]
+
+    action = forms.ChoiceField(choices=ACTION_CHOICES, required=True)
+    excel_file = forms.FileField(required=False)
