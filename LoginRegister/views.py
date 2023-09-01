@@ -547,7 +547,7 @@ class DefaultParamsViewCreate():
         # context['clubs'] = Clubs.objects.all().order_by('club_id')
         # context['players'] = Players.objects.all().order_by('player_id')
         # return context
-def populate_from_excel(excel_file, trans_batch):
+def populate_from_csv(excel_file, trans_batch):
     workbook = openpyxl.load_workbook(filename=BytesIO(excel_file.read()))
     sheet = workbook.active
     current_header = None
@@ -582,11 +582,14 @@ def FTTransactions(request):
           #trans_batch = batchForm.save()
           if form.cleaned_data['action'] == 'download':
               # Use the pre-existing Excel file for download
-            filename = os.path.join(os.path.dirname(os.path.dirname(__file__)), "resources", "template.xlsx")
+            filename = os.path.join(os.path.dirname(os.path.dirname(__file__)), "resources", "template.csv")
             with open(filename, "rb") as excel:
                 response = HttpResponse(excel.read(), content_type='application/vnd.ms-excel')
                 response['Content-Disposition'] = 'inline; filename=' + os.path.basename(filename)
             return response
+          
+          elif form.cleaned_data['action'] == 'upload':
+             excel_file = request.FILES['excel_file']
           # if excelForm.is_valid():
           #   excel_file = request.FILES['excel_file']
           #   #populate_from_excel(excel_file, trans_batch)
