@@ -18,6 +18,7 @@ from django.core.paginator import Paginator
 from django.views.generic.edit import CreateView
 import openpyxl
 from io import BytesIO
+from django.shortcuts import render
 
 def LoginRegister(request):
   FTpersons = PersonM.objects.all().values()
@@ -594,3 +595,12 @@ def transaction_delete(request, pk):
     transaction.delete()
 
     return redirect('LoginRegister:FTTransactions')
+# 
+#  KMS 8/27 Start Build out of new calendar
+# 
+def home(request):
+    name = "Kirk"
+    return render(request,
+        'home.html',{
+        'name': name
+        })

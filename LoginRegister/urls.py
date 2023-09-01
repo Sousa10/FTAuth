@@ -1,7 +1,9 @@
 from django.contrib.auth import views as auth_views
-from django.urls import path
+from django.urls import path, include
 from . import views
 from .forms import LoginForm
+from django.contrib import admin
+
 
 app_name = 'LoginRegister'
 
@@ -50,4 +52,5 @@ urlpatterns = [
     path('LoginRegister/FTSponRateTbl/', views.FTSponRateTbl, name='FTSponRateTbl'),
     path('transactions/', views.FTTransactions, name='FTTransactions'),
     path('transactions/delete/<int:pk>/', views.transaction_delete, name='transaction_delete'),
+    path('admin/', admin.site.urls),
 ]
