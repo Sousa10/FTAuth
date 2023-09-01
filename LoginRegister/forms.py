@@ -2,7 +2,7 @@ from django import forms
 from django.forms import ModelForm
 from django.contrib.auth.forms import AuthenticationForm
 
-from .models import CashInAcctM, CashOutAcctM, WhatWeOwnAcctM, DebtsAcctM, ListHeaderT, ListDetailsT, NetworthAcctM, SponRates
+from .models import CashInAcctM, CashOutAcctM, WhatWeOwnAcctM, DebtsAcctM, ListHeaderT, ListDetailsT, NetworthAcctM, SponRates, TransBatch
 
 
 INPUT_CLASSES = 'w-full py-4 px-6 rounded-xl border form-control'
@@ -126,6 +126,7 @@ class ListDetailsTForm(forms.ModelForm):
         super(ListDetailsTForm, self).__init__(*args, **kwargs)
         if list_header:
             self.fields['ListHeaderFK'].initial = list_header
+
             self.fields['ListDetailFK'].queryset = ListDetailsT.objects.filter(ListHeaderFK=list_header)
 
     class Meta:
@@ -162,3 +163,24 @@ class DateInput(forms.DateInput):
 
 class UploadExcelForm(forms.Form):
     excel_file = forms.FileField()
+
+class TransBatchForm(forms.ModelForm):
+    TransBatchName = forms.CharField(label="Batch Name", required=True)
+    TransBatchDate = forms.CharField(label="Batch Date", required=True)
+
+    class Meta:
+        model = TransBatch
+        fields = ['TransBatchName', 'TransBatchDate']
+        # widgets = {
+        #     'TransBatchDate': DateInput(),
+        # }
+
+class TemplateActionForm(forms.Form):
+    ACTION_CHOICES = [
+        ('', 'Choose an action...'),
+        ('download', 'Download Template'),
+        ('upload', 'Upload Template'),
+    ]
+
+    action = forms.ChoiceField(choices=ACTION_CHOICES, required=True)
+    excel_file = forms.FileField(required=False)

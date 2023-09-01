@@ -1,22 +1,12 @@
 from django.http import HttpResponse
 from django.template import loader
-from .models import PersonM, CashInAcctM, CashOutAcctM, WhatWeOwnAcctM, ListHeaderT, ListDetailsT, Transactions
-from .models import DebtsAcctM, NetworthAcctM
-from .models import SponRates
-from .models import DefaultParams
-from .forms import CashInAcctMForm
-from .forms import CashOutAcctMForm
-from .forms import WhatWeOwnAcctMForm
-from .forms import DebtsAcctMForm
-from .forms import EquityAcctMForm
-from .forms import ListHeaderTForm, ListDetailsTForm, ListHeaderSelectForm, UploadExcelForm
-from .forms import ListHeaderTForm, ListDetailsTForm
-from .forms import SponRatesForm
+from .models import PersonM, CashInAcctM, CashOutAcctM, WhatWeOwnAcctM, ListHeaderT, ListDetailsT, TransBatch, TransDetail, TransHeader, DefaultParams, SponRates, DebtsAcctM, NetworthAcctM
+from .forms import ListHeaderTForm, ListDetailsTForm, ListHeaderSelectForm, UploadExcelForm, ListHeaderTForm, ListDetailsTForm, SponRatesForm, EquityAcctMForm, DebtsAcctMForm, WhatWeOwnAcctMForm, CashOutAcctMForm, CashInAcctMForm, TransBatchForm, TemplateActionForm
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.views.generic.edit import CreateView
-import openpyxl
+import openpyxl, os
 from io import BytesIO
 from django.shortcuts import render
 
@@ -558,40 +548,75 @@ class DefaultParamsViewCreate():
         # context['clubs'] = Clubs.objects.all().order_by('club_id')
         # context['players'] = Players.objects.all().order_by('player_id')
         # return context
-def populate_from_excel(excel_file):
+def populate_from_csv(excel_file, trans_batch):
     workbook = openpyxl.load_workbook(filename=BytesIO(excel_file.read()))
     sheet = workbook.active
+    current_header = None
 
     for row in sheet.iter_rows(min_row=2, values_only=True):  # Skipping header
-        description, date, note = row
+        TransDescription, TransDate, TransNote, AccountNumber, Description, DrAmount, CrAmount = row
 
-        Transactions.objects.create(
-            description=description,
-            date=date,
-            note=note
-        )
+        # If TransDescription is present, create a new TransHeader record.
+        if TransDescription:
+            current_header = TransHeader.objects.create(
+                TransBatchID=trans_batch,
+                TransDescription=TransDescription,
+                TransDate=TransDate,
+                TransNote=TransNote
+            )
+        if current_header:
+            TransDetail.objects.create(
+                TransHeaderID=current_header,
+                AccountNumber=AccountNumber,
+                Description=Description,
+                DrAmount=DrAmount,
+                CrAmount=CrAmount
+            )
+
 def FTTransactions(request):
     if request.method == 'POST':
-      form = UploadExcelForm(request.POST, request.FILES)
+      # batchForm = TransBatchForm(request.POST)
+      # excelForm = UploadExcelForm(request.POST, request.FILES)
+      form = TemplateActionForm(request.POST, request.FILES)
+      
       if form.is_valid():
-          excel_file = request.FILES['excel_file']
-          populate_from_excel(excel_file)
-          return redirect('LoginRegister:FTTransactions')  # Redirect back to the same view
+          #trans_batch = batchForm.save()
+          if form.cleaned_data['action'] == 'download':
+              # Use the pre-existing Excel file for download
+            filename = os.path.join(os.path.dirname(os.path.dirname(__file__)), "resources", "template.csv")
+            with open(filename, "rb") as excel:
+                response = HttpResponse(excel.read(), content_type='application/vnd.ms-excel')
+                response['Content-Disposition'] = 'inline; filename=' + os.path.basename(filename)
+            return response
+          
+          elif form.cleaned_data['action'] == 'upload':
+             excel_file = request.FILES['excel_file']
+          # if excelForm.is_valid():
+          #   excel_file = request.FILES['excel_file']
+          #   #populate_from_excel(excel_file, trans_batch)
+          #   return redirect('LoginRegister:FTTransactions')  # Redirect back to the same view
     else:
-      form = UploadExcelForm()
+      form = TemplateActionForm()
+      # batchForm = TransBatchForm()
+      # excelForm = UploadExcelForm()
 
-    transactions = Transactions.objects.all()
+    transactions = TransDetail.objects.all()
+    # Assuming you want to display all the batches, headers, and details on the same page
+    batches = TransBatch.objects.all()
     paginator = Paginator(transactions, 11)  # Show 11 accounts per page.
     page_number = request.GET.get("page")
     transactions_paginated = paginator.get_page(page_number)
     context = {
+      # 'batchForm': batchForm,
+      # 'excelForm': excelForm,
       'form': form,
-      'transactions': transactions_paginated
+      'transactions': transactions_paginated,
+      'batches': batches
     }
-    return render(request, 'transaction.html', context)
+    return render(request, 'FTTransactions.html', context)
 
 def transaction_delete(request, pk):
-    transaction = get_object_or_404(Transactions, pk=pk)
+    transaction = get_object_or_404(TransDetail, pk=pk)
     transaction.delete()
 
     return redirect('LoginRegister:FTTransactions')

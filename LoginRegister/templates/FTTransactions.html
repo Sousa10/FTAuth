@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}Transactions{% endblock %}
+
+{% block pageimage %}
+<img style="float: left;" src="{% static 'calendar.jpg' %}" alt="Calendar Tile missing" width="100" height="100">
+{% endblock %}
+{% block backurl %}{%url 'LoginRegister:FTMainMenu'%}{% endblock %}
+
+{% block pageTitle %}
+<div class="h1">
+  <a style="color:rgb(6, 6, 192)">
+    <p style="font-size:40px">
+      <h2>Transactions</h2>
+    </p>
+  </a>
+</div>
+
+<div class="forms">
+  <!-- <form method="post" enctype="multipart/form-data" style="text-align: initial; font-size: 12px; font-weight: bold;">
+    {% csrf_token %}
+    {{ batchForm.as_p }}
+    {{ excelForm.as_p }}
+    <button type="submit">Create Batch</button>
+  </form> -->
+  <form id="templateActionForm" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.action }}
+    <div id="uploadField" style="display:none;">
+        {{ form.excel_file }}
+    </div>
+    <button type="submit">Submit</button>
+</form>
+</div>
+{% endblock %}
+
+{% block content %}
+<!-- <h2>Transactions</h2> -->
+<table>
+  <thead>
+    <tr>
+      <th>Description</th>
+      <th>Date</th>
+      <th>Note</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for transaction in transactions %}
+    <tr>
+      <td>{{ transaction.description }}</td>
+      <td>{{ transaction.date }}</td>
+      <td>{{ transaction.note }}</td>
+      <td>
+        <a href="{% url 'LoginRegister:transaction_delete' transaction.id %}" class="btn btn-danger">Delete</a>
+        <a href="#" data-id="{{ cashinacctm.id }}" data-account="{{ cashinacctm.AccountNumber }}"
+          data-description="{{ cashinacctm.Description }}" class="btn btn-secondary edit-button">Edit</a>
+
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<!-- Display batches, headers, and details as needed -->
+{% for batch in batches %}
+<!-- Display batch details -->
+  {% for header in batch.transheader_set.all %}
+  <!-- Display header details -->
+    <table>
+      <tbody>
+        <tr>
+          <td>abc{{ header.TransDescription }}</td>
+          <td>{{ header.TransDate }}</td>
+          <td>{{ header.TransNote }}</td>
+        </tr>
+        {% for detail in header.transdetail_set.all %}
+        <!-- Display detail rows -->
+        <tr>
+          <td>{{ detail.AccountNumber }}</td>
+          <td>{{ detail.Description }}</td>
+          <td>{{ detail.DrAmount }}</td>
+          <td>{{ detail.CrAmount }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+      {% endfor %}
+    </table>
+{% endfor %}
+<div class="pagination">
+  <span class="step-links">
+    {% if transactions.has_previous %}
+    <a href="?page=1">&laquo; first</a>
+    <a href="?page={{ transactions.previous_page_number }}">previous</a>
+    {% endif %}
+
+    <span class="current">
+      Page {{ transactions.number }} of {{ transactions.paginator.num_pages }}.
+    </span>
+
+    {% if transactions.has_next %}
+    <a href="?page={{ transactions.next_page_number }}">next</a>
+    <a href="?page={{ transactions.paginator.num_pages }}">last &raquo;</a>
+    {% endif %}
+  </span>
+</div>
+{% block modal-script %}
+<script>
+  const dropdown = document.querySelector("#id_action");
+    const uploadField = document.querySelector("#uploadField");
+    dropdown.addEventListener("change", function() {
+        if (this.value === "upload") {
+            uploadField.style.display = "block";
+        } else {
+            uploadField.style.display = "none";
+        }
+    });
+</script>
+{% endblock %}
+
+{% endblock %}

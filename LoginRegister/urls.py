@@ -50,7 +50,7 @@ urlpatterns = [
     path('LoginRegister/FTApple/', views.FTApple, name='FTApple'),
     path('LoginRegister/FTAndroid/', views.FTAndroid, name='FTAndroid'),
     path('LoginRegister/FTSponRateTbl/', views.FTSponRateTbl, name='FTSponRateTbl'),
-    path('transactions/', views.FTTransactions, name='FTTransactions'),
+    path('LoginRegister/FTTransactions/', views.FTTransactions, name='FTTransactions'),
     path('transactions/delete/<int:pk>/', views.transaction_delete, name='transaction_delete'),
     path('admin/', admin.site.urls),
 ]
