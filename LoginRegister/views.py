@@ -1,14 +1,13 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from .models import PersonM, CashInAcctM, CashOutAcctM, WhatWeOwnAcctM, ListHeaderT, ListDetailsT, TransBatch, TransDetail, TransHeader, DefaultParams, SponRates, DebtsAcctM, NetworthAcctM
-from .forms import ListHeaderTForm, ListDetailsTForm, ListHeaderSelectForm, UploadExcelForm, ListHeaderTForm, ListDetailsTForm, SponRatesForm, EquityAcctMForm, DebtsAcctMForm, WhatWeOwnAcctMForm, CashOutAcctMForm, CashInAcctMForm, TransBatchForm, TemplateActionForm
+from .forms import ListHeaderTForm, ListDetailsTForm, ListHeaderSelectForm, ListHeaderTForm, ListDetailsTForm, SponRatesForm, EquityAcctMForm, DebtsAcctMForm, WhatWeOwnAcctMForm, CashOutAcctMForm, CashInAcctMForm, TemplateActionForm
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
-from django.views.generic.edit import CreateView
-import openpyxl, os
-from io import BytesIO
+import os
 from django.shortcuts import render
+import csv
+from django.contrib import messages
 
 def LoginRegister(request):
   FTpersons = PersonM.objects.all().values()
@@ -548,23 +547,28 @@ class DefaultParamsViewCreate():
         # context['clubs'] = Clubs.objects.all().order_by('club_id')
         # context['players'] = Players.objects.all().order_by('player_id')
         # return context
-def populate_from_csv(excel_file, trans_batch):
-    workbook = openpyxl.load_workbook(filename=BytesIO(excel_file.read()))
-    sheet = workbook.active
-    current_header = None
+def populate_from_csv(csv_file):
+    reader = csv.reader(csv_file.read().decode('utf-8').splitlines())
 
-    for row in sheet.iter_rows(min_row=2, values_only=True):  # Skipping header
-        TransDescription, TransDate, TransNote, AccountNumber, Description, DrAmount, CrAmount = row
+    for row in reader:
+        fields = row.split(",")
 
         # If TransDescription is present, create a new TransHeader record.
-        if TransDescription:
+        if fields[0] == 'TB':
+            trans_batch_name = fields[2]
+            trans_batch_date = fields[5]
+            trans_batch = TransBatch.objects.create(TransBatchName=trans_batch_name, TransBatchDate=trans_batch_date)
+        elif fields[0] == 'TH':
+            trans_header_description = fields[3]
+            trans_header_date = fields[5]
+            trans_header_note = fields[7]
             current_header = TransHeader.objects.create(
                 TransBatchID=trans_batch,
-                TransDescription=TransDescription,
-                TransDate=TransDate,
-                TransNote=TransNote
+                TransDescription=trans_header_description,
+                TransDate=trans_header_date,
+                TransNote=trans_header_note
             )
-        if current_header:
+        elif fields[0] == 'TD':
             TransDetail.objects.create(
                 TransHeaderID=current_header,
                 AccountNumber=AccountNumber,
@@ -590,7 +594,10 @@ def FTTransactions(request):
             return response
           
           elif form.cleaned_data['action'] == 'upload':
-             excel_file = request.FILES['excel_file']
+             csv_file = request.FILES['excel_file']
+             if not csv_file.name.endswith('.csv'):
+                messages.warning(request, 'The wrong file type was uploaded')
+                return HttpResponseRedirect(request.path_info)
           # if excelForm.is_valid():
           #   excel_file = request.FILES['excel_file']
           #   #populate_from_excel(excel_file, trans_batch)
