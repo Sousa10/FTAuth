@@ -587,7 +587,7 @@ def FTTransactions(request):
           #trans_batch = batchForm.save()
           if form.cleaned_data['action'] == 'download':
               # Use the pre-existing Excel file for download
-            filename = os.path.join(os.path.dirname(os.path.dirname(__file__)), "resources", "template.csv")
+            filename = os.path.join(os.path.dirname(os.path.dirname(__file__)), "resources", "template.xlsx")
             with open(filename, "rb") as excel:
                 response = HttpResponse(excel.read(), content_type='application/vnd.ms-excel')
                 response['Content-Disposition'] = 'inline; filename=' + os.path.basename(filename)
