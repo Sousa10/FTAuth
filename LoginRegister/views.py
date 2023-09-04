@@ -555,18 +555,13 @@ def populate_from_csv(csv_file):
 
         # If TransDescription is present, create a new TransHeader record.
         if fields[0] == 'TB':
-            trans_batch_name = fields[2]
-            trans_batch_date = fields[5]
-            trans_batch = TransBatch.objects.create(TransBatchName=trans_batch_name, TransBatchDate=trans_batch_date)
+            trans_batch = TransBatch.objects.create(TransBatchName=fields[2], TransBatchDate=fields[5])
         elif fields[0] == 'TH':
-            trans_header_description = fields[3]
-            trans_header_date = fields[5]
-            trans_header_note = fields[7]
             current_header = TransHeader.objects.create(
                 TransBatchID=trans_batch,
-                TransDescription=trans_header_description,
-                TransDate=trans_header_date,
-                TransNote=trans_header_note
+                TransDescription = fields[3],
+                TransDate = fields[5],
+                TransNote = fields[7]
             )
         elif fields[0] == 'TD':
             TransDetail.objects.create(
