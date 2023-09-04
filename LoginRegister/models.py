@@ -71,7 +71,7 @@ class TransBatch(models.Model):
   LastUpdated = models.DateTimeField(auto_now=True) 
 
 class TransHeader(models.Model):
-  TransBatchID = models.ForeignKey('TransBatch', on_delete=models.CASCADE)
+  TransBatchID = models.ForeignKey('TransBatch', null=True, on_delete=models.CASCADE)
   TransDescription = models.CharField(max_length=120, null=True)
   TransDate = models.DateField()
   TransNote = models.CharField(max_length=240, null=True)
@@ -79,11 +79,12 @@ class TransHeader(models.Model):
   LastUpdated = models.DateTimeField(auto_now=True) 
 
 class TransDetail(models.Model):
-  TransHeaderID = models.ForeignKey('TransHeader', on_delete=models.CASCADE)
+  TransHeaderID = models.ForeignKey('TransHeader', null=True, on_delete=models.CASCADE)
   AccountNumber = models.CharField(max_length=40, null=True)
   Description = models.CharField(max_length=255, null=True)
-  DrAmount = models.IntegerField()
-  CrAmount = models.IntegerField()
+  Amount = models.IntegerField()
+  DrAccount = models.CharField(max_length=10, null=True)
+  CrAccount = models.CharField(max_length=10, null=True)
   Created = models.DateTimeField(auto_now_add=True)
   LastUpdated = models.DateTimeField(auto_now=True) 
 
