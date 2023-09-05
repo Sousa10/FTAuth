@@ -8,6 +8,7 @@ import os
 from django.shortcuts import render
 import csv
 from django.contrib import messages
+from datetime import datetime
 
 def LoginRegister(request):
   FTpersons = PersonM.objects.all().values()
@@ -547,29 +548,52 @@ class DefaultParamsViewCreate():
         # context['clubs'] = Clubs.objects.all().order_by('club_id')
         # context['players'] = Players.objects.all().order_by('player_id')
         # return context
+def format_date(field):
+   return datetime.strptime(field, '%d/%m/%y').strftime('%Y-%m-%d')
+
 def populate_from_csv(csv_file):
-    reader = csv.reader(csv_file.read().decode('utf-8').splitlines())
-
-    for row in reader:
+    # reader = csv.reader(csv_file.read().decode('utf-8').splitlines())
+    # print(reader)
+    file_data = csv_file.read().decode("utf-8")
+    csv_data = file_data.split("\n")
+    for row in csv_data:
+         # Skip empty rows
+        if not row.strip():
+            continue
         fields = row.split(",")
-
+        print(len(fields))
+        if len(fields) < 7:  # Adjust this number based on the minimum columns you expect
+            continue
+        
+        formatted_date = None
         # If TransDescription is present, create a new TransHeader record.
         if fields[0] == 'TB':
-            trans_batch = TransBatch.objects.create(TransBatchName=fields[2], TransBatchDate=fields[5])
+            if fields[4]:
+               try:
+                  formatted_date = format_date(fields[4])
+               except ValueError:
+               # Handle or log the malformed date value here
+                print(f"Invalid date format for entry: {fields[4]}")
+            trans_batch = TransBatch.objects.create(TransBatchName=fields[2], TransBatchDate=formatted_date or None)
         elif fields[0] == 'TH':
+            if fields[5]:
+              try:
+                formatted_date = format_date(fields[5])
+              except ValueError:
+              # Handle or log the malformed date value here
+                print(f"Invalid date format for entry: {fields[5]}")
             current_header = TransHeader.objects.create(
-                TransBatchID=trans_batch,
+                TransBatchID = trans_batch,
                 TransDescription = fields[3],
-                TransDate = fields[5],
+                TransDate = formatted_date,
                 TransNote = fields[7]
             )
         elif fields[0] == 'TD':
             TransDetail.objects.create(
                 TransHeaderID=current_header,
-                AccountNumber=AccountNumber,
-                Description=Description,
-                DrAmount=DrAmount,
-                CrAmount=CrAmount
+                Amount = fields[2],
+                DrAccount = fields[4],
+                CrAccount = fields[6]
             )
 
 def FTTransactions(request):
@@ -591,8 +615,11 @@ def FTTransactions(request):
           elif form.cleaned_data['action'] == 'upload':
              csv_file = request.FILES['excel_file']
              if not csv_file.name.endswith('.csv'):
+                print("whatt!!!!")
                 messages.warning(request, 'The wrong file type was uploaded')
                 return HttpResponseRedirect(request.path_info)
+             populate_from_csv(csv_file)
+             return redirect('LoginRegister:FTTransactions')  # Redirect back to the same view
           # if excelForm.is_valid():
           #   excel_file = request.FILES['excel_file']
           #   #populate_from_excel(excel_file, trans_batch)
