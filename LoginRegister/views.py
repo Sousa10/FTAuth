@@ -127,13 +127,6 @@ def FTListChores(request, listheader_id=None):
 
             return redirect('LoginRegister:FTListChores', listheader_id=listheader.id)
 
-            # return render(request, 'FTListChores.html', {
-            #   'listHeaderForm': listHeaderForm,
-            #   'listDetailForm': listDetailForm,
-            #   'selectedHeaderForm': selectedHeaderForm,
-            #   'listheader': listheader,
-            #   'listdetails': page,
-            # })
   else:
       listHeaderForm = ListHeaderTForm()
       selected_header = ListHeaderT.objects.get(id=listheader_id)
@@ -602,10 +595,9 @@ def populate_from_csv(csv_file):
             except ValueError:
                 print(f"Invalid amount format for entry: {fields[2]}")
 
-def FTTransactions(request):
+def FTTransactions(request, transbatch_id=None):
     if request.method == 'POST':
-      # batchForm = TransBatchForm(request.POST)
-      # excelForm = UploadExcelForm(request.POST, request.FILES)
+      transbatch = TransBatch.objects.get(id=transbatch_id)
       form = TemplateActionForm(request.POST, request.FILES)
       
       if form.is_valid():

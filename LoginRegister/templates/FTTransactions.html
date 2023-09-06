@@ -18,12 +18,10 @@
 </div>
 
 <div class="forms">
-  <!-- <form method="post" enctype="multipart/form-data" style="text-align: initial; font-size: 12px; font-weight: bold;">
-    {% csrf_token %}
-    {{ batchForm.as_p }}
-    {{ excelForm.as_p }}
-    <button type="submit">Create Batch</button>
-  </form> -->
+  <div class="batch_info">
+    Batch Name: <br>
+    Batch Date:
+  </div>
   <form id="templateActionForm" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.action }}
