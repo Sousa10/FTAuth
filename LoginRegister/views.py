@@ -561,40 +561,46 @@ def populate_from_csv(csv_file):
         if not row.strip():
             continue
         fields = row.split(",")
-        print(len(fields))
+        # print(len(fields))
         if len(fields) < 7:  # Adjust this number based on the minimum columns you expect
             continue
         
         formatted_date = None
         # If TransDescription is present, create a new TransHeader record.
-        if fields[0] == 'TB':
+        if fields[0] == 'TB' and fields[2] and fields[4]:
             if fields[4]:
                try:
                   formatted_date = format_date(fields[4])
+                  trans_batch = TransBatch.objects.create(TransBatchName=fields[2], TransBatchDate=formatted_date or None)
                except ValueError:
                # Handle or log the malformed date value here
                 print(f"Invalid date format for entry: {fields[4]}")
-            trans_batch = TransBatch.objects.create(TransBatchName=fields[2], TransBatchDate=formatted_date or None)
-        elif fields[0] == 'TH':
+
+        elif fields[0] == 'TH' and fields[3] and fields[5] and fields[7]:
             if fields[5]:
               try:
                 formatted_date = format_date(fields[5])
+                current_header = TransHeader.objects.create(
+                    TransBatchID = trans_batch,
+                    TransDescription = fields[3],
+                    TransDate = formatted_date,
+                    TransNote = fields[7]
+                )
               except ValueError:
               # Handle or log the malformed date value here
                 print(f"Invalid date format for entry: {fields[5]}")
-            current_header = TransHeader.objects.create(
-                TransBatchID = trans_batch,
-                TransDescription = fields[3],
-                TransDate = formatted_date,
-                TransNote = fields[7]
-            )
-        elif fields[0] == 'TD':
-            TransDetail.objects.create(
+
+        elif fields[0] == 'TD' and fields[2]:
+            try:
+               amount = int(fields[2])
+               TransDetail.objects.create(
                 TransHeaderID=current_header,
-                Amount = fields[2],
+                Amount = amount,
                 DrAccount = fields[4],
                 CrAccount = fields[6]
             )
+            except ValueError:
+                print(f"Invalid amount format for entry: {fields[2]}")
 
 def FTTransactions(request):
     if request.method == 'POST':
@@ -620,14 +626,8 @@ def FTTransactions(request):
                 return HttpResponseRedirect(request.path_info)
              populate_from_csv(csv_file)
              return redirect('LoginRegister:FTTransactions')  # Redirect back to the same view
-          # if excelForm.is_valid():
-          #   excel_file = request.FILES['excel_file']
-          #   #populate_from_excel(excel_file, trans_batch)
-          #   return redirect('LoginRegister:FTTransactions')  # Redirect back to the same view
     else:
       form = TemplateActionForm()
-      # batchForm = TransBatchForm()
-      # excelForm = UploadExcelForm()
 
     transactions = TransDetail.objects.all()
     # Assuming you want to display all the batches, headers, and details on the same page
@@ -636,8 +636,6 @@ def FTTransactions(request):
     page_number = request.GET.get("page")
     transactions_paginated = paginator.get_page(page_number)
     context = {
-      # 'batchForm': batchForm,
-      # 'excelForm': excelForm,
       'form': form,
       'transactions': transactions_paginated,
       'batches': batches
