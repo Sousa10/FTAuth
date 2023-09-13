@@ -33,29 +33,59 @@ class CashInAcctM(models.Model):
   Description = models.CharField(max_length=255, null=True)
   DrCrBal = models.CharField(max_length=20, null=True)
 
+  class Meta:
+        verbose_name_plural = 'Revenue Accounts'
+  def __str__(self):
+     return self.AccountNumber
+
 class CashOutAcctM(models.Model):
   AccountNumber = models.CharField(max_length=40, null=True)
   Description = models.CharField(max_length=255, null=True)
   DrCrBal = models.CharField(max_length=20, null=True)
+
+  class Meta:
+        verbose_name_plural = 'Expense Accounts'
+  def __str__(self):
+     return self.AccountNumber
 
 class WhatWeOwnAcctM(models.Model):
   AccountNumber = models.CharField(max_length=40, null=True)
   Description = models.CharField(max_length=255, null=True)
   DrCrBal = models.CharField(max_length=20, null=True)
 
+  class Meta:
+        verbose_name_plural = 'Asset Accounts'
+  def __str__(self):
+     return self.AccountNumber
+
 class DebtsAcctM(models.Model):
   AccountNumber = models.CharField(max_length=40, null=True)
   Description = models.CharField(max_length=255, null=True)
   DrCrBal = models.CharField(max_length=20, null=True)
+
+  class Meta:
+        verbose_name_plural = 'Liability Accounts'
+  def __str__(self):
+     return self.AccountNumber
 
 class NetworthAcctM(models.Model):
   AccountNumber = models.CharField(max_length=40, null=True)
   Description = models.CharField(max_length=255, null=True)
   DrCrBal = models.CharField(max_length=20, null=True)
 
+  class Meta:
+        verbose_name_plural = 'Equity Accounts'
+  def __str__(self):
+     return self.AccountNumber
+  
 class AcctRollupsM(models.Model):
   RollUpName = models.CharField(max_length=255, null=True)
   AcctType = models.CharField(max_length=80, null=True)
+
+  class Meta:
+        verbose_name_plural = 'Account Rollups'
+  def __str__(self):
+     return self.RollUpName
 
 class AcctRollupsD(models.Model):
   RollUpName = models.CharField(max_length=255, null=True)
@@ -64,11 +94,21 @@ class AcctRollupsD(models.Model):
   Description = models.CharField(max_length=255, null=True)
   DrCrBal = models.CharField(max_length=20, null=True)
 
+  class Meta:
+        verbose_name_plural = 'Account Detail Rollups'
+  def __str__(self):
+     return self.RollUpName
+
 class TransBatch(models.Model):
   TransBatchName = models.CharField(max_length=120, null=True)
   TransBatchDate = models.DateField()
   Created = models.DateTimeField(auto_now_add=True)
   LastUpdated = models.DateTimeField(auto_now=True) 
+
+  class Meta:
+        verbose_name_plural = 'Transaction Batch'
+  def __str__(self):
+     return self.TransBatchName
 
 class TransHeader(models.Model):
   TransBatchID = models.ForeignKey('TransBatch', null=True, on_delete=models.CASCADE)
@@ -77,6 +117,11 @@ class TransHeader(models.Model):
   TransNote = models.CharField(max_length=240, null=True)
   Created = models.DateTimeField(auto_now_add=True)
   LastUpdated = models.DateTimeField(auto_now=True) 
+
+  class Meta:
+        verbose_name_plural = 'Transaction Header'
+  def __str__(self):
+     return self.TransDescription
 
 class TransDetail(models.Model):
   TransHeaderID = models.ForeignKey('TransHeader', null=True, on_delete=models.CASCADE)
@@ -87,6 +132,11 @@ class TransDetail(models.Model):
   CrAccount = models.CharField(max_length=10, null=True)
   Created = models.DateTimeField(auto_now_add=True)
   LastUpdated = models.DateTimeField(auto_now=True) 
+
+  class Meta:
+        verbose_name_plural = 'Transaction Detail'
+  def __str__(self):
+     return self.Description
 
 class ListHeaderT(models.Model):
     PersonFK = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
@@ -113,6 +163,9 @@ class SponRates(models.Model):
   Spots1_6Rate = models.CharField(max_length=40, null=True)
   Spot7Rate = models.CharField(max_length=40, null=True)
 
+  def __str__(self):
+      return self.Geography
+
 class CalendarIncrements(models.Model):
   Sequence = models.IntegerField(null=True)
   FamilyID = models.IntegerField(null=True)
@@ -120,6 +173,9 @@ class CalendarIncrements(models.Model):
   CalendarID = models.CharField(max_length=120, null=True)
   IncrementDate = models.DateField()
   IncrementTime = models.TimeField()
+
+  def __str__(self):
+      return self.Sequence
 
 # 
 # New 8/16 Start here, drop boxes for Calendar template
@@ -134,6 +190,9 @@ class Calendars(models.Model):
       managed = False
       db_table = 'calendars'
 
+   def __str__(self):
+      return self.Calendar
+
 class Views(models.Model):
    view = models.CharField(primary_key=True, max_length=20)
    name = models.CharField(max_length=64, blank=True, null=True)
@@ -143,6 +202,9 @@ class Views(models.Model):
    class Meta:
       managed = False
       db_table = 'views'
+
+   def __str__(self):
+      return self.view
 
 class Dates(models.Model):
    date = models.CharField(primary_key=True, max_length=20)
@@ -154,6 +216,9 @@ class Dates(models.Model):
       managed = False
       db_table = 'dates'
 
+   def __str__(self):
+      return self.date
+
 class DefaultParams(models.Model):
     default_param_id = models.AutoField(primary_key=True)
     calendar = models.ForeignKey(Calendars, models.DO_NOTHING)
@@ -163,6 +228,9 @@ class DefaultParams(models.Model):
     class Meta:
         managed = False
         db_table = 'default_params'
+
+    def __str__(self):
+      return self.default_param_id
 # 
 #   KMS Start Day Picker
 #
