@@ -51,6 +51,7 @@ urlpatterns = [
     path('LoginRegister/FTAndroid/', views.FTAndroid, name='FTAndroid'),
     path('LoginRegister/FTSponRateTbl/', views.FTSponRateTbl, name='FTSponRateTbl'),
     path('LoginRegister/FTTransactions/<int:batch_id>', views.FTTransactions, name='FTTransactions'),
+    path('LoginRegister/FTTransactions/', views.FTTransactions, name='FTTransactionsNoId'),
     path('transactions/delete/<int:pk>/', views.transaction_delete, name='transaction_delete'),
     path('admin/', admin.site.urls),
 ]

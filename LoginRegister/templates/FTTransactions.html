@@ -16,44 +16,53 @@
     </p>
   </a>
 </div>
-
-<div class="forms">
-  <div class="batch_form">
-    <form action="{% url 'LoginRegister:FTTransactions' transBatch.id|default:'new' %}" method="post">
-      <div class="modal-body">
-        {% csrf_token %}
-        <div class="form-group">
-          <label for="{{ listHeaderForm.LHName.id_for_label }}">List or Plan Name</label>
-          {{ transbatchForm.BatchName }}
-        </div>
-        {% if transbatchForm.errors or transbatchForm.non_field_errors %}
-        <div class="mb-3 p-6 bg-red-100 rounded-xl">
-          {% for field in transbatchForm %}
-          {{ field.errors }}
-          {% endfor %}
-
-          {{ transbatchForm.non_field_errors }}
-        </div>
-        {% endif %}
+<div class="row">
+  <div class="col-md-1"></div>
+  <div class="col-md-10">
+    <div class="forms">
+      <div class="batch_form" style="margin-left: 50px;">
+        
+        <form action="{% url 'LoginRegister:FTTransactions' transBatch.id %}" method="post">
+        
+          <div class="modal-body">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="{{ transbatchForm.BatchName.id_for_label }}">Select a batch</label>
+              {{ transbatchForm.BatchName }}
+            </div>
+            {% if transbatchForm.errors or transbatchForm.non_field_errors %}
+            <div class="mb-3 p-6 bg-red-100 rounded-xl">
+              {% for field in transbatchForm %}
+              {{ field.errors }}
+              {% endfor %}
+    
+              {{ transbatchForm.non_field_errors }}
+            </div>
+            {% endif %}
+          </div>
+          <input type="hidden" name="form_type" value="SelectedBatchForm">
+          <button type="submit" class="btn btn-primary mt-2">Submit</button>
+        </form>
       </div>
-      <input type="hidden" name="form_type" value="SelectedBatchForm">
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-  </div>
-  <form id="templateActionForm" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.action }}
-    <div id="uploadField" style="display:none;">
-      {{ form.excel_file }}
+      <div class="upload_form" style="float: right;margin-right: 60px;">
+        <form id="templateActionForm" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          {{ form.action }}
+          <div id="uploadField" style="display:none;">
+            {{ form.excel_file }}
+          </div>
+          <input type="hidden" name="form_type" value="uploadDownload">
+          <button type="submit" class="mt-2">Submit</button>
+        </form>
+      </div>
     </div>
-    <input type="hidden" name="form_type" value="uploadDownload">
-    <button type="submit">Submit</button>
-  </form>
+  </div>
+  <div class="col-md-1"></div>
 </div>
 {% endblock %}
 
 {% block content %}
-{% for batch in batches %}
+{% if transBatch %}
 <table>
   <thead>
     <tr>
@@ -65,7 +74,7 @@
   </thead>
   <tbody>
     <tr>
-      {% for header in batch.transheader_set.all %}
+      {% for header in transBatch.transheader_set.all %}
       <td>{{ header.TransDescription }}</td>
       <td>{{ header.TransDate }}</td>
       <td>{{ header.TransNote }}</td>
@@ -81,7 +90,7 @@
   </tbody>
   {% endfor %}
 </table>
-{% endfor %}
+{% endif %}
 <div class="pagination">
   <span class="step-links">
     {% if transactions.has_previous %}

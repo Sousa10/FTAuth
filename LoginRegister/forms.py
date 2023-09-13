@@ -5,7 +5,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from .models import CashInAcctM, CashOutAcctM, WhatWeOwnAcctM, DebtsAcctM, ListHeaderT, ListDetailsT, NetworthAcctM, SponRates, TransBatch
 
 
-INPUT_CLASSES = 'w-full py-4 px-6 rounded-xl border form-control'
+INPUT_CLASSES = 'rounded-xl border form-control'
 
 class LoginForm(AuthenticationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={

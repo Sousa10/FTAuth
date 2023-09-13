@@ -65,10 +65,13 @@ class AcctRollupsD(models.Model):
   DrCrBal = models.CharField(max_length=20, null=True)
 
 class TransBatch(models.Model):
-  TransBatchName = models.CharField(max_length=120, null=True)
+  TransBatchName = models.CharField(max_length=120, null=True, unique=True)
   TransBatchDate = models.DateField(null=True)
   Created = models.DateTimeField(auto_now_add=True)
-  LastUpdated = models.DateTimeField(auto_now=True) 
+  LastUpdated = models.DateTimeField(auto_now=True)
+
+  def __str__(self):
+        return self.TransBatchName
 
 class TransHeader(models.Model):
   TransBatchID = models.ForeignKey('TransBatch', null=True, on_delete=models.CASCADE)
@@ -80,13 +83,14 @@ class TransHeader(models.Model):
 
 class TransDetail(models.Model):
   TransHeaderID = models.ForeignKey('TransHeader', null=True, on_delete=models.CASCADE)
-  #AccountNumber = models.CharField(max_length=40, null=True)
-  #Description = models.CharField(max_length=255, null=True)
   Amount = models.IntegerField()
   DrAccount = models.CharField(max_length=10, null=True)
   CrAccount = models.CharField(max_length=10, null=True)
   Created = models.DateTimeField(auto_now_add=True)
-  LastUpdated = models.DateTimeField(auto_now=True) 
+  LastUpdated = models.DateTimeField(auto_now=True)
+
+  class Meta:
+        ordering = ['id']  # or any other field or fields
 
 class ListHeaderT(models.Model):
     PersonFK = models.ForeignKey(User, null=True, on_delete=models.CASCADE)

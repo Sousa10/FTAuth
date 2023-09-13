@@ -135,7 +135,7 @@ def FTListChores(request, listheader_id=None):
                 # get page number for each ListHeaderT instance
                 page_number = request.GET.get('page', 1)
                 page = paginator.get_page(page_number)
-                print(type(listheader))
+                print(type(listheader.id))
 
                 return redirect('LoginRegister:FTListChores', listheader_id=listheader.id)
 
@@ -667,14 +667,23 @@ def populate_from_csv(csv_file):
 def FTTransactions(request, batch_id=None):
     if batch_id:
         transBatch = TransBatch.objects.get(id=batch_id)
-        transHeader = TransHeader.objects.get(TransBatchID=transBatch)
-        transDetail = TransDetail.objects.get(TransHeaderID=transHeader)
+        transHeaders = transBatch.transheader_set.all()
+        for transHeader in transHeaders:
+            transDetail = transHeader.transdetail_set.all()
+            paginator = Paginator(transDetail, 2)  # Show 10 ListDetailsT objects per page
+            page_number = request.GET.get('page', 1)  # get page number for each ListHeaderT instance
+            page = paginator.get_page(page_number)
+    else:
+      transDetail = None
+      page = None
+    
+    #transBatch = TransBatch.objects.first()
+
     if request.method == 'POST':
         form_type = request.POST.get('form_type')
         if form_type == 'uploadDownload':
             form = TemplateActionForm(request.POST, request.FILES)
             if form.is_valid():
-                # trans_batch = batchForm.save()
                 if form.cleaned_data['action'] == 'download':
                     # Use the pre-existing Excel file for download
                     filename = os.path.join(os.path.dirname(
@@ -695,28 +704,38 @@ def FTTransactions(request, batch_id=None):
                         return HttpResponseRedirect(request.path_info)
                     populate_from_csv(csv_file)
                     # Redirect back to the same view
-                    return redirect('LoginRegister:FTTransactions')
+                    return redirect('LoginRegister:FTTransactions', batch_id = transBatch.id)
         elif form_type == 'SelectedBatchForm':
             transbatchForm = TransBatchSelectForm(request.POST)
             if transbatchForm.is_valid():
                 batchname = transbatchForm.cleaned_data['BatchName']
                 transbatch = TransBatch.objects.get(TransBatchName=batchname)
+                print(transbatch.id)
+                transHeaders = transBatch.transheader_set.all()
+                for transHeader in transHeaders:
+                    transDetail = transHeader.transdetail_set.all()
+                    paginator = Paginator(transDetail, 2)  # Show 10 ListDetailsT objects per page
+                    page_number = request.GET.get('page', 1)  # get page number for each ListHeaderT instance
+                    page = paginator.get_page(page_number)
+                    return redirect('LoginRegister:FTTransactions', batch_id = transbatch.id)
+
     else:
         form = TemplateActionForm()
         transbatchForm = TransBatchSelectForm()
 
     transactions = TransDetail.objects.all()
     # Assuming you want to display all the batches, headers, and details on the same page
-    batches = TransBatch.objects.all()
+    batch = TransBatch.objects.all()
     paginator = Paginator(transactions, 11)  # Show 11 accounts per page.
     page_number = request.GET.get("page")
     transactions_paginated = paginator.get_page(page_number)
     context = {
         'form': form,
         'transactions': transactions_paginated,
-        'batches': batches,
+        # 'batch': batch,
         'transBatch': transBatch,
-        'transbatchForm': transbatchForm
+        'transbatchForm': transbatchForm,
+        'transdetail': page
     }
     return render(request, 'FTTransactions.html', context)
 

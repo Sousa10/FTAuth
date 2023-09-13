@@ -109,8 +109,8 @@ th {
     margin: 10px;
 }
 
-.forms {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.forms .batch_form,
+.forms .upload_form {
+    display: inline-block;
+    vertical-align: top; /* To align them vertically to the top if they have different heights */
 }
