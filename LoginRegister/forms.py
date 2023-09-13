@@ -184,3 +184,10 @@ class TemplateActionForm(forms.Form):
 
     action = forms.ChoiceField(choices=ACTION_CHOICES, required=True)
     excel_file = forms.FileField(required=False)
+
+class TransBatchSelectForm(forms.ModelForm):
+    class Meta:
+        model = TransBatch
+        fields = ['BatchName']
+
+    BatchName = forms.ModelChoiceField(queryset=TransBatch.objects.all(), widget=forms.Select(attrs={'class': INPUT_CLASSES}))

@@ -3,3 +3,6 @@ LoginRegister/migrations/__pycache__/
 FamilyTrackerAuth/__pycache__/
 LoginRegister/__pycache__/
 .vscode/
+
+events/__pycache__/
+events/migrations/__pycache__/

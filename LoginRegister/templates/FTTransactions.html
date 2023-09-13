@@ -18,74 +18,69 @@
 </div>
 
 <div class="forms">
-  <!-- <form method="post" enctype="multipart/form-data" style="text-align: initial; font-size: 12px; font-weight: bold;">
-    {% csrf_token %}
-    {{ batchForm.as_p }}
-    {{ excelForm.as_p }}
-    <button type="submit">Create Batch</button>
-  </form> -->
+  <div class="batch_form">
+    <form action="{% url 'LoginRegister:FTTransactions' transBatch.id|default:'new' %}" method="post">
+      <div class="modal-body">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="{{ listHeaderForm.LHName.id_for_label }}">List or Plan Name</label>
+          {{ transbatchForm.BatchName }}
+        </div>
+        {% if transbatchForm.errors or transbatchForm.non_field_errors %}
+        <div class="mb-3 p-6 bg-red-100 rounded-xl">
+          {% for field in transbatchForm %}
+          {{ field.errors }}
+          {% endfor %}
+
+          {{ transbatchForm.non_field_errors }}
+        </div>
+        {% endif %}
+      </div>
+      <input type="hidden" name="form_type" value="SelectedBatchForm">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
   <form id="templateActionForm" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.action }}
     <div id="uploadField" style="display:none;">
-        {{ form.excel_file }}
+      {{ form.excel_file }}
     </div>
+    <input type="hidden" name="form_type" value="uploadDownload">
     <button type="submit">Submit</button>
-</form>
+  </form>
 </div>
 {% endblock %}
 
 {% block content %}
-<!-- <h2>Transactions</h2> -->
+{% for batch in batches %}
 <table>
   <thead>
     <tr>
       <th>Description</th>
       <th>Date</th>
       <th>Note</th>
-      <th>Actions</th>
+      <!-- <th>Actions</th> -->
     </tr>
   </thead>
   <tbody>
-    {% for transaction in transactions %}
     <tr>
-      <td>{{ transaction.description }}</td>
-      <td>{{ transaction.date }}</td>
-      <td>{{ transaction.note }}</td>
-      <td>
-        <a href="{% url 'LoginRegister:transaction_delete' transaction.id %}" class="btn btn-danger">Delete</a>
-        <a href="#" data-id="{{ cashinacctm.id }}" data-account="{{ cashinacctm.AccountNumber }}"
-          data-description="{{ cashinacctm.Description }}" class="btn btn-secondary edit-button">Edit</a>
-
-      </td>
+      {% for header in batch.transheader_set.all %}
+      <td>{{ header.TransDescription }}</td>
+      <td>{{ header.TransDate }}</td>
+      <td>{{ header.TransNote }}</td>
+    </tr>
+    <!-- Display detail rows -->
+    <tr>
+      {% for detail in header.transdetail_set.all %}
+      <td><b>Amount</b> ${{ detail.Amount }}.00</td>
+      <td><b>DrAccount</b> {{ detail.DrAccount }}</td>
+      <td><b>CrAccount</b> {{ detail.CrAccount }}</td>
     </tr>
     {% endfor %}
   </tbody>
+  {% endfor %}
 </table>
-<!-- Display batches, headers, and details as needed -->
-{% for batch in batches %}
-<!-- Display batch details -->
-  {% for header in batch.transheader_set.all %}
-  <!-- Display header details -->
-    <table>
-      <tbody>
-        <tr>
-          <td>abc{{ header.TransDescription }}</td>
-          <td>{{ header.TransDate }}</td>
-          <td>{{ header.TransNote }}</td>
-        </tr>
-        {% for detail in header.transdetail_set.all %}
-        <!-- Display detail rows -->
-        <tr>
-          <td>{{ detail.AccountNumber }}</td>
-          <td>{{ detail.Description }}</td>
-          <td>{{ detail.DrAmount }}</td>
-          <td>{{ detail.CrAmount }}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-      {% endfor %}
-    </table>
 {% endfor %}
 <div class="pagination">
   <span class="step-links">
@@ -107,14 +102,14 @@
 {% block modal-script %}
 <script>
   const dropdown = document.querySelector("#id_action");
-    const uploadField = document.querySelector("#uploadField");
-    dropdown.addEventListener("change", function() {
-        if (this.value === "upload") {
-            uploadField.style.display = "block";
-        } else {
-            uploadField.style.display = "none";
-        }
-    });
+  const uploadField = document.querySelector("#uploadField");
+  dropdown.addEventListener("change", function () {
+    if (this.value === "upload") {
+      uploadField.style.display = "block";
+    } else {
+      uploadField.style.display = "none";
+    }
+  });
 </script>
 {% endblock %}
 
