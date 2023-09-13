@@ -23,6 +23,12 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
+<!-- members starts here -->
+<li class="nav-item">
+    <a class="nav-link active" href="{% url 'main_menu_login' %}">Login</a>
+</li>
+
+<!-- members ends here -->
           <li class="nav-item dropdown active">
             <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Calendar
@@ -73,14 +79,7 @@
           </li>    
           <li class="nav-item">
             <a class="nav-link active" href="#About1" data-bs-toggle="modal">About</a>
-        </li>
-        
-        <!-- members starts here -->
-        <li class="nav-item">
-          <a class="nav-link active" href="{% url 'login' %}">Login</a>
-        </li>
-      
-
+        </li>    
         </ul>
 
         <form class="d-flex" method=POST action="{% url 'search-venues' %}">
