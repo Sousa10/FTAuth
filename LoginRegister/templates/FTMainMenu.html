@@ -2,13 +2,13 @@
 {% load static %}
 {% block title %}Main Menu{% endblock %}
 
-{% block pageimage %}
-<img style="float: left;" src="{% static 'MainMenu.jpg' %}" alt="Main Menu Tile missing" width="100"
-  height="100">
-{% endblock %}
-{% block backurl %}{%url 'LoginRegister:FTMainMenu'%}{% endblock %}
+<!-- {% block pageimage %} -->
+<!-- <img style="float: left;" src="{% static 'MainMenu.jpg' %}" alt="Main Menu Tile missing" width="100" -->
+  <!-- height="100"> -->
+<!-- {% endblock %} -->
+<!-- {% block backurl %}{%url 'LoginRegister:FTMainMenu'%}{% endblock %} -->
 
-{% block pageTitle %}
+{% block content %}
 <div class="h1">
   <a style="color:rgb(6, 6, 192)">
     <p style="font-size:40px">
@@ -16,25 +16,18 @@
     </p>
   </a>
 </div>
-{% endblock %}
-
-{% block content %}
-
 <br>
-<br>
-<br>
-
 <p style="text-align:center">
-  <a href="{% url 'LoginRegister:FTTransactions' %}"><img src="{% static 'Finances.jpg' %}" alt="Finances Tile Missing" width="130" height="130"></a>
-  <a> &nbsp&nbsp&nbsp&nbsp </a>
+  <a href="{% url 'LoginRegister:FTTransactions' batch.id|default:'1' %}"><img src="{% static 'Finances.jpg' %}" alt="Finances Tile Missing" width="130" height="130"></a>
+  <a> &nbsp</a>
   <a href="{% url 'LoginRegister:FTCalendar' %}"><img src="{% static 'calendar.jpg' %}" alt="Calendar Tile Missing" width="130" height="130"></a>
-  <a> &nbsp&nbsp&nbsp&nbsp </a>
+  <a> &nbsp</a>
   <a href="{% url 'LoginRegister:FTListChores' listHeader.id|default:'new' %}"><img src="{% static 'ListsAndPlanning.jpg' %}" alt="To Do's Tile Missing" width="130" height="130"></a>
-  <a> &nbsp&nbsp&nbsp&nbsp </a>
+  <a> &nbsp</a>
   <a href="{% url 'LoginRegister:FTFamilyTracks' %}"><img src="{% static 'FamilyTracks.jpg' %}" alt="To Do's Tile Missing" width="130" height="130"></a>
-  <a> &nbsp&nbsp&nbsp&nbsp </a>
+  <a> &nbsp</a>
   <a href="{% url 'LoginRegister:FTFitnessSports' %}"><img src="{% static 'FitnessSports.jpg' %}" alt="Fitness Sports Tile Missing" width="130" height="130"></a>
-  <a> &nbsp&nbsp&nbsp&nbsp </a>
+  <a> &nbsp</a>
   <a href="{% url 'LoginRegister:FTAcministration' %}"><img src="{% static 'Administration.jpg' %}" alt="Admin Tile Missing" width="130" height="130"></a>
 </p>
       

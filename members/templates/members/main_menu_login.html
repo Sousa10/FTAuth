@@ -1,25 +1,19 @@
-{% extends 'base.html' %}
+{% extends 'members/base.html' %}
 {% load static %}
 
-{% block pageimage %}
-<img style="float: left;" src="{% static 'MainMenu.jpg' %}" alt="Main Menu Tile missing" width="100"
-  height="100">
-{% endblock %}
-{% block backurl %}{%url 'LoginRegister:FTMainMenu'%}{% endblock %}
-
 {% block pageTitle %}
-<div class="h1">
-  <a style="color:rgb(6, 6, 192)">
-    <p style="font-size:40px">
-      <h2>Main Menu</h2>
-    </p>
-  </a>
-</div>
 {% endblock %}
-
 {% block content %}
-<br>
 <p style="text-align:center">
+  <div class="h1">
+    <a style="color:rgb(6, 6, 192)">
+      <p style="font-size:40px">
+        <h2>Main Menu Login</h2>
+      </p>
+    </a>
+  </div>
+</p>
+</br>
   <img src="{% static 'Finances.jpg' %}" alt="Finances Tile Missing" width="130" height="130">
   &nbsp&nbsp
   <img src="{% static 'calendar.jpg' %}" alt="Calendar Tile Missing" width="130" height="130">
@@ -33,23 +27,21 @@
   <img src="{% static 'Administration.jpg' %}" alt="Admin Tile Missing" width="130" height="130">
 </p>
       
-<h1>Login</h1>
 <form action="" method=POST>
-    {% csrf_token %}
-
-      <div class="mb-3">
+    {% csrf_token %}   
+    <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Username</label>
-        <input type="text" class="form-control" name="Username" aria-describedby="emailHelp">
+        <input type="text" class="form-control" name="username" aria-describedby="emailHelp">
         <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-      </div>
+    </div>
 
-      <div class="mb-3">
+    <div class="mb-3">
         <label for="exampleInputPassword1" class="form-label">Password</label>
-        <input type="password" class="form-control" name="Password">
-      </div>
+        <input type="password" class="form-control" name="password">
+    </div>
 
-    <input type="submit" value="Submmit" class="btn btn-secondary">
+  <input type="submit" value="Submmit" class="btn btn-secondary">
 
-  </form>
+</form>
 
 {% endblock %}

@@ -34,6 +34,37 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                        </li>
+                        <!-- <li class="nav-item dropdown active"> -->
+                            <!-- <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" -->
+                                <!-- data-bs-toggle="dropdown" aria-expanded="false"> -->
+                                <!-- Register -->
+                            <!-- </a> -->
+                            <!-- <ul class="dropdown-menu active" aria-labelledby="navbarDropdown"> -->
+                                <!-- <li><a class="dropdown-item active" href="{% url 'events-list' %}">Register</a></li> -->
+                                <!-- <li><a class="dropdown-item active" href="{% url 'add-event' %}">Assign Security</a></li> -->
+                            <!-- </ul> -->
+                        <!-- </li> -->
+
+                        <!-- {% if user.is_authenticated %} -->
+                            <!-- <li class="nav-item"> -->
+                                <!-- <a class="nav-link active" href="{% url 'logout' %}" data-bs-toggle="modal">Logout</a> -->
+                            <!-- </li> -->
+                        <!-- {% else %} -->
+                            <li class="nav-item">
+                                <a class="nav-link active" href="{% url 'main_menu_login' %}" data-bs-toggle="modal">Login</a>
+                            </li>              
+                        <!-- {% endif %} -->
+
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{% url 'main_menu_login' %}" >Login</a>
+                        </li>              
+
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{% url 'register_user' %}">Register</a>
+                        </li>
+
                         <li class="nav-item dropdown active">
                             <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
                                data-bs-toggle="dropdown" aria-expanded="false">
@@ -48,17 +79,11 @@
                         <li class="nav-item">
                             <a class="nav-link active" href="#About1" data-bs-toggle="modal">Video Tutorial</a>
                         </li>
-
                         <li class="nav-item">
                             <a class="nav-link active" href="#About1" data-bs-toggle="modal">About</a>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link active" href="{% url 'LoginRegister:logout' %}" data-bs-toggle="modal">Logout</a>
-                        </li> 
-
                     </ul>
-           
                     <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item active" href="{% url 'events-list' %}">Register Family Members</a></li>
                         <li><a class="dropdown-item active" href="{% url 'add-event' %}">Assign Security</a></li>

@@ -1,0 +1,26 @@
+{% extends 'members/base.html' %}
+{% load static %}
+{% block pageTitle %}
+{% endblock %}
+{% block content %}
+{% if form.errors %}
+    <p>There was an error with your form</p>
+{% endif %}
+
+  <p style="text-align:center">
+    <div class="h1">
+      <a style="color:rgb(6, 6, 192)">
+        <p style="font-size:40px">
+          <h2>Register</h2>
+        </p>
+      </a>
+    </div>
+  </p>
+
+  <form action="{% url 'register_user' %}" method=POST>
+    {% csrf_token %}
+    {{ form.as_div }}
+    <br/>
+    <input type="submit" value="Submit" class="btn btn-secondary">
+  </form>
+{% endblock %}

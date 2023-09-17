@@ -54,4 +54,5 @@ urlpatterns = [
     path('LoginRegister/FTTransactions/', views.FTTransactions, name='FTTransactionsNoId'),
     path('transactions/delete/<int:pk>/', views.transaction_delete, name='transaction_delete'),
     path('admin/', admin.site.urls),
+    path('logout_user', views.logout_user, name='logout'),
 ]

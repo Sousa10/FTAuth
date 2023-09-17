@@ -4,12 +4,16 @@ from .models import PersonM, CashInAcctM, CashOutAcctM, WhatWeOwnAcctM, ListHead
 from .forms import ListHeaderTForm, ListDetailsTForm, ListHeaderSelectForm, ListHeaderTForm, ListDetailsTForm, SponRatesForm, EquityAcctMForm, DebtsAcctMForm, WhatWeOwnAcctMForm, CashOutAcctMForm, CashInAcctMForm, TemplateActionForm, TransBatchSelectForm
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator
-import os
-from django.shortcuts import render
-import csv
 from django.contrib import messages
 from datetime import datetime
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth import authenticate, login, logout
+import os
+import csv
 
+def logout_user(request):
+    logout(request)
+    return redirect('members:main_menu_login')
 
 def LoginRegister(request):
     FTpersons = PersonM.objects.all().values()
@@ -24,9 +28,11 @@ def LoginRegister(request):
 
 def FTMainMenu(request):
     listHeader = ListHeaderT.objects.first()
+    batch = TransBatch.objects.first()
     template = loader.get_template('FTMainMenu.html')
     context = {
         'listHeader': listHeader,
+        'batch': batch,
     }
     return HttpResponse(template.render(context, request))
 
