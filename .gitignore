@@ -6,3 +6,9 @@ LoginRegister/__pycache__/
 
 events/__pycache__/
 events/migrations/__pycache__/
+
+Pipfile.lock
+members/__pycache__/
+familytracks/__pycache__/
+members/migrations/__pycache__/
+familytracks/migrations/__pycache__/

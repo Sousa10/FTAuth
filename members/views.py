@@ -42,3 +42,8 @@ def register_user(request):
     return render(request, 'members/register_user.html', {
         'form':form,  
         })
+
+def logout_user(request):
+    logout(request)
+    print("in logout")
+    return redirect('members:main_menu_login')

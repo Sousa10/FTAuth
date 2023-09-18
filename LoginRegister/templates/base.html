@@ -52,10 +52,15 @@
                         <li class="nav-item">
                             <a class="nav-link active" href="#About1" data-bs-toggle="modal">About</a>
                         </li>
-
+                        {% if user.is_authenticaded %}
                         <li class="nav-item">
-                            <a class="nav-link active" href="{% url 'LoginRegister:logout' %}" data-bs-toggle="modal">Logout</a>
-                        </li> 
+                            <a class="nav-link active" href="{% url 'logout' %}">Logout</a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{% url 'main_menu_login' %}">Login</a>
+                        </li>
+                        {% endif %}
 
                     </ul>
            

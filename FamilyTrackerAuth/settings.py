@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'LoginRegister',
     'events',
     'members',
-    #'bootstrap5',
+    'familytracks',
 ]
 
 MIDDLEWARE = [

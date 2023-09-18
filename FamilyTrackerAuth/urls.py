@@ -9,4 +9,5 @@ urlpatterns = [
     path('events/', include('events.urls')),
     path('members/', include('django.contrib.auth.urls')),
     path('members/', include('members.urls')),
+    path('familytracks/', include('familytracks.urls')),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
