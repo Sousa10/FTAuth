@@ -51,18 +51,15 @@
                             <!-- <li class="nav-item"> -->
                                 <!-- <a class="nav-link active" href="{% url 'logout' %}" data-bs-toggle="modal">Logout</a> -->
                             <!-- </li> -->
-                        <!-- {% else %} -->
-                            <li class="nav-item">
-                                <a class="nav-link active" href="{% url 'main_menu_login' %}" data-bs-toggle="modal">Login</a>
-                            </li>              
+                        <!-- {% else %} -->       
                         <!-- {% endif %} -->
 
                         <li class="nav-item">
-                            <a class="nav-link active" href="{% url 'main_menu_login' %}" >Login</a>
+                            <a class="nav-link active" href="{% url 'members:main_menu_login' %}" >Login</a>
                         </li>              
 
                         <li class="nav-item">
-                            <a class="nav-link active" href="{% url 'register_user' %}">Register</a>
+                            <a class="nav-link active" href="{% url 'members:register_user' %}">Register</a>
                         </li>
 
                         <li class="nav-item dropdown active">
