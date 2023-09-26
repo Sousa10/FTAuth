@@ -1,5 +1,15 @@
 from django.db import models
 
+# KMS New Calendar Start
+
+class EventC(models.Model):
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+    start_time = models.DateTimeField()
+    end_time = models.DateTimeField()
+
+# KMS New Calendar End
+
 class Venue(models.Model):
     name = models.CharField('Venue Name', max_length=120)
     address = models.CharField(max_length=300)

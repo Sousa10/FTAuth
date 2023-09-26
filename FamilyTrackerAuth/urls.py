@@ -9,4 +9,7 @@ urlpatterns = [
     path('events/', include('events.urls')),
     path('members/', include('django.contrib.auth.urls')),
     path('members/', include('members.urls')),
+    path('fitness/', include('fitness.urls')),
+# Below is for cal app
+    # path('cal/', include('cal.urls')),    
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

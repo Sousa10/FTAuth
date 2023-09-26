@@ -36,27 +36,11 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
                         </li>
-                        <!-- <li class="nav-item dropdown active"> -->
-                            <!-- <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" -->
-                                <!-- data-bs-toggle="dropdown" aria-expanded="false"> -->
-                                <!-- Register -->
-                            <!-- </a> -->
-                            <!-- <ul class="dropdown-menu active" aria-labelledby="navbarDropdown"> -->
-                                <!-- <li><a class="dropdown-item active" href="{% url 'events-list' %}">Register</a></li> -->
-                                <!-- <li><a class="dropdown-item active" href="{% url 'add-event' %}">Assign Security</a></li> -->
-                            <!-- </ul> -->
-                        <!-- </li> -->
 
-                        <!-- {% if user.is_authenticated %} -->
-                            <!-- <li class="nav-item"> -->
-                                <!-- <a class="nav-link active" href="{% url 'logout' %}" data-bs-toggle="modal">Logout</a> -->
-                            <!-- </li> -->
-                        <!-- {% else %} -->
-                            <li class="nav-item">
-                                <a class="nav-link active" href="{% url 'main_menu_login' %}" data-bs-toggle="modal">Login</a>
-                            </li>              
-                        <!-- {% endif %} -->
-
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{% url 'main_menu_login' %}" data-bs-toggle="modal">Login</a>
+                        </li>              
+ 
                         <li class="nav-item">
                             <a class="nav-link active" href="{% url 'main_menu_login' %}" >Login</a>
                         </li>              
@@ -98,7 +82,7 @@
                     </form>
 
     </main>
-
+  
     <main class="container-fluid mt-4">
 
         <div class="row" style="margin: 0 5px;">
@@ -129,7 +113,7 @@
             </div>
             <!-- Center Open Area -->
             <!-- <div class="col-md-8" style="text-align: center;"> -->
-            <div class="col-md-8" style="text-align: center;">
+            <div class="col-md-8" style="text-align: left; background: hsl(235, 7%, 66%);">
                 {% block content %}
                 {% endblock %}
             </div>

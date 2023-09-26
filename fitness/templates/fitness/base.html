@@ -25,72 +25,71 @@
 
           <li class="nav-item dropdown active">
             <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Calendar
+              Stregnth Training
             </a>
             <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item active" href="{% url 'home' %}">Month Calendar</a></li>
-              <li><a class="dropdown-item active" href="#">Week Calendar</a></li>
-              <li><a class="dropdown-item active" href="#">Day Calendar</a></li>
-            </ul>
-          </li>          
-          <li class="nav-item dropdown active">
-            <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Events
-            </a>
-            <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item active" href="{% url 'events-list' %}">Events</a></li>
-              <li><a class="dropdown-item active" href="{% url 'add-event' %}">Add Event</a></li>
-              <li><a class="dropdown-item active" href="#">Download Text File</a></a></li>
-              <li><a class="dropdown-item active" href="#">Download CSV File</a></li>
-              <li><a class="dropdown-item active" href="#">Download PDF File</a></li>
+              <li><a class="dropdown-item active" href="#">Upper Body - Pro</a></li>
+              <li><a class="dropdown-item active" href="#">Upper Body - Intermediate</a></li>
+              <li><a class="dropdown-item active" href="#">Upper Body - Beginner</a></li>
+              <li><a class="dropdown-item active" href="#">Lower Body - Pro</a></li>
+              <li><a class="dropdown-item active" href="#">Lower Body - Intermediate</a></li>
+              <li><a class="dropdown-item active" href="#">Lower Body - Beginner</a></li>
+              <li><a class="dropdown-item active" href="#">Core - Pro</a></li>
+              <li><a class="dropdown-item active" href="#">Core - Intermediate</a></li>
+              <li><a class="dropdown-item active" href="#">Core - Beginner</a></li>
             </ul>
           </li>
-
+          
           <li class="nav-item dropdown active">
             <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              All Venues
+              General Fitness
             </a>
             <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item active" href="{% url 'show-venues' %}">Venues</a></li>
-              <li><a class="dropdown-item active" href="{% url 'add-venue' %}">Add Venue</a></li>
-              <li><a class="dropdown-item active" href="{% url 'venue_text' %}">Download Text File</a></li>
-              <li><a class="dropdown-item active" href="{% url 'venue_csv' %}">Download CSV File</a></li>
-              <li><a class="dropdown-item active" href="{% url 'venue_pdf' %}">Download PDF File</a></li>
-            </ul>
-          </li>
-
-          <li class="nav-item dropdown active">
-            <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Support
-            </a>
-            <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item active" href="#Supp1" data-bs-toggle="modal">Support</a></li>
-              <li><a class="dropdown-item active" href="#Sugg1" data-bs-toggle="modal">Suggestions</a></li>
-              <li><a class="dropdown-item active" href="#Serv1" data-bs-toggle="modal">Service Requests</a></li>
+              <li><a class="dropdown-item active" href="#">Full Body Workout - Pro</a></li>
+              <li><a class="dropdown-item active" href="#">Full Body Workout - Intermediate</a></li>
+              <li><a class="dropdown-item active" href="#">Full Body Workout - Beginner</a></li>
+              <li><a class="dropdown-item active" href="#">Agility - Pro</a></li>
+              <li><a class="dropdown-item active" href="#">Agility - Intermediate</a></li>
+              <li><a class="dropdown-item active" href="#">Agility - Beginner</a></li>
+              <li><a class="dropdown-item active" href="#">Cardio - Pro</a></li>
+              <li><a class="dropdown-item active" href="#">Cardio - Intermediate</a></li>
+              <li><a class="dropdown-item active" href="#">Cardio - Beginner</a></li>
             </ul>
           </li>          
 
-          <li class="nav-item">
-              <a class="nav-link active" href="#About1" data-bs-toggle="modal">Page Video Tutorial</a>
-          </li>    
-          <li class="nav-item">
-            <a class="nav-link active" href="#About1" data-bs-toggle="modal">About</a>
-        </li>
-        
-        <!-- members starts here -->
-        <li class="nav-item">
-          <a class="nav-link active" href="{% url 'login' %}">Login</a>
-        </li>
-      
+          <li class="nav-item dropdown active">
+            <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Sports
+            </a>
+            <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item active" href="{% url 'home' %}">Golf</a></li>
+              <li><a class="dropdown-item active" href="#">Tennis</a></li>
+              <li><a class="dropdown-item active" href="#">Pickleball</a></li>
+              <li><a class="dropdown-item active" href="#">Mountain Biking</a></li>
+              <li><a class="dropdown-item active" href="#">Swimming</a></li>
+              <li><a class="dropdown-item active" href="#">Track</a></li>
+            </ul>
+          </li>          
 
-        </ul>
+          <li class="nav-item dropdown active">
+    <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      Support
+    </a>
+    <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
+      <li><a class="dropdown-item active" href="#Supp1" data-bs-toggle="modal">Support</a></li>
+      <li><a class="dropdown-item active" href="#Sugg1" data-bs-toggle="modal">Suggestions</a></li>
+      <li><a class="dropdown-item active" href="#Serv1" data-bs-toggle="modal">Service Requests</a></li>
+    </ul>
+  </li>          
 
-        <form class="d-flex" method=POST action="{% url 'search-venues' %}">
-          {% csrf_token %}
-          <input class="form-control me-2" type="search" placeholder="Search Venues" aria-label="Search" name="searchedx">
-          <button class="btn btn-outline-secondary" type="submit">Search</button>
-        </form>
-      
+    <li class="nav-item">
+        <a class="nav-link active" href="#About1" data-bs-toggle="modal">Page Video Tutorial</a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link active" href="#About1" data-bs-toggle="modal">About</a>
+    </li>
+              
   </main>
 
   <main class="container-fluid mt-4">

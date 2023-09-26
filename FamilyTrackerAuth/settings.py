@@ -44,6 +44,9 @@ INSTALLED_APPS = [
     'LoginRegister',
     'events',
     'members',
+    'fitness',
+    'cal',
+    'widget_tweaks',
     #'bootstrap5',
 ]
 
