@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'cal',
     'widget_tweaks',
     #'bootstrap5',
+    'familytracks',
 ]
 
 MIDDLEWARE = [

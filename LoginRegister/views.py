@@ -13,6 +13,7 @@ import csv
 
 def logout_user(request):
     logout(request)
+    print("in logout")
     return redirect('members:main_menu_login')
 
 def LoginRegister(request):
