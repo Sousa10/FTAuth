@@ -1,0 +1,9 @@
+{% extends 'fitness/base.html' %}
+{% load static %}
+{% load embed_video_tags %}
+
+{# still app_name/model_name_detail.html #}
+{# the string at the end is the size of the video #}
+{# options: tiny, small, medium, large, huge #}
+
+{% video AppTutorial.video 'large' %}

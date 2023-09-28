@@ -26,6 +26,11 @@ def main_menu_login(request):
     else:
         return render(request, 'members/main_menu_login.html')
     
+def logout_user(request):
+    logout(request)
+    print("in logout")
+    return redirect('members:main_menu_login')
+
 def register_user(request):
     if request.method == "POST":
         form = RegisterUserForm(request.POST)
@@ -42,8 +47,3 @@ def register_user(request):
     return render(request, 'members/register_user.html', {
         'form':form,  
         })
-
-def logout_user(request):
-    logout(request)
-    print("in logout")
-    return redirect('members:main_menu_login')

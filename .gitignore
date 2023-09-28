@@ -12,3 +12,6 @@ members/__pycache__/
 familytracks/__pycache__/
 members/migrations/__pycache__/
 familytracks/migrations/__pycache__/
+
+fitness/__pycache__/
+fitness/migrations/__pycache__/

@@ -12,3 +12,7 @@ def home(request):
 
 def main_landing_page(request):
     return render(request, 'fitness/main_landing_page.html', {})
+
+def tutorial(request):
+    return render(request, 'fitness/app_tutorial.html', {})
+

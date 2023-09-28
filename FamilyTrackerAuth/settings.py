@@ -45,10 +45,11 @@ INSTALLED_APPS = [
     'events',
     'members',
     'fitness',
-    'cal',
+    'calendar',
     'widget_tweaks',
     #'bootstrap5',
     'familytracks',
+    'embed_video',
 ]
 
 MIDDLEWARE = [
