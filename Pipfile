@@ -7,6 +7,7 @@ name = "pypi"
 django = "*"
 openpyxl = "*"
 reportlab = "*"
+django-widget-tweaks = "*"
 
 [dev-packages]
 
