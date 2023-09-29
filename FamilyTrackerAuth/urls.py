@@ -11,4 +11,5 @@ urlpatterns = [
     path('members/', include('members.urls')),
     path('fitness/', include('fitness.urls')),
     path('familytracks/', include('familytracks.urls')),
+    path('cal/', include('cal.urls')),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
