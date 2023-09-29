@@ -684,7 +684,9 @@ def FTTransactions(request, batch_id=None):
       transDetail = None
       page = None
     
-    #transBatch = TransBatch.objects.first()
+    transBatch = TransBatch.objects.first()
+    form = TemplateActionForm()
+    transbatchForm = TransBatchSelectForm()
 
     if request.method == 'POST':
         form_type = request.POST.get('form_type')
