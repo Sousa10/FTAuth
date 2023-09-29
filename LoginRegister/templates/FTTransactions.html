@@ -21,9 +21,9 @@
   <div class="col-md-10">
     <div class="forms">
       <div class="batch_form" style="margin-left: 50px;">
-        
+        {% if transBatch.id %}
         <form action="{% url 'LoginRegister:FTTransactions' transBatch.id %}" method="post">
-        
+        {% endif %}
           <div class="modal-body">
             {% csrf_token %}
             <div class="form-group">

@@ -28,15 +28,26 @@
               Stregnth Training
             </a>
             <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item active" href="#">Upper Body</a></li>
               <li><a class="dropdown-item active" href="#">Upper Body - Pro</a></li>
-              <li><a class="dropdown-item active" href="#">Upper Body - Intermediate</a></li>
-              <li><a class="dropdown-item active" href="#">Upper Body - Beginner</a></li>
+              <li><a class="dropdown-item active" href="#">Lower Body</a></li>
               <li><a class="dropdown-item active" href="#">Lower Body - Pro</a></li>
-              <li><a class="dropdown-item active" href="#">Lower Body - Intermediate</a></li>
-              <li><a class="dropdown-item active" href="#">Lower Body - Beginner</a></li>
+              <li><a class="dropdown-item active" href="#">Core</a></li>
               <li><a class="dropdown-item active" href="#">Core - Pro</a></li>
-              <li><a class="dropdown-item active" href="#">Core - Intermediate</a></li>
-              <li><a class="dropdown-item active" href="#">Core - Beginner</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item dropdown active">
+            <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Stregnth Training Home
+            </a>
+            <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item active" href="#">Upper Body</a></li>
+              <li><a class="dropdown-item active" href="#">Upper Body - Pro</a></li>
+              <li><a class="dropdown-item active" href="#">Lower Body</a></li>
+              <li><a class="dropdown-item active" href="#">Lower Body - Pro</a></li>
+              <li><a class="dropdown-item active" href="#">Core</a></li>
+              <li><a class="dropdown-item active" href="#">Core - Pro</a></li>
             </ul>
           </li>
           
@@ -45,17 +56,31 @@
               General Fitness
             </a>
             <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item active" href="#">Full Body Workout</a></li>
               <li><a class="dropdown-item active" href="#">Full Body Workout - Pro</a></li>
-              <li><a class="dropdown-item active" href="#">Full Body Workout - Intermediate</a></li>
-              <li><a class="dropdown-item active" href="#">Full Body Workout - Beginner</a></li>
+              <li><a class="dropdown-item active" href="#">Agility</a></li>
               <li><a class="dropdown-item active" href="#">Agility - Pro</a></li>
-              <li><a class="dropdown-item active" href="#">Agility - Intermediate</a></li>
-              <li><a class="dropdown-item active" href="#">Agility - Beginner</a></li>
+              <li><a class="dropdown-item active" href="#">Cardio</a></li>
               <li><a class="dropdown-item active" href="#">Cardio - Pro</a></li>
-              <li><a class="dropdown-item active" href="#">Cardio - Intermediate</a></li>
-              <li><a class="dropdown-item active" href="#">Cardio - Beginner</a></li>
             </ul>
           </li>          
+
+          <li class="nav-item dropdown active">
+            <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              General Fitness - Home
+            </a>
+            <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item active" href="#">Full Body Workout</a></li>
+              <li><a class="dropdown-item active" href="#">Full Body Workout - Pro</a></li>
+              <li><a class="dropdown-item active" href="#">Agility</a></li>
+              <li><a class="dropdown-item active" href="#">Agility - Pro</a></li>
+              <li><a class="dropdown-item active" href="#">Cardio</a></li>
+              <li><a class="dropdown-item active" href="#">Cardio - Pro</a></li>
+            </ul>
+          </li>          
+
+
+
 
           <li class="nav-item dropdown active">
             <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -124,6 +149,9 @@
         <div class="col-md-8" style="text-align: center;">
             {% block content %}
             {% endblock %}
+            <div style="width: 100%; height: 400px;">
+                <img src="{% static 'Gym.jpg' %}" style="height: 95%;" alt="Generic Gym">
+            </div>
         </div>
 
         <!-- Right Margin Advertising -->
