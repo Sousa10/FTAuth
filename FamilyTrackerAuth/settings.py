@@ -51,6 +51,10 @@ INSTALLED_APPS = [
     'familytracks',
     'embed_video',
     'cal',
+    'transactions',
+    'calendar10',
+    'listsplan',
+    'administration',
 ]
 
 MIDDLEWARE = [

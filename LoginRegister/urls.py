@@ -4,7 +4,6 @@ from . import views
 from .forms import LoginForm
 from django.contrib import admin
 
-
 app_name = 'LoginRegister'
 
 urlpatterns = [
@@ -55,4 +54,5 @@ urlpatterns = [
     path('transactions/delete/<int:pk>/', views.transaction_delete, name='transaction_delete'),
     path('admin/', admin.site.urls),
     path('logout_user/', views.logout_user, name='logout'),
+    path('LoginRegister/mainlandingpage/', views.mainlandingpage, name='mainlandingpage')
 ]

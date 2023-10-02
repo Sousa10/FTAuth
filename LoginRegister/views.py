@@ -13,7 +13,6 @@ import csv
 
 def logout_user(request):
     logout(request)
-    print("in logout")
     return redirect('members:main_menu_login')
 
 def LoginRegister(request):
@@ -93,6 +92,11 @@ def FTCalendar(request):
 def FTToDos(request):
     FTpersons = PersonM.objects.all().values()
     template = loader.get_template('FTToDos.html')
+    return HttpResponse(template.render())
+
+def mainlandingpage(request):
+    FTpersons = PersonM.objects.all().values()
+    template = loader.get_template('main_landing_page.html')
     return HttpResponse(template.render())
 
 
@@ -754,10 +758,6 @@ def transaction_delete(request, pk):
     transaction.delete()
 
     return redirect('LoginRegister:FTTransactions')
-#
-#  KMS 8/27 Start Build out of new calendar
-#
-
 
 def home(request):
     name = "Kirk"
