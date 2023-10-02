@@ -50,6 +50,10 @@ INSTALLED_APPS = [
     #'bootstrap5',
     'familytracks',
     'embed_video',
+    'transactions',
+    'calendar10',
+    'listsplan',
+    'administration',
 ]
 
 MIDDLEWARE = [

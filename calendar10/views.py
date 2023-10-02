@@ -8,8 +8,7 @@ import csv
 import io
 
 def home(request):
-    return render(request, 'familytracks/main_landing_page.html', {})
+    return render(request, 'calendar10/main_landing_page.html', {})
 
 def main_landing_page(request):
-    return render(request, 'familytracks/main_landing_page.html', {})
-
+    return render(request, 'calendar10/main_landing_page.html', {})

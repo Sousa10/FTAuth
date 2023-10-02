@@ -23,86 +23,32 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-          <li class="nav-item dropdown active">
-            <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Stregnth Training
-            </a>
-            <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item active" href="#">Upper Body</a></li>
-              <li><a class="dropdown-item active" href="#">Upper Body - Pro</a></li>
-              <li><a class="dropdown-item active" href="#">Lower Body</a></li>
-              <li><a class="dropdown-item active" href="#">Lower Body - Pro</a></li>
-              <li><a class="dropdown-item active" href="#">Core</a></li>
-              <li><a class="dropdown-item active" href="#">Core - Pro</a></li>
-            </ul>
-          </li>
-
-          <li class="nav-item dropdown active">
-            <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Stregnth Training Home
-            </a>
-            <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item active" href="#">Upper Body</a></li>
-              <li><a class="dropdown-item active" href="#">Upper Body - Pro</a></li>
-              <li><a class="dropdown-item active" href="#">Lower Body</a></li>
-              <li><a class="dropdown-item active" href="#">Lower Body - Pro</a></li>
-              <li><a class="dropdown-item active" href="#">Core</a></li>
-              <li><a class="dropdown-item active" href="#">Core - Pro</a></li>
-            </ul>
-          </li>
-          
-          <li class="nav-item dropdown active">
-            <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              General Fitness
-            </a>
-            <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item active" href="#">Full Body Workout</a></li>
-              <li><a class="dropdown-item active" href="#">Full Body Workout - Pro</a></li>
-              <li><a class="dropdown-item active" href="#">Agility</a></li>
-              <li><a class="dropdown-item active" href="#">Agility - Pro</a></li>
-              <li><a class="dropdown-item active" href="#">Cardio</a></li>
-              <li><a class="dropdown-item active" href="#">Cardio - Pro</a></li>
-            </ul>
-          </li>          
-
-          <li class="nav-item dropdown active">
-            <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              General Fitness - Home
-            </a>
-            <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item active" href="#">Full Body Workout</a></li>
-              <li><a class="dropdown-item active" href="#">Full Body Workout - Pro</a></li>
-              <li><a class="dropdown-item active" href="#">Agility</a></li>
-              <li><a class="dropdown-item active" href="#">Agility - Pro</a></li>
-              <li><a class="dropdown-item active" href="#">Cardio</a></li>
-              <li><a class="dropdown-item active" href="#">Cardio - Pro</a></li>
-            </ul>
-          </li>          
-
-          <li class="nav-item dropdown active">
-            <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Sports
-            </a>
-            <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item active" href="{% url 'home' %}">Golf</a></li>
-              <li><a class="dropdown-item active" href="#">Tennis</a></li>
-              <li><a class="dropdown-item active" href="#">Pickleball</a></li>
-              <li><a class="dropdown-item active" href="#">Mountain Biking</a></li>
-              <li><a class="dropdown-item active" href="#">Swimming</a></li>
-              <li><a class="dropdown-item active" href="#">Track</a></li>
-            </ul>
-          </li>          
-
-          <li class="nav-item dropdown active">
-    <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-      Support
-    </a>
-    <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
-      <li><a class="dropdown-item active" href="#Supp1" data-bs-toggle="modal">Support</a></li>
-      <li><a class="dropdown-item active" href="#Sugg1" data-bs-toggle="modal">Suggestions</a></li>
-      <li><a class="dropdown-item active" href="#Serv1" data-bs-toggle="modal">Service Requests</a></li>
-    </ul>
-  </li>          
+            <li class="nav-item">
+                <a class="nav-link active" href="#" data-bs-toggle="modal">Security</a>
+            </li>
+        
+            <li class="nav-item">
+                <a class="nav-link active" href="#" data-bs-toggle="modal">Controls</a>
+            </li>
+        
+            <li class="nav-item">
+                <a class="nav-link active" href="#" data-bs-toggle="modal">Access</a>
+            </li>
+        
+            <li class="nav-item">
+                <a class="nav-link active" href="#" data-bs-toggle="modal">Monitoring</a>
+            </li>
+        
+            <li class="nav-item dropdown active">
+                <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Support
+                </a>
+                <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item active" href="#Supp1" data-bs-toggle="modal">Support</a></li>
+                    <li><a class="dropdown-item active" href="#Sugg1" data-bs-toggle="modal">Suggestions</a></li>
+                    <li><a class="dropdown-item active" href="#Serv1" data-bs-toggle="modal">Service Requests</a></li>
+                </ul>
+            </li>          
 
     <li class="nav-item">
         <a class="nav-link active" href="#About1" data-bs-toggle="modal">About</a>
@@ -111,7 +57,8 @@
     <li class="nav-item">
         <a class="nav-link active" href="{% url 'LoginRegister:FTMainMenu' %}">Main Menu</a>
     </li>
-    
+
+
 
   </main>
 
@@ -147,8 +94,9 @@
         <div class="col-md-8" style="text-align: center;">
             {% block content %}
             {% endblock %}
+            </br>
             <div style="width: 100%; height: 400px;">
-                <img src="{% static 'Gym.jpg' %}" style="height: 95%;" alt="Generic Gym">
+                <img src="{% static 'administrationsplash2.jpg' %}" style="height: 95%;" alt="Generic Administration">
             </div>
         </div>
 
