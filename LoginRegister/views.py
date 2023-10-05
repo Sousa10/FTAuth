@@ -154,7 +154,7 @@ def FTListChores(request, listheader_id=None):
         listHeaderForm = ListHeaderTForm()
         selected_header = ListHeaderT.objects.get(id=listheader_id)
         listDetailForm = ListDetailsTForm(list_header=selected_header)
-    return render(request, 'FTListChores.html', {
+    return render(request, 'LoginRegister/FTListChores.html', {
         'listHeaderForm': listHeaderForm,
         'listDetailForm': listDetailForm,
         'selectedHeaderForm': selectedHeaderForm,
@@ -750,7 +750,7 @@ def FTTransactions(request, batch_id=None):
         'transbatchForm': transbatchForm,
         'transdetail': page
     }
-    return render(request, 'FTTransactions.html', context)
+    return render(request, 'LoginRegister/FTTransactions.html', context)
 
 
 def transaction_delete(request, pk):

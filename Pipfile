@@ -7,6 +7,8 @@ name = "pypi"
 django = "*"
 openpyxl = "*"
 reportlab = "*"
+django-widget-tweaks = "*"
+django-embed-video = "*"
 
 [dev-packages]
 

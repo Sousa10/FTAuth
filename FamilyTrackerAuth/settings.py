@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     #'bootstrap5',
     'familytracks',
     'embed_video',
+    'cal',
     'transactions',
     'calendar10',
     'listsplan',
