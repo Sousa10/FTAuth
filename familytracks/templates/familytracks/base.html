@@ -144,12 +144,17 @@
         </div>
         <!-- Center Open Area -->
         <!-- <div class="col-md-8" style="text-align: center;"> -->
-        <div class="col-md-8" style="text-align: center;">
+        <div class="col-md-8">
+            {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+                {% endfor %}
+            {% endif %}
             {% block content %}
             {% endblock %}
-            <div style="width: 100%; height: 400px;">
-                <img src="{% static 'familytrackssplash3.jpg' %}" style="height: 95%;" alt="Generic Gym">
-            </div>
         </div>
 
         <!-- Right Margin Advertising -->

@@ -1,0 +1,68 @@
+{% extends 'members/base.html' %}
+{% load static %}
+{% block pageTitle %}
+{% endblock %}
+{% block content %}
+{% if form.errors %}
+    <div class="alert alert-warning alert-dismissable fade show" role="alert">
+        There Was An Error On The Form.  One Or More Of The Fields Did Not Meet Validation Criteria
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+    </div>
+{% endif %}
+
+  <p style="text-align:center">
+    <div class="h1">
+      <a style="color:rgb(6, 6, 192)">
+        <p style="font-size:40px">
+          <h2>Update</h2>
+        </p>
+      </a>
+    </div>
+  </p>
+
+  <div class="shadow p-4 mb-5 bg-body rounded">
+      <form action="{% url 'members:update_user' %}" method=POST enctype="multipart/form-data">
+          {% csrf_token %}
+          {% load widget_tweaks %}
+          <!-- {{ form.as_p }} -->
+
+          <div class="form-group">
+           <!-- username is the default name of username in django forms -->
+           {% render_field user_form.username type="text" class="form-control" id="exampleInputUsername" placeholder="Username" %}
+         </div>
+
+         <br/>
+          <div class="form-group">
+              <!-- first_name is the name by which first name is created in django forms -->
+              {% render_field user_form.first_name class="form-control" placeholder="First Name" type="text" %}
+          </div>
+
+          <br/>
+          <div class="form-group">
+              <!-- last_name is the name by which last name is created in django forms -->
+              {% render_field user_form.last_name type="text" class="form-control" placeholder="Last Name" %}
+          </div>
+
+          <br/>
+          <div class="form-group">
+            <!-- email is the name by which last name is created in django forms -->
+            {% render_field user_form.email type="text" class="form-control" placeholder="email" %}
+          </div>
+        
+          <br/>
+        {% if form.errors %}
+            <div class="mb-3 p-6 bg-red-100 rounded-xl">
+              {% for field in form %}
+              {{ field.errors }}
+              {% endfor %}
+    
+              {{ form.non_field_errors }}
+            </div>
+            {% endif %}
+
+        <br/>
+        {{ profile_form.as_p }}
+        <input type="submit" value="Update Profile" class="btn btn-secondary">
+      </form>
+  </div>
+{% endblock %}
