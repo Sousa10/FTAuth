@@ -9,6 +9,7 @@ openpyxl = "*"
 reportlab = "*"
 django-widget-tweaks = "*"
 django-embed-video = "*"
+pillow = "*"
 
 [dev-packages]
 

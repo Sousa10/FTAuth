@@ -4,7 +4,10 @@ from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.contrib.auth.forms import UserCreationForm
-from .forms import RegisterUserForm
+from .forms import RegisterUserForm, UpdateUserForm
+from django.contrib.auth.models import User
+from familytracks.models import Profile
+from familytracks.forms import ProfilePicForm
 
 def home(request):
     return render(request, 'members/main_menu_login.html', {})
@@ -47,3 +50,19 @@ def register_user(request):
     return render(request, 'members/register_user.html', {
         'form':form,  
         })
+
+def update_user(request):
+    if request.user.is_authenticated:
+        current_user = User.objects.get(id=request.user.id)
+        profile_user = Profile.objects.get(user__id=request.user.id)
+        user_form = UpdateUserForm(request.POST or None, request.FILES or None, instance=current_user)
+        profile_form = ProfilePicForm(request.POST or None, request.FILES or None, instance=profile_user)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, "Your profile has been updated")
+            return redirect("familytracks:home")
+        return render(request, 'members/update_user.html', {'user_form': user_form, 'profile_form': profile_form})
+    else:
+        messages.success(request, "You must be logged in to view that page")
+        return redirect("members:main_menu_login")

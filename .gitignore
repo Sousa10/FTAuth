@@ -15,3 +15,13 @@ familytracks/migrations/__pycache__/
 
 fitness/__pycache__/
 fitness/migrations/__pycache__/
+administration/__pycache__/
+administration/migrations/__pycache__/
+listsplan/__pycache__/
+listsplan/migrations/__pycache__/
+transactions/__pycache__/
+transactions/migrations/__pycache__/
+cal/__pycache__/
+cal/migrations/__pycache__/
+calendar10/__pycache__/
+calendar10/migrations/__pycache__/
