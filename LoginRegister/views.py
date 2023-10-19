@@ -29,7 +29,7 @@ def LoginRegister(request):
 def FTMainMenu(request):
     listHeader = ListHeaderT.objects.first()
     batch = TransBatch.objects.first()
-    template = loader.get_template('FTMainMenu.html')
+    template = loader.get_template('LoginRegister/FTMainMenu.html')
     context = {
         'listHeader': listHeader,
         'batch': batch,

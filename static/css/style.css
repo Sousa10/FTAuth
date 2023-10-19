@@ -43,12 +43,20 @@ th {
 }
 
 .modal-content {
-    background-color: #fefefe;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
 }
+
+/* KMA 10/15 */
+.modal-header.primary {
+  color: #fff;
+  background-color: #337ab7;
+  border-color: #064072;
+}
+
 /* Start Here */
 .modal2 {
     display: none;

@@ -1,0 +1,27 @@
+{% extends 'fitness/base.html' %}
+{% load static %}
+
+{% block pageTitle %}
+{% endblock %}
+{% block content %}
+<p style="text-align:center">
+  <div class="h1">
+    <a style="color:rgb(6, 6, 192)">
+      <p style="font-size:40px">
+        <h2>Workouts</h2>
+      </p>
+    </a>
+  </div>
+</p>
+<br/>
+<table class="table table-bordered table-striped table-hover">
+
+    {% for workout in workout_list %}
+    <tr class="table-secondary table-active">
+      <td><a href="{% url 'fitness:show_workout' workout.id %}">{{ workout.WorkoutName }}</a></td>
+    </tr>
+{% endfor %}
+
+</table>
+
+{% endblock %}

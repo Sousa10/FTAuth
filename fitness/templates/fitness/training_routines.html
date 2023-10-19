@@ -1,0 +1,32 @@
+{% extends 'fitness/base.html' %}
+{% load static %}
+
+{% block pageTitle %}
+{% endblock %}
+{% block content %}
+<p style="text-align:center">
+  <div class="h1">
+    <a style="color:rgb(6, 6, 192)">
+      <p style="font-size:40px">
+        <h2>Training Routines</h2>
+      </p>
+    </a>
+  </div>
+</p>
+<br/>
+{% for routine in routine_list %}
+    <a href="#">{{ routine.RoutineName }}</a>
+    <br/>
+{% endfor %}
+{% endblock %}
+
+<a href="#">{{ routine.RoutineName }}</a>
+
+<!--  -->
+<!-- Trying to change above to link to show_workout -->
+<!--  -->
+<!-- <a href="{% url 'show_workout' workout_id %}">{{ workout.WorkoutName }}</a> -->
+<!-- workout_list -->
+<!-- workout -->
+<!-- 'fitness/show_workout' -->
+<!-- 'fitness:show_workout' -->

@@ -5,6 +5,81 @@
     div.h1 {
         text-align: center
     }
+
+    .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: #5073b4; /* Fallback color */
+    background-color: #5073b4; /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    position: relative;
+    background-color: #5073b4;
+    margin: auto;
+    padding: 0;
+    border: 20px solid #060606;
+    overflow: auto; /* Enable scroll if needed */
+    width: 100%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+    from {top:-300px; opacity:0} 
+    to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+}
+
+/* The Close Button */
+.btn-close {
+    color: white!important;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-header {
+    padding: 2px 16px;
+    background-color: #150281;
+    color: white;
+}
+
+.modal-body {
+    padding: 2px 16px;
+    background-color: #6a7af2;
+    color: white;
+}
+
+.modal-footer {
+    padding: 2px 16px;
+    background-color: #6a7af2;
+    color: white;
+}
+
 </style>
 
 <head>
@@ -30,7 +105,7 @@
                 {% endfor %}
                 {% endif %}
 
-                <a class="navbar-brand" href="#">Family Tracker</a>
+                <a class="navbar-brand" href="#">TRAXX</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -141,17 +216,18 @@
     </footer>
 
     <br>
+ 
     <!-- Modal AdvSpot1 -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog ads">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header primary">
                     <h5 class="modal-title" id="exampleModalLabel">On-Line Luxury Cars for Less</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                 </div>
                 <div class="modal-body">
                     Typically Products and/or Services, Specials, promo-Code "FT01", URL for web site or more
-                    information, etc... <br><br> Question for Rui, how do we size, should be a little wider.
+                    information, etc...
                 </div>
             </div>
         </div>
@@ -181,7 +257,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="ad3ModalLabel">Watch the US Open!</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="color: white!important;">
                 </div>
                 <div class="modal-body">
                     The Worlds Greatest Golfers on one of the foremost tests in Golf... Pebble Beach.<br><br>Coverage is
