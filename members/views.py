@@ -20,12 +20,12 @@ def main_menu_login(request):
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(request, username=username, password=password)
-        # if  user is not None:
-            # login(request, user)
-        return redirect('LoginRegister:FTMainMenu')
-        # else:
-            # messages.success(request, ("There Was An Error Logging In, Please Try Again"))
-            # return redirect('main_menu_login')
+        if  user is not None:
+            login(request, user)
+            return redirect('LoginRegister:FTMainMenu')
+        else:
+            messages.success(request, ("There Was An Error Logging In, Please Try Again"))
+            return redirect('main_menu_login')
     else:
         return render(request, 'members/main_menu_login.html')
     
@@ -37,6 +37,7 @@ def logout_user(request):
 def register_user(request):
     if request.method == "POST":
         form = RegisterUserForm(request.POST)
+        profile_form = ProfilePicForm(request.POST or None, request.FILES or None, instance=profile_user)
         if form.is_valid():
             form.save()
             username = form.cleaned_data['username']

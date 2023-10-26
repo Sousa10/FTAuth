@@ -28,9 +28,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-LOGIN_URL = '/LoginRegister/login/'
+LOGIN_URL = '/members/main_menu_login/'
 LOGIN_REDIRECT_URL = '/LoginRegister/FTMainMenu'
-LOGOUT_REDIRECT_URL = '/LoginRegister/login/'
+LOGOUT_REDIRECT_URL = '/members/main_menu_login/'
 
 # Application definition
 
