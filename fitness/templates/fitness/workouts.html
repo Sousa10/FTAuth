@@ -1,6 +1,5 @@
 {% extends 'fitness/base.html' %}
 {% load static %}
-
 {% block pageTitle %}
 {% endblock %}
 {% block content %}
@@ -14,14 +13,14 @@
   </div>
 </p>
 <br/>
-<table class="table table-bordered table-striped table-hover">
-
+<center>
+  <table style="width:50%" class="table table-bordered table-striped table-hover">
+    <th class="table-primary"><h4>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp All Workouts</h4></th>
     {% for workout in workout_list %}
-    <tr class="table-secondary table-active">
-      <td><a href="{% url 'fitness:show_workout' workout.id %}">{{ workout.WorkoutName }}</a></td>
-    </tr>
-{% endfor %}
-
-</table>
-
+      <tr class="table-secondary table-active">
+        <td ><a href="{% url 'fitness:show_workout' workout.id %}">{{ workout.WorkoutName }}</a></td>
+      </tr>
+    {% endfor %}
+  </table>
+</center>
 {% endblock %}

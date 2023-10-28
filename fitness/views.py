@@ -4,11 +4,16 @@ from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.contrib.auth.forms import UserCreationForm
-from django.http import HttpResponseRedirect 
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 import csv
 import io
-from .models import workout, training_routine
+from .models import workout, training_routine, ExcerciseList
+from .models import *
 from .forms import WorkoutForm
+from .forms import ExcerciseForm
+from django.views import generic
+from django.core.paginator import Paginator
 
 def home(request):
     return render(request, 'fitness/main_landing_page.html', {})
@@ -38,17 +43,55 @@ def AddWorkout(request):
             submitted = True
     return render(request, 'fitness/AddWorkout.html', {'form':form, 'submitted':submitted})
 
-def show_workout(request, workout_id):
-    workout_info = workout.objects.get(pk=workout_id)
-    return render(request, 'fitness/show_workout.html', {'workout': workout_info})
+def AddExcercise(request):
+    submitted = False
+    if request.method == "POST":
+        form = ExcerciseForm(request.POST)
+        if form.is_valid():
+            form.save() 
+            return HttpResponseRedirect('addexcercise?submitted=True')   
+    else:
+        form = ExcerciseForm
+        if 'submitted' in request.GET:
+            submitted = True
+    return render(request, 'fitness/AddExcercise.html', {'form':form, 'submitted':submitted})
 
-def workouts(request):
-    workout_list = workout.objects.all()
-    return render(request, 'fitness/workouts.html', {'workout_list': workout_list})
 
 def training_routines(request):
     routine_list = training_routine.objects.all()
     return render(request, 'fitness/training_routines.html', {'routine_list': routine_list})
 
 def search_workouts(request):
-    return render(request, 'fitness.search_workouts.html', {})
+    if request.method == "POST":
+        searched = request.POST['searched']   
+        workouts = workout.objects.filter(WorkoutName__contains=searched)
+        return render(request, 'fitness/search_workouts.html', {'searched':searched, 'workouts':workouts})
+    else:
+        return render(request, 'fitness/search_workouts.html', {})
+
+
+def workouts(request):
+    workout_list = workout.objects.all()
+    return render(request, 'fitness/workouts.html', {'workout_list': workout_list})
+
+def show_workout(request, workout_id):
+    workout_info = workout.objects.get(pk=workout_id)
+    return render(request, 'fitness/show_workout.html', {'workout': workout_info})
+
+def show_excercise(request, excercise_id):
+    excercise_info = ExcerciseList.objects.get(pk=excercise_id)
+    return render(request, 'fitness/show_excercise.html', {'excercise': excercise_info})
+
+def excercises(request):
+    excercise_list = ExcerciseList.objects.all()
+
+    # Set up Pagination
+    p = Paginator(ExcerciseList.objects.all(), 8)
+    page = request.GET.get('page')
+    excer_p = p.get_page(page)
+    nums = "x" * excer_p.paginator.num_pages
+    return render(request, 'fitness/excercises.html', {
+        'excercise_list': excercise_list,
+        'excer_p':excer_p,
+        'nums':nums
+        })

@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from .models import workout
+from .models import workout, ExcerciseList
 
 # Create a Workout Form
 class WorkoutForm(ModelForm):
@@ -35,4 +35,26 @@ class WorkoutForm(ModelForm):
             'SetThreeWeight': forms.TextInput(attrs={'class':'form-control', 'placeholder':'#3 Weight'}),
             'SetFourReps': forms.NumberInput(attrs={'class':'form-control', 'placeholder':'#4 Reps'}),
             'SetFourWeight': forms.TextInput(attrs={'class':'form-control', 'placeholder':'#4 Weight'}),
+        }
+
+# Create an Excercise Form
+class ExcerciseForm(ModelForm):
+    class Meta:
+        model = ExcerciseList
+        fields = ('Reference', 'Region', 'Area', 'Exercise', 'Description', 'Instructions')
+        labels = {
+            'Reference': '',
+            'Region': '',
+            'Area': '',
+            'Exercise': '',
+            'Description': '',
+            'Instructions': '',
+        }
+        widgets = {
+            'Reference': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Reference'}),
+            'Region': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Region'}),
+            'Area': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Area'}),
+            'Exercise': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Excercise'}),
+            'Description': forms.Textarea(attrs={'class':'form-control', 'placeholder':'Description'}),
+            'Instructions': forms.Textarea(attrs={'class':'form-control', 'placeholder':'Instructions'}),
         }

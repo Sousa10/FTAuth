@@ -39,7 +39,7 @@ def FTMainMenu(request):
 
 def FTFinances(request):
     cashinacctms = CashInAcctM.objects.all()
-    paginator = Paginator(cashinacctms, 3)  # Show 25 contacts per page.
+    paginator = Paginator(cashinacctms, 3)  
     page_number = request.GET.get("page")
     cashinacctms_paginated = paginator.get_page(page_number)
     if request.method == 'POST':

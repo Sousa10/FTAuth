@@ -28,11 +28,11 @@
                   Define Accounts
                 </a>
                 <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item active" href="#">Income</a></li>
-                  <li><a class="dropdown-item active" href="#">Expense</a></li>
-                  <li><a class="dropdown-item active" href="#">Assets</a></li>
-                  <li><a class="dropdown-item active" href="#">Liability</a></li>
-                  <li><a class="dropdown-item active" href="#">Net Worth</a></li>
+                  <li><a class="dropdown-item" href="{% url 'transactions:income_accts' %}">Income</a></li>
+                  <li><a class="dropdown-item" href="#">Expense</a></li>
+                  <li><a class="dropdown-item" href="#">Assets</a></li>
+                  <li><a class="dropdown-item" href="#">Liability</a></li>
+                  <li><a class="dropdown-item" href="#">Net Worth</a></li>
                 </ul>
               </li>
     
@@ -45,11 +45,23 @@
               Financial Reports
             </a>
             <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item active" href="#">Income Statement</a></li>
-              <li><a class="dropdown-item active" href="#">Balance Sheet</a></li>
-              <li><a class="dropdown-item active" href="#">Cash Flow Statement</a></li>
-              <li><a class="dropdown-item active" href="#">Budgeting</a></li>
-              <li><a class="dropdown-item active" href="#">Expense Analysis</a></li>
+              <li><a class="dropdown-item" href="#">Define Groupings  For Financial Statements</a></li>
+              <li><a class="dropdown-item" href="#">Income Statement</a></li>
+              <li><a class="dropdown-item" href="#">Balance Sheet</a></li>
+              <li><a class="dropdown-item" href="#">Cash Flow Statement</a></li>
+              <li><a class="dropdown-item" href="#">Budgeting</a></li>
+              <li><a class="dropdown-item" href="#">Expense Analysis</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item dropdown active">
+            <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Download
+            </a>
+            <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="#">Download Text File</a></a></li>
+              <li><a class="dropdown-item" href="#">Download CSV File</a></li>
+              <li><a class="dropdown-item" href="#">Download PDF File</a></li>
             </ul>
           </li>
 
@@ -58,15 +70,27 @@
               Support
             </a>
             <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item active" href="#Supp1" data-bs-toggle="modal">Support</a></li>
-              <li><a class="dropdown-item active" href="#Sugg1" data-bs-toggle="modal">Suggestions</a></li>
-              <li><a class="dropdown-item active" href="#Serv1" data-bs-toggle="modal">Service Requests</a></li>
+              <li><a class="dropdown-item" href="#Supp1" data-bs-toggle="modal">Support</a></li>
+              <li><a class="dropdown-item" href="#Sugg1" data-bs-toggle="modal">Suggestions</a></li>
+              <li><a class="dropdown-item" href="#Serv1" data-bs-toggle="modal">Service Requests</a></li>
             </ul>
           </li>          
 
-          <li class="nav-item">
-            <a class="nav-link active" href="#" data-bs-toggle="modal">Application Tutorial</a>
-          </li>
+          <li class="nav-item dropdown active">
+            <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Tutorials
+            </a>
+            <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="#" data-bs-toggle="modal">Overview</a></li>
+              <li><a class="dropdown-item" href="#" data-bs-toggle="modal">How To Setup Your Accounts</a></li>
+              <li><a class="dropdown-item" href="#" data-bs-toggle="modal">How To Setup And Run Your Income Statment</a></li>
+              <li><a class="dropdown-item" href="#" data-bs-toggle="modal">How To Setup And Run Your Balance Sheet</a></li>
+              <li><a class="dropdown-item" href="#" data-bs-toggle="modal">How To Setup And Run Your Cash Flow Statment</a></li>
+              <li><a class="dropdown-item" href="#" data-bs-toggle="modal">How To Setup And Run Your Budgets</a></li>
+              <li><a class="dropdown-item" href="#" data-bs-toggle="modal">How To Setup And Run Your Expense Analysis</a></li>
+              <li><a class="dropdown-item" href="#" data-bs-toggle="modal">How To Upload and Capture Transactions</a></li>
+            </ul>
+          </li>          
 
           <li class="nav-item">
             <a class="nav-link active" href="#About1" data-bs-toggle="modal">About</a>

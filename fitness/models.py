@@ -8,7 +8,7 @@ class AppTutorial(models.Model):
     video = EmbedVideoField(blank=True) # an empty field is fine for me
 
 class ExcerciseList(models.Model):
-  ExcerID = models.IntegerField(null=True)
+  Reference = models.CharField(max_length=80, null=True)
   Region = models.CharField(max_length=80, null=True)
   Area = models.CharField(max_length=80, null=True)
   Exercise = models.CharField(max_length=80, null=True)
@@ -18,7 +18,7 @@ class ExcerciseList(models.Model):
   class Meta:
         verbose_name_plural = 'Excercises'
   def __str__(self):
-     return self.ExcerID
+     return self.Exercise
   
 class WorkoutHeader(models.Model):
   WorkoutID = models.IntegerField(null=True)

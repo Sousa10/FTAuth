@@ -1,18 +1,17 @@
-{% extends 'fitness/base.html' %}
+{% extends 'fitness/baseex.html' %}
 {% load static %}
 {% block content %}
-
 <p style="text-align:center">
   <div class="h1">
     <a style="color:rgb(6, 6, 192)">
       <p style="font-size:40px">
-        <h2>Add Workout</h2>
+        <h2>Add Excercise</h2>
       </p>
     </a>
   </div>
 </p>
 {% if submitted %}
-    Your Workout Was Added Successfully
+    Your Excercise Was Added Successfully
 
 {% else %}
 
@@ -21,7 +20,7 @@
 
         {{ form.as_p }}
 
-        <input type="submit" value="Add Workout" class="btn btn-secondary">
+        <input type="submit" value="Add Excercise" class="btn btn-secondary">
 
     </form>
 
