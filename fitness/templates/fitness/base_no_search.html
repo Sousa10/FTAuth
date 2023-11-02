@@ -45,9 +45,9 @@
                             General Fitness
                         </a>
                         <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Add Routine</a></li>
+                            <li><a class="dropdown-item" href="{% url 'fitness:AddRoutine' %}">Add Routine</a></li>
                             <li><a class="dropdown-item" href="{% url 'fitness:training_routines' %}">All Training Routines</a></li>
-                            <li><a class="dropdown-item" href="#">Progress Over Time</a></li>      
+                            <li><a class="dropdown-item" href="{% url 'fitness:show_construction' %}">Progress Over Time</a></li>      
                         </ul>
                     </li>
 
@@ -57,12 +57,15 @@
                             Sports
                         </a>
                         <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="{% url 'home' %}">Golf</a></li>
+                            <li><a class="dropdown-item" href="{% url 'home' %}">Add A Golf Course</a></li>
+                            <li><a class="dropdown-item" href="{% url 'home' %}">View All Golf Courses</a></li>
+                            <li><a class="dropdown-item" href="{% url 'home' %}">Caputre a Golf Score</a></li>
                             <li><a class="dropdown-item" href="#">Tennis</a></li>
                             <li><a class="dropdown-item" href="#">Pickleball</a></li>
                             <li><a class="dropdown-item" href="#">Mountain Biking</a></li>
                             <li><a class="dropdown-item" href="#">Swimming</a></li>
                             <li><a class="dropdown-item" href="#">Track</a></li>
+                            <li><a class="dropdown-item" href="{% url 'fitness:show_construction' %}">Progress Over Time</a></li>
                         </ul>
                     </li>
 

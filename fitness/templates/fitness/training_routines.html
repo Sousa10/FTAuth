@@ -1,6 +1,5 @@
-{% extends 'fitness/base.html' %}
+{% extends 'fitness/baseroutine.html' %}
 {% load static %}
-
 {% block pageTitle %}
 {% endblock %}
 {% block content %}
@@ -14,19 +13,34 @@
   </div>
 </p>
 <br/>
-{% for routine in routine_list %}
-    <a href="#">{{ routine.RoutineName }}</a>
-    <br/>
-{% endfor %}
+<center>
+<table style="width:50%" class="table table-bordered table-striped table-hover">
+    <th class="table-primary">
+        <h4>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspAll Routines</h4>
+    </th>
+    {% for routine in routine_p %}
+        <tr class="table-secondary table-active">
+            <td><a href="{% url 'fitness:show_routine' routine.id %}">{{ routine.RoutineName }}</a></td>
+        </tr>
+    {% endfor %}
+</table>
+</center>
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+  
+        {% if excer_p.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page=1">&laquo First</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ routine_p.previous_page_number }}">Previous</a></li>
+        {% endif %}
+  
+        {% for i in nums %}
+             <li class="page-item"><a class="page-link" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
+        {% endfor %}
+  
+        {% if excer_p.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ routine_p.next_page_number }}">Next</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ routine_p.paginator.num_pages }}">Last &raquo</a></li>
+        {% endif %}
+    </ul>
+</nav>
 {% endblock %}
-
-<a href="#">{{ routine.RoutineName }}</a>
-
-<!--  -->
-<!-- Trying to change above to link to show_workout -->
-<!--  -->
-<!-- <a href="{% url 'show_workout' workout_id %}">{{ workout.WorkoutName }}</a> -->
-<!-- workout_list -->
-<!-- workout -->
-<!-- 'fitness/show_workout' -->
-<!-- 'fitness:show_workout' -->

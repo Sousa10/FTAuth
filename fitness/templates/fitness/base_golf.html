@@ -100,15 +100,9 @@
                         </a>
                         <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
                           <li><a class="dropdown-item active" href="#" data-bs-toggle="modal">Overview</a></li>
-                          <li><a class="dropdown-item active" href="#" data-bs-toggle="modal">How To Setup Add An Excercise</a></li>
-                          <li><a class="dropdown-item active" href="#" data-bs-toggle="modal">How To Setup A Workout</a></li>
-                          <li><a class="dropdown-item active" href="#" data-bs-toggle="modal">How To Add a Training Routine</a></li>
-                          <li><a class="dropdown-item active" href="#" data-bs-toggle="modal">How To Capture A Golf Round</a></li>
-                          <li><a class="dropdown-item active" href="#" data-bs-toggle="modal">How To Capture A Tennis Match</a></li>
-                          <li><a class="dropdown-item active" href="#" data-bs-toggle="modal">How To Capture A Pickleball Match</a></li>
-                          <li><a class="dropdown-item active" href="#" data-bs-toggle="modal">How To Capture Mountain Biking Performance</a></li>
-                          <li><a class="dropdown-item active" href="#" data-bs-toggle="modal">How To Capture Swimming Performance</a></li>
-                          <li><a class="dropdown-item active" href="#" data-bs-toggle="modal">How To Capture A Track Performance</a></li>
+                          <li><a class="dropdown-item active" href="#" data-bs-toggle="modal">How To Add a Golf Course</a></li>
+                          <li><a class="dropdown-item active" href="#" data-bs-toggle="modal">How To View Golf Courses</a></li>
+                          <li><a class="dropdown-item active" href="#" data-bs-toggle="modal">How To Capture a Golf Round</a></li>
                         </ul>
                       </li>          
 
@@ -123,7 +117,7 @@
                 <form class="d-flex" method=POST action="{% url 'fitness:search_workouts' %}">
                   {% csrf_token %}
                   <input class="form-control me-2"
-                  type="search" placeholder="Search Excercises" aria-label="Search Excercises" name="searched">
+                  type="search" placeholder="Search Golf Courses" aria-label="Search Golf Courses" name="searched">
                   <button class="btn btn-outline-secondary" type="submit">Search</button>
                 </form>
             </div>

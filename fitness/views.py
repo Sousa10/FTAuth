@@ -8,10 +8,11 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 import csv
 import io
-from .models import workout, training_routine, ExcerciseList
+from .models import workout, training_routine, ExcerciseList, golf_course
 from .models import *
 from .forms import WorkoutForm
 from .forms import ExcerciseForm
+from .forms import RoutineForm
 from django.views import generic
 from django.core.paginator import Paginator
 
@@ -56,10 +57,32 @@ def AddExcercise(request):
             submitted = True
     return render(request, 'fitness/AddExcercise.html', {'form':form, 'submitted':submitted})
 
+def AddRoutine(request):
+    submitted = False
+    if request.method == "POST":
+        form = RoutineForm(request.POST)
+        if form.is_valid():
+            form.save() 
+            return HttpResponseRedirect('addroutine?submitted=True')   
+    else:
+        form = RoutineForm
+        if 'submitted' in request.GET:
+            submitted = True
+    return render(request, 'fitness/AddRoutine.html', {'form':form, 'submitted':submitted})
 
 def training_routines(request):
     routine_list = training_routine.objects.all()
-    return render(request, 'fitness/training_routines.html', {'routine_list': routine_list})
+
+    # Set up Pagination
+    p = Paginator(training_routine.objects.all(), 8)
+    page = request.GET.get('page')
+    routine_p = p.get_page(page)
+    nums = "x" * routine_p.paginator.num_pages
+    return render(request, 'fitness/training_routines.html', {
+        'routine_list': routine_list,
+        'routine_p': routine_p,
+        'nums' :nums
+        })
 
 def search_workouts(request):
     if request.method == "POST":
@@ -82,6 +105,13 @@ def show_excercise(request, excercise_id):
     excercise_info = ExcerciseList.objects.get(pk=excercise_id)
     return render(request, 'fitness/show_excercise.html', {'excercise': excercise_info})
 
+def show_routine(request, routine_id):
+    routine_info = training_routine.objects.get(pk=routine_id)
+    return render(request, 'fitness/show_routine.html', {'routine': routine_info})
+
+def show_construction(request):
+    return render(request, 'fitness/show_construction.html', {})
+
 def excercises(request):
     excercise_list = ExcerciseList.objects.all()
 
@@ -93,5 +123,19 @@ def excercises(request):
     return render(request, 'fitness/excercises.html', {
         'excercise_list': excercise_list,
         'excer_p':excer_p,
+        'nums':nums
+        })
+
+def golf_courses(request):
+    course_list = golf_course.objects.all()
+
+    # Set up Pagination
+    p = Paginator(golf_course.objects.all(), 8)
+    page = request.GET.get('page')
+    course_p = p.get_page(page)
+    nums = "x" * course_p.paginator.num_pages
+    return render(request, 'fitness/excercises.html', {
+        'excercise_list': course_list,
+        'excer_p':course_p,
         'nums':nums
         })

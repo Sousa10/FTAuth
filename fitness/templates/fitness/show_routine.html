@@ -6,7 +6,7 @@
   <div class="h1">
     <a style="color:rgb(6, 6, 192)">
       <p style="font-size:40px">
-        <h2>Excercise</h2>
+        <h2>Fitness Routine</h2>
       </p>
     </a>
   </div>
@@ -26,21 +26,19 @@
     <div class="col-sm-12">
         <div class="card">
             <div class="card-header bg-secondary text-white">
-                <strong>{{ excercise.Reference }}:&nbsp&nbsp{{ excercise.Region }}&nbsp&nbsp{{ excercise.Exercise }}</strong>
+                <strong>{{ routine.RoutineName }}</strong>
             </div>
             <div class="card-body card bg-light text-dark">
                 <p class="card text-left" style="padding: 0 15px 15px;"><br>
-                    <strong>Description:</strong>{{ excercise.Description }}</br></br>
-                    <strong>Instructions:</strong>{{ excercise.Instructions }}
+                    <strong>Description:</strong>{{ routine.Description }}</br></br>
+                    <strong>Benefits:</strong>{{ routine.Benefits }}</br></br>
+                    <strong>Instructions:</strong>{{ routine.Instructions }}</br></br>
+                    <strong>Results & Comments:</strong>{{ routine.ResultsComments }}
                 </p>
             </div>
         </div>
     </div>
 </div>
-
-
-
-
 {% endblock %}
 
 
