@@ -12,9 +12,10 @@
     </a>
   </div>
 {% if profiles %}
-    {% for profile in profiles %}
-
-    <div class="card mb-3" style="max-width: 540px;">
+<div class="row">
+    {% for profile in profiles_p %}
+    <div class="col-md-4 mb-3">
+      <div class="card" style="max-width: 540px;">
         <div class="row g-0">
           <div class="col-md-4">
             {% if profile.profile_image %}
@@ -24,15 +25,36 @@
             {% endif %}
           </div>
           <div class="col-md-8">
-            <div class="card-body">
+            <div class="card-body" style="padding: 0.5rem 1rem 0;">
               <h5 class="card-title">{{ profile.user.username }}</h5>
               <p class="card-text"><a href="{% url 'familytracks:profile' profile.user.id %}">@{{ profile.user.username|lower }}</a></p>
-              <br><br>
+              <!-- <br><br> -->
               <p class="card-text"><small class="text-body-secondary">Last Updated: {{ profile.date_modified }}</small></p>
             </div>
           </div>
         </div>
       </div>
+    </div>
     {% endfor %}
+  </div>
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+    
+    {% if profiles_p.has_previous %}
+        <li class="page-item"><a class="page-link" href="?page=1">&laquo First</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{ profiles_p.previous_page_number }}">Previous</a></li>
+    {% endif %}
+    
+    {% for i in nums %}
+        <li class="page-item"><a class="page-link" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
+    {% endfor %}
+    
+    {% if excer_p.has_next %}
+        <li class="page-item"><a class="page-link" href="?page={{ profiles_p.next_page_number }}">Next</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{ profiles_p.paginator.num_pages }}">Last &raquo</a></li>
+    {% endif %}
+    
+    </ul>
+    </nav>
 {% endif %}
 {% endblock %}

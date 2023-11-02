@@ -3,6 +3,8 @@ from .models import Profile, Meep
 from django.contrib import messages
 from .forms import MeepForm, ProfilePicForm
 from django.contrib.auth.models import User
+from django.core.paginator import Paginator
+from django.core.files import File
 
 def home(request):
     if request.user.is_authenticated:
@@ -20,13 +22,19 @@ def home(request):
         return render(request, 'familytracks/home.html', {"meeps":meeps})
 
 def main_landing_page(request):
-    return render(request, 'familytracks/main_landing_page.html', {})
+    video_path = 'media/video/wsb_E_01_r360P.mp4'  # Replace with the actual path to your video
+    video = File(open(video_path, 'rb'))
+    return render(request, 'familytracks/main_landing_page.html', { 'video': video,})
 
 def profiles_list(request):
     if request.user.is_authenticated:
         # profiles = Profile.objects.exclude(user=request.user)
         profiles = Profile.objects.all()
-        return render(request, 'familytracks/profiles_list.html', {"profiles": profiles})
+        p = Paginator(profiles, 6)
+        page = request.GET.get('page')
+        profiles_p = p.get_page(page)
+        nums = "x" * profiles_p.paginator.num_pages
+        return render(request, 'familytracks/profiles_list.html', {"profiles": profiles, "profiles_p": profiles_p, "nums": nums})
     else:
         messages.success(request, ("You Must Be Logged In to View This Page"))
         return redirect('familytracks:main_landing_page')
