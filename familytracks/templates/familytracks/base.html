@@ -160,6 +160,16 @@
                           <li><a class="dropdown-item" href="{% url 'familytracks:search_user' %}">Search User</a></li>
                         </ul>
                       </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Tutorials
+                        </a>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="" data-bs-toggle="modal" data-bs-target="#tutorial1">Tutorial 1</a></li>
+                          <li><a class="dropdown-item" href="" data-bs-toggle="modal" data-bs-target="#tutorial2">Tutorial 2</a></li>
+                          <li><a class="dropdown-item" href="" data-bs-toggle="modal" data-bs-target="#tutorial3">Tutorial 3</a></li>
+                        </ul>
+                      </li>
                 </ul>
 
                 {% if user.is_authenticated %}
@@ -187,7 +197,67 @@
             </div>
         </div>
     </nav>
-
+<!-- Tutorials modal -->
+<!-- Tutorial 1 -->
+<div class="modal fade" id="tutorial1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="tutorial1Label" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="tutorial1Label">Tutorial 1</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <video width="100%" height="auto" controls>
+                <source src="/media/video/wsb_E_01_r360P.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- Tutorial 2 -->
+<div class="modal fade" id="tutorial2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="tutorial2Label" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="tutorial2Label">Tutorial 1</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <video width="100%" height="auto" controls>
+                <source src="/media/video/wsb_E_01_r360P.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- Tutorial 3 -->
+<div class="modal fade" id="tutorial3" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="tutorial3Label" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="tutorial3Label">Tutorial 1</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <video width="100%" height="auto" controls>
+                <source src="/media/video/wsb_E_01_r360P.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
     <main class="container-fluid mt-4">
         <div class="row" style="margin: 0 5px;">
