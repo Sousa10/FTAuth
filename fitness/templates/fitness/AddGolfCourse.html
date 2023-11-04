@@ -1,4 +1,4 @@
-{% extends 'fitness/baseroutine.html' %}
+{% extends 'fitness/base_golf.html' %}
 {% load static %}
 {% block content %}
 <p style="text-align:center">
@@ -17,10 +17,16 @@
 
     <form action="" method=POST>
         {% csrf_token %}
-
+        <div class="row g-3">
+            <div class="col-sm-1">
+                <input type="text" class="form-control" id="Hole1Par" placeholder="#1">
+                <input type="text" class="form-control" id="Hole2Par" placeholder="#2">
+                <input type="text" class="form-control" id="Hole3Par" placeholder="#3">
+            </div>
+        </div>
         {{ form.as_p }}
 
-        <input type="submit" value="Add Routine" class="btn btn-secondary">
+        <input type="submit" value="Add Course" class="btn btn-secondary">
 
     </form>
 

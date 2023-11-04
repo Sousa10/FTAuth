@@ -55,8 +55,8 @@ class ExcerciseForm(ModelForm):
             'Region': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Region'}),
             'Area': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Area'}),
             'Exercise': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Excercise'}),
-            'Description': forms.Textarea(attrs={'class':'form-control', 'placeholder':'Description'}),
-            'Instructions': forms.Textarea(attrs={'class':'form-control', 'placeholder':'Instructions'}),
+            'Description': forms.Textarea(attrs={'class':'form-control', 'placeholder':'Description', "rows": 3}),
+            'Instructions': forms.Textarea(attrs={'class':'form-control', 'placeholder':'Instructions', "rows": 3}),
         }
 
 # Create an Routine Form
@@ -75,7 +75,7 @@ class RoutineForm(ModelForm):
             'RoutineName': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Routnine'}),
             'Description': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Desciption'}),
             'Benefits': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Benefits'}),
-            'Instructions': forms.Textarea(attrs={'class':'form-control', 'placeholder':'Instructions'}),
+            'Instructions': forms.Textarea(attrs={'class':'form-control', 'placeholder':'Instructions', "rows": 3}),
             'ResultsComments': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Results & Comments'}),
         }
 
@@ -156,7 +156,7 @@ class GolfCourseForm(ModelForm):
             'Hole18Handicap': '',
         }
         widgets = {
-            'Course': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Course'}),
+            'Course': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Course', 'size': '20'}),
             'CoursePar': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Par'}),
             'Yards': forms.TextInput(attrs={'class':'form-control', 'placeholder':'YDs'}),
             'Slope': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Slope'}),
