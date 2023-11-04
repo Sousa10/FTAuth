@@ -1,0 +1,134 @@
+{% extends 'LoginRegister/base.html' %}
+{% load static %}
+
+{% block title %}"What We Own" Accounts{% endblock %}
+
+{% block pageimage %}
+<img style="float: left;" src="{% static 'WhatWeOwn.jpg' %}" alt="What We Own Tile Missing" width="100" height="100">
+{% endblock %}
+
+{% block backurl %}{%url 'LoginRegister:FTDefAcctsMenu'%}{% endblock %}
+{% block pageTitle %}
+<div class="h1">
+  <a style="color:rgb(6, 6, 192)">
+    <p style="font-size:40px">
+      <h2>"What We Own" Accounts</h2>
+    </p>
+  </a>
+</div>
+{% endblock %}
+
+{% block content %}
+<div>
+  <table>
+    <thead>
+      <tr>
+        <th>Account Number</th>
+        <th>Description</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for assetacctm in assetacctms_paginated %} 
+      <tr>
+        <td>{{ assetacctm.AccountNumber }}</td>
+        <td>{{ assetacctm.Description }}</td>
+        <td>
+          <a href="{% url 'LoginRegister:assetacctm_delete' assetacctm.id %}" class="btn btn-danger">Delete</a>
+          <a href="{% url 'LoginRegister:assetacctm_update' assetacctm.id %}"
+            class="btn btn-secondary edit-button">Edit</a>
+        </td>
+      </tr>
+      {% endfor %}
+      <tr>
+        <td colspan="3" class="text-center">
+          <a class="add-button btn btn-info" href="#">Add</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="pagination">
+    <span class="step-links">
+      {% if assetacctms_paginated.has_previous %}
+      <a href="?page=1">&laquo; first</a>
+      <a href="?page={{ assetacctms_paginated.previous_page_number }}">previous</a>
+      {% endif %}
+
+      <span class="current">
+        Page {{ assetacctms_paginated.number }} of {{ assetacctms_paginated.paginator.num_pages }}.
+      </span>
+
+      {% if assetacctms_paginated.has_next %}
+      <a href="?page={{ assetacctms_paginated.next_page_number }}">next</a>
+      <a href="?page={{ assetacctms_paginated.paginator.num_pages }}">last &raquo;</a>
+      {% endif %}
+    </span>
+  </div>
+</div>
+<!-- Add modal -->
+<div class="md-6">
+  <div id="addModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times</span>
+      <h2>{{ title }}</h2>
+
+      <form action="{% url 'LoginRegister:FTAssetAccts' %}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="{{ form.AccountNumber.id_for_label }}">Account Number</label>
+          {{ form.AccountNumber }}
+        </div>
+        <div class="form-group">
+          <label for="{{ form.Description.id_for_label }}">Description</label>
+          {{ form.Description }}
+        </div>
+        {% if form.errors or form.non_field_errors %}
+        <div class="mb-3 p-6 bg-red-100 rounded-xl">
+          {% for field in form %}
+          {{ field.errors }}
+          {% endfor %}
+
+          {{ form.non_field_errors }}
+        </div>
+        {% endif %}
+        <button type="submit"
+          class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- Edit modal -->
+<div class="md-4">
+  <div id="editModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times</span>
+
+      <h2>{{ title }}</h2>
+      <form id="editForm" action="." method="post">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="{{ form.AccountNumber.id_for_label }}">Account Number</label>
+          {{ form.AccountNumber }}
+        </div>
+        <div class="form-group">
+          <label for="{{ form.Description.id_for_label }}">Description</label>
+          {{ form.Description }}
+        </div>
+        {% if form.errors or form.non_field_errors %}
+        <div class="mb-3 p-6 bg-red-100 rounded-xl">
+          {% for field in form %}
+          {{ field.errors }}
+          {% endfor %}
+
+          {{ form.non_field_errors }}
+        </div>
+        {% endif %}
+        <button type="submit"
+          class="mt-6 mb-6 py-4 px-8 text-lg bg-teal-500 hover:bg-teal-700 rounded-xl text-white">Submit</button>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -13,6 +13,7 @@ from .models import *
 from .forms import WorkoutForm
 from .forms import ExcerciseForm
 from .forms import RoutineForm
+from .forms import GolfCourseForm
 from django.views import generic
 from django.core.paginator import Paginator
 
@@ -70,6 +71,19 @@ def AddRoutine(request):
             submitted = True
     return render(request, 'fitness/AddRoutine.html', {'form':form, 'submitted':submitted})
 
+def AddGolfCourse(request):
+    submitted = False
+    if request.method == "POST":
+        form = GolfCourseForm(request.POST)
+        if form.is_valid():
+            form.save() 
+            return HttpResponseRedirect('addgolfcourse?submitted=True')   
+    else:
+        form = GolfCourseForm
+        if 'submitted' in request.GET:
+            submitted = True
+    return render(request, 'fitness/AddGolfCourse.html', {'form':form, 'submitted':submitted})
+
 def training_routines(request):
     routine_list = training_routine.objects.all()
 
@@ -105,6 +119,10 @@ def show_excercise(request, excercise_id):
     excercise_info = ExcerciseList.objects.get(pk=excercise_id)
     return render(request, 'fitness/show_excercise.html', {'excercise': excercise_info})
 
+def show_golf_course(request, golf_course_id):
+    course_info = golf_course.objects.get(pk=golf_course_id)
+    return render(request, 'fitness/show_golf_course.html', {'golf_course': course_info})
+
 def show_routine(request, routine_id):
     routine_info = training_routine.objects.get(pk=routine_id)
     return render(request, 'fitness/show_routine.html', {'routine': routine_info})
@@ -134,8 +152,8 @@ def golf_courses(request):
     page = request.GET.get('page')
     course_p = p.get_page(page)
     nums = "x" * course_p.paginator.num_pages
-    return render(request, 'fitness/excercises.html', {
-        'excercise_list': course_list,
-        'excer_p':course_p,
+    return render(request, 'fitness/golf_courses.html', {
+        'course_list':course_list,
+        'course_p':course_p,
         'nums':nums
         })

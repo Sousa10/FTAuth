@@ -14,6 +14,7 @@ urlpatterns = [
     path('search_workouts', views.search_workouts, name='search_workouts' ),
     path('show_workout/<int:workout_id>', views.show_workout, name='show_workout'),
     path('show_excercise/<int:excercise_id>', views.show_excercise, name='show_excercise'),
+    path('show_golf_course/<int:golf_course_id>', views.show_golf_course, name='show_golf_course'),
     path('show_routine/<int:routine_id>', views.show_routine, name='show_routine'),
     path('show_construction', views.show_construction, name='show_construction'),
     path('workouts', views.workouts, name='workouts'),
@@ -22,4 +23,5 @@ urlpatterns = [
     path('addworkout', views.AddWorkout, name='AddWorkout'),
     path('addexcercise', views.AddExcercise, name='AddExcercise'),
     path('addroutine', views.AddRoutine, name='AddRoutine'),
+    path('addgolfcourse', views.AddGolfCourse, name='AddGolfCourse'),    
     ]                                      

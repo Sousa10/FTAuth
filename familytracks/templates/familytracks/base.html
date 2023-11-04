@@ -134,25 +134,25 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'familytracks:home' %}">Home</a>
+                        <a class="nav-link active" href="{% url 'familytracks:home' %}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'familytracks:profiles_list' %}">Profile List</a>
+                        <a class="nav-link active" href="{% url 'familytracks:profiles_list' %}">Profile List</a>
                     </li>
                     {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'members:logout' %}">Logout</a>
+                        <a class="nav-link active" href="{% url 'members:logout' %}">Logout</a>
                     </li>
                     {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Register</a>
+                        <a class="nav-link active" href="#">Register</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'members:main_menu_login' %}">Login</a>
+                        <a class="nav-link active" href="{% url 'members:main_menu_login' %}">Login</a>
                     </li>
                     {% endif %}
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                           Search
                         </a>
                         <ul class="dropdown-menu">
@@ -170,6 +170,20 @@
                           <li><a class="dropdown-item" href="" data-bs-toggle="modal" data-bs-target="#tutorial3">Tutorial 3</a></li>
                         </ul>
                       </li>
+                      <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Video Tutorials
+                        </a>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="#">Overview</a></li>
+                          <li><a class="dropdown-item" href="#">Tutorial #1</a></li>
+                          <li><a class="dropdown-item" href="#">Tutorial #2</a></li>
+                          <li><a class="dropdown-item" href="#">Tutorial #3</a></li>
+                        </ul>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'LoginRegister:FTMainMenu' %}">Main Menu</a>
+                      </li>
                 </ul>
 
                 {% if user.is_authenticated %}
@@ -184,7 +198,6 @@
 
                             {% endif %}
                         </a>
-
                     </li>
                 </ul>
                 {% endif %}

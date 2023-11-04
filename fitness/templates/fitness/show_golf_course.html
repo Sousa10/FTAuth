@@ -1,0 +1,82 @@
+{% extends 'fitness/baseex.html' %}
+{% load static %}
+
+{% block content %}
+<p style="text-align:center">
+  <div class="h1">
+    <a style="color:rgb(6, 6, 192)">
+      <p style="font-size:40px">
+        <h2>Golf Course</h2>
+      </p>
+    </a>
+  </div>
+</p>
+<html lang="en">
+<head>
+  <title>Bootstrap Card</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header bg-secondary text-white">
+                <strong>{{ golf_course.Course }}:&nbsp&nbsp&nbspPar:&nbsp{{ golf_course.CoursePar }}&nbsp&nbsp&nbspYards:&nbsp{{ golf_course.Yards }}&nbsp&nbsp&nbspSlope:&nbsp{{ golf_course.Slope }}&nbsp&nbsp&nbspRating:&nbsp{{ golf_course.Rating }}</strong>
+                </br>
+                <strong>Desciption:&nbsp{{ golf_course.Description }}</strong>
+            </div>
+            <div class="card-body card bg-light text-dark">
+                <p class="card text-left" style="padding: 0 15px 15px;"><br>
+                    <strong>Hole:&nbsp&nbsp&nbsp&nbsp#1&nbsp&nbsp&nbsp&nbsp#2&nbsp&nbsp&nbsp&nbsp#3&nbsp&nbsp&nbsp&nbsp#4&nbsp&nbsp&nbsp&nbsp#5&nbsp&nbsp&nbsp&nbsp#6&nbsp&nbsp&nbsp&nbsp#7&nbsp&nbsp&nbsp&nbsp#8&nbsp&nbsp&nbsp&nbsp#9&nbsp&nbsp&nbsp&nbsp#10&nbsp&nbsp&nbsp&nbsp#11&nbsp&nbsp&nbsp&nbsp#12&nbsp&nbsp&nbsp&nbsp#13&nbsp&nbsp&nbsp&nbsp#14&nbsp&nbsp&nbsp&nbsp#15&nbsp&nbsp&nbsp&nbsp#16&nbsp&nbsp&nbsp&nbsp#17&nbsp&nbsp&nbsp&nbsp#18</strong>
+                    <strong>Par:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ golf_course.Hole1Par }}
+                        &nbsp&nbsp&nbsp&nbsp&nbsp{{ golf_course.Hole2Par }}
+                        &nbsp&nbsp&nbsp&nbsp&nbsp{{ golf_course.Hole3Par }}
+                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ golf_course.Hole4Par }}
+                        &nbsp&nbsp&nbsp&nbsp&nbsp{{ golf_course.Hole5Par }}
+                        &nbsp&nbsp&nbsp&nbsp&nbsp{{ golf_course.Hole6Par }}
+                        &nbsp&nbsp&nbsp&nbsp&nbsp{{ golf_course.Hole7Par }}
+                        &nbsp&nbsp&nbsp&nbsp&nbsp{{ golf_course.Hole8Par }}
+                        &nbsp&nbsp&nbsp&nbsp&nbsp{{ golf_course.Hole9Par }}
+                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ golf_course.Hole10Par }}
+                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ golf_course.Hole11Par }}
+                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ golf_course.Hole12Par }}
+                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ golf_course.Hole13Par }}
+                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ golf_course.Hole14Par }}
+                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ golf_course.Hole15Par }}
+                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ golf_course.Hole16Par }}
+                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ golf_course.Hole17Par }}
+                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ golf_course.Hole18Par }}
+                    </strong>
+                    <strong>YDs:&nbsp&nbsp&nbsp&nbsp{{ golf_course.Hole1Yardage }}
+                        &nbsp{{ golf_course.Hole2Yardage }}
+                        &nbsp{{ golf_course.Hole3Yardage }}
+                        &nbsp&nbsp{{ golf_course.Hole4Yardage }}
+                        &nbsp{{ golf_course.Hole5Yardage }}
+                        &nbsp{{ golf_course.Hole6Yardage }}
+                        &nbsp{{ golf_course.Hole7Yardage }}
+                        &nbsp{{ golf_course.Hole8Yardage }}
+                        &nbsp{{ golf_course.Hole9Yardage }}
+                        &nbsp&nbsp{{ golf_course.Hole10Yardage }}
+                        &nbsp&nbsp&nbsp{{ golf_course.Hole11Yardage }}
+                        &nbsp&nbsp&nbsp{{ golf_course.Hole12Yardage }}
+                        &nbsp&nbsp&nbsp{{ golf_course.Hole13Yardage }}
+                        &nbsp&nbsp&nbsp{{ golf_course.Hole14Yardage }}
+                        &nbsp&nbsp&nbsp&nbsp{{ golf_course.Hole15Yardage }}
+                        &nbsp&nbsp&nbsp{{ golf_course.Hole16Yardage }}
+                        &nbsp&nbsp&nbsp{{ golf_course.Hole17Yardage }}
+                        &nbsp&nbsp&nbsp{{ golf_course.Hole18Yardage }}
+                    </strong>
+
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
