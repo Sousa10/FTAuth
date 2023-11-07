@@ -161,24 +161,14 @@
                         </ul>
                       </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                          Tutorials
-                        </a>
-                        <ul class="dropdown-menu">
-                          <li><a class="dropdown-item" href="" data-bs-toggle="modal" data-bs-target="#tutorial1">Tutorial 1</a></li>
-                          <li><a class="dropdown-item" href="" data-bs-toggle="modal" data-bs-target="#tutorial2">Tutorial 2</a></li>
-                          <li><a class="dropdown-item" href="" data-bs-toggle="modal" data-bs-target="#tutorial3">Tutorial 3</a></li>
-                        </ul>
-                      </li>
-                      <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                           Video Tutorials
                         </a>
                         <ul class="dropdown-menu">
-                          <li><a class="dropdown-item" href="#">Overview</a></li>
-                          <li><a class="dropdown-item" href="#">Tutorial #1</a></li>
-                          <li><a class="dropdown-item" href="#">Tutorial #2</a></li>
-                          <li><a class="dropdown-item" href="#">Tutorial #3</a></li>
+                          <li><a class="dropdown-item" href="" data-bs-toggle="modal" data-bs-target="#tutorial1">Overview</a></li>
+                          <li><a class="dropdown-item" href="" data-bs-toggle="modal" data-bs-target="#tutorial1">Tutorial 1</a></li>
+                          <li><a class="dropdown-item" href="" data-bs-toggle="modal" data-bs-target="#tutorial2">Tutorial 2</a></li>
+                          <li><a class="dropdown-item" href="" data-bs-toggle="modal" data-bs-target="#tutorial3">Tutorial 3</a></li>
                         </ul>
                       </li>
                       <li class="nav-item">
@@ -195,18 +185,11 @@
                             {% else %}
                             <img src="{% static 'images/default_profile_pic.png' %}" class="img-fluid rounded-circle"
                                 alt="Profile Image" width=30 height=30>
-
                             {% endif %}
                         </a>
                     </li>
                 </ul>
                 {% endif %}
-
-                <!--<form class="d-flex" role="search">
-                  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                  <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>-->
-
             </div>
         </div>
     </nav>
@@ -263,14 +246,14 @@
             <video width="100%" height="auto" controls>
                 <source src="/media/video/wsb_E_01_r360P.mp4" type="video/mp4">
                 Your browser does not support the video tag.
-              </video>
+            </video>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         </div>
       </div>
     </div>
-  </div>
+</div>
 
     <main class="container-fluid mt-4">
         <div class="row" style="margin: 0 5px;">
