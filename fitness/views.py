@@ -72,6 +72,8 @@ def AddRoutine(request):
     return render(request, 'fitness/AddRoutine.html', {'form':form, 'submitted':submitted})
 
 def AddGolfCourse(request):
+    yardage_fields = [f'Hole{i}Yardage' for i in range(1, 19)]
+    handicap_fields = [f'Hole{i}Handicap' for i in range(1, 19)]
     submitted = False
     if request.method == "POST":
         form = GolfCourseForm(request.POST)
@@ -82,7 +84,8 @@ def AddGolfCourse(request):
         form = GolfCourseForm
         if 'submitted' in request.GET:
             submitted = True
-    return render(request, 'fitness/AddGolfCourse.html', {'form':form, 'submitted':submitted})
+    return render(request, 'fitness/AddGolfCourse.html', {'form':form, 'submitted':submitted,  'yardage_fields': yardage_fields,
+        'handicap_fields': handicap_fields,})
 
 def training_routines(request):
     routine_list = training_routine.objects.all()

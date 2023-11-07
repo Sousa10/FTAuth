@@ -1,5 +1,6 @@
 {% extends 'fitness/base_golf.html' %}
 {% load static %}
+
 {% block content %}
 <p style="text-align:center">
   <div class="h1">
@@ -18,15 +19,151 @@
     <form action="" method=POST>
         {% csrf_token %}
         <div class="row g-3">
-            <div class="col-sm-1">
-                <input type="text" class="form-control" id="Hole1Par" placeholder="#1">
-                <input type="text" class="form-control" id="Hole2Par" placeholder="#2">
-                <input type="text" class="form-control" id="Hole3Par" placeholder="#3">
+            <div class="col-md-8">
+                {{ form.Course }}
+            </div>
+            <div class="col-md-1">
+                {{ form.CoursePar }}
+            </div>
+            <div class="col-md-1">
+                {{ form.Yards }}
+            </div>
+            <div class="col-md-1">
+                {{ form.Slope }}
+            </div>
+            <div class="col-md-1">
+                {{ form.Rating }}
             </div>
         </div>
-        {{ form.as_p }}
-
-        <input type="submit" value="Add Course" class="btn btn-secondary">
+        <div class="row mt-2">
+          <div class="col-md-12">
+            {{ form.Description }}
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-md-6">
+            <!-- Input fields for Yards for Holes 1-9 -->
+            <div style="display: flex; flex-direction: row;">
+              <!-- <div style="display: flex; align-items: center;">Hole</div> -->
+              <label class="hole_nbr" for="{{ form.Hole1Yardage.id_for_label }}">#1</label>
+              <label class="hole_nbr" for="{{ form.Hole2Yardage.id_for_label }}">#2</label>
+              <label class="hole_nbr" for="{{ form.Hole3Yardage.id_for_label }}">#3</label>
+              <label class="hole_nbr" for="{{ form.Hole4Yardage.id_for_label }}">#4</label>
+              <label class="hole_nbr" for="{{ form.Hole5Yardage.id_for_label }}">#5</label>
+              <label class="hole_nbr" for="{{ form.Hole6Yardage.id_for_label }}">#6</label>
+              <label class="hole_nbr" for="{{ form.Hole7Yardage.id_for_label }}">#7</label>
+              <label class="hole_nbr" for="{{ form.Hole8Yardage.id_for_label }}">#8</label>
+              <label class="hole_nbr" for="{{ form.Hole9Yardage.id_for_label }}">#9</label>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <!-- Inp class="hole_nbr"ut fields for Yards for Holes 10-18 -->
+            <div style="display: flex; flex-direction: row;">
+              <label class="hole_nbr" for="{{ form.Hole10Yardage.id_for_label }}" style="text-align: center;">#10</label>
+              <label class="hole_nbr" for="{{ form.Hole11Yardage.id_for_label }}">#11</label>
+              <label class="hole_nbr" for="{{ form.Hole12Yardage.id_for_label }}">#12</label>
+              <label class="hole_nbr" for="{{ form.Hol13Yardage.id_for_label }}">#13</label>
+              <label class="hole_nbr" for="{{ form.Hole14Yardage.id_for_label }}">#14</label>
+              <label class="hole_nbr" for="{{ form.Hole15Yardage.id_for_label }}">#15</label>
+              <label class="hole_nbr" for="{{ form.Hole16Yardage.id_for_label }}">#16</label>
+              <label class="hole_nbr" for="{{ form.Hole17Yardage.id_for_label }}">#17</label>
+              <label class="hole_nbr" for="{{ form.Hole18Yardage.id_for_label }}">#18</label>
+            </div>
+        </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-md-6">
+              <!-- Input fields for Yards for Holes 1-9 -->
+              <div style="display: flex; flex-direction: row;">
+                <div style="display: flex; align-items: center;">Par</div>
+                {{ form.Hole1Par }}
+                {{ form.Hole2Par }}
+                {{ form.Hole3Par }}
+                {{ form.Hole4Par }}
+                {{ form.Hole5Par }}
+                {{ form.Hole6Par }}
+                {{ form.Hole7Par }}
+                {{ form.Hole8Par }}
+                {{ form.Hole9Par }}
+              </div>
+          </div>
+          <div class="col-md-6">
+              <!-- Input fields for Yards for Holes 10-18 -->
+              <div style="display: flex; flex-direction: row;">
+                {{ form.Hole10Par }}
+                {{ form.Hole11Par }}
+                {{ form.Hole12Par }}
+                {{ form.Hole13Par }}
+                {{ form.Hole14Par }}
+                {{ form.Hole15Par }}
+                {{ form.Hole16Par }}
+                {{ form.Hole17Par }}
+                {{ form.Hole18Par }}
+              </div>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-md-6">
+              <!-- Input fields for Yards for Holes 1-9 -->
+              <div style="display: flex; flex-direction: row;">
+                <div style="display: flex; align-items: center;">YDs</div>
+                {{ form.Hole1Yardage }}
+                {{ form.Hole2Yardage }}
+                {{ form.Hole3Yardage }}
+                {{ form.Hole4Yardage }}
+                {{ form.Hole5Yardage }}
+                {{ form.Hole6Yardage }}
+                {{ form.Hole7Yardage }}
+                {{ form.Hole8Yardage }}
+                {{ form.Hole9Yardage }}
+              </div>
+          </div>
+          <div class="col-md-6">
+              <!-- Input fields for Yards for Holes 10-18 -->
+              <div style="display: flex; flex-direction: row;">
+                {{ form.Hole10Yardage }}
+                {{ form.Hole11Yardage }}
+                {{ form.Hole12Yardage }}
+                {{ form.Hole13Yardage }}
+                {{ form.Hole14Yardage }}
+                {{ form.Hole15Yardage }}
+                {{ form.Hole16Yardage }}
+                {{ form.Hole17Yardage }}
+                {{ form.Hole18Yardage }}
+              </div>
+          </div>
+        </div>
+      <div class="row mt-2">
+          <div class="col-md-6">
+              <!-- Input fields for Handicaps for Holes 1-9 -->
+              <div style="display: flex; flex-direction: row;">
+                <div style="display: flex; align-items: center;">Hcp</div>{{ form.Hole1Handicap }}
+                {{ form.Hole2Handicap }}
+                {{ form.Hole3Handicap }}
+                {{ form.Hole4Handicap }}
+                {{ form.Hole5Handicap }}
+                {{ form.Hole6Handicap }}
+                {{ form.Hole7Handicap }}
+                {{ form.Hole8Handicap }}
+                {{ form.Hole9Handicap }}
+              </div>
+          </div>
+          <div class="col-md-6">
+              <!-- Input fields for Handicaps for Holes 10-18 -->
+              <div style="display: flex; flex-direction: row;">
+                {{ form.Hole10Handicap }}
+                {{ form.Hole11Handicap }}
+                {{ form.Hole12Handicap }}
+                {{ form.Hole13Handicap }}
+                {{ form.Hole14Handicap }}
+                {{ form.Hole15Handicap }}
+                {{ form.Hole16Handicap }}
+                {{ form.Hole17Handicap }}
+                {{ form.Hole18Handicap }}
+              </div>
+          </div>
+        </div>
+        <input type="submit" value="Add Course" class="btn btn-secondary mt-2" style="float: left;">
 
     </form>
 
