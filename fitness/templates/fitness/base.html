@@ -17,7 +17,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #0f496f;">
         <div class="container-fluid">
             <!-- <a class="navbar-brand" href="#">Navbar</a> -->
-            <a class="navbar-brand" href="#">Family Tracker</a>
+            <a class="navbar-brand" href="#">TRAXX</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -65,44 +65,25 @@
                             Sports
                         </a>
                         <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="{% url 'fitness:AddGolfCourse' %}">Add A Golf Course</a>
-                            </li>
-                            <li><a class="dropdown-item" href="{% url 'fitness:golf_courses' %}">View All Golf
-                                    Courses</a></li>
-                            <li><a class="dropdown-item" href="{% url 'fitness:show_construction' %}">Caputre A Golf
-                                    Score</a></li>
-                            <li><a class="dropdown-item" href="{% url 'fitness:show_construction' %}">View All Golf
-                                    Scores</a></li>
-                            <li><a class="dropdown-item" href="{% url 'fitness:show_construction' %}">Add A Tennis
-                                    Venue</a></li>
-                            <li><a class="dropdown-item" href="{% url 'fitness:show_construction' %}">Capture A Tennis
-                                    Score</a></li>
-                            <li><a class="dropdown-item" href="{% url 'fitness:show_construction' %}">View All Tennis
-                                    Scores</a></li>
-                            <li><a class="dropdown-item" href="{% url 'fitness:show_construction' %}">Add A Pickleball
-                                    Venue</a></li>
-                            <li><a class="dropdown-item" href="{% url 'fitness:show_construction' %}">Capture A
-                                    Pickleball Score</a></li>
-                            <li><a class="dropdown-item" href="{% url 'fitness:show_construction' %}">View All
-                                    Pickleball Scores</a></li>
-                            <li><a class="dropdown-item" href="{% url 'fitness:show_construction' %}">Add A Mountain
-                                    Biking Venue/Event</a></li>
-                            <li><a class="dropdown-item" href="{% url 'fitness:show_construction' %}">Capture A Mountain
-                                    Biking Performance</a></li>
-                            <li><a class="dropdown-item" href="{% url 'fitness:show_construction' %}">View All Mountain
-                                    Biking Performances</a></li>
-                            <li><a class="dropdown-item" href="{% url 'fitness:show_construction' %}">Add A Swimming
-                                    Venue/Event</a></li>
-                            <li><a class="dropdown-item" href="{% url 'fitness:show_construction' %}">Capture A Swimming
-                                    Performance</a></li>
-                            <li><a class="dropdown-item" href="{% url 'fitness:show_construction' %}">View All Swimming
-                                    Performances</a></li>
-                            <li><a class="dropdown-item" href="{% url 'fitness:show_construction' %}">Add A Running
-                                    Venue/Event</a></li>
-                            <li><a class="dropdown-item" href="{% url 'fitness:show_construction' %}">Capture A Running
-                                    Performance</a></li>
-                            <li><a class="dropdown-item" href="{% url 'fitness:show_construction' %}">View All Running
-                                    Performances</a></li>
+                            <li><a class="dropdown-item" href="{% url 'fitness:AddGolfCourse' %}">Add A Golf Course</a></li>
+                            <li><a class="dropdown-item" href="{% url 'fitness:golf_courses' %}">View All Golf Courses</a></li>
+                            <li><a class="dropdown-item" href="{% url 'fitness:AddGolfScore' %}">Caputre A Golf Score</a></li>
+                            <li><a class="dropdown-item" href="{% url 'fitness:show_construction' %}">View All Golf Scores</a></li>
+                            <li><a class="dropdown-item" href="{% url 'fitness:show_construction' %}">Add A Tennis Venue</a></li>
+                            <li><a class="dropdown-item" href="{% url 'fitness:show_construction' %}">Capture A Tennis Score</a></li>
+                            <li><a class="dropdown-item" href="{% url 'fitness:show_construction' %}">View All Tennis Scores</a></li>                
+                            <li><a class="dropdown-item" href="{% url 'fitness:show_construction' %}">Add A Pickleball Venue</a></li>
+                            <li><a class="dropdown-item" href="{% url 'fitness:show_construction' %}">Capture A Pickleball Score</a></li>
+                            <li><a class="dropdown-item" href="{% url 'fitness:show_construction' %}">View All Pickleball Scores</a></li>
+                            <li><a class="dropdown-item" href="{% url 'fitness:show_construction' %}">Add A Mountain Biking Venue/Event</a></li>
+                            <li><a class="dropdown-item" href="{% url 'fitness:show_construction' %}">Capture A Mountain Biking Performance</a></li>
+                            <li><a class="dropdown-item" href="{% url 'fitness:show_construction' %}">View All Mountain Biking Performances</a></li>
+                            <li><a class="dropdown-item" href="{% url 'fitness:show_construction' %}">Add A Swimming Venue/Event</a></li>
+                            <li><a class="dropdown-item" href="{% url 'fitness:show_construction' %}">Capture A Swimming Performance</a></li>
+                            <li><a class="dropdown-item" href="{% url 'fitness:show_construction' %}">View All Swimming Performances</a></li>
+                            <li><a class="dropdown-item" href="{% url 'fitness:show_construction' %}">Add A Running Venue/Event</a></li>
+                            <li><a class="dropdown-item" href="{% url 'fitness:show_construction' %}">Capture A Running Performance</a></li>
+                            <li><a class="dropdown-item" href="{% url 'fitness:show_construction' %}">View All Running Performances</a></li>
                         </ul>
                     </li>
 
@@ -112,9 +93,9 @@
                             Download
                         </a>
                         <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item active" href="#">Download Text File</a></a></li>
-                            <li><a class="dropdown-item active" href="#">Download CSV File</a></li>
-                            <li><a class="dropdown-item active" href="#">Download PDF File</a></li>
+                          <li><a class="dropdown-item" href="#">Download Text File</a></a></li>
+                          <li><a class="dropdown-item" href="#">Download CSV File</a></li>
+                          <li><a class="dropdown-item" href="#">Download PDF File</a></li>
                         </ul>
                     </li>
 
@@ -133,30 +114,20 @@
                     </li>
 
                     <li class="nav-item dropdown active">
-                        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Tutorials
+                        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Fitness Tutorials
                         </a>
                         <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item active" href="#" data-bs-toggle="modal">Overview</a></li>
-                            <li><a class="dropdown-item active" href="#" data-bs-toggle="modal">How To Setup Add An
-                                    Excercise</a></li>
-                            <li><a class="dropdown-item active" href="#" data-bs-toggle="modal">How To Setup A
-                                    Workout</a></li>
-                            <li><a class="dropdown-item active" href="#" data-bs-toggle="modal">How To Add a Training
-                                    Routine</a></li>
-                            <li><a class="dropdown-item active" href="#" data-bs-toggle="modal">How To Capture A Golf
-                                    Round</a></li>
-                            <li><a class="dropdown-item active" href="#" data-bs-toggle="modal">How To Capture A Tennis
-                                    Match</a></li>
-                            <li><a class="dropdown-item active" href="#" data-bs-toggle="modal">How To Capture A
-                                    Pickleball Match</a></li>
-                            <li><a class="dropdown-item active" href="#" data-bs-toggle="modal">How To Capture Mountain
-                                    Biking Performance</a></li>
-                            <li><a class="dropdown-item active" href="#" data-bs-toggle="modal">How To Capture Swimming
-                                    Performance</a></li>
-                            <li><a class="dropdown-item active" href="#" data-bs-toggle="modal">How To Capture A Track
-                                    Performance</a></li>
+                          <li><a class="dropdown-item" href="#" data-bs-toggle="modal">Overview</a></li>
+                          <li><a class="dropdown-item" href="#" data-bs-toggle="modal">How To Setup Add An Excercise</a></li>
+                          <li><a class="dropdown-item" href="#" data-bs-toggle="modal">How To Setup A Workout</a></li>
+                          <li><a class="dropdown-item" href="#" data-bs-toggle="modal">How To Add a Training Routine</a></li>
+                          <li><a class="dropdown-item" href="#" data-bs-toggle="modal">How To Capture A Golf Round</a></li>
+                          <li><a class="dropdown-item" href="#" data-bs-toggle="modal">How To Capture A Tennis Match</a></li>
+                          <li><a class="dropdown-item" href="#" data-bs-toggle="modal">How To Capture A Pickleball Match</a></li>
+                          <li><a class="dropdown-item" href="#" data-bs-toggle="modal">How To Capture Mountain Biking Performance</a></li>
+                          <li><a class="dropdown-item" href="#" data-bs-toggle="modal">How To Capture Swimming Performance</a></li>
+                          <li><a class="dropdown-item" href="#" data-bs-toggle="modal">How To Capture A Track Performance</a></li>
                         </ul>
                     </li>
 

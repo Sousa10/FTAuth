@@ -15,12 +15,10 @@
 </head>
 
 <body style="background-color:#DDEBF7;">
-
-    <!-- </head><nav class="navbar navbar-expand-lg navbar-dark bg-dark"> -->
     <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #0f496f;">
         <div class="container-fluid">
             <!-- <a class="navbar-brand" href="#">Navbar</a> -->
-            <a class="navbar-brand" href="#">Family Tracker</a>
+            <a class="navbar-brand" href="#">TRAXX</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -72,7 +70,7 @@
                             </li>
                             <li><a class="dropdown-item" href="{% url 'fitness:golf_courses' %}">View All Golf
                                     Courses</a></li>
-                            <li><a class="dropdown-item" href="{% url 'fitness:show_construction' %}">Caputre A Golf
+                            <li><a class="dropdown-item" href="{% url 'fitness:AddGolfScore' %}">Caputre A Golf
                                     Score</a></li>
                             <li><a class="dropdown-item" href="{% url 'fitness:show_construction' %}">View All Golf
                                     Scores</a></li>
@@ -115,9 +113,9 @@
                             Download
                         </a>
                         <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item active" href="#">Download Text File</a></a></li>
-                            <li><a class="dropdown-item active" href="#">Download CSV File</a></li>
-                            <li><a class="dropdown-item active" href="#">Download PDF File</a></li>
+                            <li><a class="dropdown-item" href="#">Download Text File</a></a></li>
+                            <li><a class="dropdown-item" href="#">Download CSV File</a></li>
+                            <li><a class="dropdown-item" href="#">Download PDF File</a></li>
                         </ul>
                     </li>
 
@@ -138,15 +136,15 @@
                     <li class="nav-item dropdown active">
                         <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
-                            Tutorials
+                            Fitness Tutorials
                         </a>
                         <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item active" href="#" data-bs-toggle="modal">Overview</a></li>
-                            <li><a class="dropdown-item active" href="#" data-bs-toggle="modal">How To Add a Golf
+                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal">Overview</a></li>
+                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal">How To Add a Golf
                                     Course</a></li>
-                            <li><a class="dropdown-item active" href="#" data-bs-toggle="modal">How To View Golf
+                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal">How To View Golf
                                     Courses</a></li>
-                            <li><a class="dropdown-item active" href="#" data-bs-toggle="modal">How To Capture a Golf
+                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal">How To Capture a Golf
                                     Round</a></li>
                         </ul>
                     </li>

@@ -154,10 +154,10 @@ th {
   font-size: 16px;
 }
 
-ul {
+/* ul {
   height: 100%;
   padding: 0px 5px 0px 20px;
-}
+} */
 
 a {
   color: #17a2b8;
@@ -203,4 +203,8 @@ a {
 .hole_nbr {
   width: 10.5%;
   text-align: end;
+}
+
+.placeholder {
+  font-size: 11px;
 }

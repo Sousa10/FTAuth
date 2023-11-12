@@ -19,7 +19,7 @@
     <th class="table-primary"><h4>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp All Golf Courses</h4></th>
     {% for golf_course in course_p %}
       <tr class="table-secondary table-active">
-        <td ><a href="{% url 'fitness:show_golf_course' golf_course.id %}">{{ golf_course.Course }}&nbsp&nbspID:{{golf_course.id}}</a></td>
+        <td ><a href="{% url 'fitness:show_golf_course' golf_course.id %}">{{ golf_course.Course }}</a></td>
       </tr>
     {% endfor %}
   </table> 

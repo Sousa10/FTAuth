@@ -133,3 +133,53 @@ class golf_course(models.Model):
         verbose_name_plural = 'Golf Course'
   def __str__(self):
     return self.Course
+  
+class golf_score(models.Model):
+  GolfCourse = models.CharField(max_length=120, null=True)
+  Score = models.CharField(max_length=20, null=True)
+  Date = models.CharField(max_length=20, null=True)
+  Player2 = models.CharField(max_length=60, null=True)
+  Player3 = models.CharField(max_length=60, null=True)
+  Player4 = models.CharField(max_length=60, null=True)
+  Hole1Par = models.CharField(max_length=12, null=True)
+  Hole1Score = models.CharField(max_length=12, null=True)
+  Hole2Par = models.CharField(max_length=12, null=True)
+  Hole2Score = models.CharField(max_length=12, null=True)
+  Hole3Par = models.CharField(max_length=12, null=True)
+  Hole3Score = models.CharField(max_length=12, null=True)
+  Hole4Par = models.CharField(max_length=12, null=True)
+  Hole4Score = models.CharField(max_length=12, null=True)
+  Hole5Par = models.CharField(max_length=12, null=True)
+  Hole5Score = models.CharField(max_length=12, null=True)
+  Hole6Par = models.CharField(max_length=12, null=True)
+  Hole6Score = models.CharField(max_length=12, null=True)
+  Hole7Par = models.CharField(max_length=12, null=True)
+  Hole7Score = models.CharField(max_length=12, null=True)
+  Hole8Par = models.CharField(max_length=12, null=True)
+  Hole8Score = models.CharField(max_length=12, null=True)
+  Hole9Par = models.CharField(max_length=12, null=True)
+  Hole9Score = models.CharField(max_length=12, null=True)
+  Hole10Par = models.CharField(max_length=12, null=True)
+  Hole10Score = models.CharField(max_length=12, null=True)
+  Hole11Par = models.CharField(max_length=12, null=True)
+  Hole11Score = models.CharField(max_length=12, null=True)
+  Hole12Par = models.CharField(max_length=12, null=True)
+  Hole12Score = models.CharField(max_length=12, null=True)
+  Hole13Par = models.CharField(max_length=12, null=True)
+  Hole13Score = models.CharField(max_length=12, null=True)
+  Hole14Par = models.CharField(max_length=12, null=True)
+  Hole14Score = models.CharField(max_length=12, null=True)
+  Hole15Par = models.CharField(max_length=12, null=True)
+  Hole15Score = models.CharField(max_length=12, null=True)
+  Hole16Par = models.CharField(max_length=12, null=True)
+  Hole16Score = models.CharField(max_length=12, null=True)
+  Hole17Par = models.CharField(max_length=12, null=True)
+  Hole17Score = models.CharField(max_length=12, null=True)
+  Hole18Par = models.CharField(max_length=12, null=True)
+  Hole18Score = models.CharField(max_length=12, null=True)
+  Comments = models.CharField(max_length=2000, null=True)
+
+  class Meta:
+        verbose_name_plural = 'Golf Score'
+  def __str__(self):
+    return self.Score
