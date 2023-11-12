@@ -39,8 +39,10 @@
                             <li><a class="dropdown-item" href="{% url 'fitness:excercises' %}">All Excercises</a></li>
                             <li><a class="dropdown-item" href="{% url 'fitness:AddWorkout' %}">Add Workout</a></li>
                             <li><a class="dropdown-item" href="{% url 'fitness:workouts' %}">All Workouts</a></li>
-                            <li><a class="dropdown-item" href="{% url 'fitness:show_construction' %}">Capture Workout Performance</a></li>
-                            <li><a class="dropdown-item" href="{% url 'fitness:show_construction' %}">Show All Workout Performances</a></li>
+                            <li><a class="dropdown-item" href="{% url 'fitness:show_construction' %}">Capture Workout
+                                    Performance</a></li>
+                            <li><a class="dropdown-item" href="{% url 'fitness:show_construction' %}">Show All Workout
+                                    Performances</a></li>
                         </ul>
                     </li>
 
@@ -51,9 +53,12 @@
                         </a>
                         <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="{% url 'fitness:AddRoutine' %}">Add Routine</a></li>
-                            <li><a class="dropdown-item" href="{% url 'fitness:training_routines' %}">All Training Routines</a></li>
-                            <li><a class="dropdown-item" href="{% url 'fitness:show_construction' %}">Capture Routine Performace</a></li>      
-                            <li><a class="dropdown-item" href="{% url 'fitness:show_construction' %}">Show All Routine Performaces</a></li>      
+                            <li><a class="dropdown-item" href="{% url 'fitness:training_routines' %}">All Training
+                                    Routines</a></li>
+                            <li><a class="dropdown-item" href="{% url 'fitness:show_construction' %}">Capture Routine
+                                    Performace</a></li>
+                            <li><a class="dropdown-item" href="{% url 'fitness:show_construction' %}">Show All Routine
+                                    Performaces</a></li>
                         </ul>
                     </li>
 
@@ -168,58 +173,58 @@
     <main class="container-fluid mt-4">
         <div class="row" style="margin: 0 5px;">
             <!-- Left Margin Advertising -->
-            <div class="col-md-2" style="text-align: left;">
+            <div class="col-md-2 order-2" style="text-align: left;">
 
                 <!-- Spot 1 -->
-                <div style="width: 100%; height: 170px; background-color: #DDEBF7;">
+                <div style="background-color: #DDEBF7;" class="d-flex flex-column mb-3">
                     <a href="#exampleModal" data-bs-toggle="modal">
-                        <img src="{% static 'AdvSpot1A.jpg' %}" style="height: 95%;" alt="AdvSpot1">
+                        <img src="{% static 'AdvSpot1A.jpg' %}" style="height: 95%;" alt="AdvSpot1" class="img-fluid">
                     </a>
                 </div>
 
                 <!-- Spot 2 -->
-                <div style="width: 100%; height: 170px; background-color: #DDEBF7;">
+                <div style="background-color: #DDEBF7;" class="d-flex flex-column mb-3">
                     <a href="#ad2Modal" data-bs-toggle="modal">
-                        <img src="{% static 'AdvSpot2.jpg' %}" style="height: 95%;" alt="Advpot2">
+                        <img src="{% static 'AdvSpot2.jpg' %}" style="height: 95%;" alt="Advpot2" class="img-fluid">
                     </a>
                 </div>
 
                 <!-- Spot 3 -->
-                <div style="width: 100%; height: 170px; background-color: #DDEBF7;">
+                <div style="background-color: #DDEBF7;" class="d-flex flex-column mb-3">
                     <a href="#ad3Modal" data-bs-toggle="modal">
-                        <img src="{% static 'AdvSpot3.jpg' %}" style="height: 95%;" alt="Advpot2">
+                        <img src="{% static 'AdvSpot3.jpg' %}" style="height: 95%;" alt="Advpot2" class="img-fluid">
                     </a>
                 </div>
-
             </div>
+
             <!-- Center Open Area -->
             <!-- <div class="col-md-8" style="text-align: center;"> -->
-            <div class="col-md-8" style="text-align: center;">
+            <div class="col-md-8 order-1" style="text-align: center;">
                 {% block content %}
                 {% endblock %}
             </div>
 
             <!-- Right Margin Advertising -->
-            <div class="col-md-2" style="text-align: right;">
+            <div class="col-md-2 order-3" style="text-align: right;">
 
                 <!-- Spot 4 -->
-                <div style="width: 100%; height: 170px; background-color: #DDEBF7;">
+                <div style="background-color: #DDEBF7;" class="d-flex flex-column mb-3">
                     <a href="#ad4Modal" data-bs-toggle="modal">
-                        <img src="{% static 'AdvSpot4.jpg' %}" style="height: 95%;" alt="Advpot2">
+                        <img src="{% static 'AdvSpot4.jpg' %}" style="height: 95%;" alt="Advpot2" class="img-fluid">
                     </a>
                 </div>
 
                 <!-- Spot 5 -->
-                <div style="width: 100%; height: 170px; background-color: #DDEBF7;">
+                <div style="background-color: #DDEBF7;" class="d-flex flex-column mb-3">
                     <a href="#ad5Modal" data-bs-toggle="modal">
-                        <img src="{% static 'AdvSpot05.jpg' %}" style="height: 95%;" alt="Advpot2">
+                        <img src="{% static 'AdvSpot05.jpg' %}" style="height: 95%;" alt="Advpot2" class="img-fluid">
                     </a>
                 </div>
 
                 <!-- Spot 6 -->
-                <div style="width: 100%; height: 170px; background-color: #DDEBF7;">
+                <div style="background-color: #DDEBF7;" class="d-flex flex-column mb-3">
                     <a href="#ad6Modal" data-bs-toggle="modal">
-                        <img src="{% static 'AdvSpot6.jpg' %}" style="height: 95%;" alt="Advpot2">
+                        <img src="{% static 'AdvSpot6.jpg' %}" style="height: 95%;" alt="Advpot2" class="img-fluid">
                     </a>
                 </div>
 
@@ -229,9 +234,9 @@
 
     <footer class="mt-8 text-center">
         <!-- Spot 7 -->
-        <div style="width: 100%; height: 170px; background-color: #DDEBF7;">
+        <div style="background-color: #DDEBF7;" class="d-flex flex-column">
             <a href="#ad7Modal" data-bs-toggle="modal">
-                <img class="sponsor" src="{% static 'AdvSpot5B.jpg'%}" style="width: 1450px" alt="Sponsor">
+                <img class="sponsor img-fluid" src="{% static 'AdvSpot5B.jpg'%}" alt="Sponsor">
             </a>
         </div>
     </footer>
