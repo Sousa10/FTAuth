@@ -14,6 +14,7 @@ from .forms import WorkoutForm
 from .forms import ExcerciseForm
 from .forms import RoutineForm
 from .forms import GolfCourseForm
+from .forms import GolfScoreForm
 from django.views import generic
 from django.core.paginator import Paginator
 
@@ -160,3 +161,17 @@ def golf_courses(request):
         'course_p':course_p,
         'nums':nums
         })
+ 
+def AddGolfScore(request):
+    score_fields = [f'Hole{i}Score' for i in range(1, 19)]
+    submitted = False
+    if request.method == "POST":
+        form = GolfScoreForm(request.POST)
+        if form.is_valid():
+            form.save() 
+            return HttpResponseRedirect('addgolfscore?submitted=True')   
+    else:
+        form = GolfScoreForm
+        if 'submitted' in request.GET:
+            submitted = True
+    return render(request, 'fitness/golf_score.html', {'form':form, 'submitted':submitted, 'score_fields': score_fields})

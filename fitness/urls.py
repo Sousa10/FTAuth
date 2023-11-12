@@ -24,4 +24,5 @@ urlpatterns = [
     path('addexcercise', views.AddExcercise, name='AddExcercise'),
     path('addroutine', views.AddRoutine, name='AddRoutine'),
     path('addgolfcourse', views.AddGolfCourse, name='AddGolfCourse'),    
+    path('golfscore', views.AddGolfScore, name='AddGolfScore'),    
     ]                                      
