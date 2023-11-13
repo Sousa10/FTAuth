@@ -13,10 +13,9 @@
     </a>
   </div>
 </p>
-<br/>
 <center>
   <table style="width:100%" class="table table-bordered table-striped table-hover">
-    <th class="table-primary"><h4>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp All Excercises</h4></th>
+    <th class="table-primary"><h4 class="text-center">All Excercises</h4></th>
     {% for excercise in excer_p %}
       <tr class="table-secondary table-active">
         <td ><a href="{% url 'fitness:show_excercise' excercise.id %}">{{ excercise.Reference }}&nbsp&nbsp:&nbsp&nbsp{{ excercise.Region }}&nbsp&nbsp:&nbsp&nbsp{{ excercise.Area }}&nbsp&nbsp:&nbsp&nbsp{{ excercise.Exercise }}</a></td>
