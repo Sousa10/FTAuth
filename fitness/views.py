@@ -17,6 +17,7 @@ from .forms import GolfCourseForm
 from .forms import GolfScoreForm
 from django.views import generic
 from django.core.paginator import Paginator
+from django.http import JsonResponse
 
 def home(request):
     return render(request, 'fitness/main_landing_page.html', {})
@@ -125,6 +126,33 @@ def show_excercise(request, excercise_id):
 
 def show_golf_course(request, golf_course_id):
     course_info = golf_course.objects.get(pk=golf_course_id)
+
+    # Extract relevant data from the course_info
+    data = {
+        'Hole1Par': course_info.Hole1Par,
+        'Hole2Par': course_info.Hole2Par,
+        'Hole3Par': course_info.Hole3Par,
+        'Hole4Par': course_info.Hole4Par,
+        'Hole5Par': course_info.Hole5Par,
+        'Hole6Par': course_info.Hole6Par,
+        'Hole7Par': course_info.Hole7Par,
+        'Hole8Par': course_info.Hole8Par,
+        'Hole9Par': course_info.Hole9Par,
+        'Hole10Par': course_info.Hole10Par,
+        'Hole11Par': course_info.Hole11Par,
+        'Hole12Par': course_info.Hole12Par,
+        'Hole13Par': course_info.Hole13Par,
+        'Hole14Par': course_info.Hole14Par,
+        'Hole15Par': course_info.Hole15Par,
+        'Hole16Par': course_info.Hole16Par,
+        'Hole17Par': course_info.Hole17Par,
+        'Hole18Par': course_info.Hole18Par,
+        # Add other fields here
+    }
+
+    # If it's an AJAX request, return JSON
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        return JsonResponse(data)
     return render(request, 'fitness/show_golf_course.html', {'golf_course': course_info})
 
 def show_routine(request, routine_id):
