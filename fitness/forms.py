@@ -317,4 +317,5 @@ class GolfScoreForm(ModelForm):
             'Hole18Par': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Par'}),
             'Hole18Score': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Score'}),
             'Comments': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Round Summary'}),
-        }               
+        } 
+    GolfCourse = forms.ModelChoiceField(queryset=golf_course.objects.all(), widget=forms.Select(attrs={'placeholder': 'Select a Golf Course'}), empty_label="Select a Golf Course")        

@@ -213,3 +213,45 @@
 
 
 {% endblock %}
+{% block modal-script %}
+<script>
+  $(document).ready(function() {
+      $('#id_GolfCourse').change(function() {
+          var golfCourseId = $(this).val();
+          if (golfCourseId) {
+            console.log(golfCourseId);
+              $.ajax({
+                  url: '{% url "fitness:show_golf_course" golf_course_id=0 %}'.replace('0', golfCourseId),
+                  type: 'GET',
+                  dataType: 'json',
+                  success: function(data) {
+                      // Update form fields with fetched data
+                      $('#id_Hole1Par').val(data.Hole1Par);
+                      $('#id_Hole2Par').val(data.Hole2Par);
+                      $('#id_Hole3Par').val(data.Hole3Par);
+                      $('#id_Hole4Par').val(data.Hole4Par);
+                      $('#id_Hole5Par').val(data.Hole5Par);
+                      $('#id_Hole6Par').val(data.Hole6Par);
+                      $('#id_Hole7Par').val(data.Hole7Par);
+                      $('#id_Hole8Par').val(data.Hole8Par);
+                      $('#id_Hole9Par').val(data.Hole9Par);
+                      $('#id_Hole10Par').val(data.Hole10Par);
+                      $('#id_Hole11Par').val(data.Hole11Par);
+                      $('#id_Hole12Par').val(data.Hole12Par);
+                      $('#id_Hole13Par').val(data.Hole13Par);
+                      $('#id_Hole14Par').val(data.Hole14Par);
+                      $('#id_Hole15Par').val(data.Hole15Par);
+                      $('#id_Hole16Par').val(data.Hole16Par);
+                      $('#id_Hole17Par').val(data.Hole17Par);
+                      $('#id_Hole18Par').val(data.Hole18Par);
+                      // Add other fields here
+                  },
+                  error: function(xhr, status, error) {
+                      console.error(error);
+                  }
+              });
+          }
+      });
+  });
+  </script>  
+{% endblock %}
