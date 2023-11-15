@@ -27,7 +27,7 @@ def income_accts(request):
             return redirect('LoginRegister:FTRevenueAccts')
     else:
         form = CashInAcctMForm()
-    return render(request, 'FTRevenueAccts.html', {
+    return render(request, 'transactions/FTRevenueAccts.html', {
         'form': form,
         'cashinacctms': cashinacctms,
         'title': 'Add Cash In Account',
