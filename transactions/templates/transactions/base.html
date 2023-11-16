@@ -2,420 +2,429 @@
 <html lang="en">
 {% load static %}
 
-  <body style="background-color:#DDEBF7;"></body>
-
-  <main class="container-fluid mt-4">
+<head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-    
+</head>
+
+<body style="background-color:#DDEBF7;">
+
     <!-- </head><nav class="navbar navbar-expand-lg navbar-dark bg-dark"> -->
     <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #0f496f;">
-    <div class="container-fluid">
-      <!-- <a class="navbar-brand" href="#">Navbar</a> -->
-      <a class="navbar-brand" href="#">TRAXX</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <div class="container-fluid">
+            <!-- <a class="navbar-brand" href="#">Navbar</a> -->
+            <a class="navbar-brand" href="#">TRAXX</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-            <li class="nav-item dropdown active">
-                <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Define Accounts
-                </a>
-                <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="{% url 'transactions:income_accts' %}">Income</a></li>
-                  <li><a class="dropdown-item" href="#">Expense</a></li>
-                  <li><a class="dropdown-item" href="#">Assets</a></li>
-                  <li><a class="dropdown-item" href="#">Liability</a></li>
-                  <li><a class="dropdown-item" href="#">Net Worth</a></li>
-                </ul>
-              </li>
-    
-          <li class="nav-item">
-              <a class="nav-link active" href="#" data-bs-toggle="modal">Capture Transactions</a>
-          </li>
-          
-          <li class="nav-item dropdown active">
-            <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Financial Reports
-            </a>
-            <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="#">Define Groupings  For Financial Statements</a></li>
-              <li><a class="dropdown-item" href="#">Income Statement</a></li>
-              <li><a class="dropdown-item" href="#">Balance Sheet</a></li>
-              <li><a class="dropdown-item" href="#">Cash Flow Statement</a></li>
-              <li><a class="dropdown-item" href="#">Budgeting</a></li>
-              <li><a class="dropdown-item" href="#">Expense Analysis</a></li>
-            </ul>
-          </li>
+                    <li class="nav-item dropdown active">
+                        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Define Accounts
+                        </a>
+                        <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="{% url 'transactions:income_accts' %}">Income</a></li>
+                            <li><a class="dropdown-item" href="#">Expense</a></li>
+                            <li><a class="dropdown-item" href="#">Assets</a></li>
+                            <li><a class="dropdown-item" href="#">Liability</a></li>
+                            <li><a class="dropdown-item" href="#">Net Worth</a></li>
+                        </ul>
+                    </li>
 
-          <li class="nav-item dropdown active">
-            <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Download
-            </a>
-            <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="#">Download Text File</a></a></li>
-              <li><a class="dropdown-item" href="#">Download CSV File</a></li>
-              <li><a class="dropdown-item" href="#">Download PDF File</a></li>
-            </ul>
-          </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#" data-bs-toggle="modal">Capture Transactions</a>
+                    </li>
 
-          <li class="nav-item dropdown active">
-            <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Support
-            </a>
-            <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="#Supp1" data-bs-toggle="modal">Support</a></li>
-              <li><a class="dropdown-item" href="#Sugg1" data-bs-toggle="modal">Suggestions</a></li>
-              <li><a class="dropdown-item" href="#Serv1" data-bs-toggle="modal">Service Requests</a></li>
-            </ul>
-          </li>          
+                    <li class="nav-item dropdown active">
+                        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Financial Reports
+                        </a>
+                        <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#">Define Groupings For Financial Statements</a></li>
+                            <li><a class="dropdown-item" href="#">Income Statement</a></li>
+                            <li><a class="dropdown-item" href="#">Balance Sheet</a></li>
+                            <li><a class="dropdown-item" href="#">Cash Flow Statement</a></li>
+                            <li><a class="dropdown-item" href="#">Budgeting</a></li>
+                            <li><a class="dropdown-item" href="#">Expense Analysis</a></li>
+                        </ul>
+                    </li>
 
-          <li class="nav-item dropdown active">
-            <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Finances Tutorials
-            </a>
-            <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="#" data-bs-toggle="modal">Overview</a></li>
-              <li><a class="dropdown-item" href="#" data-bs-toggle="modal">How To Setup Your Accounts</a></li>
-              <li><a class="dropdown-item" href="#" data-bs-toggle="modal">How To Setup And Run Your Income Statment</a></li>
-              <li><a class="dropdown-item" href="#" data-bs-toggle="modal">How To Setup And Run Your Balance Sheet</a></li>
-              <li><a class="dropdown-item" href="#" data-bs-toggle="modal">How To Setup And Run Your Cash Flow Statment</a></li>
-              <li><a class="dropdown-item" href="#" data-bs-toggle="modal">How To Setup And Run Your Budgets</a></li>
-              <li><a class="dropdown-item" href="#" data-bs-toggle="modal">How To Setup And Run Your Expense Analysis</a></li>
-              <li><a class="dropdown-item" href="#" data-bs-toggle="modal">How To Upload and Capture Transactions</a></li>
-            </ul>
-          </li>          
+                    <li class="nav-item dropdown active">
+                        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Download
+                        </a>
+                        <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#">Download Text File</a></a></li>
+                            <li><a class="dropdown-item" href="#">Download CSV File</a></li>
+                            <li><a class="dropdown-item" href="#">Download PDF File</a></li>
+                        </ul>
+                    </li>
 
-          <li class="nav-item">
-            <a class="nav-link active" href="#About1" data-bs-toggle="modal">About</a>
-          </li>
+                    <li class="nav-item dropdown active">
+                        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Support
+                        </a>
+                        <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#Supp1" data-bs-toggle="modal">Support</a></li>
+                            <li><a class="dropdown-item" href="#Sugg1" data-bs-toggle="modal">Suggestions</a></li>
+                            <li><a class="dropdown-item" href="#Serv1" data-bs-toggle="modal">Service Requests</a></li>
+                        </ul>
+                    </li>
 
-          <li class="nav-item">
-            <a class="nav-link active" href="{% url 'LoginRegister:FTMainMenu' %}">Main Menu</a>
-          </li>
-        
-  </main>
+                    <li class="nav-item dropdown active">
+                        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Finances Tutorials
+                        </a>
+                        <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal">Overview</a></li>
+                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal">How To Setup Your Accounts</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal">How To Setup And Run Your
+                                    Income Statment</a></li>
+                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal">How To Setup And Run Your
+                                    Balance Sheet</a></li>
+                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal">How To Setup And Run Your Cash
+                                    Flow Statment</a></li>
+                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal">How To Setup And Run Your
+                                    Budgets</a></li>
+                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal">How To Setup And Run Your
+                                    Expense Analysis</a></li>
+                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal">How To Upload and Capture
+                                    Transactions</a></li>
+                        </ul>
+                    </li>
 
-  <main class="container-fluid mt-4">
-    <div class="row" style="margin: 0 5px;">
-        <!-- Left Margin Advertising -->
-        <div class="col-md-2" style="text-align: left;">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#About1" data-bs-toggle="modal">About</a>
+                    </li>
 
-            <!-- Spot 1 -->
-            <div style="width: 100%; height: 170px; background-color: #DDEBF7;">
-                <a href="#exampleModal" data-bs-toggle="modal">
-                    <img src="{% static 'AdvSpot1A.jpg' %}" style="height: 95%;" alt="AdvSpot1">
-                </a>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'LoginRegister:FTMainMenu' %}">Main Menu</a>
+                    </li>
+    </nav>
+    {% block pageTitle %}
+    {% endblock %}
+
+    <main class="container-fluid mt-4">
+        <div class="row" style="margin: 0 5px;">
+            <!-- Left Margin Advertising -->
+            <div class="col-md-2" style="text-align: left;">
+
+                <!-- Spot 1 -->
+                <div style="width: 100%; height: 170px; background-color: #DDEBF7;">
+                    <a href="#exampleModal" data-bs-toggle="modal">
+                        <img src="{% static 'AdvSpot1A.jpg' %}" style="height: 95%;" alt="AdvSpot1">
+                    </a>
+                </div>
+
+                <!-- Spot 2 -->
+                <div style="width: 100%; height: 170px; background-color: #DDEBF7;">
+                    <a href="#ad2Modal" data-bs-toggle="modal">
+                        <img src="{% static 'AdvSpot2.jpg' %}" style="height: 95%;" alt="Advpot2">
+                    </a>
+                </div>
+
+                <!-- Spot 3 -->
+                <div style="width: 100%; height: 170px; background-color: #DDEBF7;">
+                    <a href="#ad3Modal" data-bs-toggle="modal">
+                        <img src="{% static 'AdvSpot3.jpg' %}" style="height: 95%;" alt="Advpot2">
+                    </a>
+                </div>
+
+            </div>
+            <!-- Center Open Area -->
+            <!-- <div class="col-md-8" style="text-align: center;"> -->
+            <div class="col-md-8" style="text-align: center;">
+                {% block content %}
+                {% endblock %}
             </div>
 
-            <!-- Spot 2 -->
-            <div style="width: 100%; height: 170px; background-color: #DDEBF7;">
-                <a href="#ad2Modal" data-bs-toggle="modal">
-                    <img src="{% static 'AdvSpot2.jpg' %}" style="height: 95%;" alt="Advpot2">
-                </a>
-            </div>
+            <!-- Right Margin Advertising -->
+            <div class="col-md-2" style="text-align: right;">
 
-            <!-- Spot 3 -->
-            <div style="width: 100%; height: 170px; background-color: #DDEBF7;">
-                <a href="#ad3Modal" data-bs-toggle="modal">
-                    <img src="{% static 'AdvSpot3.jpg' %}" style="height: 95%;" alt="Advpot2">
-                </a>
-            </div>
+                <!-- Spot 4 -->
+                <div style="width: 100%; height: 170px; background-color: #DDEBF7;">
+                    <a href="#ad4Modal" data-bs-toggle="modal">
+                        <img src="{% static 'AdvSpot4.jpg' %}" style="height: 95%;" alt="Advpot2">
+                    </a>
+                </div>
 
+                <!-- Spot 5 -->
+                <div style="width: 100%; height: 170px; background-color: #DDEBF7;">
+                    <a href="#ad5Modal" data-bs-toggle="modal">
+                        <img src="{% static 'AdvSpot05.jpg' %}" style="height: 95%;" alt="Advpot2">
+                    </a>
+                </div>
+
+                <!-- Spot 6 -->
+                <div style="width: 100%; height: 170px; background-color: #DDEBF7;">
+                    <a href="#ad6Modal" data-bs-toggle="modal">
+                        <img src="{% static 'AdvSpot6.jpg' %}" style="height: 95%;" alt="Advpot2">
+                    </a>
+                </div>
+
+            </div>
         </div>
-        <!-- Center Open Area -->
-        <!-- <div class="col-md-8" style="text-align: center;"> -->
-        <div class="col-md-8" style="text-align: center;">
-            {% block content %}
-            {% endblock %}
-            <div style="width: 100%; height: 400px;">
-                <img src="{% static 'FinSplashx.jpg' %}" style="height: 95%;" alt="Generic Gym">
-            </div>
+    </main>
+
+    <footer class="mt-8 text-center">
+        <!-- Spot 7 -->
+        <div style="width: 100%; height: 170px; background-color: #DDEBF7;">
+            <a href="#ad7Modal" data-bs-toggle="modal">
+                <img class="sponsor" src="{% static 'AdvSpot5B.jpg'%}" style="width: 1450px" alt="Sponsor">
+            </a>
         </div>
+    </footer>
 
-        <!-- Right Margin Advertising -->
-        <div class="col-md-2" style="text-align: right;">
-
-            <!-- Spot 4 -->
-            <div style="width: 100%; height: 170px; background-color: #DDEBF7;">
-                <a href="#ad4Modal" data-bs-toggle="modal">
-                    <img src="{% static 'AdvSpot4.jpg' %}" style="height: 95%;" alt="Advpot2">
-                </a>
-            </div>
-
-            <!-- Spot 5 -->
-            <div style="width: 100%; height: 170px; background-color: #DDEBF7;">
-                <a href="#ad5Modal" data-bs-toggle="modal">
-                    <img src="{% static 'AdvSpot05.jpg' %}" style="height: 95%;" alt="Advpot2">
-                </a>
-            </div>
-
-            <!-- Spot 6 -->
-            <div style="width: 100%; height: 170px; background-color: #DDEBF7;">
-                <a href="#ad6Modal" data-bs-toggle="modal">
-                    <img src="{% static 'AdvSpot6.jpg' %}" style="height: 95%;" alt="Advpot2">
-                </a>
-            </div>
-
-        </div>
-    </div>
-</main>
-
-<footer class="mt-8 text-center">
-  <!-- Spot 7 -->
-  <div style="width: 100%; height: 170px; background-color: #DDEBF7;">
-      <a href="#ad7Modal" data-bs-toggle="modal">
-          <img class="sponsor" src="{% static 'AdvSpot5B.jpg'%}" style="width: 1450px" alt="Sponsor">
-      </a>
-  </div>
-</footer>
-
-  <head>
-  </head>
+    <head>
+    </head>
     <!-- Modal Supp1 -->
     <div class="modal fade" id="Supp1" tabindex="-1" aria-labelledby="Supp1Label" aria-hidden="true">
-      <div class="modal-dialog ads">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <h5 class="modal-title" id="Supp1Label">Support: 24-hours/day 365-days/year!!!</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-              </div>
-              <div class="modal-body">
-                  Family Tracker refuses to accept anything short of a delighted user. If we can help in any way, or
-                  you run into issues, please feel free to call: (800) 333-4444.<br><br>For less urgent requests or
-                  issues, please log a "Service Request" and we will respond via email, or contact you at your
-                  convenience.<br><br>Our intent is to constantly improve, make Family Tracker the most family
-                  friendly, easy to use, and useful internet application on the market today.<br><br>Thank you for
-                  your continued support and using Family Tracker.<br><br>We appreciate all feedback!<br><br>Thank
-                  you,<br><br>Kirk Shelton<br>Founder & CEO
-              </div>
-          </div>
-      </div>
+        <div class="modal-dialog ads">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="Supp1Label">Support: 24-hours/day 365-days/year!!!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </div>
+                <div class="modal-body">
+                    Family Tracker refuses to accept anything short of a delighted user. If we can help in any way, or
+                    you run into issues, please feel free to call: (800) 333-4444.<br><br>For less urgent requests or
+                    issues, please log a "Service Request" and we will respond via email, or contact you at your
+                    convenience.<br><br>Our intent is to constantly improve, make Family Tracker the most family
+                    friendly, easy to use, and useful internet application on the market today.<br><br>Thank you for
+                    your continued support and using Family Tracker.<br><br>We appreciate all feedback!<br><br>Thank
+                    you,<br><br>Kirk Shelton<br>Founder & CEO
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Modal Sugg1 -->
     <div class="modal fade" id="Sugg1" tabindex="-1" aria-labelledby="Sugg1Label" aria-hidden="true">
-      <div class="modal-dialog ads">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <h5 class="modal-title" id="Sugg1Label">Thoughts? Help us Make Family Tracker Better</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-              </div>
-              <div class="modal-body">
-                  Family Tracker welcomes thoughts and suggestions.<br><br>Please feel free to call: (800)
-                  333-4444.<br> Or, Email us: "https://www.FamilyTrackerSuggestions.com"<br><br>We will answer all
-                  calls or contact you at your convenience.<br><br>Thank you for your continued support and using
-                  Family Tracker.<br><br>We appreciate all feedback!
-              </div>
-          </div>
-      </div>
-  </div>
+        <div class="modal-dialog ads">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="Sugg1Label">Thoughts? Help us Make Family Tracker Better</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </div>
+                <div class="modal-body">
+                    Family Tracker welcomes thoughts and suggestions.<br><br>Please feel free to call: (800)
+                    333-4444.<br> Or, Email us: "https://www.FamilyTrackerSuggestions.com"<br><br>We will answer all
+                    calls or contact you at your convenience.<br><br>Thank you for your continued support and using
+                    Family Tracker.<br><br>We appreciate all feedback!
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Modal Serv1 -->
     <div class="modal fade" id="Serv1" tabindex="-1" aria-labelledby="Serv1Label" aria-hidden="true">
-      <div class="modal-dialog ads">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <h5 class="modal-title" id="Serv1Label">Send Us a Service Request</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-              </div>
-              <div class="modal-body">
-                  <br>If you run into any issues, or just have a Navigation or Feature question, please feel free to
-                  call:<br>(800) 111-2222<br><br>Alternatively, Email us:
-                  "https://www.FamilyTrackerServiceRequest.com"<br><br>Please includ the following in your Email:<br>
-                  1. Preference to be called or Email Response<br> 2. Issue or question short description<br> 3. Issue
-                  or question full description, including navigation<br> 4. How long you have been experiencing the
-                  issue<br> 5. Best time to call if that is your preference<br><br>We will answer all calls or contact
-                  you at your convenience.<br><br>Thank you for your continued support and using Family Tracker.
-              </div>
-          </div>
-      </div>
-  </div>
+        <div class="modal-dialog ads">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="Serv1Label">Send Us a Service Request</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </div>
+                <div class="modal-body">
+                    <br>If you run into any issues, or just have a Navigation or Feature question, please feel free to
+                    call:<br>(800) 111-2222<br><br>Alternatively, Email us:
+                    "https://www.FamilyTrackerServiceRequest.com"<br><br>Please includ the following in your Email:<br>
+                    1. Preference to be called or Email Response<br> 2. Issue or question short description<br> 3. Issue
+                    or question full description, including navigation<br> 4. How long you have been experiencing the
+                    issue<br> 5. Best time to call if that is your preference<br><br>We will answer all calls or contact
+                    you at your convenience.<br><br>Thank you for your continued support and using Family Tracker.
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Modal About1 -->
     <div class="modal fade" id="About1" tabindex="-1" aria-labelledby="About1Label" aria-hidden="true">
-      <div class="modal-dialog ads">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <h5 class="modal-title" id="About1Label">A Story of Success</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-              </div>
-              <div class="modal-body">
-                  <br>Family Tracker was founded by Kirk Shelton the founder and Managing Principal of "Cliffs
-                  Software Solutions". Kirk is the Chief Technical Officer (CTO) and the lead engineer for the Family
-                  Tracker application.<br><br>Cliffs Software Solutions is now a subsidiary of "Round Table Venture
-                  Group LLC" (RTVG).<br><br>RTVG is a private investment group and family office owned and managed by
-                  their Principals. They invest in direct to consumer growth-oriented companies including e-commerce,
-                  health and fitness, technology, healthcare and other core businesses. The focus is on providing
-                  capital and operational expertise to dynamic and disruptive growth companies.<br><br>Principals each
-                  bring a unique skill set and RTVG collectively works as a team with their portfolio companies to
-                  achieve success. Principals have operated businesses as CEOs, COOs and other leadership positions.
-                  They tend to invest in companies that see the value of their active involvement.<br><br>It was a
-                  natural fit between Cliffs Software Solution and the Round Table Venture Group with a "Shared
-                  Philosophy"<br>&nbsp&nbsp&nbsp&nbsp* We believe in passionate people that are curious and like to
-                  win… because we like to win.<br>&nbsp&nbsp&nbsp&nbsp* We believe in open dialogue and honest
-                  debate.<br>&nbsp&nbsp&nbsp&nbsp* We believe in building true partnerships and working closely with
-                  our portfolio companies.<br>&nbsp&nbsp&nbsp&nbsp* We believe in execution.<br>&nbsp&nbsp&nbsp&nbsp*
-                  We believe in learning from others and applying what we’ve learned.<br><br>We also offer custom
-                  development services to bring our clients solutions visions quickly into focus and ready for
-                  use.<br><br>For more information regarding custom solution development: Please send an Email to
-                  "https://FamilyTrackerDevInq.com" or call us: (800) 111-2222<br><br>We will promptly respond to all
-                  inquiries. Thank you for using "Family Tracker" !!!
-              </div>
-          </div>
-      </div>
-  </div>
+        <div class="modal-dialog ads">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="About1Label">A Story of Success</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </div>
+                <div class="modal-body">
+                    <br>Family Tracker was founded by Kirk Shelton the founder and Managing Principal of "Cliffs
+                    Software Solutions". Kirk is the Chief Technical Officer (CTO) and the lead engineer for the Family
+                    Tracker application.<br><br>Cliffs Software Solutions is now a subsidiary of "Round Table Venture
+                    Group LLC" (RTVG).<br><br>RTVG is a private investment group and family office owned and managed by
+                    their Principals. They invest in direct to consumer growth-oriented companies including e-commerce,
+                    health and fitness, technology, healthcare and other core businesses. The focus is on providing
+                    capital and operational expertise to dynamic and disruptive growth companies.<br><br>Principals each
+                    bring a unique skill set and RTVG collectively works as a team with their portfolio companies to
+                    achieve success. Principals have operated businesses as CEOs, COOs and other leadership positions.
+                    They tend to invest in companies that see the value of their active involvement.<br><br>It was a
+                    natural fit between Cliffs Software Solution and the Round Table Venture Group with a "Shared
+                    Philosophy"<br>&nbsp&nbsp&nbsp&nbsp* We believe in passionate people that are curious and like to
+                    win… because we like to win.<br>&nbsp&nbsp&nbsp&nbsp* We believe in open dialogue and honest
+                    debate.<br>&nbsp&nbsp&nbsp&nbsp* We believe in building true partnerships and working closely with
+                    our portfolio companies.<br>&nbsp&nbsp&nbsp&nbsp* We believe in execution.<br>&nbsp&nbsp&nbsp&nbsp*
+                    We believe in learning from others and applying what we’ve learned.<br><br>We also offer custom
+                    development services to bring our clients solutions visions quickly into focus and ready for
+                    use.<br><br>For more information regarding custom solution development: Please send an Email to
+                    "https://FamilyTrackerDevInq.com" or call us: (800) 111-2222<br><br>We will promptly respond to all
+                    inquiries. Thank you for using "Family Tracker" !!!
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Modal AdvSpot1 -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog ads">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">On-Line Luxury Cars for Less</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-              </div>
-              <div class="modal-body">
-                  Typically Products and/or Services, Specials, promo-Code "FT01", URL for web site or more
-                  information, etc... <br><br> Question for Rui, how do we size, should be a little wider.
-              </div>
-          </div>
-      </div>
-  </div>
+        <div class="modal-dialog ads">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">On-Line Luxury Cars for Less</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </div>
+                <div class="modal-body">
+                    Typically Products and/or Services, Specials, promo-Code "FT01", URL for web site or more
+                    information, etc... <br><br> Question for Rui, how do we size, should be a little wider.
+                </div>
+            </div>
+        </div>
+    </div>
 
-  <!-- Modal AdvSpot2 -->
-  <div class="modal fade" id="ad2Modal" tabindex="-1" aria-labelledby="ad2ModalLabel" aria-hidden="true">
-      <div class="modal-dialog ads">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <h5 class="modal-title" id="ad2ModalLabel">Frank Lloyd Wright Inspired Bathrooms</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-              </div>
-              <div class="modal-body">
-                  Inspired by one of the greatest architects of all time Frank Lloyd Wright. Sleak, modern lines and
-                  unparalleled Quality.<br><br>We provide design and build services, and a lifetime
-                  warranty.<br><br>For more information: "https://www.flrdesigns.com"<br>Promo Code: "FT001"<br><br>Or
-                  call us directly: (213) 999-8888
-              </div>
-          </div>
-      </div>
-  </div>
+    <!-- Modal AdvSpot2 -->
+    <div class="modal fade" id="ad2Modal" tabindex="-1" aria-labelledby="ad2ModalLabel" aria-hidden="true">
+        <div class="modal-dialog ads">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ad2ModalLabel">Frank Lloyd Wright Inspired Bathrooms</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </div>
+                <div class="modal-body">
+                    Inspired by one of the greatest architects of all time Frank Lloyd Wright. Sleak, modern lines and
+                    unparalleled Quality.<br><br>We provide design and build services, and a lifetime
+                    warranty.<br><br>For more information: "https://www.flrdesigns.com"<br>Promo Code: "FT001"<br><br>Or
+                    call us directly: (213) 999-8888
+                </div>
+            </div>
+        </div>
+    </div>
 
-  <!-- Modal AdvSpot3 -->
-  <div class="modal fade" id="ad3Modal" tabindex="-1" aria-labelledby="ad2ModalLabel" aria-hidden="true">
-      <div class="modal-dialog ads">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <h5 class="modal-title" id="ad3ModalLabel">Watch the US Open!</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-              </div>
-              <div class="modal-body">
-                  The Worlds Greatest Golfers on one of the foremost tests in Golf... Pebble Beach.<br><br>Coverage is
-                  from June 15th to June 18th on ESPN with a $20M purse at stake.<br><br>With the Leaderboard in
-                  constant flux, the US Open is must see TV
-              </div>
-          </div>
-      </div>
-  </div>
+    <!-- Modal AdvSpot3 -->
+    <div class="modal fade" id="ad3Modal" tabindex="-1" aria-labelledby="ad2ModalLabel" aria-hidden="true">
+        <div class="modal-dialog ads">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ad3ModalLabel">Watch the US Open!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </div>
+                <div class="modal-body">
+                    The Worlds Greatest Golfers on one of the foremost tests in Golf... Pebble Beach.<br><br>Coverage is
+                    from June 15th to June 18th on ESPN with a $20M purse at stake.<br><br>With the Leaderboard in
+                    constant flux, the US Open is must see TV
+                </div>
+            </div>
+        </div>
+    </div>
 
-  <!-- Modal AdvSpot4 -->
-  <div class="modal fade" id="ad4Modal" tabindex="-1" aria-labelledby="ad2ModalLabel" aria-hidden="true">
-      <div class="modal-dialog ads">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <h5 class="modal-title" id="ad3ModalLabel">Let Your Voice Be Heard!</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-              </div>
-              <div class="modal-body">
-                  Voting is one of the greatest privileges and responsibilities of being a US
-                  citizen.<br><br>Irrespective of you political party or affiliation, it's critically important that
-                  your voice be heard.<br><br>For your location options: "www.mypollingoptions.com"
-              </div>
-          </div>
-      </div>
-  </div>
+    <!-- Modal AdvSpot4 -->
+    <div class="modal fade" id="ad4Modal" tabindex="-1" aria-labelledby="ad2ModalLabel" aria-hidden="true">
+        <div class="modal-dialog ads">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ad3ModalLabel">Let Your Voice Be Heard!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </div>
+                <div class="modal-body">
+                    Voting is one of the greatest privileges and responsibilities of being a US
+                    citizen.<br><br>Irrespective of you political party or affiliation, it's critically important that
+                    your voice be heard.<br><br>For your location options: "www.mypollingoptions.com"
+                </div>
+            </div>
+        </div>
+    </div>
 
-  <!-- Modal AdvSpot5 -->
-  <div class="modal fade" id="ad5Modal" tabindex="-1" aria-labelledby="ad5ModalLabel" aria-hidden="true">
-      <div class="modal-dialog ads">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <h5 class="modal-title" id="ad5ModalLabel">The Best Mattress Money can Buy</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-              </div>
-              <div class="modal-body">
-                  You spend a third of your life on your mattress. It should be a comfortable and healthful
-                  experience.<br>Our hand-crafted matress' are unique in their quality, support, and luxury.<br>Video
-                  of our Manufacturing process: "https://www.youtube.com/themattressfacory"<br>Call us today for a
-                  quick quote or to place an order (999) 888-7777. Promo Code "FT001"
-              </div>
-          </div>
-      </div>
-  </div>
+    <!-- Modal AdvSpot5 -->
+    <div class="modal fade" id="ad5Modal" tabindex="-1" aria-labelledby="ad5ModalLabel" aria-hidden="true">
+        <div class="modal-dialog ads">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ad5ModalLabel">The Best Mattress Money can Buy</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </div>
+                <div class="modal-body">
+                    You spend a third of your life on your mattress. It should be a comfortable and healthful
+                    experience.<br>Our hand-crafted matress' are unique in their quality, support, and luxury.<br>Video
+                    of our Manufacturing process: "https://www.youtube.com/themattressfacory"<br>Call us today for a
+                    quick quote or to place an order (999) 888-7777. Promo Code "FT001"
+                </div>
+            </div>
+        </div>
+    </div>
 
-  <!-- Modal AdvSpot6 -->
-  <div class="modal fade" id="ad6Modal" tabindex="-1" aria-labelledby="ad6ModalLabel" aria-hidden="true">
-      <div class="modal-dialog ads">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <h5 class="modal-title" id="ad6ModalLabel">Watch Monday Night Football</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-              </div>
-              <div class="modal-body">
-                  Extend your weekend, pop some corn, or order some hot wings, grab a cold beverage and Watch Monday
-                  Night Football.<br><br>Great moments happen on Monday Night Football, the stars of the game, the
-                  great plays, and all the excitement!!!
-              </div>
-          </div>
-      </div>
-  </div>
+    <!-- Modal AdvSpot6 -->
+    <div class="modal fade" id="ad6Modal" tabindex="-1" aria-labelledby="ad6ModalLabel" aria-hidden="true">
+        <div class="modal-dialog ads">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ad6ModalLabel">Watch Monday Night Football</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </div>
+                <div class="modal-body">
+                    Extend your weekend, pop some corn, or order some hot wings, grab a cold beverage and Watch Monday
+                    Night Football.<br><br>Great moments happen on Monday Night Football, the stars of the game, the
+                    great plays, and all the excitement!!!
+                </div>
+            </div>
+        </div>
+    </div>
 
-  <!-- Modal AdvSpot7 -->
-  <div class="modal fade" id="ad7Modal" tabindex="-1" aria-labelledby="ad7ModalLabel" aria-hidden="true">
-      <div class="modal-dialog ads">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <h5 class="modal-title" id="ad7ModalLabel">Paradise Island in the Bahamas!!!</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-              </div>
-              <div class="modal-body">
-                  The name Paradise Island could not be more fitting. Awaiting you here are idyllic beaches, exciting
-                  nightlife and popular attractions like Atlantis, the largest resort in the Caribbean, with a casino,
-                  water park and aquarium.<br><br>To let you experience an all-inclusive Paradise Island holiday, RIU
-                  Hotels & Resorts offers you the Hotel Riu Palace Paradise Island, located on the beachfront of the
-                  heavenly Cabbage Beach. There you can relax under the warm Caribbean sun, enjoy a pleasant stroll on
-                  the shore, or practise different aquatic sports like water skiing, jet ski, windsurfing and kite
-                  surfing.<br><br>On Paradise Island you'll enjoy a cuisine rich in fish and seafood typical of the
-                  region, like conch (a type of mollusk), tuna, red lobster and shrimp. You can also savour delicious
-                  fish and vegetable soups, bean soups and a variety of tropical fruits native to the country, like
-                  soursops, sapodilla and
-                  jujubes.<br><br>"https://RUIBahamasReservations"<br>"https://RUIBahamasGallery"<br>For more
-                  information: (111) 222-3333"
-              </div>
-          </div>
-      </div>
-  </div>
+    <!-- Modal AdvSpot7 -->
+    <div class="modal fade" id="ad7Modal" tabindex="-1" aria-labelledby="ad7ModalLabel" aria-hidden="true">
+        <div class="modal-dialog ads">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ad7ModalLabel">Paradise Island in the Bahamas!!!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </div>
+                <div class="modal-body">
+                    The name Paradise Island could not be more fitting. Awaiting you here are idyllic beaches, exciting
+                    nightlife and popular attractions like Atlantis, the largest resort in the Caribbean, with a casino,
+                    water park and aquarium.<br><br>To let you experience an all-inclusive Paradise Island holiday, RIU
+                    Hotels & Resorts offers you the Hotel Riu Palace Paradise Island, located on the beachfront of the
+                    heavenly Cabbage Beach. There you can relax under the warm Caribbean sun, enjoy a pleasant stroll on
+                    the shore, or practise different aquatic sports like water skiing, jet ski, windsurfing and kite
+                    surfing.<br><br>On Paradise Island you'll enjoy a cuisine rich in fish and seafood typical of the
+                    region, like conch (a type of mollusk), tuna, red lobster and shrimp. You can also savour delicious
+                    fish and vegetable soups, bean soups and a variety of tropical fruits native to the country, like
+                    soursops, sapodilla and
+                    jujubes.<br><br>"https://RUIBahamasReservations"<br>"https://RUIBahamasGallery"<br>For more
+                    information: (111) 222-3333"
+                </div>
+            </div>
+        </div>
+    </div>
 
-
-  </nav>
-  
-  <body>
-    <br/>
-    <body>
-      <br/>
-  
     <!-- Optional JavaScript; choose one of the two! -->
     <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
     <!-- Option 2: Separate Popper and Bootstrap JS -->
     <!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script> -->
     <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script> -->
 
 </body>
+
 </html>
