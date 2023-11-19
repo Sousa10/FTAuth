@@ -5,7 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.contrib.auth.forms import UserCreationForm
 from .models import CashInAcctM, CashOutAcctM, WhatWeOwnAcctM, WhatWeOwnAcctM, DebtsAcctM, NetworthAcctM, PersonM
-from .forms import CashInAcctMForm, EquityAcctMForm, DebtsAcctMForm, WhatWeOwnAcctMForm, CashOutAcctMForm
+from .forms import CashInAcctMForm, EquityAcctMForm, DebtsAcctMForm, WhatWeOwnAcctMForm, CashOutAcctMForm, CashInAcctMEditForm
 from django.core.paginator import Paginator
 from datetime import datetime
 import os
@@ -20,7 +20,10 @@ def main_landing_page(request):
 def income_accts(request):
     cashinacctms = CashInAcctM.objects.all()
     if request.method == 'POST':
-        form = CashInAcctMForm(request.POST)
+        if 'edit_mode' in request.POST:
+            form = CashInAcctMEditForm(request.POST)
+        else:
+            form = CashInAcctMForm(request.POST)
 
         if form.is_valid():
             form.save()

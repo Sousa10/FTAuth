@@ -29,6 +29,8 @@ class CashInAcctMForm(forms.ModelForm):
                 'class': INPUT_CLASSES
             })
         }
+class CashInAcctMEditForm(CashInAcctMForm):
+    pass
 
 class CashOutAcctMForm(forms.ModelForm):
     class Meta:

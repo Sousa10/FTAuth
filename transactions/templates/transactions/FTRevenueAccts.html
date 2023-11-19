@@ -46,7 +46,7 @@
         {% endfor %}
         <tr>
           <td colspan="3" class="text-center">
-            <a class="add-button btn btn-info" href="#addModal" data-bs-toggle="modal">Add</a>
+            <a class="add-button btn btn-info" href="#editModal" data-bs-toggle="modal">Add</a>
           </td>
         </tr>
       </tbody>
@@ -63,7 +63,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form action="{% if cashinacctm.id %}{% url 'transactions:cashinacctm_update' cashinacctm.id %}{% endif %}" method="post" id="editForm">
+          <form method="post" id="editForm">
             {% csrf_token %}
             <div class="form-group">
               <label for="{{ form.AccountNumber.id_for_label }}">Account Number</label>
@@ -98,23 +98,86 @@
 {% block modal-script %}
 <script>
   $(document).ready(function() {
-    $('#editModal').on('show.bs.modal', function (event) {
-      console.log('Modal is about to be shown.');
-    var button = $(event.relatedTarget);
-    var accountNumber = button.data('account-number');
-    var description = button.data('description');
-    var cashinacctmId = button.data('cashinacctm-id');
+    // $('#editModal').on('show.bs.modal', function (event) {
+    //   console.log('Modal is about to be shown.');
+    // var button = $(event.relatedTarget);
+    // var accountNumber = button.data('account-number');
+    // var description = button.data('description');
+    // var cashinacctmId = button.data('cashinacctm-id');
 
-    // Set the values in the edit form
-    var account = $('#id_AccountNumber');
-    var descriptionField = $('#id_Description');
+    // // Set the values in the edit form
+    // var account = $('#id_AccountNumber');
+    // var descriptionField = $('#id_Description');
 
-    account.val(accountNumber);
-    descriptionField.val(description);
+    // account.val(accountNumber);
+    // descriptionField.val(description);
 
-    var editForm = $('#editForm');
-    var editUrl = "{% url 'transactions:cashinacctm_update' 0 %}".replace('0', cashinacctmId);
-    editForm.attr('action', editUrl);
+    // var editForm = $('#editForm');
+    // var editUrl = "{% url 'transactions:cashinacctm_update' 0 %}".replace('0', cashinacctmId);
+    // editForm.attr('action', editUrl);
+
+    // // Check if the form is in "Edit" mode
+    // if (editForm.attr('action').indexOf('cashinacctm_update') !== -1) {
+    //     // Populate the form fields with existing data
+    //     var accountNumber = $(this).data('account-number');
+    //     var description = $(this).data('description');
+    //     $('#id_AccountNumber').val(accountNumber);
+    //     $('#id_Description').val(description);
+    // } else {
+    //     // Clear the form fields if in "Add" mode
+    //     $('#id_AccountNumber').val('');
+    //     $('#id_Description').val('');
+    // }
+  // });
+  $('.edit-button').click(function() {
+      // var cashinacctmId = $(this).data('cashinacctm-id');
+      // console.log(cashinacctmId);
+      // var editUrl = "{% url 'transactions:cashinacctm_update' 0 %}";
+      
+      // // Set the action attribute of the form in the edit modal
+      // var editForm = $('#editForm');
+      // editUrl = editUrl.replace('0', cashinacctmId);
+      // editForm.attr('action', editUrl);
+
+      // // Check if the form is in "Edit" mode
+      // if (editForm.attr('action').indexOf('cashinacctm_update') !== -1) {
+      //     // Populate the form fields with existing data
+      //     console.log("entered if");
+      //     var accountNumber = $(this).data('account-number');
+      //     var description = $(this).data('description');
+      //     $('#id_AccountNumber').val(accountNumber);
+      //     $('#id_Description').val(description);
+      // } else {
+      //   console.log("in else");
+      //     // Clear the form fields if in "Add" mode
+      //     $('#id_AccountNumber').val('');
+      //     $('#id_Description').val('');
+      // }
+      var cashinacctmId = $(this).data('cashinacctm-id');
+      var editForm = $('#editForm');
+      var modalTitle = $('.modal-title');
+
+      if (cashinacctmId !== undefined && cashinacctmId !== null) {
+        console.log("entered if");
+          // Set the action attribute of the form in the edit modal
+          var editUrl = "{% url 'transactions:cashinacctm_update' 0 %}";
+          editUrl = editUrl.replace('0', cashinacctmId);
+          editForm.attr('action', editUrl);
+
+          // Set the title of the modal to "Edit"
+          modalTitle.text('Edit');
+      } else {
+          // Clear the form fields if in "Add" mode
+          $('#id_AccountNumber').val('');
+          $('#id_Description').val('');
+
+          // Set the action attribute of the form in the add modal
+          var addUrl = "{% url 'transactions:income_accts' %}";
+          editForm.attr('action', addUrl);
+
+          // Set the title of the modal to "Add"
+          modalTitle.text('Add');
+      }
   });
 });
 
