@@ -79,7 +79,7 @@ def cashinacctm_delete(request, pk):
     cashinacctm = get_object_or_404(CashInAcctM, pk=pk)
     cashinacctm.delete()
 
-    return redirect('LoginRegister:FTFinances')
+    return redirect('transactions:income_accts')
 
 #
 #   KMS Account Groupings Starts Here
@@ -128,21 +128,14 @@ def cashinacctm_update(request, pk):
         form = CashInAcctMForm(request.POST, instance=cashinacctm)
         if form.is_valid():
             form.save()
-            return redirect('LoginRegister:FTRevenueAccts')
+            return redirect('transactions:income_accts')
     else:
         form = CashInAcctMForm(instance=cashinacctm)
-    return render(request, 'edit_cashinacct.html', {
+    return render(request, 'transactions/FTRevenueAccts.html', {
         'form': form,
         'cashinacctm': cashinacctm,
         'title': 'Edit Cash In Account',
     })
-
-
-def cashinacctm_delete(request, pk):
-    cashinacctm = get_object_or_404(CashInAcctM, pk=pk)
-    cashinacctm.delete()
-
-    return redirect('LoginRegister:FTRevenueAccts')
 
 #
 #   KMS Expense Accounts Starts here
