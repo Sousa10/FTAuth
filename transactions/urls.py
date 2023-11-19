@@ -8,6 +8,8 @@ urlpatterns = [
     path('', views.home, name="home"),
     path('main_landing_page/', views.main_landing_page, name='main_landing_page'),
     path('income_accts', views.income_accts, name='income_accts'),
+    path('cashinacctm/update/<int:pk>/', views.cashinacctm_update, name='cashinacctm_update'),
+    path('cashinacctm/delete/<int:pk>/', views.cashinacctm_delete, name='cashinacctm_delete'),
 ]
 
 

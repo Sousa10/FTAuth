@@ -30,7 +30,7 @@ th {
     color: #fff;
 }
 
-.modal {
+/* .modal {
     display: none;
     position: fixed;
     z-index: 1000;
@@ -96,7 +96,7 @@ th {
 
 .modal-backdrop {
     z-index: 10;
-}
+} */
 
 .listheaderbuttons {
     background-color: #213186;
