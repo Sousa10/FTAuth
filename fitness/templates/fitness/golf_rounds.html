@@ -1,0 +1,48 @@
+{% extends 'fitness/base_golf.html' %}
+{% load static %}
+
+{% block pageTitle %}
+{% endblock %}
+{% block content %}
+<p style="text-align:center">
+  <div class="h1">
+    <a style="color:rgb(6, 6, 192)">
+      <p style="font-size:40px">
+        <h2>Golf Rounds</h2>
+      </p>
+    </a>
+  </div>
+</p>
+<br/>
+<center>
+  <table style="width:100%" class="table table-bordered table-striped table-hover">
+    <th class="table-primary"><h4>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp All Golf Rounds</h4></th>
+    {% for golf_round in round_p %}
+      <tr class="table-secondary table-active">
+        <td ><a href="{% url 'fitness:show_golf_round' golf_round.id %}">{{ golf_round.Date }}&nbsp&nbsp&nbsp&nbsp({{ golf_round.Score }})&nbsp&nbsp{{ golf_round.GolfCourse }}</a></td>
+      </tr>
+    {% endfor %}
+  </table> 
+</center>
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+  
+  {% if golf_rounds_p.has_previous %}
+      <li class="page-item"><a class="page-link" href="?page=1">&laquo First</a></li>
+      <li class="page-item"><a class="page-link" href="?page={{ golf_rounds_p.previous_page_number }}">Previous</a></li>
+  {% endif %}
+  
+  {% for i in nums %}
+      <li class="page-item"><a class="page-link" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
+  {% endfor %}
+  
+  {% if golf_rounds_p.has_next %}
+      <li class="page-item"><a class="page-link" href="?page={{ golf_rounds_p.next_page_number }}">Next</a></li>
+      <li class="page-item"><a class="page-link" href="?page={{ golf_rounds_p.paginator.num_pages }}">Last &raquo</a></li>
+  {% endif %}
+  
+  </ul>
+  </nav>
+  
+
+{% endblock %}

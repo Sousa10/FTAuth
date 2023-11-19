@@ -12,3 +12,6 @@ def home(request):
 
 def main_landing_page(request):
     return render(request, 'administration/main_landing_page.html', {})
+
+def show_construction(request):
+    return render(request, 'administration/show_construction.html', {})

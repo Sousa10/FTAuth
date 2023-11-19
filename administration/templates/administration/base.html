@@ -23,20 +23,27 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-            <li class="nav-item">
-                <a class="nav-link active" href="#" data-bs-toggle="modal">Security</a>
+            <li class="nav-item dropdown active">
+                <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    Inegrations
+                </a>
+                <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="{% url 'administration:show_construction' %}">MS Outlook</a></li>
+                    <li><a class="dropdown-item" href="#">TBD</a></li>
+                    <li><a class="dropdown-item" href="#">TBD</a></li>
+                </ul>
             </li>
-        
-            <li class="nav-item">
-                <a class="nav-link active" href="#" data-bs-toggle="modal">Controls</a>
-            </li>
-        
-            <li class="nav-item">
-                <a class="nav-link active" href="#" data-bs-toggle="modal">Access</a>
-            </li>
-        
-            <li class="nav-item">
-                <a class="nav-link active" href="#" data-bs-toggle="modal">Monitoring</a>
+            <li class="nav-item dropdown active">
+                <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    Family & Partners
+                </a>
+                <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="#">Register</a></li>
+                    <li><a class="dropdown-item" href="#">Share Applications</a></li>
+                    <li><a class="dropdown-item" href="#">TBD</a></li>
+                </ul>
             </li>
 
             <li class="nav-item dropdown active">
@@ -118,7 +125,6 @@
         <div class="col-md-8" style="text-align: center;">
             {% block content %}
             {% endblock %}
-            </br>
             <div style="width: 100%; height: 400px;">
                 <img src="{% static 'administrationsplash2.jpg' %}" style="height: 95%;" alt="Generic Administration">
             </div>

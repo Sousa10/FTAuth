@@ -155,6 +155,37 @@ def show_golf_course(request, golf_course_id):
         return JsonResponse(data)
     return render(request, 'fitness/show_golf_course.html', {'golf_course': course_info})
 
+def show_golf_round(request, golf_round_id):
+    round_info = golf_score.objects.get(pk=golf_round_id)
+
+    # Extract relevant data from the course_info
+    data = {
+        'Hole1Par': round_info.Hole1Par,
+        'Hole2Par': round_info.Hole2Par,
+        'Hole3Par': round_info.Hole3Par,
+        'Hole4Par': round_info.Hole4Par,
+        'Hole5Par': round_info.Hole5Par,
+        'Hole6Par': round_info.Hole6Par,
+        'Hole7Par': round_info.Hole7Par,
+        'Hole8Par': round_info.Hole8Par,
+        'Hole9Par': round_info.Hole9Par,
+        'Hole10Par': round_info.Hole10Par,
+        'Hole11Par': round_info.Hole11Par,
+        'Hole12Par': round_info.Hole12Par,
+        'Hole13Par': round_info.Hole13Par,
+        'Hole14Par': round_info.Hole14Par,
+        'Hole15Par': round_info.Hole15Par,
+        'Hole16Par': round_info.Hole16Par,
+        'Hole17Par': round_info.Hole17Par,
+        'Hole18Par': round_info.Hole18Par,
+        # Add other fields here
+    }
+
+    # If it's an AJAX request, return JSON
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        return JsonResponse(data)
+    return render(request, 'fitness/show_golf_round.html', {'round_info': round_info})
+
 def show_routine(request, routine_id):
     routine_info = training_routine.objects.get(pk=routine_id)
     return render(request, 'fitness/show_routine.html', {'routine': routine_info})
@@ -203,3 +234,17 @@ def AddGolfScore(request):
         if 'submitted' in request.GET:
             submitted = True
     return render(request, 'fitness/golf_score.html', {'form':form, 'submitted':submitted, 'score_fields': score_fields})
+
+def golf_rounds(request):
+    round_list = golf_score.objects.all()
+
+    # Set up Pagination
+    p = Paginator(golf_score.objects.all(), 8)
+    page = request.GET.get('page')
+    round_p = p.get_page(page)
+    nums = "x" * round_p.paginator.num_pages
+    return render(request, 'fitness/golf_rounds.html', {
+        'round_list':round_list,
+        'round_p':round_p,
+        'nums':nums
+        })

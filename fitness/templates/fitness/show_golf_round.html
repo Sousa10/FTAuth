@@ -1,0 +1,84 @@
+{% extends 'fitness/baseex.html' %}
+{% load static %}
+
+{% block content %}
+<p style="text-align:center">
+  <div class="h1">
+    <a style="color:rgb(6, 6, 192)">
+      <p style="font-size:40px">
+        <h2>Golf Round{{ round_info.id }}</h2>
+      </p>
+    </a>
+  </div>
+</p>
+<html lang="en">
+<head>
+  <title>Bootstrap Card</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header bg-secondary text-white">
+                <strong>Course:&nbsp{{ round_info.GolfCourse }}:&nbsp&nbsp&nbsp&nbspScore:&nbsp{{ round_info.Score }}&nbsp&nbsp&nbsp&nbsp&nbspDate:&nbsp{{ round_info.Date }}</strong>
+            </div>
+            <div class="card-body card bg-light text-dark">
+                <p class="card text-left" style="padding: 0 15px 15px;"><br>
+                    <strong>Hole:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp#1&nbsp&nbsp&nbsp&nbsp#2&nbsp&nbsp&nbsp&nbsp#3&nbsp&nbsp&nbsp&nbsp#4&nbsp&nbsp&nbsp&nbsp#5&nbsp&nbsp&nbsp&nbsp#6&nbsp&nbsp&nbsp&nbsp#7&nbsp&nbsp&nbsp&nbsp#8&nbsp&nbsp&nbsp&nbsp#9&nbsp&nbsp&nbsp&nbsp#10&nbsp&nbsp&nbsp&nbsp#11&nbsp&nbsp&nbsp&nbsp#12&nbsp&nbsp&nbsp&nbsp#13&nbsp&nbsp&nbsp&nbsp#14&nbsp&nbsp&nbsp&nbsp#15&nbsp&nbsp&nbsp&nbsp#16&nbsp&nbsp&nbsp&nbsp#17&nbsp&nbsp&nbsp&nbsp#18</strong>
+                    <strong>Par:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ round_info.Hole1Par }}
+                        &nbsp&nbsp&nbsp&nbsp&nbsp{{ round_info.Hole2Par }}
+                        &nbsp&nbsp&nbsp&nbsp&nbsp{{ round_info.Hole3Par }}
+                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ round_info.Hole4Par }}
+                        &nbsp&nbsp&nbsp&nbsp&nbsp{{ round_info.Hole5Par }}
+                        &nbsp&nbsp&nbsp&nbsp&nbsp{{ round_info.Hole6Par }}
+                        &nbsp&nbsp&nbsp&nbsp&nbsp{{ round_info.Hole7Par }}
+                        &nbsp&nbsp&nbsp&nbsp&nbsp{{ round_info.Hole8Par }}
+                        &nbsp&nbsp&nbsp&nbsp&nbsp{{ round_info.Hole9Par }}
+                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ round_info.Hole10Par }}
+                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ round_info.Hole11Par }}
+                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ round_info.Hole12Par }}
+                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ round_info.Hole13Par }}
+                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ round_info.Hole14Par }}
+                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ round_info.Hole15Par }}
+                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ round_info.Hole16Par }}
+                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ round_info.Hole17Par }}
+                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ round_info.Hole18Par }}
+                    </strong>
+                    <strong>Score:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ round_info.Hole1Score }}
+                        &nbsp&nbsp&nbsp&nbsp&nbsp{{ round_info.Hole2Score }}
+                        &nbsp&nbsp&nbsp&nbsp&nbsp{{ round_info.Hole3Score }}
+                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ round_info.Hole4Score }}
+                        &nbsp&nbsp&nbsp&nbsp&nbsp{{ round_info.Hole5Score }}
+                        &nbsp&nbsp&nbsp&nbsp&nbsp{{ round_info.Hole6Score }}
+                        &nbsp&nbsp&nbsp&nbsp&nbsp{{ round_info.Hole7Score }}
+                        &nbsp&nbsp&nbsp&nbsp&nbsp{{ round_info.Hole8Score }}
+                        &nbsp&nbsp&nbsp&nbsp&nbsp{{ round_info.Hole9Score }}
+                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ round_info.Hole10Score }}
+                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ round_info.Hole11Score }}
+                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ round_info.Hole12Score }}
+                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ round_info.Hole13Score }}
+                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ round_info.Hole14Score }}
+                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ round_info.Hole15Score }}
+                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ round_info.Hole16Score }}
+                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ round_info.Hole17Score }}
+                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ round_info.Hole18Score }}
+                    </strong>
+                    </br>
+                    <strong> Players:</strong>
+                    <strong>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ round_info.Player2 }}</strong>
+                    <strong>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ round_info.Player3 }} </strong>
+                    <strong>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ round_info.Player4 }}</strong>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
