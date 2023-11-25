@@ -5,43 +5,46 @@
 {% endblock %}
 {% block content %}
 <p style="text-align:center">
-  <div class="h1">
-    <a style="color:rgb(6, 6, 192)">
-      <p style="font-size:40px">
-        <h2>Main Menu Login</h2>
-      </p>
-    </a>
-  </div>
+<div class="h1">
+  <a style="color:rgb(6, 6, 192)">
+    <p style="font-size:40px">
+      <h2>Main Menu Login</h2>
+    </p>
+  </a>
+</div>
 </p>
 </br>
-  &nbsp&nbsp&nbsp&nbsp<img src="{% static 'login_finances20.jpg' %}" alt="Finances Tile Missing" width="130" height="130">
-  &nbsp&nbsp&nbsp&nbsp
-  <img src="{% static 'login_calendar3.jpg' %}" alt="Calendar Tile Missing" width="130" height="130">
-  &nbsp&nbsp&nbsp
-  <img src="{% static 'LoginLists.jpg' %}" alt="To Do's Tile Missing" width="130" height="130">
-  &nbsp&nbsp&nbsp
-  <img src="{% static 'login_family_tracks20.jpg' %}" alt="To Do's Tile Missing" width="130" height="130">
-  &nbsp&nbsp&nbsp
-  <img src="{% static 'login_fitness_sports20.jpg' %}" alt="Fitness Sports Tile Missing" width="130" height="130">
-  &nbsp&nbsp&nbsp
-  <img src="{% static 'login_administration30.jpg' %}" alt="Admin Tile Missing" width="130" height="130">
-</p>
-      
-<form action="" method=POST>
-    {% csrf_token %}   
-    <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">Username</label>
-        <input type="text" class="form-control" name="username" aria-describedby="emailHelp" style="width: 30%;">
-        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-    </div>
+<div class="row">
+  <div class="col-md-6">
+      <img src="{% static 'login_finances20.jpg' %}" alt="Finances Tile Missing" class="img-fluid mb-3">
+      <img src="{% static 'login_calendar3.jpg' %}" alt="Calendar Tile Missing" class="img-fluid">
+  </div>
+  <div class="col-md-6">
+      <img src="{% static 'LoginLists.jpg' %}" alt="To Do's Tile Missing" class="img-fluid mb-3">
+      <img src="{% static 'login_family_tracks20.jpg' %}" alt="Family Tracks Tile Missing" class="img-fluid">
+  </div>
+  <div class="col-md-6">
+      <img src="{% static 'login_fitness_sports20.jpg' %}" alt="Fitness Sports Tile Missing" class="img-fluid mb-3">
+      <img src="{% static 'login_administration30.jpg' %}" alt="Admin Tile Missing" class="img-fluid">
+  </div>
+</div>
 
-    <div class="mb-3">
-        <label for="exampleInputPassword1" class="form-label">Password</label>
-        <input type="password" class="form-control" name="password" style="width: 30%;">
-    </div>
+<form action="" method="POST">
+  {% csrf_token %}
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Username</label>
+    <input type="text" class="form-control" name="username" aria-describedby="emailHelp">
+    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+  </div>
 
-  <input type="submit" value="Login" class="btn btn-secondary">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a>No username? Register here its free and easy</a>&nbsp&nbsp&nbsp&nbsp<button type="button" class="btn btn-secondary">Register</button>
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Password</label>
+    <input type="password" class="form-control" name="password">
+  </div>
 
+  <input type="submit" value="Login" class="btn btn-secondary">
+  <a href="#" class="ml-2">No username? Register here; it's free and easy</a>
+  <button type="button" class="btn btn-secondary">Register</button>
 </form>
 
 {% endblock %}
