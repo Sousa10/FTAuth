@@ -20,8 +20,11 @@ class LoginForm(AuthenticationForm):
 class CashInAcctMForm(forms.ModelForm):
     class Meta:
         model = CashInAcctM
-        fields = ('AccountNumber', 'Description',)
+        fields = ('Status', 'AccountNumber', 'Description',)
         widgets = {
+            'Status': forms.TextInput(attrs={
+                'class': INPUT_CLASSES
+            }),
             'AccountNumber': forms.TextInput(attrs={
                 'class': INPUT_CLASSES
             }),

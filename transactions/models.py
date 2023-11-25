@@ -3,9 +3,21 @@ from django.db import models
 # Create your models here.
 
 class CashInAcctM(models.Model):
+  Status = models.CharField(max_length=10, null=True)
   AccountNumber = models.CharField(max_length=20, null=True)
   Description = models.CharField(max_length=255, null=True)
-  DrCrBal = models.CharField(max_length=20, null=True)
+  Type = models.CharField(max_length=12, null=True)
+  Statement = models.CharField(max_length=40, null=True) 
+  Section = models.CharField(max_length=40, null=True) 
+  Sequence = models.IntegerField(null=True)
+  RollupType = models.CharField(max_length=60, null=True)
+
+  class Meta:
+        verbose_name_plural = 'Accounts'
+  def __str__(self):
+     return self.AccountNumber
+
+
 
 class CashOutAcctM(models.Model):
   AccountNumber = models.CharField(max_length=40, null=True)
@@ -73,4 +85,24 @@ class PersonM(models.Model):
       verbose_name_plural = 'Persons'
   def __str__(self):
     return self.firstname
+
+class StatementRollups(models.Model):
+  StatementType = models.CharField(max_length=10, null=True)
+  Account = models.CharField(max_length=10, null=True)
+  RollupName = models.CharField(max_length=80, null=True)
+
+  class Meta:
+        verbose_name_plural = 'Statement Rollups'
+  def __str__(self):
+     return self.RollupName
+
+class StatementSections(models.Model):
+  StatementType = models.CharField(max_length=10, null=True)
+  Sequence = models.IntegerField(null=True)
+  LineName = models.CharField(max_length=40, null=True)
+
+  class Meta:
+        verbose_name_plural = 'Statement Sections'
+  def __str__(self):
+     return self.LineName
 

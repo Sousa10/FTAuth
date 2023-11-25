@@ -1,18 +1,13 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Cash In" Accounts{% endblock %}
+{% block title %}Accounts{% endblock %}
 
-<!-- {% block pageimage %} -->
-<!-- <img style="float: left;" src="{% static 'Cashin.jpg' %}" alt="Cash In Tile Missing" width="100" height="100"> -->
-<!-- {% endblock %} -->
-
-<!-- {% block backurl %}{%url 'LoginRegister:FTDefAcctsMenu'%}{% endblock %} -->
 {% block pageTitle %}
 <div class="h1">
   <a style="color:rgb(6, 6, 192)">
     <p style="font-size:40px">
-      <h2>"Cash In" Accounts</h2>
+      <h2>Accounts</h2>
     </p>
   </a>
 </div>
@@ -24,6 +19,7 @@
     <table>
       <thead>
         <tr>
+          <th>Status</th>
           <th>Account Number</th>
           <th>Description</th>
           <th>Actions</th>
@@ -32,7 +28,8 @@
       <tbody>
         {% for cashinacctm in cashinacctms %}
         <tr>
-          <td>{{ cashinacctm.AccountNumber }}</td>
+          <td>{{ cashinacctm.Status }}</td>
+          <td>{{ cashinacctm.AccountNumbers }}</td>
           <td>{{ cashinacctm.Description }}</td>
           <td>
             <a href="{% url 'LoginRegister:cashinacctm_delete' cashinacctm.id %}" class="btn btn-danger">Delete</a>

@@ -31,33 +31,39 @@
                     <li class="nav-item dropdown active">
                         <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
-                            Define Accounts
+                            Setup Books
                         </a>
                         <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="{% url 'transactions:income_accts' %}">Income</a></li>
-                            <li><a class="dropdown-item" href="#">Expense</a></li>
-                            <li><a class="dropdown-item" href="#">Assets</a></li>
-                            <li><a class="dropdown-item" href="#">Liability</a></li>
-                            <li><a class="dropdown-item" href="#">Net Worth</a></li>
+                            <li><a class="dropdown-item" href="#">Define Statement Sections</a></li>
+                            <li><a class="dropdown-item" href="#">Define Rollup Accounts</a></li>
+                            <li><a class="dropdown-item" href="{% url 'transactions:income_accts' %}">Define Accounts</a></li>
+                            <li><a class="dropdown-item" href="#">Define Budgets</a></li>
                         </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#" data-bs-toggle="modal">Capture Transactions</a>
                     </li>
 
                     <li class="nav-item dropdown active">
                         <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
-                            Financial Reports
+                            Recording & Bookkeeping
                         </a>
                         <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Define Groupings For Financial Statements</a></li>
-                            <li><a class="dropdown-item" href="#">Income Statement</a></li>
+                            <li><a class="dropdown-item" href="#">Upload & Capture Transactions</a></li>
+                            <li><a class="dropdown-item" href="#">Enter Manual Transactions</a></li>
+                            <li><a class="dropdown-item" href="#">Post Current Net Income to Retained Earnings</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown active">
+                        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Reporting
+                        </a>
+                        <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
+                             <li><a class="dropdown-item" href="#">Income Statement</a></li>
                             <li><a class="dropdown-item" href="#">Balance Sheet</a></li>
                             <li><a class="dropdown-item" href="#">Cash Flow Statement</a></li>
-                            <li><a class="dropdown-item" href="#">Budgeting</a></li>
                             <li><a class="dropdown-item" href="#">Expense Analysis</a></li>
+                            <li><a class="dropdown-item" href="#">Budget Performance</a></li>
                         </ul>
                     </li>
 
