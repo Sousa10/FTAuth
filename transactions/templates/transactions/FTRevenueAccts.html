@@ -21,14 +21,17 @@
 {% endblock %}
 
 {% block content %}
-
   <div>
     <table>
       <thead>
         <tr>
           <th>Status</th>
-          <th>Account Number</th>
+          <th>Type</th>
+          <th>Account</th>
           <th>Description</th>
+          <th>Statment</th>
+          <th>Section</th>
+          <th>Rollup</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -36,12 +39,16 @@
         {% for cashinacctm in cashinacctms %}
         <tr>
           <td>{{ cashinacctm.Status }}</td>
+          <td>{{ cashinacctm.Type }}</td>
           <td>{{ cashinacctm.AccountNumber }}</td>
           <td>{{ cashinacctm.Description }}</td>
+          <td>{{ cashinacctm.Statement }}</td>
+          <td>{{ cashinacctm.Section }}</td>
+          <td>{{ cashinacctm.RollupType }}</td>
           <td>
             <a href="{% url 'transactions:cashinacctm_delete' cashinacctm.id %}" class="btn btn-danger">Delete</a>
             <a href="#editModal" data-bs-toggle="modal" data-account-number="{{ cashinacctm.AccountNumber }}" 
-              data-description="{{ cashinacctm.Description }}" data-cashinacctm-id="{{ cashinacctm.id }}"
+            data-status="{{ cashinacctm.Status }}" data-description="{{ cashinacctm.Description }}" data-cashinacctm-id="{{ cashinacctm.id }}"
               class="btn btn-secondary edit-button">Edit</a>
           </td>
         </tr>
@@ -104,6 +111,10 @@
           <form method="post" id="editForm">
             {% csrf_token %}
             <div class="form-group">
+              <label for="{{ form.Status.id_for_label }}">Status</label>
+              {{ form.Status }}
+            </div>
+            <div class="form-group">
               <label for="{{ form.AccountNumber.id_for_label }}">Account Number</label>
               {{ form.AccountNumber }}
             </div>
@@ -139,6 +150,7 @@
     $('#editModal').on('show.bs.modal', function (event) {
     console.log('Modal is about to be shown.');
       var button = $(event.relatedTarget);
+      var status = button.data('status');
       var accountNumber = button.data('account-number');
       var description = button.data('description');
       var cashinacctmId = button.data('cashinacctm-id');
@@ -153,15 +165,18 @@
       // var description = modal.find('#id_Description').val();
 
       // Dynamically update IDs
+      editForm.find('#id_Status').attr('id', 'edit_Status');
       editForm.find('#id_AccountNumber').attr('id', 'edit_AccountNumber');
       editForm.find('#id_Description').attr('id', 'edit_Description');
 
       // Set the values in the edit form
       var account = $('#edit_AccountNumber');
+      var statusField = $('#edit_Status');
       console.log(account);
       var descriptionField = $('#edit_Description');
 
       account.val(accountNumber);
+      statusField.val(status);
       descriptionField.val(description);
   });
 });

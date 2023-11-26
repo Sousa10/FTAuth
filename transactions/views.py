@@ -102,25 +102,6 @@ def FTAccountDrillDown(request):
     FTpersons = PersonM.objects.all().values()
     template = loader.get_template('FTAccountDrillDown.html')
     return HttpResponse(template.render())
-#
-#   KMS Revenue Accounts Start here
-#
-# def FTRevenueAccts(request):
-    # cashinacctms = CashInAcctM.objects.all()
-    # if request.method == 'POST':
-        # form = CashInAcctMForm(request.POST)
-
-        # if form.is_valid():
-            # form.save()
-            # return redirect('LoginRegister:FTRevenueAccts')
-    # else:
-        # form = CashInAcctMForm()
-    # return render(request, 'FTRevenueAccts.html', {
-        # 'form': form,
-        # 'cashinacctms': cashinacctms,
-        # 'title': 'Add Cash In Account',
-    # })
-
 
 def cashinacctm_update(request, pk):
     cashinacctm = get_object_or_404(CashInAcctM, pk=pk)
