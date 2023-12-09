@@ -45,10 +45,11 @@
           <td>{{ cashinacctm.Statement }}</td>
           <td>{{ cashinacctm.Section }}</td>
           <td>{{ cashinacctm.RollupType }}</td>
+          <!-- KMS Added New Fields -->
           <td>
             <a href="{% url 'transactions:cashinacctm_delete' cashinacctm.id %}" class="btn btn-danger">Delete</a>
             <a href="#editModal" data-bs-toggle="modal" data-account-number="{{ cashinacctm.AccountNumber }}" 
-            data-status="{{ cashinacctm.Status }}" data-description="{{ cashinacctm.Description }}" data-cashinacctm-id="{{ cashinacctm.id }}"
+            data-status="{{ cashinacctm.Status }}" data-type="{{ cashinacctm.Type }}" data-type="{{ cashinacctm.Statement }}" data-type="{{ cashinacctm.RollupType }}" data-type="{{ cashinacctm.Section }}" data-description="{{ cashinacctm.Description }}" data-cashinacctm-id="{{ cashinacctm.id }}"
               class="btn btn-secondary edit-button">Edit</a>
           </td>
         </tr>
@@ -114,18 +115,40 @@
               <label for="{{ form.Status.id_for_label }}">Status</label>
               {{ form.Status }}
             </div>
+<!-- KMS -->
             <div class="form-group">
-              <label for="{{ form.AccountNumber.id_for_label }}">Account Number</label>
+              <label for="{{ form.Type.id_for_label }}">Type</label>
+              {{ form.Type }}
+            </div>
+<!-- KMS -->
+            <div class="form-group">
+              <label for="{{ form.AccountNumber.id_for_label }}">Account</label>
               {{ form.AccountNumber }}
             </div>
             <div class="form-group">
               <label for="{{ form.Description.id_for_label }}">Description</label>
               {{ form.Description }}
             </div>
+<!-- KMS -->
+            <div class="form-group">
+              <label for="{{ form.Statement.id_for_label }}">Statement</label>
+              {{ form.Statement }}
+            </div>
+            <div class="form-group">
+              <label for="{{ form.Section.id_for_label }}">Section</label>
+              {{ form.Section }}
+            </div>
+            <div class="form-group">
+              <label for="{{ form.RollupType.id_for_label }}">Rollup</label>
+              {{ form.Section }}
+            </div>
+<!-- KMS -->
+
+
             {% if form.errors or form.non_field_errors %}
             <div class="mb-3 p-6 bg-red-100 rounded-xl">
               {% for field in form %}
-              {{ field.errors }}
+                  {{ field.errors }}
               {% endfor %}
   
               {{ form.non_field_errors }}
@@ -151,6 +174,11 @@
     console.log('Modal is about to be shown.');
       var button = $(event.relatedTarget);
       var status = button.data('status');
+      // KMS
+      var type = button.data('type');
+      var statement = button.data('statement');
+      var section = button.data('section');
+      // KMS
       var accountNumber = button.data('account-number');
       var description = button.data('description');
       var cashinacctmId = button.data('cashinacctm-id');
@@ -166,22 +194,38 @@
 
       // Dynamically update IDs
       editForm.find('#id_Status').attr('id', 'edit_Status');
+// KMS
+      editForm.find('#id_Type').attr('id', 'edit_Type');
+      editForm.find('#id_Statement').attr('id', 'edit_Statement');
+      editForm.find('#id_Section').attr('id', 'edit_Section');
+      editForm.find('#id_RollupType').attr('id', 'edit_RollupType');
+// kms
       editForm.find('#id_AccountNumber').attr('id', 'edit_AccountNumber');
       editForm.find('#id_Description').attr('id', 'edit_Description');
 
       // Set the values in the edit form
       var account = $('#edit_AccountNumber');
       var statusField = $('#edit_Status');
+// KMS
+      var typeField = $('#edit_Type');
+      var statementField = $('#edit_Statement');
+      var sectionField = $('#edit_Section');
+      var rolluptypeField = $('#edit_RollupType');
+// KMS
       console.log(account);
       var descriptionField = $('#edit_Description');
 
       account.val(accountNumber);
       statusField.val(status);
+// KMS
+      typeField.val(type);
+      statementField.val(statement);
+      sectionField.val(section);
+      rolluptypeField.val(rolluptype)
+// KMS
       descriptionField.val(description);
   });
 });
-
-  
 
 </script>
 {% endblock %}

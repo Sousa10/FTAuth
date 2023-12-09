@@ -476,3 +476,33 @@ def home(request):
                   'home.html', {
                       'name': name
                   })
+
+def show_construction(request):
+    return render(request, 'transactions/show_construction.html', {})
+
+def accounts(request):
+    accounts_list = CashInAcctM.objects.all()
+
+    # Set up Pagination
+    p = Paginator(accounts_list, 15)
+    page = request.GET.get('page')
+    accounts_p = p.get_page(page)
+    nums = "x" * accounts_p.paginator.num_pages
+    return render(request, 'transactions/accounts.html', {
+        'accounts_list': accounts_list,
+        'accounts_p':accounts_p,
+        'nums':nums
+        })
+
+def show_account(request, account_id):
+    account_info = CashInAcctM.objects.get(pk=account_id)
+    return render(request, 'transactions/show_account.html', {'account': account_info})
+
+def search_accounts(request):
+    if request.method == "POST":
+        searched = request.POST['searched'] 
+        accounts = CashInAcctM.objects.filter(Description__contains=searched)
+        return render(request, 'transactions/search_accounts.html', {'searched':searched, 'accounts':accounts})
+    else:
+        return render(request, 'transactions/search_accounts.html', {})
+

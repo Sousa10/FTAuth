@@ -34,10 +34,11 @@
                             Setup Books
                         </a>
                         <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Define Statement Sections</a></li>
-                            <li><a class="dropdown-item" href="#">Define Rollup Accounts</a></li>
+                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Define Statement Sections</a></li>
+                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Define Rollup Accounts</a></li>
                             <li><a class="dropdown-item" href="{% url 'transactions:income_accts' %}">Define Accounts</a></li>
-                            <li><a class="dropdown-item" href="#">Define Budgets</a></li>
+                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Define Budgets</a></li>
+                            <li><a class="dropdown-item" href="{% url 'transactions:accounts' %}">All Accounts</a></li>
                         </ul>
                     </li>
 
@@ -47,9 +48,9 @@
                             Recording & Bookkeeping
                         </a>
                         <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Upload & Capture Transactions</a></li>
-                            <li><a class="dropdown-item" href="#">Enter Manual Transactions</a></li>
-                            <li><a class="dropdown-item" href="#">Post Current Net Income to Retained Earnings</a></li>
+                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Upload & Capture Transactions</a></li>
+                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Enter Manual Transactions</a></li>
+                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Post Current Net Income to Retained Earnings</a></li>
                         </ul>
                     </li>
 
@@ -59,11 +60,13 @@
                             Reporting
                         </a>
                         <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
-                             <li><a class="dropdown-item" href="#">Income Statement</a></li>
-                            <li><a class="dropdown-item" href="#">Balance Sheet</a></li>
-                            <li><a class="dropdown-item" href="#">Cash Flow Statement</a></li>
-                            <li><a class="dropdown-item" href="#">Expense Analysis</a></li>
-                            <li><a class="dropdown-item" href="#">Budget Performance</a></li>
+                             <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Income Statement</a></li>
+                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Balance Sheet</a></li>
+                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Cash Flow Statement</a></li>
+                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Expense Analysis</a></li>
+                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Budget Performance</a></li>
+                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Drill Down on Statement Line</a></li>
+                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Drill Down on Account</a></li>
                         </ul>
                     </li>
 
@@ -73,9 +76,9 @@
                             Download
                         </a>
                         <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Download Text File</a></a></li>
-                            <li><a class="dropdown-item" href="#">Download CSV File</a></li>
-                            <li><a class="dropdown-item" href="#">Download PDF File</a></li>
+                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Download Text File</a></a></li>
+                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Download CSV File</a></li>
+                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Download PDF File</a></li>
                         </ul>
                     </li>
 
@@ -97,20 +100,20 @@
                             Finances Tutorials
                         </a>
                         <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal">Overview</a></li>
-                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal">How To Setup Your Accounts</a>
+                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}" data-bs-toggle="modal">Overview</a></li>
+                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}" data-bs-toggle="modal">How To Setup Your Accounts</a>
                             </li>
-                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal">How To Setup And Run Your
+                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}" data-bs-toggle="modal">How To Setup And Run Your
                                     Income Statment</a></li>
-                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal">How To Setup And Run Your
+                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}" data-bs-toggle="modal">How To Setup And Run Your
                                     Balance Sheet</a></li>
-                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal">How To Setup And Run Your Cash
+                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}" data-bs-toggle="modal">How To Setup And Run Your Cash
                                     Flow Statment</a></li>
-                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal">How To Setup And Run Your
+                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}" data-bs-toggle="modal">How To Setup And Run Your
                                     Budgets</a></li>
-                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal">How To Setup And Run Your
+                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}" data-bs-toggle="modal">How To Setup And Run Your
                                     Expense Analysis</a></li>
-                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal">How To Upload and Capture
+                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}" data-bs-toggle="modal">How To Upload and Capture
                                     Transactions</a></li>
                         </ul>
                     </li>
@@ -122,6 +125,15 @@
                     <li class="nav-item">
                         <a class="nav-link active" href="{% url 'LoginRegister:FTMainMenu' %}">Main Menu</a>
                     </li>
+    
+                    <form class="d-flex" method=POST action="{% url 'transactions:search_accounts' %}">
+                        {% csrf_token %}
+                        <input class="form-control me-2"
+                        type="search" placeholder="Search Accounts" aria-label="Search Excercises" name="searched">
+                        <button class="btn btn-outline-secondary" type="submit">Search</button>
+                    </form>
+    
+    
     </nav>
     {% block pageTitle %}
     {% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'transactions/base.html' %}
+{% load static %}
+
+{% block pageTitle %}
+{% endblock %}
+{% block content %}
+  {% if searched %}
+
+  <!-- <tr class="table-primary table-active" style="height:12px"> -->
+    <!-- <th scope="col">Area</th> -->
+    <p style="text-align:center">
+      <div class="h1">
+        <a style="color:rgb(6, 6, 192)">
+          <p style="font-size:40px">
+            <h2>Accounts Searched For {{ searched }}</h2>
+            </br>
+            <center>
+              <table style="width:50%" class="table table-bordered table-striped table-hover">
+                <th class="table-primary"><h4>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Accounts Found</h4></th>
+                {% for account in accounts %}
+                  <tr class="table-secondary table-active">
+                    <td><h6><a href="{% url 'transactions:show_account' account.id %}">{{ account.AccountNumber }}&nbsp&nbsp:&nbsp&nbsp{{ account.Type }}&nbsp&nbsp:&nbsp&nbsp{{ account.Description }}</a></h6></td>
+                  </tr>
+                {% endfor %}
+            </table>
+            </center>
+          </p>
+        </a>
+      </div>
+    </p>
+
+  {% else %}
+
+  <p style="text-align:center">
+    <div class="h1">
+      <a style="color:rgb(6, 6, 192)">
+        <p style="font-size:40px">
+          <h2>Appears You Did Not Enter A Search Value</h2>
+        </p>
+      </a>
+    </div>
+  </p>
+
+  {% endif %}
+
+{% endblock %}
