@@ -16,6 +16,7 @@ def main_landing_page(request):
 
 def FTListChores(request, listheader_id=None):
     # listheader = None
+    firs_listHeader = ListHeaderT.objects.first()
     if listheader_id:
         listheader = ListHeaderT.objects.get(id=listheader_id)
         listdetails = ListDetailsT.objects.filter(ListHeaderFK=listheader)
@@ -70,6 +71,7 @@ def FTListChores(request, listheader_id=None):
         listDetailForm = ListDetailsTForm(list_header=selected_header)
     return render(request, 'listsplan/FTListChores.html', {
         'listHeaderForm': listHeaderForm,
+        'firs_listHeader': firs_listHeader,
         'listDetailForm': listDetailForm,
         'selectedHeaderForm': selectedHeaderForm,
         'listheader': listheader,
