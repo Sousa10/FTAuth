@@ -12,7 +12,10 @@ def home(request):
     return render(request, 'listsplan/main_landing_page.html', {})
 
 def main_landing_page(request):
-    return render(request, 'listsplan/main_landing_page.html', {})
+    firs_listHeader = ListHeaderT.objects.first()
+    return render(request, 'listsplan/main_landing_page.html', {
+        'firs_listHeader': firs_listHeader,
+    })
 
 def FTListChores(request, listheader_id=None):
     # listheader = None
