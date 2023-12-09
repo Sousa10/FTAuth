@@ -10,8 +10,8 @@ from .models import AcctRollupsD
 from .models import TransBatch
 from .models import TransHeader
 from .models import TransDetail
-from .models import ListHeaderT
-from .models import ListDetailsT
+# from .models import ListHeaderT
+# from .models import ListDetailsT
 from .models import CalendarIncrements
 from .models import Calendars
 from .models import Views
@@ -30,8 +30,8 @@ admin.site.register(AcctRollupsD)
 admin.site.register(TransBatch)
 admin.site.register(TransHeader)
 admin.site.register(TransDetail)
-admin.site.register(ListHeaderT)
-admin.site.register(ListDetailsT)
+# admin.site.register(ListHeaderT)
+# admin.site.register(ListDetailsT)
 admin.site.register(CalendarIncrements)
 admin.site.register(Calendars)
 admin.site.register(Views)

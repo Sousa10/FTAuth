@@ -1,15 +1,15 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
-from .models import PersonM, CashInAcctM, CashOutAcctM, WhatWeOwnAcctM, ListHeaderT, ListDetailsT, TransBatch, TransDetail, TransHeader, DefaultParams, SponRates, DebtsAcctM, NetworthAcctM
-from .forms import ListHeaderTForm, ListDetailsTForm, ListHeaderSelectForm, ListHeaderTForm, ListDetailsTForm, SponRatesForm, EquityAcctMForm, DebtsAcctMForm, WhatWeOwnAcctMForm, CashOutAcctMForm, CashInAcctMForm, TemplateActionForm, TransBatchSelectForm
+from .models import PersonM, CashInAcctM, CashOutAcctM, WhatWeOwnAcctM, TransBatch, TransDetail, TransHeader, DefaultParams, SponRates, DebtsAcctM, NetworthAcctM
+from .forms import SponRatesForm, EquityAcctMForm, DebtsAcctMForm, WhatWeOwnAcctMForm, CashOutAcctMForm, CashInAcctMForm, TemplateActionForm, TransBatchSelectForm
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator
 from django.contrib import messages
 from datetime import datetime
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import logout
 import os
-import csv
+from listsplan.models import ListHeaderT
 
 def logout_user(request):
     logout(request)
