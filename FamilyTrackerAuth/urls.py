@@ -15,7 +15,7 @@ urlpatterns = [
     path('familytracks/', include('familytracks.urls')),
     path('cal/', include('cal.urls')),
     path('administration/', include('administration.urls')),
-    path('listsplan', include('listsplan.urls')),
+    path('listsplan/', include('listsplan.urls')),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:
