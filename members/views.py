@@ -8,6 +8,10 @@ from .forms import RegisterUserForm, UpdateUserForm
 from django.contrib.auth.models import User
 from familytracks.models import Profile
 from familytracks.forms import ProfilePicForm
+from django.contrib.auth.views import PasswordChangeView
+from django.urls import reverse_lazy
+from .backends import CustomModelBackend
+
 
 def home(request):
     return render(request, 'members/main_menu_login.html', {})
@@ -15,29 +19,47 @@ def home(request):
 # def members(request):
     # return render(request, 'members/main_menu_login.html', {})
 
+class ChangePasswordView(PasswordChangeView):
+    template_name = 'members/change_password.html'
+    success_url = reverse_lazy('LoginRegister:FTMainMenu')
+
 def main_menu_login(request):
     if request.method == "POST":
         username = request.POST['username']
         password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
+        user = authenticate(request, username=username, password=password, backend=CustomModelBackend)
         if  user is not None:
             login(request, user)
+            print(dict(request.session))
+            # if not user.password_changed:
+            #     user.password_changed = True
+            #     user.save()
+            if request.session['first_login'] == False:
+                print("this user has logged in before")
+            else:
+                print("this is the first login by this user")
+                # Perform actions before last_login is updated
+                request.session['first_login'] = False
+                return redirect('members:change_password')
+            # if request.session.get('first_login'):
+            #     print("OKKKKKK")
+            #     # Clear the session attribute to prevent redirection on subsequent logins
+            #     request.session.pop('first_login', None)
+            #     return redirect('members:change_password')
             return redirect('LoginRegister:FTMainMenu')
         else:
             messages.success(request, ("There Was An Error Logging In, Please Try Again"))
-            return redirect('main_menu_login')
+            return redirect('members:main_menu_login')
     else:
         return render(request, 'members/main_menu_login.html')
     
 def logout_user(request):
     logout(request)
-    print("in logout")
     return redirect('members:main_menu_login')
 
 def register_user(request):
     if request.method == "POST":
         form = RegisterUserForm(request.POST)
-        profile_form = ProfilePicForm(request.POST or None, request.FILES or None, instance=profile_user)
         if form.is_valid():
             form.save()
             username = form.cleaned_data['username']

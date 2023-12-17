@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'calendar10',
     'listsplan',
     'administration',
+    'django_bootstrap_icons',
 ]
 
 MIDDLEWARE = [
@@ -84,6 +85,11 @@ TEMPLATES = [
         },
     },
 ]
+
+AUTHENTICATION_BACKENDS = [
+    'members.backends.CustomModelBackend',
+]
+
 
 WSGI_APPLICATION = 'FamilyTrackerAuth.wsgi.application'
 
