@@ -87,8 +87,7 @@ class PersonM(models.Model):
     return self.firstname
 
 class StatementRollups(models.Model):
-  StatementType = models.CharField(max_length=10, null=True)
-  Account = models.CharField(max_length=10, null=True)
+  StatementType = models.CharField(max_length=80, null=True)
   RollupName = models.CharField(max_length=80, null=True)
 
   class Meta:
@@ -97,9 +96,8 @@ class StatementRollups(models.Model):
      return self.RollupName
 
 class StatementSections(models.Model):
-  StatementType = models.CharField(max_length=10, null=True)
-  Sequence = models.IntegerField(null=True)
-  LineName = models.CharField(max_length=40, null=True)
+  StatementType = models.CharField(max_length=80, null=True)
+  LineName = models.CharField(max_length=80, null=True)
 
   class Meta:
         verbose_name_plural = 'Statement Sections'
