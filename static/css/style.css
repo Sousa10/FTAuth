@@ -208,3 +208,12 @@ a {
 .placeholder {
   font-size: 11px;
 }
+.edit-header-button, .edit-detail-button, .edit-header-button:hover, .edit-detail-button:hover{
+  color: #5c636a;
+}
+.delete-button, .delete-button:hover {
+  color: #dc3545;
+}
+a {
+  text-decoration: none;
+}

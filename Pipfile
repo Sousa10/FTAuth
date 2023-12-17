@@ -10,6 +10,8 @@ reportlab = "*"
 django-widget-tweaks = "*"
 django-embed-video = "*"
 pillow = "*"
+django-bootstrap-icons = "*"
+django-fontawesome = "*"
 
 [dev-packages]
 

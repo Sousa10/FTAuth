@@ -1,5 +1,6 @@
 {% extends 'listsplan/base.html' %}
 {% load static %}
+{% load bootstrap_icons %}
 {% block title %}Lists & Planning{% endblock %}
 
 {% block pageimage %}
@@ -58,11 +59,10 @@
                   <td style="text-align: center;">
                     <!-- <a class="add-button" href="{% url 'LoginRegister:FTFinances' %}">Add</a> -->
                     {% if listheader %}
-                    <a href="{% url 'listsplan:listHeader_delete' listheader.id %}"
-                      class="btn btn-danger delete-button">Delete</a>
-                    <a href="#" class="btn btn-secondary edit-header-button" data-bs-toggle="modal"
+                    <a href="#" class="edit-header-button" data-bs-toggle="modal"
                       data-bs-target="#editHeaderModal" data-id="{{ listheader.id }}"
-                      data-LHName="{{ listheader.LHName }}" data-LHDescription="{{ listheader.LHDescription }}">Edit</a>
+                      data-LHName="{{ listheader.LHName }}" data-LHDescription="{{ listheader.LHDescription }}" style="text-decoration: none;">{% bs_icon 'pencil' %}</a>
+                      <a href="{% url 'listsplan:listHeader_delete' listheader.id %}" class="delete-button">{% bs_icon 'trash' %}</a>
                     {% endif %}
                     {% endif %}
                   </td>
@@ -100,13 +100,13 @@
                   <td>
                     {% if listdetail %}
                     <!-- <a class="add-button" href="{% url 'LoginRegister:FTFinances' %}">Add</a> -->
+                    <a href="#" class="edit-detail-button" data-bs-toggle="modal"
+                    data-bs-target="#editdetailModal" data-id="{{ listdetail.id }}"
+                    data-ListHeaderFK="{{ listdetail.ListHeaderFK.LHName }}"
+                    data-ListItemName="{{ listdetail.LHName }}" data-LNNumber="{{ listdetail.LNNumber }}"
+                    data-ListDetailFK="{{ listdetail.ListDetailFK.LHName }}">{% bs_icon 'pencil' %}</a>
                     <a href="{% url 'listsplan:listDetail_delete' listdetail.id %}"
-                      class="btn btn-danger delete-button">Delete</a>
-                    <a href="#" class="btn btn-secondary edit-detail-button" data-bs-toggle="modal"
-                      data-bs-target="#editdetailModal" data-id="{{ listdetail.id }}"
-                      data-ListHeaderFK="{{ listdetail.ListHeaderFK.LHName }}"
-                      data-ListItemName="{{ listdetail.LHName }}" data-LNNumber="{{ listdetail.LNNumber }}"
-                      data-ListDetailFK="{{ listdetail.ListDetailFK.LHName }}">Edit</a>
+                      class="delete-button">{% bs_icon 'trash' %}</a>
                     {% endif %}
                   </td>
                 </tr>
