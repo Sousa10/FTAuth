@@ -83,37 +83,37 @@
 
 
     </nav>
-
+    ListSpot2
     <main class="container-fluid mt-4">
         <div class="row" style="margin: 0 5px;">
             <!-- Left Margin Advertising -->
             <div class="col-md-2" style="text-align: left;">
 
-                <!-- Spot 1 -->
-                <div style="width: 100%; height: 170px; background-color: #DDEBF7;">
-                    <a href="#exampleModal" data-bs-toggle="modal">
-                        <img src="{% static 'List1.jpg' %}" style="height: 95%;" alt="AdvSpot1">
+                <!-- ListSpot1 -->
+                <div style="width: 100%; height: 170px; background-color: #DDEBF7;" class="d-flex flex-column mb-3">
+                    <a href="#ListSpot1" data-bs-toggle="modal">
+                        <img src="{% static 'List1.jpg' %}" style="height: 95%;" alt="ListSpot1" class="img-fluid">
                     </a>
                 </div>
 
-                <!-- Spot 2 -->
-                <div style="width: 100%; height: 170px; background-color: #DDEBF7;">
-                    <a href="#ad2Modal" data-bs-toggle="modal">
-                        <img src="{% static 'List2.jpg' %}" style="height: 95%;" alt="Advpot2">
+                <!-- ListSpot2 -->
+                <div style="width: 100%; height: 170px; background-color: #DDEBF7;" class="d-flex flex-column mb-3">
+                    <a href="#ListSpot1" data-bs-toggle="modal">
+                        <img src="{% static 'List2.jpg' %}" style="height: 95%;" alt="ListSpot2" class="img-fluid">
                     </a>
                 </div>
 
-                <!-- Spot 3 -->
-                <div style="width: 100%; height: 170px; background-color: #DDEBF7;">
-                    <a href="#ad3Modal" data-bs-toggle="modal">
-                        <img src="{% static 'List3.jpg' %}" style="height: 95%;" alt="Advpot2">
+                <!-- ListSpot3 -->
+                <div style="width: 100%; height: 170px; background-color: #DDEBF7;" class="d-flex flex-column mb-3">
+                    <a href="#ListSpot3" data-bs-toggle="modal">
+                        <img src="{% static 'List3.jpg' %}" style="height: 95%;" alt="ListSpot1" class="img-fluid">
                     </a>
                 </div>
 
-                <!-- Spot 4 -->
-                <div style="width: 100%; height: 170px; background-color: #DDEBF7;">
-                    <a href="#ad3Modal" data-bs-toggle="modal">
-                        <img src="{% static 'List4.jpg' %}" style="height: 95%;" alt="Advpot2">
+                <!-- ListSpot4 -->
+                <div style="width: 100%; height: 170px; background-color: #DDEBF7;" class="d-flex flex-column mb-3">
+                    <a href="#ListSpot4" data-bs-toggle="modal">
+                        <img src="{% static 'List4.jpg' %}" style="height: 95%;" alt="ListSpot1" class="img-fluid">
                     </a>
                 </div>
 
@@ -128,46 +128,44 @@
             <!-- Right Margin Advertising -->
             <div class="col-md-2" style="text-align: right;">
 
-                <!-- Spot 4 -->
+                <!-- ListSpot5 -->
                 <div style="width: 100%; height: 170px; background-color: #DDEBF7;">
                     <a href="#ad4Modal" data-bs-toggle="modal">
                         <img src="{% static 'List5.jpg' %}" style="height: 95%;" alt="Advpot2">
                     </a>
                 </div>
 
-                <!-- Spot 5 -->
+                <!-- ListSpot6 -->
                 <div style="width: 100%; height: 170px; background-color: #DDEBF7;">
                     <a href="#ad5Modal" data-bs-toggle="modal">
                         <img src="{% static 'List6.jpg' %}" style="height: 95%;" alt="Advpot2">
                     </a>
                 </div>
 
-                <!-- Spot 6 -->
+                <!-- ListSpot7 -->
                 <div style="width: 100%; height: 170px; background-color: #DDEBF7;">
                     <a href="#ad6Modal" data-bs-toggle="modal">
                         <img src="{% static 'List7.jpg' %}" style="height: 95%;" alt="Advpot2">
                     </a>
                 </div>
 
-                <!-- Spot 7 -->
+                <!-- ListSpot8 -->
                 <div style="width: 100%; height: 170px; background-color: #DDEBF7;">
                     <a href="#ad6Modal" data-bs-toggle="modal">
                         <img src="{% static 'List8v2.jpg' %}" style="height: 95%;" alt="Advpot2">
                     </a>
                 </div>
 
+                <!-- ListSpot9 -->
+                <div style="width: 100%; height: 150px; "background-color: #DDEBF7;" class="d-flex flex-column mb-3">
+                    <a href="#ad6Modal" data-bs-toggle="modal">
+                        <img src="{% static 'Fin8.jpg' %}" style="height: 95%;" alt="Advpot2" class="img-fluid">
+                    </a>
+                </div>
+
             </div>
         </div>
     </main>
-
-    <!-- <footer class="mt-8 text-center"> -->
-    <!-- Spot 7 -->
-    <!-- <div style="width: 100%; height: 170px; background-color: #DDEBF7;"> -->
-    <!-- <a href="#ad7Modal" data-bs-toggle="modal"> -->
-    <!-- <img class="sponsor" src="{% static 'AdvSpot5B.jpg'%}" style="width: 1450px" alt="Sponsor"> -->
-    <!-- </a> -->
-    <!-- </div> -->
-    <!-- </footer> -->
 
     <!-- Modal Supp1 -->
     <div class="modal fade" id="Supp1" tabindex="-1" aria-labelledby="Supp1Label" aria-hidden="true">
@@ -263,21 +261,27 @@
         </div>
     </div>
 
-    <!-- Modal AdvSpot1 -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog ads">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">On-Line Luxury Cars for Less</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                </div>
-                <div class="modal-body">
-                    Typically Products and/or Services, Specials, promo-Code "FT01", URL for web site or more
-                    information, etc... <br><br> Question for Rui, how do we size, should be a little wider.
-                </div>
+    <!-- ListSpot1Spot1 -->
+    <div class="modal fade" id="ListSpot1" tabindex="-1" aria-labelledby="ListSpot1" aria-hidden="true">
+        <div class="modal-dialog ads modal-xl">
+              <div class="modal-content">
+                    <div class="modal-header primary">
+                          <h5 class="modal-title" id="FinSpot1">Streamlined, Graphic Project Planning</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    </div>
+                    <div class="modal-body">
+                        Lists and Planning Spot #1<br><br>
+                        
+                            Company name:<br>
+                            Web site:<br>
+                            Phone Number:<br><br>
+
+                            Message:<br><br><br><br>
+
+                            PROMO CODE:
+                        </div>
+                  </div>
             </div>
-        </div>
-    </div>
 
     <!-- Modal AdvSpot2 -->
     <div class="modal fade" id="ad2Modal" tabindex="-1" aria-labelledby="ad2ModalLabel" aria-hidden="true">
