@@ -34,13 +34,14 @@ def main_menu_login(request):
             # if not user.password_changed:
             #     user.password_changed = True
             #     user.save()
-            if request.session['first_login'] == False:
-                print("this user has logged in before")
-            else:
-                print("this is the first login by this user")
-                # Perform actions before last_login is updated
-                request.session['first_login'] = False
-                return redirect('members:change_password')
+            if request.session['first_login']:
+                if request.session['first_login'] == False:
+                    print("this user has logged in before")
+                else:
+                    print("this is the first login by this user")
+                    # Perform actions before last_login is updated
+                    request.session['first_login'] = False
+                    return redirect('members:change_password')
             # if request.session.get('first_login'):
             #     print("OKKKKKK")
             #     # Clear the session attribute to prevent redirection on subsequent logins

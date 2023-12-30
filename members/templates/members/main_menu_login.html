@@ -8,43 +8,42 @@
 <div class="h1">
   <a style="color:rgb(6, 6, 192)">
     <p style="font-size:40px">
-      <h2>Main Menu Login</h2>
+      <h2 class="text-center">Main Menu Login</h2>
     </p>
   </a>
 </div>
 </p>
 </br>
-<div class="row">
+<!-- <div class="row">
   <div class="col-md-6">
-      <img src="{% static 'login_finances20.jpg' %}" alt="Finances Tile Missing" class="img-fluid mb-3">
-      <img src="{% static 'login_calendar3.jpg' %}" alt="Calendar Tile Missing" class="img-fluid">
+      <img src="{% static 'login_finances20.jpg' %}" alt="Finances Tile Missing" class="custom-img">
+      <img src="{% static 'login_calendar3.jpg' %}" alt="Calendar Tile Missing" class="custom-img">
+      <img src="{% static 'LoginLists.jpg' %}" alt="To Do's Tile Missing" class="custom-img">
   </div>
   <div class="col-md-6">
-      <img src="{% static 'LoginLists.jpg' %}" alt="To Do's Tile Missing" class="img-fluid mb-3">
-      <img src="{% static 'login_family_tracks20.jpg' %}" alt="Family Tracks Tile Missing" class="img-fluid">
+      <img src="{% static 'login_family_tracks20.jpg' %}" alt="Family Tracks Tile Missing" class="custom-img">
+      <img src="{% static 'login_fitness_sports20.jpg' %}" alt="Fitness Sports Tile Missing" class="custom-img">
+      <img src="{% static 'login_administration30.jpg' %}" alt="Admin Tile Missing" class="custom-img">
   </div>
-  <div class="col-md-6">
-      <img src="{% static 'login_fitness_sports20.jpg' %}" alt="Fitness Sports Tile Missing" class="img-fluid mb-3">
-      <img src="{% static 'login_administration30.jpg' %}" alt="Admin Tile Missing" class="img-fluid">
-  </div>
-</div>
+</div> -->
 
-<form action="" method="POST">
+<form action="" method="POST" class="custom-form">
   {% csrf_token %}
   <div class="mb-3">
     <label for="exampleInputEmail1" class="form-label">Username</label>
-    <input type="text" class="form-control" name="username" aria-describedby="emailHelp">
+    <input type="text" class="form-control" name="username" aria-describedby="emailHelp" required>
     <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
   </div>
 
   <div class="mb-3">
     <label for="exampleInputPassword1" class="form-label">Password</label>
-    <input type="password" class="form-control" name="password">
+    <input type="password" class="form-control" name="password" required>
   </div>
 
-  <input type="submit" value="Login" class="btn btn-secondary">
-  <a href="#" class="ml-2">No username? Register here; it's free and easy</a>
-  <button type="button" class="btn btn-secondary">Register</button>
+  <input type="submit" value="Login" class="btn btn-secondary custom-btn">
+  <a href="#" class="btn btn-link">No username? Register here; it's free and easy</a>
+  <a class="btn btn-secondary" href="{% url 'members:register_user' %}">Register</a>
+  <!-- <button type="button" class="btn btn-secondary">Register</button> -->
 </form>
 
 {% endblock %}

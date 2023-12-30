@@ -5,14 +5,14 @@
 {% block content %}
 <div class="h1">
   <a style="color:rgb(6, 6, 192)">
-    <p style="font-size:40px">
+    <div style="font-size:40px">
       <h1>Main Menu</h1>
       <img src="{% static 'traxx.jpg' %}" width="400" height="130">
       <h4>Individual Resource & Communication Management</h4>
-    </p>
+    </div>
   </a>
 </div>
-<p style="text-align:center">
+<div style="text-align:center">
   <a href="{% url 'transactions:main_landing_page' %}"><img src="{% static 'new_finances.jpg' %}" alt="Finances Splash Missing" width="130" height="130"></a>
   <a> &nbsp</a>
   <a href="{% url 'calendar10:main_landing_page' %}"><img src="{% static 'new_calendar.jpg' %}" alt="Calendar Splash Missing" width="130" height="130"></a>
@@ -24,7 +24,7 @@
   <a href="{% url 'fitness:main_landing_page' %}"><img src="{% static 'new_fitness_sports.jpg' %}" alt="Fitness Sports Splash Missing" width="130" height="130"></a>
   <a> &nbsp</a>
   <a href="{% url 'administration:main_landing_page' %}"><img src="{% static 'new_administration.jpg' %}" alt="Admin Splash Missing" width="130" height="130"></a>
-</p>
+</div>
 
       
 <p style="text-align:center">

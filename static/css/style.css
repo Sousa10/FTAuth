@@ -217,3 +217,27 @@ a {
 a {
   text-decoration: none;
 }
+.custom-img {
+  max-width: 100%; /* Ensures the image is never larger than the container */
+  height: auto; /* Maintains the aspect ratio */
+  display: block; /* Removes extra space below the image */
+  margin-bottom: 15px; /* Adds space between images */
+}
+
+.custom-form {
+  max-width: 400px; /* Adjust this value to suit your needs */
+  margin: 20px auto; /* Centers the form with a margin on the top and bottom */
+  padding: 15px;
+  border: 1px solid #dee2e6; /* Optional: adds a border */
+  border-radius: 5px; /* Optional: rounds the corners */
+  background-color: #f8f9fa; /* Optional: adds a background color */
+}
+
+.form-text {
+  font-size: 0.85rem; /* Smaller text for form hints */
+}
+
+.custom-btn {
+  width: 100%; /* Makes the button expand to the width of its container */
+  margin-bottom: 10px; /* Adds space between buttons */
+}
