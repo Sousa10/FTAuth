@@ -12,8 +12,7 @@ from .forms import EventForm
 from .models import *
 from .utils import Calendar
 import calendar
-import csv
-import io
+from LoginRegister.utils import increment_click_count
 
 def home(request):
     return render(request, 'calendar10/main_landing_page.html', {})
