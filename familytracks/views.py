@@ -5,6 +5,7 @@ from .forms import MeepForm, ProfilePicForm
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 from django.core.files import File
+from LoginRegister.utils import increment_click_count
 
 def home(request):
     if request.user.is_authenticated:
@@ -22,9 +23,10 @@ def home(request):
         return render(request, 'familytracks/home.html', {"meeps":meeps})
 
 def main_landing_page(request):
-    video_path = 'media/video/wsb_E_01_r360P.mp4'  # Replace with the actual path to your video
-    video = File(open(video_path, 'rb'))
-    return render(request, 'familytracks/main_landing_page.html', { 'video': video,})
+	click_count = increment_click_count('familytracks')
+	video_path = 'media/video/wsb_E_01_r360P.mp4'  # Replace with the actual path to your video
+	video = File(open(video_path, 'rb'))
+	return render(request, 'familytracks/main_landing_page.html', { 'video': video, 'click_count': click_count,})
 
 def profiles_list(request):
     if request.user.is_authenticated:

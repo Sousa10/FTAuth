@@ -2,6 +2,7 @@
 <html lang="en">
 {% load static %}
 {% include 'transactions/modals.html' %}
+
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -34,10 +35,14 @@
                             Setup Books
                         </a>
                         <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Define Statement Sections</a></li>
-                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Define Rollup Accounts</a></li>
-                            <li><a class="dropdown-item" href="{% url 'transactions:income_accts' %}">Define Accounts</a></li>
-                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Define Budgets</a></li>
+                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Define
+                                    Statement Sections</a></li>
+                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Define Rollup
+                                    Accounts</a></li>
+                            <li><a class="dropdown-item" href="{% url 'transactions:income_accts' %}">Define
+                                    Accounts</a></li>
+                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Define
+                                    Budgets</a></li>
                             <li><a class="dropdown-item" href="{% url 'transactions:accounts' %}">All Accounts</a></li>
                         </ul>
                     </li>
@@ -48,9 +53,12 @@
                             Bookkeeping
                         </a>
                         <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Upload & Capture Transactions</a></li>
-                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Enter Manual Transactions</a></li>
-                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Post Current Net Income to Retained Earnings</a></li>
+                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Upload &
+                                    Capture Transactions</a></li>
+                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Enter Manual
+                                    Transactions</a></li>
+                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Post Current
+                                    Net Income to Retained Earnings</a></li>
                         </ul>
                     </li>
 
@@ -60,13 +68,20 @@
                             Reporting
                         </a>
                         <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
-                             <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Income Statement</a></li>
-                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Balance Sheet</a></li>
-                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Cash Flow Statement</a></li>
-                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Expense Analysis</a></li>
-                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Budget Performance</a></li>
-                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Drill Down on Statement Line</a></li>
-                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Drill Down on Account</a></li>
+                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Income
+                                    Statement</a></li>
+                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Balance
+                                    Sheet</a></li>
+                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Cash Flow
+                                    Statement</a></li>
+                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Expense
+                                    Analysis</a></li>
+                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Budget
+                                    Performance</a></li>
+                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Drill Down on
+                                    Statement Line</a></li>
+                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Drill Down on
+                                    Account</a></li>
                         </ul>
                     </li>
 
@@ -76,9 +91,12 @@
                             Download
                         </a>
                         <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Download Text File</a></a></li>
-                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Download CSV File</a></li>
-                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Download PDF File</a></li>
+                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Download Text
+                                    File</a></a></li>
+                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Download CSV
+                                    File</a></li>
+                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Download PDF
+                                    File</a></li>
                         </ul>
                     </li>
 
@@ -100,20 +118,28 @@
                             Finances Tutorials
                         </a>
                         <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}" data-bs-toggle="modal">Overview</a></li>
-                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}" data-bs-toggle="modal">How To Setup Your Accounts</a>
+                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}"
+                                    data-bs-toggle="modal">Overview</a></li>
+                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}"
+                                    data-bs-toggle="modal">How To Setup Your Accounts</a>
                             </li>
-                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}" data-bs-toggle="modal">How To Setup And Run Your
+                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}"
+                                    data-bs-toggle="modal">How To Setup And Run Your
                                     Income Statment</a></li>
-                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}" data-bs-toggle="modal">How To Setup And Run Your
+                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}"
+                                    data-bs-toggle="modal">How To Setup And Run Your
                                     Balance Sheet</a></li>
-                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}" data-bs-toggle="modal">How To Setup And Run Your Cash
+                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}"
+                                    data-bs-toggle="modal">How To Setup And Run Your Cash
                                     Flow Statment</a></li>
-                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}" data-bs-toggle="modal">How To Setup And Run Your
+                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}"
+                                    data-bs-toggle="modal">How To Setup And Run Your
                                     Budgets</a></li>
-                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}" data-bs-toggle="modal">How To Setup And Run Your
+                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}"
+                                    data-bs-toggle="modal">How To Setup And Run Your
                                     Expense Analysis</a></li>
-                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}" data-bs-toggle="modal">How To Upload and Capture
+                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}"
+                                    data-bs-toggle="modal">How To Upload and Capture
                                     Transactions</a></li>
                         </ul>
                     </li>
@@ -125,15 +151,15 @@
                     <li class="nav-item">
                         <a class="nav-link active" href="{% url 'LoginRegister:FTMainMenu' %}">Main Menu</a>
                     </li>
-    
+
                     <form class="d-flex" method=POST action="{% url 'transactions:search_accounts' %}">
                         {% csrf_token %}
-                        <input class="form-control me-2"
-                        type="search" placeholder="Search Accounts" aria-label="Search Excercises" name="searched">
+                        <input class="form-control me-2" type="search" placeholder="Search Accounts"
+                            aria-label="Search Excercises" name="searched">
                         <button class="btn btn-outline-secondary" type="submit">Search</button>
                     </form>
-    
-    
+
+
     </nav>
     {% block pageTitle %}
     {% endblock %}
@@ -144,28 +170,28 @@
             <div class="col-md-2 order-md-1 order-2" style="text-align: left;">
 
                 <!-- FinSpot1 -->
-                <div style="width: 100%; height: 150px; "background-color: #DDEBF7;" class="d-flex flex-column mb-3">
+                <div style="width: 100%; height: 150px; " background-color: #DDEBF7;" class="d-flex flex-column mb-3">
                     <a href="#FinSpot1" data-bs-toggle="modal">
                         <img src="{% static 'Fin1.jpg' %}" style="height: 95%;" alt="FinSpot1" class="img-fluid">
                     </a>
                 </div>
 
                 <!-- Spot 2 -->
-                <div style="width: 100%; height: 150px; "background-color: #DDEBF7;" class="d-flex flex-column mb-3">
+                <div style="width: 100%; height: 150px; " background-color: #DDEBF7;" class="d-flex flex-column mb-3">
                     <a href="#FinSpot2" data-bs-toggle="modal">
                         <img src="{% static 'Fin2.jpg' %}" style="height: 95%;" alt="#FinSpot1" class="img-fluid">
                     </a>
                 </div>
 
                 <!-- Spot 3 -->
-                <div style="width: 100%; height: 150px; "background-color: #DDEBF7;" class="d-flex flex-column mb-3">
+                <div style="width: 100%; height: 150px; " background-color: #DDEBF7;" class="d-flex flex-column mb-3">
                     <a href="#ad3Modal" data-bs-toggle="modal">
                         <img src="{% static 'Fin3v2.jpg' %}" style="height: 95%;" alt="Advpot2" class="img-fluid">
                     </a>
                 </div>
 
                 <!-- Spot 4 -->
-                <div style="width: 100%; height: 150px; "background-color: #DDEBF7;" class="d-flex flex-column mb-3">
+                <div style="width: 100%; height: 150px; " background-color: #DDEBF7;" class="d-flex flex-column mb-3">
                     <a href="#ad3Modal" data-bs-toggle="modal">
                         <img src="{% static 'Fin4.jpg' %}" style="height: 95%;" alt="Advpot2" class="img-fluid">
                     </a>
@@ -184,28 +210,28 @@
             <div class="col-md-2 order-md-3 order-3" style="text-align: right;">
 
                 <!-- Spot 4 -->
-                <div style="width: 100%; height: 150px; "background-color: #DDEBF7;" class="d-flex flex-column mb-3">
+                <div style="width: 100%; height: 150px; " background-color: #DDEBF7;" class="d-flex flex-column mb-3">
                     <a href="#ad4Modal" data-bs-toggle="modal">
                         <img src="{% static 'Fin5.jpg' %}" style="height: 95%;" alt="Advpot2" class="img-fluid">
                     </a>
                 </div>
 
                 <!-- Spot 5 -->
-                <div style="width: 100%; height: 150px; "background-color: #DDEBF7;" class="d-flex flex-column mb-3">
+                <div style="width: 100%; height: 150px; " background-color: #DDEBF7;" class="d-flex flex-column mb-3">
                     <a href="#ad5Modal" data-bs-toggle="modal">
                         <img src="{% static 'Fin6.jpg' %}" style="height: 95%;" alt="Advpot2" class="img-fluid">
                     </a>
                 </div>
 
                 <!-- Spot 6 -->
-                <div style="width: 100%; height: 150px; "background-color: #DDEBF7;" class="d-flex flex-column mb-3">
+                <div style="width: 100%; height: 150px; " background-color: #DDEBF7;" class="d-flex flex-column mb-3">
                     <a href="#ad6Modal" data-bs-toggle="modal">
                         <img src="{% static 'Fin7.jpg' %}" style="height: 95%;" alt="Advpot2" class="img-fluid">
                     </a>
                 </div>
 
                 <!-- Spot 7 -->
-                <div style="width: 100%; height: 150px; "background-color: #DDEBF7;" class="d-flex flex-column mb-3">
+                <div style="width: 100%; height: 150px; " background-color: #DDEBF7;" class="d-flex flex-column mb-3">
                     <a href="#ad6Modal" data-bs-toggle="modal">
                         <img src="{% static 'Fin8.jpg' %}" style="height: 95%;" alt="Advpot2" class="img-fluid">
                     </a>
@@ -215,61 +241,61 @@
             </div>
         </div>
 
-                <!-- FinSpot1 -->
-                <div class="modal fade" id="FinSpot1" tabindex="-1" aria-labelledby="FinSpot1" aria-hidden="true">
-                    <div class="modal-dialog ads modal-xl">
-                          <div class="modal-content">
-                                <div class="modal-header primary">
-                                      <h5 class="modal-title" id="FinSpot1">A Guide to Remaking Home Economics</h5>
-                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                                </div>
-                                <div class="modal-body">
-                                    Finances Advertising Spot #1<br><br>
-                                    
-                                        Company name:<br>
-                                        Web site:<br>
-                                        Phone Number:<br><br>
-  
-                                        Message:<br><br><br><br>
-  
-                                        PROMO CODE:
-                                    </div>
-                              </div>
-                        </div>
-                  </div>
-  
-                    <!-- FinSpot2 -->
-                    <div class="modal fade" id="FinSpot2" tabindex="-1" aria-labelledby="FinSpot2" aria-hidden="true">
-                        <div class="modal-dialog ads modal-xl">
-                              <div class="modal-content">
-                                    <div class="modal-header primary">
-                                          <h5 class="modal-title" id="FinSpot2">A Guide to Remaking Home Economics</h5>
-                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                                    </div>
-                                    <div class="modal-body">
-                                        Finances Advertising Spot #2<br><br>
-                                    
-                                        Company name:<br>
-                                        Web site:<br>
-                                        Phone Number:<br><br>
-  
-                                        Message:<br><br><br><br>
-  
-                                        PROMO CODE:
-                                    </div>
-                              </div>
-                        </div>
-                  </div>
+        <!-- FinSpot1 -->
+        <div class="modal fade" id="FinSpot1" tabindex="-1" aria-labelledby="FinSpot1" aria-hidden="true">
+            <div class="modal-dialog ads modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header primary">
+                        <h5 class="modal-title" id="FinSpot1">A Guide to Remaking Home Economics</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    </div>
+                    <div class="modal-body">
+                        Finances Advertising Spot #1<br><br>
+
+                        Company name:<br>
+                        Web site:<br>
+                        Phone Number:<br><br>
+
+                        Message:<br><br><br><br>
+
+                        PROMO CODE:
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FinSpot2 -->
+        <div class="modal fade" id="FinSpot2" tabindex="-1" aria-labelledby="FinSpot2" aria-hidden="true">
+            <div class="modal-dialog ads modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header primary">
+                        <h5 class="modal-title" id="FinSpot2">A Guide to Remaking Home Economics</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    </div>
+                    <div class="modal-body">
+                        Finances Advertising Spot #2<br><br>
+
+                        Company name:<br>
+                        Web site:<br>
+                        Phone Number:<br><br>
+
+                        Message:<br><br><br><br>
+
+                        PROMO CODE:
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </main>
 
     <!-- <footer class="mt-8 text-center"> -->
-        <!-- Spot 7 -->
-        <!-- <div style="width: 100%; height: 170px; background-color: #DDEBF7;"> -->
-            <!-- <a href="#ad7Modal" data-bs-toggle="modal"> -->
-                <!-- <img class="sponsor" src="{% static 'AdvSpot5B.jpg'%}" style="width: 1450px" alt="Sponsor"> -->
-            <!-- </a> -->
-        <!-- </div> -->
+    <!-- Spot 7 -->
+    <!-- <div style="width: 100%; height: 170px; background-color: #DDEBF7;"> -->
+    <!-- <a href="#ad7Modal" data-bs-toggle="modal"> -->
+    <!-- <img class="sponsor" src="{% static 'AdvSpot5B.jpg'%}" style="width: 1450px" alt="Sponsor"> -->
+    <!-- </a> -->
+    <!-- </div> -->
     <!-- </footer> -->
 
     <!-- Optional JavaScript; choose one of the two! -->
@@ -277,8 +303,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
-        <script src="{% static 'js/jquery-3.7.0.min.js' %}"></script>
-        {% block modal-script %}{% endblock %}
+    <script src="{% static 'js/jquery-3.7.0.min.js' %}"></script>
+    {% block modal-script %}{% endblock %}
     <!-- Option 2: Separate Popper and Bootstrap JS -->
     <!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script> -->
     <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script> -->

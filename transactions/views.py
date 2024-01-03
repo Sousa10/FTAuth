@@ -9,13 +9,14 @@ from .forms import CashInAcctMForm, EquityAcctMForm, DebtsAcctMForm, WhatWeOwnAc
 from django.core.paginator import Paginator
 from datetime import datetime
 import os
-import csv
+from LoginRegister.utils import increment_click_count
 
 def home(request):
     return render(request, 'transactions/main_landing_page.html', {})
 
 def main_landing_page(request):
-    return render(request, 'transactions/main_landing_page.html', {})
+    click_count = increment_click_count('transactions')
+    return render(request, 'transactions/main_landing_page.html', {'click_count': click_count,})
 
 def income_accts(request):
     cashinacctms = CashInAcctM.objects.all()

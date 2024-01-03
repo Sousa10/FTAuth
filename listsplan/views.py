@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .forms import ListHeaderTForm, ListDetailsTForm, ListHeaderSelectForm, ListHeaderTForm, ListDetailsTForm
 from .models import ListHeaderT, ListDetailsT
 from django.core.paginator import Paginator
+from LoginRegister.utils import increment_click_count
 
 import logging
 from django.http import HttpResponseServerError
@@ -12,9 +13,11 @@ def home(request):
     return render(request, 'listsplan/main_landing_page.html', {})
 
 def main_landing_page(request):
+    click_count = increment_click_count('listsplan')
     firs_listHeader = ListHeaderT.objects.first()
     return render(request, 'listsplan/main_landing_page.html', {
         'firs_listHeader': firs_listHeader,
+        'click_count': click_count,
     })
 
 def FTListChores(request, listheader_id=None):

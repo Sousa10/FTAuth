@@ -1,5 +1,6 @@
 {% extends 'transactions/base.html' %}
 {% load static %}
+{% load bootstrap_icons %}
 
 {% block title %}Accounts{% endblock %}
 
@@ -9,18 +10,18 @@
 
 {% block backurl %}{%url 'LoginRegister:FTDefAcctsMenu'%}{% endblock %}
 {% block pageTitle %}
-<center>
-<div class="h1">
-  <a style="color:rgb(6, 6, 192)">
-    <p style="font-size:40px">
-      <h2>Accounts</h2>
-    </p>
-  </a>
-</div>
-</center>
 {% endblock %}
 
 {% block content %}
+<center>
+  <div class="h1">
+    <a style="color:rgb(6, 6, 192)">
+      <p style="font-size:40px">
+        <h2>Accounts</h2>
+      </p>
+    </a>
+  </div>
+  </center>
   <div>
     <table>
       <thead>
@@ -47,15 +48,15 @@
           <td>{{ cashinacctm.RollupType }}</td>
           <!-- KMS Added New Fields -->
           <td>
-            <a href="{% url 'transactions:cashinacctm_delete' cashinacctm.id %}" class="btn btn-danger">Delete</a>
+            <a href="{% url 'transactions:cashinacctm_delete' cashinacctm.id %}" class="delete-button">{% bs_icon 'trash' %}</a>
             <a href="#editModal" data-bs-toggle="modal" data-account-number="{{ cashinacctm.AccountNumber }}" 
             data-status="{{ cashinacctm.Status }}" data-type="{{ cashinacctm.Type }}" data-type="{{ cashinacctm.Statement }}" data-type="{{ cashinacctm.RollupType }}" data-type="{{ cashinacctm.Section }}" data-description="{{ cashinacctm.Description }}" data-cashinacctm-id="{{ cashinacctm.id }}"
-              class="btn btn-secondary edit-button">Edit</a>
+              class="edit-header-button">{% bs_icon 'pencil' %}</a>
           </td>
         </tr>
         {% endfor %}
         <tr>
-          <td colspan="3" class="text-center">
+          <td colspan="8" class="text-center">
             <a class="add-button btn btn-info" href="#addModal" data-bs-toggle="modal">Add</a>
           </td>
         </tr>

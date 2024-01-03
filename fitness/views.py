@@ -18,12 +18,14 @@ from .forms import GolfScoreForm
 from django.views import generic
 from django.core.paginator import Paginator
 from django.http import JsonResponse
+from LoginRegister.utils import increment_click_count
 
 def home(request):
     return render(request, 'fitness/main_landing_page.html', {})
 
 def main_landing_page(request):
-    return render(request, 'fitness/main_landing_page.html', {})
+    click_count = increment_click_count('fitness')
+    return render(request, 'fitness/main_landing_page.html', {'click_count': click_count,})
 
 def tutorial(request):
     return render(request, 'fitness/app_tutorial.html', {})
