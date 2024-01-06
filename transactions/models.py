@@ -104,3 +104,34 @@ class StatementSections(models.Model):
   def __str__(self):
      return self.LineName
 
+class StatementLinesHeader(models.Model):
+    LHName = models.CharField(max_length=240)
+    LHDescription = models.CharField(max_length=240)
+    LHIncomeStatement = models.CharField(max_length=3, null=True) 
+    LHIncomeStatementSection = models.CharField(max_length=80, null=True) 
+    LHIncomeStatementSequence = models.IntegerField(null=True) 
+    LHBalanceSheet = models.CharField(max_length=3, null=True) 
+    LHBalanceSheetSection = models.CharField(max_length=80, null=True) 
+    LHBalanceSheetSequence = models.IntegerField(null=True) 
+    LHCashFlowAnalysis = models.CharField(max_length=3, null=True)     
+    LHCashFlowAnalysisSection = models.CharField(max_length=80, null=True) 
+    LHCashFlowAnalysisSequence = models.IntegerField(null=True) 
+    LHExpenseAnalysis = models.CharField(max_length=3, null=True) 
+    LHExpenseAnalysisSection = models.CharField(max_length=80, null=True) 
+    LHExpenseAnalysisSequence = models.IntegerField(null=True) 
+    LHBudgetPerformance = models.CharField(max_length=3, null=True) 
+    LHBudgetPerformanceSection = models.CharField(max_length=80, null=True) 
+    LHBudgetPerformanceSequence = models.IntegerField(null=True) 
+
+    def __str__(self):
+        return self.LHName
+
+class StatementLinesDetails(models.Model):
+    StatementLinesHeaderFK = models.ForeignKey('StatementLinesHeader', on_delete=models.CASCADE)
+    StatementLinesDetailFK = models.ForeignKey('self', null=True, blank=True, on_delete=models.SET_NULL, related_name='predecessor')
+    SLNumber = models.IntegerField()
+    SLName = models.CharField(max_length=240)
+
+
+    def __str__(self):
+        return self.SLName

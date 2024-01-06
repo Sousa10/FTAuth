@@ -14,5 +14,9 @@ urlpatterns = [
     path('accounts', views.accounts, name='accounts'),
     path('show_account/<int:account_id>', views.show_account, name='show_account'),
     path('search_accounts', views.search_accounts, name='search_accounts' ),
-
+    path('statement_lines/<int:listheader_id>/', views.statement_lines, name='statement_lines'),
+    path('StatementLinesHeader/delete/<int:pk>/', views.StatementLinesHeader_delete, name='StatementLinesHeader_delete'),
+    path('StatementLinesDetails/delete/<int:pk>/', views.StatementLinesDetails_delete, name='StatementLinesDetails_delete'),
+    path('StatementLinesHeader_update/update/<int:pk>/', views.StatementLinesHeader_update, name='StatementLinesHeader_update'),
+    path('StatementLinesDetails_update/update/<int:pk>/', views.StatementLinesDetails_update, name='StatementLinesDetails_update'),
 ]

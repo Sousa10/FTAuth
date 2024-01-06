@@ -1,0 +1,405 @@
+{% extends 'transactions/base_no_search.html' %}
+{% load static %}
+{% load bootstrap_icons %}
+{% block title %}Lists & Planning{% endblock %}
+
+{% block pageimage %}
+<img style="float: left;" src="{% static 'ListsAndPlanning.jpg' %}" alt="Liststs and Planning Tile Missing" width="100" height="100">
+{% endblock %}
+
+{% block backurl %}{%url 'LoginRegister:FTMainMenu'%}{% endblock %}
+
+{% block pageTitle %}
+<div class="h1">
+  <a style="color:rgb(6, 6, 192)">
+    <p style="font-size:40px">
+      <h2>Statement Lines</h2>
+    </p>
+  </a>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="row text-center">
+  <div class="col-md-1">
+  </div>
+  <div class="col-md-10">
+    <table style="border-bottom: none!important;">
+      <thead>
+        <tr>
+          <th style="text-align: center;">Statement Line</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="text-align: center; white-space: nowrap;">
+            <!-- <a class="add-button" href="{% url 'LoginRegister:FTFinances' %}">Add</a> -->
+            <a href="#" class="btn btn-primary listheaderbuttons" data-bs-toggle="modal" data-bs-target="#listHeaderModal"
+              style="border-radius: 0%;">New</a>
+            <a href="#" class="btn btn-primary listheaderbuttons" style="border-radius: 0%; margin: 0;" data-bs-toggle="modal"
+            data-bs-target="#selectedHeaderModal">Existing</a>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3" class="text-center">
+            <table style="margin-top: 0%;">
+              <tbody>
+                <tr>
+                  {% if listheader %}
+                  <td>{{ listheader.LHName }}</td>
+                  <td colspan="2">{{ listheader.LHDescription }}</td>
+                  <td colspan="2"></td>
+                  <td style="text-align: center;">
+                    <!-- <a class="add-button" href="{% url 'LoginRegister:FTFinances' %}">Add</a> -->
+                    {% if listheader %}
+                    <a href="#" class="edit-header-button" data-bs-toggle="modal"
+                      data-bs-target="#editHeaderModal" data-id="{{ listheader.id }}"
+                      data-LHName="{{ listheader.LHName }}" data-LHDescription="{{ listheader.LHDescription }}" style="text-decoration: none;">{% bs_icon 'pencil' %}</a>
+                      <a href="{% url 'listsplan:listHeader_delete' listheader.id %}" class="delete-button">{% bs_icon 'trash' %}</a>
+                    {% endif %}
+                    {% endif %}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table style="margin-top: 0%;">
+      <thead>
+        <tr>
+          <th style="text-align: center;">Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="text-align: center; white-space: nowrap;">
+            <table style="margin-top: 0%;">
+              <thead>
+                <tr>
+                  <th>Item Number</th>
+                  <th>Predecessor</th>
+                  <th>Item</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for listdetail in listdetails %}
+                <tr>
+                  <td>{{ listdetail.LNNumber }}</td>
+                  <td>{{ listdetail.ListDetailFK.LHName }}</td>
+                  <td>{{ listdetail.LHName }}</td>
+                  <td>
+                    {% if listdetail %}
+                    <!-- <a class="add-button" href="{% url 'LoginRegister:FTFinances' %}">Add</a> -->
+                    <a href="#" class="edit-detail-button" data-bs-toggle="modal"
+                    data-bs-target="#editdetailModal" data-id="{{ listdetail.id }}"
+                    data-ListHeaderFK="{{ listdetail.ListHeaderFK.LHName }}"
+                    data-ListItemName="{{ listdetail.LHName }}" data-LNNumber="{{ listdetail.LNNumber }}"
+                    data-ListDetailFK="{{ listdetail.ListDetailFK.LHName }}">{% bs_icon 'pencil' %}</a>
+                    <a href="{% url 'listsplan:listDetail_delete' listdetail.id %}"
+                      class="delete-button">{% bs_icon 'trash' %}</a>
+                    {% endif %}
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            <!-- Add navigation links. -->
+            <div class="pagination">
+              <span class="step-links">
+                {% if listdetails.has_previous %}
+                <a href="?page={{ listdetails.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                  Page {{ listdetails.number }} of {{ listdetails.paginator.num_pages }}.
+                </span>
+
+                {% if listdetails.has_next %}
+                <a href="?page={{ listdetails.next_page_number }}">next</a>
+                {% endif %}
+              </span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3" class="text-center">
+            <a class="add-button btn btn-primary listheaderbuttons" href="#" style="border-radius: 0%;"
+              data-bs-toggle="modal" data-bs-target="#listDetailModal">Add</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-1">
+  </div>
+
+  <!-- List Header Add Modal -->
+  <div class="modal fade" id="listHeaderModal" tabindex="-1" aria-labelledby="listHeaderModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">{{ title }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <form action="{% url 'transactions:statement_lines' listheader.id|default:'new' %}" method="post">
+        <!-- KMS 1/6 <form action="{% url 'listsplan:FTListChores' listheader.id|default:'new' %}" method="post"> -->
+          <div class="modal-body">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="{{ StatementLinesHeaderForm.LHName.id_for_label }}">Statement Line</label>
+              {{ StatementLinesHeaderForm.LHName }}
+            </div>
+            <div class="form-group">
+              <label for="{{ StatementLinesHeaderForm.LHDescription.id_for_label }}">Description</label>
+              {{ StatementLinesHeaderForm.LHDescription }}
+            </div>
+            {% if StatementLinesHeaderForm.errors or StatementLinesHeaderForm.non_field_errors %}
+            <div class="mb-3 p-6 bg-red-100 rounded-xl">
+              {% for field in StatementLinesHeaderForm %}
+              {{ field.errors }}
+              {% endfor %}
+
+              {{ StatementLinesHeaderForm.non_field_errors }}
+            </div>
+            {% endif %}
+          </div>
+          <div class="modal-footer">
+            <input type="hidden" name="form_type" value="StatementLinesHeaderForm">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- List Detail Add Modal -->
+  <div class="modal fade" id="listDetailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">{{ title }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="{% url 'transactions:statement_lines' listheader.id|default:'new' %}" method="post">
+          <!-- KMS 1/6 <form action="{% url 'listsplan:FTListChores' listheader.id|default:'new' %}" method="post"> -->
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="{{ StatementLinesDetailForm.ListHeaderFK.id_for_label }}">Statement Line</label>
+              {{ StatementLinesDetailForm.ListHeaderFK }}
+            </div>
+            <div class="form-group">
+              <label for="{{ StatementLinesDetailForm.ListDetailFK.id_for_label }}">Predecessor</label>
+              {{ StatementLinesDetailForm.ListDetailFK }}
+            </div>
+            <div class="form-group">
+              <label for="{{ StatementLinesDetailForm.SLNumber.id_for_label }}">List Item Number</label>
+              {{ StatementLinesDetailForm.LNNumber }}
+            </div>
+            <div class="form-group">
+              <label for="{{ StatementLinesDetailForm.LHName.id_for_label }}">List Item Name</label>
+              {{ StatementLinesDetailForm.LHName }}
+            </div>
+            {% if StatementLinesDetailForm.errors or StatementLinesHeaderForm.non_field_errors %}
+            <div class="mb-3 p-6 bg-red-100 rounded-xl">
+              {% for field in StatementLinesDetailForm %}
+              {{ field.errors }}
+              {% endfor %}
+
+              {{ StatementLinesDetailForm.non_field_errors }}
+            </div>
+            {% endif %}
+        </div>
+        <div class="modal-footer">
+          <input type="hidden" name="form_type" value="StatementLinesDetailForm">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary" name="ListDetailsTForm">Submit</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit header modal -->
+  <div class="modal" id="editHeaderModal" tabindex="-1" aria-labelledby="editHeaderModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header text-center">
+          <h5 class="modal-title" id="exampleModalLabel">{{ title }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <form action="" method="post" id="editHeaderForm">
+          <div class="modal-body">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="{{ form.AccountNumber.id_for_label }}">Header Name</label>
+              {{ listHeaderForm.LHName }}
+            </div>
+            <div class="form-group">
+              <label for="{{ form.Description.id_for_label }}">Description</label>
+              {{ listHeaderForm.LHDescription }}
+            </div>
+            {% if listHeaderForm.errors or listHeaderForm.non_field_errors %}
+            <div class="mb-3 p-6 bg-red-100 rounded-xl">
+              {% for field in StatementLinesHeaderForm %}
+              {{ field.errors }}
+              {% endfor %}
+
+              {{ StatementLinesHeaderForm.non_field_errors }}
+            </div>
+            {% endif %}
+          </div>
+          <div class="modal-footer">
+            <input type="hidden" name="form_type" value="ListHeaderTForm">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- Edit detail modal -->
+  <div class="modal fade" id="editDetailModal" tabindex="-1" aria-labelledby="editDetailModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-detail">
+          <h5 class="modal-title" id="detailModalLabel">{{ title }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <form action="" method="post" id="editDetailForm">
+          <div class="modal-body">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="{{ StatementLinesDetailForm.ListHeaderFK.id_for_label }}">List Header</label>
+              {{ StatementLinesDetailForm.ListHeaderFK }}
+            </div>
+            <div class="form-group">
+              <label for="{{ StatementLinesDetailForm.ListDetailFK.id_for_label }}">Predecessor</label>
+              {{ StatementLinesDetailForm.ListDetailFK }}
+            </div>
+            <div class="form-group">
+              <label for="{{ StatementLinesDetailForm.LNNumber.id_for_label }}">List Item Number</label>
+                {{ StatementLinesDetailForm.LNNumber }}
+            </div>
+            <div class="form-group">
+              <label for="{{ StatementLinesDetailForm.LHName.id_for_label }}">List Item Name</label>
+              {{ StatementLinesDetailForm.LHName }}
+            </div>
+            {% if StatementLinesDetailForm.errors or StatementLinesHeaderForm.non_field_errors %}
+            <div class="mb-3 p-6 bg-red-100 rounded-xl">
+              {% for field in StatementLinesDetailForm %}
+              {{ field.errors }}
+              {% endfor %}
+
+              {{ StatementLinesDetailForm.non_field_errors }}
+            </div>
+            {% endif %}
+          </div>
+          <div class="modal-footer">
+            <input type="hidden" name="form_type" value="ListDetailTForm">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- selected header modal -->
+  <div class="modal fade" id="selectedHeaderModal" tabindex="-1" aria-labelledby="selectedHeaderModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">{{ title }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <form action="{% url 'transaction:statement_lines' listheader.id|default:'new' %}" method="post">
+          <div class="modal-body">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="{{ StatementLinesHeaderForm.LHName.id_for_label }}">List or Plan Name</label>
+              {{ selectedHeaderForm.LHName }}
+            </div>
+            {% if selectedHeaderForm.errors or selectedHeaderForm.non_field_errors %}
+            <div class="mb-3 p-6 bg-red-100 rounded-xl">
+              {% for field in selectedHeaderForm %}
+              {{ field.errors }}
+              {% endfor %}
+
+              {{ selectedHeaderForm.non_field_errors }}
+            </div>
+            {% endif %}
+          </div>
+          <div class="modal-footer">
+            <input type="hidden" name="form_type" value="SelectedHeaderTForm">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}
+{% block modal-script %}
+<script>
+  $(document).ready(function () {
+    $('.edit-header-button').click(function (e) {
+      e.preventDefault();
+
+      let listId = $(this).data('id');
+      let listName = $(this).data('lhname');
+      let listheaderDescription = $(this).data('lhdescription');
+
+      // Fill the form with data
+      $('#editHeaderForm input[name="LHName"]').val(listName);
+      $('#editHeaderForm input[name="LHDescription"]').val(listheaderDescription);
+
+      // Update form's action attribute
+      // Assuming your URL for updating account is '/update_account/<id>'
+      $('#editHeaderForm').attr('action', '{% url "listsplan:listHeader_update" 0 %}'.replace('0', listId));
+
+    });
+
+    $('.edit-detail-button').click(function (e) {
+      e.preventDefault();
+
+      let listDetailId = $(this).data('id');
+      let ListHeaderFK = $(this).data('listheaderfk');
+      let predecessor = $(this).data('listdetailfk');
+      let listDetailNumber = $(this).data('lnnumber');
+      let ListItemName = $(this).data('listitemname');
+      console.log(ListHeaderFK);
+
+      // Fill the form with data
+      $("#id_ListHeaderFK option").each(function () {
+        if ($(this).text() == ListHeaderFK) {
+          $(this).attr('selected', 'selected');
+        }
+      });
+      $("#id_ListDetailFK option").each(function () {
+        if ($(this).text() == predecessor) {
+          $(this).attr('selected', 'selected');
+        }
+      });
+      $('#editDetailForm input[name="ListDetailFK"]').val(predecessor);
+      $('#editDetailForm input[name="LNNumber"]').val(listDetailNumber);
+      $('#editDetailForm input[name="LHName"]').val(ListItemName);
+
+      $('#editDetailModal').modal('show');
+
+      $('#editDetailForm').attr('action', '{% url "listsplan:listDetail_update" 0 %}'.replace('0', listDetailId));
+    });
+
+  });
+
+</script>
+{% endblock %}

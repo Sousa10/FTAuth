@@ -4,12 +4,15 @@ from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.contrib.auth.forms import UserCreationForm
-from .models import CashInAcctM, CashOutAcctM, WhatWeOwnAcctM, WhatWeOwnAcctM, DebtsAcctM, NetworthAcctM, PersonM
-from .forms import CashInAcctMForm, EquityAcctMForm, DebtsAcctMForm, WhatWeOwnAcctMForm, CashOutAcctMForm
+from .models import CashInAcctM, CashOutAcctM, DebtsAcctM, NetworthAcctM, PersonM, StatementLinesHeader, StatementLinesDetails 
+from .forms import CashInAcctMForm, EquityAcctMForm, DebtsAcctMForm, WhatWeOwnAcctMForm, CashOutAcctMForm, StatementLinesHeaderForm, StatementLinesDetailForm, StatementLinesHeaderSelectForm, StatementLinesDetailForm
 from django.core.paginator import Paginator
 from datetime import datetime
 import os
 from LoginRegister.utils import increment_click_count
+from django.http import HttpResponseServerError
+import logging
+logger = logging.getLogger(__name__)
 
 def home(request):
     return render(request, 'transactions/main_landing_page.html', {})
@@ -33,9 +36,6 @@ def income_accts(request):
         'cashinacctms': cashinacctms,
         'title': 'Add Cash In Account',
     })
-
-
-# Copy from LoginRegister Starts Here
 
 def FTFinances(request):
     cashinacctms = CashInAcctM.objects.all()
@@ -287,7 +287,6 @@ def equityacctm_update(request, pk):
         'title': 'Edit Equity Account',
     })
 
-
 def equityacctm_delete(request, pk):
     equityacctm = get_object_or_404(NetworthAcctM, pk=pk)
     equityacctm.delete()
@@ -311,22 +310,21 @@ def FTEquityAccts(request):
     })
 
 
-def list_update(request, pk):
-    equityacctm = get_object_or_404(NetworthAcctM, pk=pk)
-    if request.method == 'POST':
-        form = EquityAcctMForm(request.POST, instance=equityacctm)
+# def list_update(request, pk):
+    # equityacctm = get_object_or_404(NetworthAcctM, pk=pk)
+    # if request.method == 'POST':
+        # form = EquityAcctMForm(request.POST, instance=equityacctm)
 
-        if form.is_valid():
-            form.save()
-            return redirect('LoginRegister:FTEquityAccts')
-    else:
-        form = EquityAcctMForm(instance=equityacctm)
-    return render(request, 'edit_equityacct.html', {
-        'form': form,
-        'equityacctm': equityacctm,
-        'title': 'Edit Equity Account',
-    })
-
+        # if form.is_valid():
+            # form.save()
+            # return redirect('LoginRegister:FTEquityAccts')
+    # else:
+        # form = EquityAcctMForm(instance=equityacctm)
+    # return render(request, 'edit_equityacct.html', {
+        # 'form': form,
+        # 'equityacctm': equityacctm,
+        # 'title': 'Edit Equity Account',
+    # })
 
 def equityacctm_delete(request, pk):
     equityacctm = get_object_or_404(NetworthAcctM, pk=pk)
@@ -507,3 +505,172 @@ def search_accounts(request):
     else:
         return render(request, 'transactions/search_accounts.html', {})
 
+
+# 
+# START NEW
+# 
+def statement_lines(request, listheader_id=None):
+    first_listHeader = StatementLinesHeader.objects.first()
+    print(first_listHeader)
+    listheader = None
+    listdetails = None
+    page = None
+    if first_listHeader is not None:
+        if listheader_id:
+            listheader = StatementLinesHeader.objects.get(id=listheader_id)
+            listdetails = StatementLinesDetails.objects.filter(StatementLinesHeaderFK=listheader)
+            # Show 10 ListDetailsT objects per page
+            paginator = Paginator(listdetails, 2)
+            # get page number for each ListHeaderT instance
+            page_number = request.GET.get('page', 1)
+            page = paginator.get_page(page_number)
+        else:
+            listheader = first_listHeader
+            listdetails = StatementLinesDetails.objects.filter(StatementLinesHeaderFK=listheader)
+            paginator = Paginator(listdetails, 2)
+            page_number = request.GET.get('page', 1)
+            page = paginator.get_page(page_number)
+    else:
+        # If there are no StatementLinesHeader objects, show a message
+        no_data_message = "No rows yet in database."
+
+    if listheader:
+        selected_header = StatementLinesHeader.objects.get(id=listheader.id)
+    else:
+        selected_header = None
+    listDetailForm = StatementLinesDetailForm(list_header=selected_header)
+    selectedHeaderForm = StatementLinesHeaderSelectForm()
+
+    if request.method == 'POST':
+        form_type = request.POST.get('form_type')
+        if form_type == 'ListHeaderTForm':
+            listHeaderForm = StatementLinesHeaderForm(request.POST)
+            if listHeaderForm.is_valid():
+                listHeaderForm.save()
+
+                return redirect('transactions:statement_lines', listheader_id=listheader.id)
+
+        elif form_type == 'ListDetailsTForm':
+            listDetailForm = StatementLinesDetailForm(request.POST)
+            if listDetailForm.is_valid():
+                listDetailForm.save()
+
+                return redirect('transactions:statement_lines', listheader_id=listheader.id)
+
+        elif form_type == 'SelectedHeaderTForm':
+            selectedHeaderForm = StatementLinesHeaderSelectForm(request.POST)
+            if selectedHeaderForm.is_valid():
+                listheaderName = selectedHeaderForm.cleaned_data['LHName']
+                listheader = StatementLinesHeader.objects.get(LHName=listheaderName)
+                listdetails = listheader.listdetailst_set.all()
+                # Show 7 ListDetailsT objects per page
+                paginator = Paginator(listdetails, 7)
+                # get page number for each ListHeaderT instance
+                page_number = request.GET.get('page', 1)
+                page = paginator.get_page(page_number)
+                print(type(listheader.id))
+
+                return redirect('transactions:statement_lines', listheader_id=listheader.id)
+
+    else:
+        listHeaderForm = StatementLinesHeaderForm()
+        selected_header = StatementLinesHeader.objects.get(id=listheader_id)
+        listDetailForm = StatementLinesDetailForm(list_header=selected_header)
+    return render(request, 'transactions/statement_lines.html', {
+        'listHeaderForm': listHeaderForm,
+        'first_listHeader': first_listHeader,
+        'listDetailForm': listDetailForm,
+        'selectedHeaderForm': selectedHeaderForm,
+        'listheader': listheader,
+        'listdetails': page,
+        'no_data_message': no_data_message if first_listHeader is None else "",
+        'title': 'List and Chores',
+    })
+
+def listHeader_update(request, pk):
+    listHeader = get_object_or_404(StatementLinesHeader, pk=pk)
+    if request.method == 'POST':
+        form = StatementLinesHeaderForm(request.POST, instance=listHeader)
+
+        if form.is_valid():
+            form.save()
+            return redirect('transactions:statement_lines', listheader_id=listHeader.id)
+    else:
+        form = StatementLinesHeaderForm(instance=listHeader)
+    return render(request, 'statement_lines.html', {
+        'form': form,
+        'listHeader': listHeader,
+        'title': 'Edit Header',
+    })
+
+def listDetail_update(request, pk):
+    listDetail = get_object_or_404(StatementLinesDetails, pk=pk)
+    if request.method == 'POST':
+        form = StatementLinesDetailForm(request.POST, instance=listDetail)
+
+        if form.is_valid():
+            form.save()
+            return redirect('transactions:statement_lines', listheader_id=listDetail.StatementLinesHeaderFK.id)
+        else:
+            # Log form errors
+            logger.error(form.errors)
+            # Print form errors to the console (for development purposes)
+            print(form.errors)
+            return HttpResponseServerError("Form is not valid. See server logs for details.")
+    else:
+        form = StatementLinesDetailForm(instance=listDetail)
+    return render(request, 'transactions/statement_lines.html', {
+        'form': form,
+        'listHeader': listDetail,
+        'title': 'Edit List Detail',
+    })
+
+def StatementLinesHeader_update(request, pk):
+    listHeader = get_object_or_404(StatementLinesHeader, pk=pk)
+    if request.method == 'POST':
+        form = StatementLinesHeaderForm(request.POST, instance=StatementLinesHeader)
+
+        if form.is_valid():
+            form.save()
+            return redirect('transactions:statement_lines', listheader_id=listHeader.StatementLinesHeaderFK.id)
+    else:
+        form = StatementLinesHeaderForm(instance=StatementLinesHeader)
+    return render(request, 'statement_lines.html', {
+        'form': form,
+        'StatementLinesHeader': StatementLinesHeader,
+        'title': 'Edit Header',
+    })
+
+def StatementLinesDetails_update(request, pk):
+    listDetail = get_object_or_404(StatementLinesDetails, pk=pk)
+    if request.method == 'POST':
+        form = StatementLinesDetailForm(request.POST, instance=StatementLinesDetails)
+
+        if form.is_valid():
+            form.save()
+            return redirect('transactions:statement_lines', listheader_id=listDetail.ListHeaderFK.id)
+        else:
+             # Log form errors
+            logger.error(form.errors)
+            # Print form errors to the console (for development purposes)
+            print(form.errors)
+            return HttpResponseServerError("Form is not valid. See server logs for details.")
+    else:
+        form = StatementLinesDetailForm(instance=StatementLinesDetails)
+    return render(request, 'transactions/statement_lines.html', {
+        'form': form,
+        'StatementLinesDetails': StatementLinesDetails,
+        'title': 'Edit List Detail',
+    })
+
+def StatementLinesHeader_delete(request, pk):
+    listHeader = get_object_or_404(StatementLinesHeader, pk=pk)
+    listHeader.delete()
+
+    return redirect('transactions:statement_lines', listheader_id=listHeader.id)
+
+def StatementLinesDetails_delete(request, pk):
+    listDetail = get_object_or_404(StatementLinesDetails, pk=pk)
+    listDetail.delete()
+
+    return redirect('transactions:statement_lines', listheader_id=listDetail.ListHeaderFK.id)
