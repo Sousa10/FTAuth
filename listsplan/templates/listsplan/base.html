@@ -29,7 +29,11 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
                     <li class="nav-item">
-                        <a class="nav-link active" href="{% url 'listsplan:FTListChores' firs_listHeader.id %}">Lists</a>
+                        {% if first_listHeader %}
+                            <a class="nav-link active" href="{% url 'listsplan:FTListChores_with_id' first_listHeader.id %}">Lists</a>
+                            {% else %}
+                            <a class="nav-link active" href="{% url 'listsplan:FTListChores' %}">Lists</a>
+                        {% endif %}
                     </li>
 
                     <li class="nav-item">

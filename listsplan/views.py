@@ -23,21 +23,27 @@ def main_landing_page(request):
 def FTListChores(request, listheader_id=None):
     # listheader = None
     firs_listHeader = ListHeaderT.objects.first()
-    if listheader_id:
-        listheader = ListHeaderT.objects.get(id=listheader_id)
+    listheader = None
+    listdetails = None
+    page = None
+
+    if listheader_id is not None:
+        listheader = get_object_or_404(ListHeaderT, id=listheader_id)
         listdetails = ListDetailsT.objects.filter(ListHeaderFK=listheader)
         # Show 10 ListDetailsT objects per page
         paginator = Paginator(listdetails, 2)
         # get page number for each ListHeaderT instance
         page_number = request.GET.get('page', 1)
         page = paginator.get_page(page_number)
+        selected_header = listheader
     else:
-        listdetails = None
-        page = None
+        selected_header = None
 
     listHeaderForm = ListHeaderTForm()
-    selected_header = ListHeaderT.objects.get(id=listheader_id)
-    listDetailForm = ListDetailsTForm(list_header=selected_header)
+    if selected_header:
+        listDetailForm = ListDetailsTForm(list_header=selected_header)
+    else:
+        listDetailForm = ListDetailsTForm()
     selectedHeaderForm = ListHeaderSelectForm()
 
     if request.method == 'POST':
@@ -45,16 +51,16 @@ def FTListChores(request, listheader_id=None):
         if form_type == 'ListHeaderTForm':
             listHeaderForm = ListHeaderTForm(request.POST)
             if listHeaderForm.is_valid():
-                listHeaderForm.save()
+                saved_listheader =listHeaderForm.save()
 
-                return redirect('listsplan:FTListChores', listheader_id=listheader.id)
+                return redirect('listsplan:FTListChores_with_id', listheader_id=saved_listheader.id)
 
         elif form_type == 'ListDetailsTForm':
             listDetailForm = ListDetailsTForm(request.POST)
             if listDetailForm.is_valid():
                 listDetailForm.save()
 
-                return redirect('listsplan:FTListChores', listheader_id=listheader.id)
+                return redirect('listsplan:FTListChores_with_id', listheader_id=listheader.id)
 
         elif form_type == 'SelectedHeaderTForm':
             selectedHeaderForm = ListHeaderSelectForm(request.POST)
@@ -69,11 +75,11 @@ def FTListChores(request, listheader_id=None):
                 page = paginator.get_page(page_number)
                 print(type(listheader.id))
 
-                return redirect('listsplan:FTListChores', listheader_id=listheader.id)
+                return redirect('listsplan:FTListChores_with_id', listheader_id=listheader.id)
 
     else:
         listHeaderForm = ListHeaderTForm()
-        selected_header = ListHeaderT.objects.get(id=listheader_id)
+        # selected_header = ListHeaderT.objects.get(id=listheader_id)
         listDetailForm = ListDetailsTForm(list_header=selected_header)
     return render(request, 'listsplan/FTListChores.html', {
         'listHeaderForm': listHeaderForm,
@@ -130,7 +136,7 @@ def listHeader_delete(request, pk):
     listHeader = get_object_or_404(ListHeaderT, pk=pk)
     listHeader.delete()
 
-    return redirect('listsplan:FTListChores', listheader_id=listHeader.id)
+    return redirect('listsplan:FTListChores')
 
 
 def listDetail_delete(request, pk):
