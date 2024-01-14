@@ -1,14 +1,11 @@
 from django.contrib import admin
-from .models import StatementSections
-from .models import StatementRollups
 from .models import CashInAcctM
-from .models import StatementLinesDetails
-from .models import StatementLinesHeader
-
+from .models import StatementSections
+from .models import StatementLinesLine
+from .models import StatementLineAccounts
 
 # Register your models here.
-admin.site.register(StatementSections)
-admin.site.register(StatementRollups)
 admin.site.register(CashInAcctM)
-admin.site.register(StatementLinesDetails)
-admin.site.register(StatementLinesHeader)
+admin.site.register(StatementSections)
+admin.site.register(StatementLinesLine)
+admin.site.register(StatementLineAccounts)
