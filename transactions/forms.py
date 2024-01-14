@@ -1,7 +1,9 @@
 from django import forms
 from django.forms import ModelForm
 from django.contrib.auth.forms import AuthenticationForm
-from .models import CashInAcctM, CashOutAcctM, WhatWeOwnAcctM, DebtsAcctM, NetworthAcctM, StatementLinesDetails, StatementLinesHeader
+from .models import CashInAcctM, CashOutAcctM, WhatWeOwnAcctM, DebtsAcctM, NetworthAcctM 
+from .models import StatementSections, StatementLinesLine, StatementLineAccounts
+
 
 INPUT_CLASSES = 'rounded-xl border form-control'
 
@@ -96,23 +98,247 @@ class EquityAcctMForm(forms.ModelForm):
         }
 
 # NEW FROM HERE 
-        
-from .models import StatementLinesHeader, StatementLinesDetails
-
 INPUT_CLASSES = 'rounded-xl border form-control'
 
-class StatementLinesHeaderForm(forms.ModelForm):
-    class Meta:
-        model = StatementLinesHeader
-        fields = ('LHName', 'LHDescription',)
-        widgets = {
-            'LHName': forms.TextInput(attrs={
-                'class': INPUT_CLASSES
-            }),
-            'LHDescription': forms.TextInput(attrs={
-                'class': INPUT_CLASSES
-            })
-        }
+class StatementSectionsForm(forms.ModelForm):		
+    class Meta:		
+        model = StatementSections		
+        fields = (		
+	              'SSPersonFK', 	
+                  'SSName', 	
+                  'SSDescription', 	
+                  'SSIncomeStatementYN', 	
+                  'SSIncomeStatementSequence', 	
+                  'SSBalanceSheetStatementYN', 	
+                  'SSBalanceSheetStatementSequence', 	
+                  'SSCashFlowStatementYN', 	
+                  'SSCashFlowStatementSequence', 	
+                  'SSExpenseStatementYN', 	
+                  'SSExpenseStatementSequence', 	
+                  'SSBudgetStatementYN', 	
+                  'SSBudgetStatementSequence'	
+                 )	
+        widgets = {	
+	              'SSPersonFK': forms.TextInput(attrs={	
+                    'class': INPUT_CLASSES	
+                  }),	
+	              'SSName': forms.TextInput(attrs={	
+                    'class': INPUT_CLASSES	
+                  }),	
+	              'SSDescription': forms.TextInput(attrs={	
+                    'class': INPUT_CLASSES	
+                  }),	
+	              'SSIncomeStatementYN': forms.TextInput(attrs={	
+                    'class': INPUT_CLASSES	
+                  }),	
+	              'SSIncomeStatementSequence': forms.TextInput(attrs={	
+                    'class': INPUT_CLASSES	
+                  }),	
+	              'SSBalanceSheetStatementYN': forms.TextInput(attrs={	
+                    'class': INPUT_CLASSES	
+                  }),	
+	              'SSBalanceSheetStatementSequence': forms.TextInput(attrs={	
+                    'class': INPUT_CLASSES	
+                  }),	
+	              'SSCashFlowStatementYN': forms.TextInput(attrs={	
+                    'class': INPUT_CLASSES	
+                  }),	
+	              'SSCashFlowStatementSequence': forms.TextInput(attrs={	
+                    'class': INPUT_CLASSES	
+                  }),	
+	              'SSExpenseStatementYN': forms.TextInput(attrs={	
+                    'class': INPUT_CLASSES	
+                  }),	
+	              'SSExpenseStatementSequence': forms.TextInput(attrs={	
+                    'class': INPUT_CLASSES	
+                  }),	
+	              'SSBudgetStatementYN': forms.TextInput(attrs={	
+                    'class': INPUT_CLASSES	
+                  }),	
+	              'SSBudgetStatementSequence': forms.TextInput(attrs={	
+                    'class': INPUT_CLASSES	
+                  }),	
+                  }
+        
+class StatementLinesLineForm(forms.ModelForm):		
+    class Meta:		
+        model = StatementLinesLine		
+        fields = (		
+                  'SLStatementSectionFK',		
+                  'SLStatementLineFK',		
+                  'SLName',		
+                  'SLDescription',		
+                  'SLIncomeStatement',		
+                  'SLIncomeStatementSection',		
+                  'SLIncomeStatementSequence',		
+                  'SLBalanceSheetStatement', 		
+                  'SLBalanceSheetStatementSection',		
+                  'SLBalanceSheetStatementSequence',		
+                  'SLCashFlowStatement',
+                  'SLCashFlowStatementSection', 		
+                  'SLCashFlowStatementSequence',		
+                  'SLExpenseStatement',		
+                  'SLExpenseStatementSection',		
+                  'SLExpenseStatementSequence',		
+                  'SLBudgetStatement',		
+                  'SLBudgetStatementSection',		
+                  'SLBudgetStatementSequence'		
+	             )	
+    widgets = {	
+                'SLStatementSectionFK': forms.TextInput(attrs={		
+                'class': INPUT_CLASSES	
+                }),	
+                'SLStatementLineFK': forms.TextInput(attrs={		
+                'class': INPUT_CLASSES	
+                }),	
+                'SLName': forms.TextInput(attrs={		
+                'class': INPUT_CLASSES	
+                }),	
+                'SLDescription': forms.TextInput(attrs={		
+                'class': INPUT_CLASSES	
+                }),	
+                'SLIncomeStatement': forms.TextInput(attrs={		
+                'class': INPUT_CLASSES	
+                }),	
+                'SLIncomeStatementSection': forms.TextInput(attrs={		
+                'class': INPUT_CLASSES	
+                }),	
+                'SLIncomeStatementSequence': forms.TextInput(attrs={		
+                'class': INPUT_CLASSES	
+                }),	
+                'SLBalanceSheetStatement': forms.TextInput(attrs={		
+                'class': INPUT_CLASSES	
+                }),	
+                'SLBalanceSheetStatementSection': forms.TextInput(attrs={ 		
+                'class': INPUT_CLASSES	
+                }),	
+                'SLBalanceSheetStatementSequence': forms.TextInput(attrs={		
+                'class': INPUT_CLASSES	
+                }),	
+                'SLCashFlowStatement': forms.TextInput(attrs={		
+                'class': INPUT_CLASSES	
+                }),	
+                'SLCashFlowStatementSection': forms.TextInput(attrs={		
+                'class': INPUT_CLASSES	
+                }),	
+                'SLCashFlowStatementSequence': forms.TextInput(attrs={		
+                'class': INPUT_CLASSES	
+                }),	
+                'SLExpenseStatement': forms.TextInput(attrs={		
+                'class': INPUT_CLASSES	
+                }),	
+                'SLExpenseStatementSection': forms.TextInput(attrs={		
+                'class': INPUT_CLASSES	
+                }),	
+                'SLExpenseStatementSequence': forms.TextInput(attrs={		
+                'class': INPUT_CLASSES	
+                }),	
+                'SLBudgetStatement': forms.TextInput(attrs={		
+                'class': INPUT_CLASSES	
+                }),	
+                'SLBudgetStatementSection': forms.TextInput(attrs={		
+                'class': INPUT_CLASSES	
+                }),	
+                'SLBudgetStatementSequence': forms.TextInput(attrs={		
+                'class': INPUT_CLASSES	
+                }),	
+                } 	
+
+class StatementLineAccountsForm(forms.ModelForm):			
+    class Meta:			
+        model = StatementLineAccounts		
+        fields = (			
+         'SLAStatementSectionFK',			
+         'SLAStatementLineFK',			
+         'SLAStatementAccountFK',			
+         'SAAccount',			
+         'SLAAccountType',			
+         'SLADescription',			
+	          )		
+    ordering = ['SAAccount']		
+    widgets = {		
+                'SLAStatementSectionFK': forms.TextInput(attrs={			
+                'class': INPUT_CLASSES		
+                }),		
+                'SLAStatementLineFK': forms.TextInput(attrs={			
+                'class': INPUT_CLASSES		
+                }),		
+                'SLAStatementAccountFK': forms.TextInput(attrs={			
+                'class': INPUT_CLASSES		
+                }),		
+                'SAAccount': forms.TextInput(attrs={			
+                'class': INPUT_CLASSES		
+                }),		
+                'SLAAccountType': forms.TextInput(attrs={			
+                'class': INPUT_CLASSES		
+                }),		
+                'SLADescription': forms.TextInput(attrs={			
+                'class': INPUT_CLASSES		
+                }),		
+                }		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 class StatementLinesDetailForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):

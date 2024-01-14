@@ -309,23 +309,6 @@ def FTEquityAccts(request):
         'title': 'Add Equity Account',
     })
 
-
-# def list_update(request, pk):
-    # equityacctm = get_object_or_404(NetworthAcctM, pk=pk)
-    # if request.method == 'POST':
-        # form = EquityAcctMForm(request.POST, instance=equityacctm)
-
-        # if form.is_valid():
-            # form.save()
-            # return redirect('LoginRegister:FTEquityAccts')
-    # else:
-        # form = EquityAcctMForm(instance=equityacctm)
-    # return render(request, 'edit_equityacct.html', {
-        # 'form': form,
-        # 'equityacctm': equityacctm,
-        # 'title': 'Edit Equity Account',
-    # })
-
 def equityacctm_delete(request, pk):
     equityacctm = get_object_or_404(NetworthAcctM, pk=pk)
     equityacctm.delete()
@@ -506,149 +489,193 @@ def search_accounts(request):
         return render(request, 'transactions/search_accounts.html', {})
 
 
-# 
-# START NEW
-# 
-def statement_lines(request, listheader_id=None):
-    first_listHeader = StatementLinesHeader.objects.first()
-    print(first_listHeader)
-    listheader = None
-    listdetails = None
-    page = None
-    if first_listHeader is not None:
-        if listheader_id:
-            listheader = StatementLinesHeader.objects.get(id=listheader_id)
-            listdetails = StatementLinesDetails.objects.filter(StatementLinesHeaderFK=listheader)
-            # Show 10 ListDetailsT objects per page
-            paginator = Paginator(listdetails, 2)
-            # get page number for each ListHeaderT instance
-            page_number = request.GET.get('page', 1)
-            page = paginator.get_page(page_number)
-        else:
-            listheader = first_listHeader
-            listdetails = StatementLinesDetails.objects.filter(StatementLinesHeaderFK=listheader)
-            paginator = Paginator(listdetails, 2)
-            page_number = request.GET.get('page', 1)
-            page = paginator.get_page(page_number)
-    else:
-        # If there are no StatementLinesHeader objects, show a message
-        no_data_message = "No rows yet in database."
+        ############################################
+        #            NEW FROM HERE 1/14            #
+        ############################################
 
-    if listheader:
-        selected_header = StatementLinesHeader.objects.get(id=listheader.id)
+############################################
+#<<<<<<< StatementSections >>>>>>>>>>>>>>>>#
+############################################
+
+#------------------------------------------#
+       # StatmentSections (HEADER) #
+#------------------------------------------#
+def StatementSectionsV(request, listheader_id=None):
+    # listheader = None
+    first_listHeader = ListHeaderT.objects.first()
+    if listheader_id:
+        listheader = ListHeaderT.objects.get(id=listheader_id)
+        listdetails = ListDetailsT.objects.filter(ListHeaderFK=listheader)
+        # Show 10 ListDetailsT objects per page
+        paginator = Paginator(listdetails, 2)
+        # get page number for each ListHeaderT instance
+        page_number = request.GET.get('page', 1)
+        page = paginator.get_page(page_number)
     else:
-        selected_header = None
-    listDetailForm = StatementLinesDetailForm(list_header=selected_header)
-    selectedHeaderForm = StatementLinesHeaderSelectForm()
+        listdetails = None
+        page = None
+
+    listHeaderForm = ListHeaderTForm()
+    selected_header = ListHeaderT.objects.get(id=listheader_id)
+    listDetailForm = ListDetailsTForm(list_header=selected_header)
+    selectedHeaderForm = ListHeaderSelectForm()
 
     if request.method == 'POST':
         form_type = request.POST.get('form_type')
         if form_type == 'ListHeaderTForm':
-            listHeaderForm = StatementLinesHeaderForm(request.POST)
+            listHeaderForm = ListHeaderTForm(request.POST)
             if listHeaderForm.is_valid():
                 listHeaderForm.save()
 
-                return redirect('transactions:statement_lines', listheader_id=listheader.id)
+                return redirect('listsplan:FTListChores', listheader_id=listheader.id)
 
         elif form_type == 'ListDetailsTForm':
-            listDetailForm = StatementLinesDetailForm(request.POST)
+            listDetailForm = ListDetai**lsTForm(request.POST)
             if listDetailForm.is_valid():
                 listDetailForm.save()
 
-                return redirect('transactions:statement_lines', listheader_id=listheader.id)
+                return redirect('listsplan:FTListChores', listheader_id=listheader.id)
 
         elif form_type == 'SelectedHeaderTForm':
-            selectedHeaderForm = StatementLinesHeaderSelectForm(request.POST)
+            selectedHeaderForm = ListHeaderSelectForm(request.POST)
             if selectedHeaderForm.is_valid():
                 listheaderName = selectedHeaderForm.cleaned_data['LHName']
-                listheader = StatementLinesHeader.objects.get(LHName=listheaderName)
+                listheader = ListHeaderT.objects.get(LHName=listheaderName)
                 listdetails = listheader.listdetailst_set.all()
-                # Show 7 ListDetailsT objects per page
-                paginator = Paginator(listdetails, 7)
+                # Show 10 ListDetailsT objects per page
+                paginator = Paginator(listdetails, 5)
                 # get page number for each ListHeaderT instance
                 page_number = request.GET.get('page', 1)
                 page = paginator.get_page(page_number)
                 print(type(listheader.id))
 
-                return redirect('transactions:statement_lines', listheader_id=listheader.id)
+                return redirect('listsplan:FTListChores', listheader_id=listheader.id)
 
     else:
-        listHeaderForm = StatementLinesHeaderForm()
-        selected_header = StatementLinesHeader.objects.get(id=listheader_id)
-        listDetailForm = StatementLinesDetailForm(list_header=selected_header)
-    return render(request, 'transactions/statement_lines.html', {
+        listHeaderForm = ListHeaderTForm()
+        selected_header = ListHeaderT.objects.get(id=listheader_id)
+        listDetailForm = ListDetailsTForm(list_header=selected_header)
+    return render(request, 'listsplan/FTListChores.html', {
         'listHeaderForm': listHeaderForm,
         'first_listHeader': first_listHeader,
         'listDetailForm': listDetailForm,
         'selectedHeaderForm': selectedHeaderForm,
         'listheader': listheader,
         'listdetails': page,
-        'no_data_message': no_data_message if first_listHeader is None else "",
         'title': 'List and Chores',
     })
 
-def listHeader_update(request, pk):
-    listHeader = get_object_or_404(StatementLinesHeader, pk=pk)
+#------------------------------------------#
+    # StatmentSectionsUpdate (HEADER)
+#------------------------------------------#
+def StatementSections_updateV(request, pk):
+    listHeader = get_object_or_404(ListHeaderT, pk=pk)
     if request.method == 'POST':
-        form = StatementLinesHeaderForm(request.POST, instance=listHeader)
+        form = ListHeaderTForm(request.POST, instance=listHeader)
 
         if form.is_valid():
             form.save()
-            return redirect('transactions:statement_lines', listheader_id=listHeader.id)
+            return redirect('listsplan:FTListChores', listheader_id=listHeader.id)
     else:
-        form = StatementLinesHeaderForm(instance=listHeader)
-    return render(request, 'statement_lines.html', {
+        form = ListHeaderTForm(instance=listHeader)
+    return render(request, 'FTListChores.html', {
         'form': form,
         'listHeader': listHeader,
         'title': 'Edit Header',
     })
 
-def listDetail_update(request, pk):
-    listDetail = get_object_or_404(StatementLinesDetails, pk=pk)
-    if request.method == 'POST':
-        form = StatementLinesDetailForm(request.POST, instance=listDetail)
+#------------------------------------------#
+        # StatmentSectionsDelete
+#------------------------------------------#
+def StatementSections_deleteV(request, pk):
+    listHeader = get_object_or_404(ListHeaderT, pk=pk)
+    listHeader.delete()
 
-        if form.is_valid():
-            form.save()
-            return redirect('transactions:statement_lines', listheader_id=listDetail.StatementLinesHeaderFK.id)
-        else:
-            # Log form errors
-            logger.error(form.errors)
-            # Print form errors to the console (for development purposes)
-            print(form.errors)
-            return HttpResponseServerError("Form is not valid. See server logs for details.")
+    return redirect('listsplan:FTListChores', listheader_id=listHeader.id)
+
+###########################################
+#<<<<<<< StatementLinesLine >>>>>>>>>>>>>>#
+###########################################
+
+#------------------------------------------#
+        #StatementLinesLine
+#------------------------------------------#
+def StatementLinesLineV(request, listheader_id=None):
+    # listheader = None
+    first_listHeader = ListHeaderT.objects.first()
+    if listheader_id:
+        listheader = ListHeaderT.objects.get(id=listheader_id)
+        listdetails = ListDetailsT.objects.filter(ListHeaderFK=listheader)
+        # Show 10 ListDetailsT objects per page
+        paginator = Paginator(listdetails, 2)
+        # get page number for each ListHeaderT instance
+        page_number = request.GET.get('page', 1)
+        page = paginator.get_page(page_number)
     else:
-        form = StatementLinesDetailForm(instance=listDetail)
-    return render(request, 'transactions/statement_lines.html', {
-        'form': form,
-        'listHeader': listDetail,
-        'title': 'Edit List Detail',
+        listdetails = None
+        page = None
+
+    listHeaderForm = ListHeaderTForm()
+    selected_header = ListHeaderT.objects.get(id=listheader_id)
+    listDetailForm = ListDetailsTForm(list_header=selected_header)
+    selectedHeaderForm = ListHeaderSelectForm()
+
+    if request.method == 'POST':
+        form_type = request.POST.get('form_type')
+        if form_type == 'ListHeaderTForm':
+            listHeaderForm = ListHeaderTForm(request.POST)
+            if listHeaderForm.is_valid():
+                listHeaderForm.save()
+
+                return redirect('listsplan:FTListChores', listheader_id=listheader.id)
+
+        elif form_type == 'ListDetailsTForm':
+            listDetailForm = ListDetai**lsTForm(request.POST)
+            if listDetailForm.is_valid():
+                listDetailForm.save()
+
+                return redirect('listsplan:FTListChores', listheader_id=listheader.id)
+
+        elif form_type == 'SelectedHeaderTForm':
+            selectedHeaderForm = ListHeaderSelectForm(request.POST)
+            if selectedHeaderForm.is_valid():
+                listheaderName = selectedHeaderForm.cleaned_data['LHName']
+                listheader = ListHeaderT.objects.get(LHName=listheaderName)
+                listdetails = listheader.listdetailst_set.all()
+                # Show 10 ListDetailsT objects per page
+                paginator = Paginator(listdetails, 5)
+                # get page number for each ListHeaderT instance
+                page_number = request.GET.get('page', 1)
+                page = paginator.get_page(page_number)
+                print(type(listheader.id))
+
+                return redirect('listsplan:FTListChores', listheader_id=listheader.id)
+
+    else:
+        listHeaderForm = ListHeaderTForm()
+        selected_header = ListHeaderT.objects.get(id=listheader_id)
+        listDetailForm = ListDetailsTForm(list_header=selected_header)
+    return render(request, 'listsplan/FTListChores.html', {
+        'listHeaderForm': listHeaderForm,
+        'first_listHeader': first_listHeader,
+        'listDetailForm': listDetailForm,
+        'selectedHeaderForm': selectedHeaderForm,
+        'listheader': listheader,
+        'listdetails': page,
+        'title': 'List and Chores',
     })
 
-def StatementLinesHeader_update(request, pk):
-    listHeader = get_object_or_404(StatementLinesHeader, pk=pk)
+#------------------------------------------#
+        # StatementLinesLineUpdate
+#------------------------------------------#
+def StatementLinesLine_updateV(request, pk):
+    listDetail = get_object_or_404(ListDetailsT, pk=pk)
     if request.method == 'POST':
-        form = StatementLinesHeaderForm(request.POST, instance=StatementLinesHeader)
+        form = ListDetailsTForm(request.POST, instance=listDetail)
 
         if form.is_valid():
             form.save()
-            return redirect('transactions:statement_lines', listheader_id=listHeader.StatementLinesHeaderFK.id)
-    else:
-        form = StatementLinesHeaderForm(instance=StatementLinesHeader)
-    return render(request, 'statement_lines.html', {
-        'form': form,
-        'StatementLinesHeader': StatementLinesHeader,
-        'title': 'Edit Header',
-    })
-
-def StatementLinesDetails_update(request, pk):
-    listDetail = get_object_or_404(StatementLinesDetails, pk=pk)
-    if request.method == 'POST':
-        form = StatementLinesDetailForm(request.POST, instance=StatementLinesDetails)
-
-        if form.is_valid():
-            form.save()
-            return redirect('transactions:statement_lines', listheader_id=listDetail.ListHeaderFK.id)
+            return redirect('listsplan:FTListChores', listheader_id=listDetail.ListHeaderFK.id)
         else:
              # Log form errors
             logger.error(form.errors)
@@ -656,21 +683,117 @@ def StatementLinesDetails_update(request, pk):
             print(form.errors)
             return HttpResponseServerError("Form is not valid. See server logs for details.")
     else:
-        form = StatementLinesDetailForm(instance=StatementLinesDetails)
-    return render(request, 'transactions/statement_lines.html', {
+        form = ListDetailsTForm(instance=listDetail)
+    return render(request, 'listsplan/FTListChores.html', {
         'form': form,
-        'StatementLinesDetails': StatementLinesDetails,
+        'listHeader': listDetail,
         'title': 'Edit List Detail',
-    })
 
-def StatementLinesHeader_delete(request, pk):
-    listHeader = get_object_or_404(StatementLinesHeader, pk=pk)
-    listHeader.delete()
-
-    return redirect('transactions:statement_lines', listheader_id=listHeader.id)
-
-def StatementLinesDetails_delete(request, pk):
-    listDetail = get_object_or_404(StatementLinesDetails, pk=pk)
+#------------------------------------------#
+        # StatementLinesLineDelete
+#------------------------------------------#
+def StatementLinesLine_deleteV(request, pk):
+    listDetail = get_object_or_404(ListDetailsT, pk=pk)
     listDetail.delete()
 
-    return redirect('transactions:statement_lines', listheader_id=listDetail.ListHeaderFK.id)
+    return redirect('listsplan:FTListChores', listheader_id=listDetail.ListHeaderFK.id)
+
+###########################################
+#<<<<<<<  StatementLineAccounts >>>>>>>>>>#
+###########################################
+
+#------------------------------------------#
+        # StatementLineAccounts
+#------------------------------------------#
+def StatementLineAccountsV(request, listheader_id=None):
+    # listheader = None
+    first_listHeader = ListHeaderT.objects.first()
+    if listheader_id:
+        listheader = ListHeaderT.objects.get(id=listheader_id)
+        listdetails = ListDetailsT.objects.filter(ListHeaderFK=listheader)
+        # Show 10 ListDetailsT objects per page
+        paginator = Paginator(listdetails, 2)
+        # get page number for each ListHeaderT instance
+        page_number = request.GET.get('page', 1)
+        page = paginator.get_page(page_number)
+    else:
+        listdetails = None
+        page = None
+
+    listHeaderForm = ListHeaderTForm()
+    selected_header = ListHeaderT.objects.get(id=listheader_id)
+    listDetailForm = ListDetailsTForm(list_header=selected_header)
+    selectedHeaderForm = ListHeaderSelectForm()
+
+    if request.method == 'POST':
+        form_type = request.POST.get('form_type')
+        if form_type == 'ListHeaderTForm':
+            listHeaderForm = ListHeaderTForm(request.POST)
+            if listHeaderForm.is_valid():
+                listHeaderForm.save()
+
+                return redirect('listsplan:FTListChores', listheader_id=listheader.id)
+
+        elif form_type == 'ListDetailsTForm':
+            listDetailForm = ListDetai**lsTForm(request.POST)
+            if listDetailForm.is_valid():
+                listDetailForm.save()
+
+                return redirect('listsplan:FTListChores', listheader_id=listheader.id)
+
+        elif form_type == 'SelectedHeaderTForm':
+            selectedHeaderForm = ListHeaderSelectForm(request.POST)
+            if selectedHeaderForm.is_valid():
+                listheaderName = selectedHeaderForm.cleaned_data['LHName']
+                listheader = ListHeaderT.objects.get(LHName=listheaderName)
+                listdetails = listheader.listdetailst_set.all()
+                # Show 10 ListDetailsT objects per page
+                paginator = Paginator(listdetails, 5)
+                # get page number for each ListHeaderT instance
+                page_number = request.GET.get('page', 1)
+                page = paginator.get_page(page_number)
+                print(type(listheader.id))
+
+                return redirect('listsplan:FTListChores', listheader_id=listheader.id)
+
+    else:
+        listHeaderForm = ListHeaderTForm()
+        selected_header = ListHeaderT.objects.get(id=listheader_id)
+        listDetailForm = ListDetailsTForm(list_header=selected_header)
+    return render(request, 'listsplan/FTListChores.html', {
+        'listHeaderForm': listHeaderForm,
+        'first_listHeader': first_listHeader,
+        'listDetailForm': listDetailForm,
+        'selectedHeaderForm': selectedHeaderForm,
+        'listheader': listheader,
+        'listdetails': page,
+        'title': 'List and Chores',
+    })
+
+#------------------------------------------#
+        # StatementLineAccountsUpdate
+#------------------------------------------#
+def StatementLineAccounts_updateV(request, pk):
+    listHeader = get_object_or_404(ListHeaderT, pk=pk)
+    if request.method == 'POST':
+        form = ListHeaderTForm(request.POST, instance=listHeader)
+
+        if form.is_valid():
+            form.save()
+            return redirect('listsplan:FTListChores', listheader_id=listHeader.id)
+    else:
+        form = ListHeaderTForm(instance=listHeader)
+    return render(request, 'FTListChores.html', {
+        'form': form,
+        'listHeader': listHeader,
+        'title': 'Edit Header',
+    })
+
+#------------------------------------------#
+        # StatementLineAccountsDelete
+#------------------------------------------#
+def StatementLineAccounts_deleteVz(request, pk):
+    listDetail = get_object_or_404(ListDetailsT, pk=pk)
+    listDetail.delete()
+
+    return redirect('listsplan:FTListChores', listheader_id=listDetail.ListHeaderFK.id)
