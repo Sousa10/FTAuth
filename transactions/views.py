@@ -4,8 +4,8 @@ from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.contrib.auth.forms import UserCreationForm
-from .models import CashInAcctM, CashOutAcctM, DebtsAcctM, NetworthAcctM, PersonM, StatementLinesHeader, StatementLinesDetails 
-from .forms import CashInAcctMForm, EquityAcctMForm, DebtsAcctMForm, WhatWeOwnAcctMForm, CashOutAcctMForm, StatementLinesHeaderForm, StatementLinesDetailForm, StatementLinesHeaderSelectForm, StatementLinesDetailForm
+from .models import CashInAcctM, CashOutAcctM, DebtsAcctM, NetworthAcctM, PersonM, StatementLineAccounts, StatementLinesLine, StatementSections
+from .forms import CashInAcctMForm
 from django.core.paginator import Paginator
 from datetime import datetime
 import os
@@ -37,72 +37,12 @@ def income_accts(request):
         'title': 'Add Cash In Account',
     })
 
-def FTFinances(request):
-    cashinacctms = CashInAcctM.objects.all()
-    paginator = Paginator(cashinacctms, 3)  
-    page_number = request.GET.get("page")
-    cashinacctms_paginated = paginator.get_page(page_number)
-    if request.method == 'POST':
-        print(request)
-        form = CashInAcctMForm(request.POST)
-
-        if form.is_valid():
-            form.save()
-            return redirect('LoginRegister:FTFinances')
-    else:
-        form = CashInAcctMForm()
-    return render(request, 'FTFinances.html', {
-        'form': form,
-        "cashinacctms_paginated": cashinacctms_paginated,
-        'title': 'Add Cash In Account',
-    })
-
-
-def financesacct_update(request, pk):
-    cashinacctm = get_object_or_404(CashInAcctM, pk=pk)
-    print(cashinacctm.id)
-    if request.method == 'POST':
-        form = CashInAcctMForm(request.POST, instance=cashinacctm)
-
-        if form.is_valid():
-            form.save()
-            return redirect('LoginRegister:FTFinances')
-    else:
-        form = CashInAcctMForm(instance=cashinacctm)
-    return render(request, 'FTFinances.html', {
-        'form': form,
-        'cashinacctm': cashinacctm,
-        'title': 'Edit Cash In Account',
-    })
-
 
 def cashinacctm_delete(request, pk):
     cashinacctm = get_object_or_404(CashInAcctM, pk=pk)
     cashinacctm.delete()
 
     return redirect('transactions:income_accts')
-
-#
-#   KMS Account Groupings Starts Here
-#
-def FTAcctGroupings(request):
-    FTpersons = PersonM.objects.all().values()
-    template = loader.get_template('FTAcctGroupings.html')
-    return HttpResponse(template.render())
-#
-#   KMS Grouping Drill-Down Starts Here
-#
-def FTGroupingDrillDown(request):
-    FTpersons = PersonM.objects.all().values()
-    template = loader.get_template('FTGroupingDrillDown.html')
-    return HttpResponse(template.render())
-#
-#   KMS Account Drill-Down Starts Here
-#
-def FTAccountDrillDown(request):
-    FTpersons = PersonM.objects.all().values()
-    template = loader.get_template('FTAccountDrillDown.html')
-    return HttpResponse(template.render())
 
 def cashinacctm_update(request, pk):
     cashinacctm = get_object_or_404(CashInAcctM, pk=pk)
@@ -119,201 +59,6 @@ def cashinacctm_update(request, pk):
         'title': 'Edit Cash In Account',
     })
 
-#
-#   KMS Expense Accounts Starts here
-#
-def FTExpAccts(request):
-    cashoutacctms = CashOutAcctM.objects.all()
-    paginator = Paginator(cashoutacctms, 6)  # Show 6 accounts per page.
-    page_number = request.GET.get("page")
-    cashoutacctms_paginated = paginator.get_page(page_number)
-    if request.method == 'POST':
-        form = CashOutAcctMForm(request.POST)
-
-        if form.is_valid():
-            form.save()
-            return redirect('LoginRegister:FTExpAccts')
-    else:
-        form = CashOutAcctMForm()
-    return render(request, 'FTExpAccts.html', {
-        'form': form,
-        'cashoutacctms_paginated': cashoutacctms_paginated,
-        'title': 'Add Cash Out Account',
-    })
-
-
-def cashoutacctm_update(request, pk):
-    cashoutacctm = get_object_or_404(CashOutAcctM, pk=pk)
-    if request.method == 'POST':
-        form = CashOutAcctMForm(request.POST, instance=cashoutacctm)
-
-        if form.is_valid():
-            form.save()
-            return redirect('LoginRegister:FTExpAccts')
-    else:
-        form = CashOutAcctMForm(instance=cashoutacctm)
-    return render(request, 'edit_cashoutacct.html', {
-        'form': form,
-        'cashoutacctm': cashoutacctm,
-        'title': 'Edit Cash In Account',
-    })
-
-
-def cashoutacctm_delete(request, pk):
-    cashoutacctm = get_object_or_404(CashOutAcctM, pk=pk)
-    cashoutacctm.delete()
-
-    return redirect('LoginRegister:FTExpAccts')
-#
-# KMS Asset Accounts start Here
-#
-def FTAssetAccts(request):
-    assetacctms = WhatWeOwnAcctM.objects.all()
-    paginator = Paginator(assetacctms, 6)  # Show 6 accounts per page.
-    page_number = request.GET.get("page")
-    assetacctms_paginated = paginator.get_page(page_number)
-    if request.method == 'POST':
-        form = WhatWeOwnAcctMForm(request.POST)
-
-        if form.is_valid():
-            form.save()
-            return redirect('LoginRegister:FTAssetAccts')
-    else:
-        form = WhatWeOwnAcctMForm()
-    return render(request, 'FTAssetAccts.html', {
-        'form': form,
-        'assetacctms_paginated': assetacctms_paginated,
-        'title': 'Add Asset Out Account',
-    })
-
-
-def assetacctm_update(request, pk):
-    assetacctm = get_object_or_404(WhatWeOwnAcctM, pk=pk)
-    if request.method == 'POST':
-        form = WhatWeOwnAcctMForm(request.POST, instance=assetacctm)
-
-        if form.is_valid():
-            form.save()
-            return redirect('LoginRegister:FTAssetAccts')
-    else:
-        form = WhatWeOwnAcctMForm(instance=assetacctm)
-    return render(request, 'edit_assetacct.html', {
-        'form': form,
-        'assetacctm': assetacctm,
-        'title': 'Edit Asset Account',
-    })
-
-
-def assetacctm_delete(request, pk):
-    assetacctm = get_object_or_404(WhatWeOwnAcctM, pk=pk)
-    assetacctm.delete()
-
-    return redirect('LoginRegister:FTAssetAccts')
-#
-# KMS Liab Accounts start Here
-#
-def FTLiabAccts(request):
-    liabacctms = DebtsAcctM.objects.all()
-    if request.method == 'POST':
-        form = DebtsAcctMForm(request.POST)
-
-        if form.is_valid():
-            form.save()
-            return redirect('LoginRegister:FTLiabAccts')
-    else:
-        form = DebtsAcctMForm()
-    return render(request, 'FTLiabAccts.html', {
-        'form': form,
-        'liabacctms': liabacctms,
-        'title': 'Add Liability Out Account',
-    })
-
-
-def liabacctm_update(request, pk):
-    liabacctm = get_object_or_404(DebtsAcctM, pk=pk)
-    if request.method == 'POST':
-        form = DebtsAcctMForm(request.POST, instance=liabacctm)
-
-        if form.is_valid():
-            form.save()
-            return redirect('LoginRegister:FTLiabAccts')
-    else:
-        form = DebtsAcctMForm(instance=liabacctm)
-    return render(request, 'edit_liabacct.html', {
-        'form': form,
-        'liabacctm': liabacctm,
-        'title': 'Edit Liability Account',
-    })
-
-
-def liabacctm_delete(request, pk):
-    liabacctm = get_object_or_404(DebtsAcctM, pk=pk)
-    liabacctm.delete()
-
-    return redirect('LoginRegister:FTLiabAccts')
-#
-# KMS Equity Accounts start Here
-#
-def FTEquityAccts(request):
-    equityacctms = NetworthAcctM.objects.all()
-    if request.method == 'POST':
-        form = EquityAcctMForm(request.POST)
-
-        if form.is_valid():
-            form.save()
-            return redirect('LoginRegister:FTEquityAccts')
-    else:
-        form = EquityAcctMForm()
-    return render(request, 'FTEquityAccts.html', {
-        'form': form,
-        'equityacctms': equityacctms,
-        'title': 'Add Equity Account',
-    })
-
-
-def equityacctm_update(request, pk):
-    equityacctm = get_object_or_404(NetworthAcctM, pk=pk)
-    if request.method == 'POST':
-        form = EquityAcctMForm(request.POST, instance=equityacctm)
-
-        if form.is_valid():
-            form.save()
-            return redirect('LoginRegister:FTEquityAccts')
-    else:
-        form = EquityAcctMForm(instance=equityacctm)
-    return render(request, 'edit_equityacct.html', {
-        'form': form,
-        'equityacctm': equityacctm,
-        'title': 'Edit Equity Account',
-    })
-
-def equityacctm_delete(request, pk):
-    equityacctm = get_object_or_404(NetworthAcctM, pk=pk)
-    equityacctm.delete()
-
-    return redirect('LoginRegister:FTEquityAccts')
-
-def FTEquityAccts(request):
-    equityacctms = NetworthAcctM.objects.all()
-    if request.method == 'POST':
-        form = EquityAcctMForm(request.POST)
-
-        if form.is_valid():
-            form.save()
-            return redirect('LoginRegister:FTEquityAccts')
-    else:
-        form = EquityAcctMForm()
-    return render(request, 'FTEquityAccts.html', {
-        'form': form,
-        'equityacctms': equityacctms,
-        'title': 'Add Equity Account',
-    })
-
-def equityacctm_delete(request, pk):
-    equityacctm = get_object_or_404(NetworthAcctM, pk=pk)
-    equityacctm.delete()
-
-    return redirect('LoginRegister:FTEquityAccts')
 
 def populate_from_csv(csv_file):
     # reader = csv.reader(csv_file.read().decode('utf-8').splitlines())
@@ -530,7 +275,7 @@ def StatementSectionsV(request, listheader_id=None):
                 return redirect('listsplan:FTListChores', listheader_id=listheader.id)
 
         elif form_type == 'ListDetailsTForm':
-            listDetailForm = ListDetai**lsTForm(request.POST)
+            listDetailForm = ListDetailsTForm(request.POST)
             if listDetailForm.is_valid():
                 listDetailForm.save()
 
@@ -687,7 +432,7 @@ def StatementLinesLine_updateV(request, pk):
     return render(request, 'listsplan/FTListChores.html', {
         'form': form,
         'listHeader': listDetail,
-        'title': 'Edit List Detail',
+        'title': 'Edit List Detail',})
 
 #------------------------------------------#
         # StatementLinesLineDelete

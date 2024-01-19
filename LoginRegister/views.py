@@ -758,10 +758,3 @@ def transaction_delete(request, pk):
     transaction.delete()
 
     return redirect('LoginRegister:FTTransactions')
-
-def home(request):
-    name = "Kirk"
-    return render(request,
-                  'home.html', {
-                      'name': name
-                  })

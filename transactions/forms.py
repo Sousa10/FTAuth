@@ -1,8 +1,7 @@
 from django import forms
 from django.forms import ModelForm
 from django.contrib.auth.forms import AuthenticationForm
-from .models import CashInAcctM, CashOutAcctM, WhatWeOwnAcctM, DebtsAcctM, NetworthAcctM 
-from .models import StatementSections, StatementLinesLine, StatementLineAccounts
+from .models import CashInAcctM, StatementSections, StatementLinesLine, StatementLineAccounts
 
 
 INPUT_CLASSES = 'rounded-xl border form-control'
@@ -41,58 +40,6 @@ class CashInAcctMForm(forms.ModelForm):
                 'class': INPUT_CLASSES
             }),
             'RollupType': forms.TextInput(attrs={
-                'class': INPUT_CLASSES
-            })
-        }
-
-class CashOutAcctMForm(forms.ModelForm):
-    class Meta:
-        model = CashOutAcctM
-        fields = ('AccountNumber', 'Description',)
-        widgets = {
-            'AccountNumber': forms.TextInput(attrs={
-                'class': INPUT_CLASSES
-            }),
-            'Description': forms.TextInput(attrs={
-                'class': INPUT_CLASSES
-            })
-        }
-
-class WhatWeOwnAcctMForm(forms.ModelForm):
-    class Meta:
-        model = WhatWeOwnAcctM
-        fields = ('AccountNumber', 'Description',)
-        widgets = {
-            'AccountNumber': forms.TextInput(attrs={
-                'class': INPUT_CLASSES
-            }),
-            'Description': forms.TextInput(attrs={
-                'class': INPUT_CLASSES
-            })
-        }
-
-class DebtsAcctMForm(forms.ModelForm):
-    class Meta:
-        model = DebtsAcctM
-        fields = ('AccountNumber', 'Description',)
-        widgets = {
-            'AccountNumber': forms.TextInput(attrs={
-                'class': INPUT_CLASSES
-            }),
-            'Description': forms.TextInput(attrs={
-                'class': INPUT_CLASSES
-            })
-        }
-
-class EquityAcctMForm(forms.ModelForm):
-    class Meta:
-        model = NetworthAcctM
-        fields = ('AccountNumber', 'Description',)
-        widgets = {
-            'AccountNumber': forms.TextInput(attrs={
-                'class': INPUT_CLASSES
-            }),
-            'Description': forms.TextInput(attrs={
                 'class': INPUT_CLASSES
             })
         }
@@ -276,102 +223,3 @@ class StatementLineAccountsForm(forms.ModelForm):
                 'class': INPUT_CLASSES		
                 }),		
                 }		
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-class StatementLinesDetailForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        StatementLinesHeaderF = kwargs.pop('StatementLinesHeader', None)  # Get the passed list_header and remove from kwargs
-        super(StatementLinesDetailForm, self).__init__(*args, **kwargs)
-        if StatementLinesHeaderF:
-            self.fields['StatementLinesHeaderFK'].initial = StatementLinesHeaderF
-
-            self.fields['StatementLinesDetailFK'].queryset = StatementLinesDetails.objects.filter(StatementLinesHeaderFK=list_header)
-
-    class Meta:
-        model = StatementLinesDetails
-        fields = ('ListHeaderFK', 'ListDetailFK', 'SLNumber', 'SLName')
-        widgets = {
-            'ListHeaderFK': forms.TextInput(attrs={
-                'class': INPUT_CLASSES
-            }),
-            'ListDetailFK': forms.TextInput(attrs={
-                'class': INPUT_CLASSES
-            }),
-            'LHNumber': forms.TextInput(attrs={
-                'class': INPUT_CLASSES
-            }),
-            'LHName': forms.TextInput(attrs={
-                'class': INPUT_CLASSES
-            }),
-        }
-    ListHeaderFK = forms.ModelChoiceField(queryset=StatementLinesHeader.objects.all(), widget=forms.Select(attrs={'class': INPUT_CLASSES}))
-    ListDetailFK = forms.ModelChoiceField(queryset=StatementLinesDetails.objects.all(), widget=forms.Select(attrs={'class': INPUT_CLASSES}), required=False)
-
-class StatementLinesHeaderSelectForm(forms.ModelForm):
-    class Meta:
-        model = StatementLinesHeader
-        fields = ['LHName']
-
-    LHName = forms.ModelChoiceField(queryset=StatementLinesHeader.objects.all(), widget=forms.Select(attrs={'class': INPUT_CLASSES}))

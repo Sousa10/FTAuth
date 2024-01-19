@@ -86,13 +86,6 @@ class PersonM(models.Model):
   def __str__(self):
     return self.firstname
 
-
-class StatementLineAccounts(models.Model):
-    SLAccount = models.IntegerField()
-    SLDescription = models.CharField(max_length=240)
-    StatementLinesLineFK = models.ForeignKey('StatementLinesLine', on_delete=models.CASCADE)
-    StatementLineAccounts = models.ForeignKey('self', null=True, blank=True, on_delete=models.SET_NULL, related_name='predecessor')
-
     def __str__(self):
         return self.SLAccount
 
@@ -150,7 +143,7 @@ class StatementLineAccounts(models.Model):
     SLADescription = models.CharField(max_length=240)		
 		
     def __str__(self):		
-        return self.SLAccount		
+        return self.SAAccount		
 
 
 
