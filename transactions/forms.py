@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import ModelForm
 from django.contrib.auth.forms import AuthenticationForm
-from .models import CashInAcctM, StatementLinesLine, StatementLineAccounts
+from .models import CashInAcctM, StatementSections, StatementLinesLine, StatementLineAccounts
 
 
 INPUT_CLASSES = 'rounded-xl border form-control'
