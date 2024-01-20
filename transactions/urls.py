@@ -15,6 +15,6 @@ urlpatterns = [
     path('show_account/<int:account_id>', views.show_account, name='show_account'),
     path('search_accounts', views.search_accounts, name='search_accounts' ),
     path('statement-sectionsV/delete/<int:pk>/', views.StatementSectionsV, name='StatementSectionsV'),
-    path('statement-linesline/<int:listheader_id>/', views.StatementLinesLine, name='statement_linesline'),
+    path('statement-linesline/<int:listheader_id>/', views.StatementLinesLineV, name='statement_linesline'),
     path('statement-line-accountsV/delete/<int:pk>/', views.StatementLineAccountsV, name='StatementLinesDetails_delete'),
 ]

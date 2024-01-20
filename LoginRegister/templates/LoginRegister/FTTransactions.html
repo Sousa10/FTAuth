@@ -1,0 +1,125 @@
+{% extends 'LoginRegister/base.html' %}
+
+{% load static %}
+{% block title %}Transactions{% endblock %}
+
+{% block pageimage %}
+<img style="float: left;" src="{% static 'calendar.jpg' %}" alt="Calendar Tile missing" width="100" height="100">
+{% endblock %}
+{% block backurl %}{%url 'LoginRegister:FTMainMenu'%}{% endblock %}
+
+{% block pageTitle %}
+<div class="h1">
+  <a style="color:rgb(6, 6, 192)">
+    <p style="font-size:40px">
+      <h2>Transactions</h2>
+    </p>
+  </a>
+</div>
+<div class="row">
+  <div class="col-md-1"></div>
+  <div class="col-md-10">
+    <div class="forms">
+      <div class="batch_form" style="margin-left: 50px;">
+        {% if transBatch.id %}
+        <form action="{% url 'LoginRegister:FTTransactions' transBatch.id %}" method="post">
+        {% endif %}
+          <div class="modal-body">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="{{ transbatchForm.BatchName.id_for_label }}">Select a batch</label>
+              {{ transbatchForm.BatchName }}
+            </div>
+            {% if transbatchForm.errors or transbatchForm.non_field_errors %}
+            <div class="mb-3 p-6 bg-red-100 rounded-xl">
+              {% for field in transbatchForm %}
+              {{ field.errors }}
+              {% endfor %}
+    
+              {{ transbatchForm.non_field_errors }}
+            </div>
+            {% endif %}
+          </div>
+          <input type="hidden" name="form_type" value="SelectedBatchForm">
+          <button type="submit" class="btn btn-primary mt-2">Submit</button>
+        </form>
+      </div>
+      <div class="upload_form" style="float: right;margin-right: 60px;">
+        <form id="templateActionForm" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          {{ form.action }}
+          <div id="uploadField" style="display:none;">
+            {{ form.excel_file }}
+          </div>
+          <input type="hidden" name="form_type" value="uploadDownload">
+          <button type="submit" class="mt-2">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-1"></div>
+</div>
+{% endblock %}
+
+{% block content %}
+{% if transBatch %}
+<table>
+  <thead>
+    <tr>
+      <th>Description</th>
+      <th>Date</th>
+      <th>Note</th>
+      <!-- <th>Actions</th> -->
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      {% for header in transBatch.transheader_set.all %}
+      <td>{{ header.TransDescription }}</td>
+      <td>{{ header.TransDate }}</td>
+      <td>{{ header.TransNote }}</td>
+    </tr>
+    <!-- Display detail rows -->
+    <tr>
+      {% for detail in header.transdetail_set.all %}
+      <td><b>Amount</b> ${{ detail.Amount }}.00</td>
+      <td><b>DrAccount</b> {{ detail.DrAccount }}</td>
+      <td><b>CrAccount</b> {{ detail.CrAccount }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+  {% endfor %}
+</table>
+{% endif %}
+<div class="pagination">
+  <span class="step-links">
+    {% if transactions.has_previous %}
+    <a href="?page=1">&laquo; first</a>
+    <a href="?page={{ transactions.previous_page_number }}">previous</a>
+    {% endif %}
+
+    <span class="current">
+      Page {{ transactions.number }} of {{ transactions.paginator.num_pages }}.
+    </span>
+
+    {% if transactions.has_next %}
+    <a href="?page={{ transactions.next_page_number }}">next</a>
+    <a href="?page={{ transactions.paginator.num_pages }}">last &raquo;</a>
+    {% endif %}
+  </span>
+</div>
+{% block modal-script %}
+<script>
+  const dropdown = document.querySelector("#id_action");
+  const uploadField = document.querySelector("#uploadField");
+  dropdown.addEventListener("change", function () {
+    if (this.value === "upload") {
+      uploadField.style.display = "block";
+    } else {
+      uploadField.style.display = "none";
+    }
+  });
+</script>
+{% endblock %}
+
+{% endblock %}

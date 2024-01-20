@@ -94,18 +94,18 @@ class PersonM(models.Model):
 ###################################################
 class StatementSections(models.Model):	
     SSPersonFK = models.ForeignKey(PersonM, null=True, on_delete=models.CASCADE)	
-    SSName = models.CharField(max_length=240)	
-    SSDescription = models.CharField(max_length=960)	
-    SSIncomeStatementYN = models.CharField(max_length=3) 	
-    SSIncomeStatementSequence = models.CharField(max_length=3) 	
-    SSBalanceSheetStatementYN = models.CharField(max_length=3)	
-    SSBalanceSheetStatementSequence = models.CharField(max_length=3)	
-    SSCashFlowStatementYN = models.CharField(max_length=3)	
-    SSCashFlowStatementSequence = models.CharField(max_length=3)	
-    SSExpenseStatementYN = models.CharField(max_length=3)	
-    SSExpenseStatementSequence = models.CharField(max_length=3)	
-    SSBudgetStatementYN = models.CharField(max_length=3)	
-    SSBudgetStatementSequence = models.CharField(max_length=3)	
+    SSName = models.CharField(max_length=240, default='')	
+    SSDescription = models.CharField(max_length=960, default='')	
+    SSIncomeStatementYN = models.CharField(max_length=3, default='') 	
+    SSIncomeStatementSequence = models.CharField(max_length=3, default='') 	
+    SSBalanceSheetStatementYN = models.CharField(max_length=3, default='')	
+    SSBalanceSheetStatementSequence = models.CharField(max_length=3, default='')	
+    SSCashFlowStatementYN = models.CharField(max_length=3, default='')	
+    SSCashFlowStatementSequence = models.CharField(max_length=3, default='')	
+    SSExpenseStatementYN = models.CharField(max_length=3, default='')	
+    SSExpenseStatementSequence = models.CharField(max_length=3, default='')	
+    SSBudgetStatementYN = models.CharField(max_length=3, default='')	
+    SSBudgetStatementSequence = models.CharField(max_length=3, default='')	
 	
     def __str__(self):	
         return self.SSName
