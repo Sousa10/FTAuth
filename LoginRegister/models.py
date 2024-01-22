@@ -28,56 +28,6 @@ class PersonM(models.Model):
   def __str__(self):
      return self.firstname
 
-class CashInAcctM(models.Model):
-  AccountNumber = models.CharField(max_length=20, null=True)
-  Description = models.CharField(max_length=255, null=True)
-  DrCrBal = models.CharField(max_length=20, null=True)
-
-  class Meta:
-        verbose_name_plural = 'Revenue Accounts'
-  def __str__(self):
-     return self.AccountNumber
-
-class CashOutAcctM(models.Model):
-  AccountNumber = models.CharField(max_length=40, null=True)
-  Description = models.CharField(max_length=255, null=True)
-  DrCrBal = models.CharField(max_length=20, null=True)
-
-  class Meta:
-        verbose_name_plural = 'Expense Accounts'
-  def __str__(self):
-     return self.AccountNumber
-
-class WhatWeOwnAcctM(models.Model):
-  AccountNumber = models.CharField(max_length=40, null=True)
-  Description = models.CharField(max_length=255, null=True)
-  DrCrBal = models.CharField(max_length=20, null=True)
-
-  class Meta:
-        verbose_name_plural = 'Asset Accounts'
-  def __str__(self):
-     return self.AccountNumber
-
-class DebtsAcctM(models.Model):
-  AccountNumber = models.CharField(max_length=40, null=True)
-  Description = models.CharField(max_length=255, null=True)
-  DrCrBal = models.CharField(max_length=20, null=True)
-
-  class Meta:
-        verbose_name_plural = 'Liability Accounts'
-  def __str__(self):
-     return self.AccountNumber
-
-class NetworthAcctM(models.Model):
-  AccountNumber = models.CharField(max_length=40, null=True)
-  Description = models.CharField(max_length=255, null=True)
-  DrCrBal = models.CharField(max_length=20, null=True)
-
-  class Meta:
-        verbose_name_plural = 'Equity Accounts'
-  def __str__(self):
-     return self.AccountNumber
-  
 class AcctRollupsM(models.Model):
   RollUpName = models.CharField(max_length=255, null=True)
   AcctType = models.CharField(max_length=80, null=True)
@@ -98,49 +48,6 @@ class AcctRollupsD(models.Model):
         verbose_name_plural = 'Account Detail Rollups'
   def __str__(self):
      return self.RollUpName
-
-class TransBatch(models.Model):
-  TransBatchName = models.CharField(max_length=120, null=True, unique=True)
-  TransBatchDate = models.DateField(null=True)
-  Created = models.DateTimeField(auto_now_add=True)
-  LastUpdated = models.DateTimeField(auto_now=True)
-
-  def __str__(self):
-        return self.TransBatchName
-
-  class Meta:
-        verbose_name_plural = 'Transaction Batch'
-  def __str__(self):
-     return self.TransBatchName
-
-class TransHeader(models.Model):
-  TransBatchID = models.ForeignKey('TransBatch', null=True, on_delete=models.CASCADE)
-  TransDescription = models.CharField(max_length=120, null=True)
-  TransDate = models.DateField(null=True)
-  TransNote = models.CharField(max_length=240, null=True)
-  Created = models.DateTimeField(auto_now_add=True)
-  LastUpdated = models.DateTimeField(auto_now=True) 
-
-  class Meta:
-        verbose_name_plural = 'Transaction Header'
-  def __str__(self):
-     return self.TransDescription
-
-class TransDetail(models.Model):
-  TransHeaderID = models.ForeignKey('TransHeader', null=True, on_delete=models.CASCADE)
-  Amount = models.IntegerField()
-  DrAccount = models.CharField(max_length=10, null=True)
-  CrAccount = models.CharField(max_length=10, null=True)
-  Created = models.DateTimeField(auto_now_add=True)
-  LastUpdated = models.DateTimeField(auto_now=True)
-
-  class Meta:
-        ordering = ['id']  # or any other field or fields
-
-  class Meta:
-        verbose_name_plural = 'Transaction Detail'
-  def __str__(self):
-     return self.Description
 
 class SponRates(models.Model):
   Sequence = models.CharField(max_length=10, null=True)  

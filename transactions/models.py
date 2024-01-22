@@ -1,64 +1,12 @@
 from django.db import models
 
-# Create your models here.
+# ################################################# 
+#     NEW STARTING 1/21  
+###################################################
 
-class CashInAcctM(models.Model):
-  Status = models.CharField(max_length=10, null=True)
-  AccountNumber = models.CharField(max_length=20, null=True)
-  Description = models.CharField(max_length=255, null=True)
-  Type = models.CharField(max_length=12, null=True)
-  Statement = models.CharField(max_length=40, null=True) 
-  Section = models.CharField(max_length=40, null=True) 
-  Sequence = models.IntegerField(null=True)
-  RollupType = models.CharField(max_length=60, null=True)
-
-  class Meta:
-        verbose_name_plural = 'Accounts'
-  def __str__(self):
-     return self.AccountNumber
-
-
-
-class CashOutAcctM(models.Model):
-  AccountNumber = models.CharField(max_length=40, null=True)
-  Description = models.CharField(max_length=255, null=True)
-  DrCrBal = models.CharField(max_length=20, null=True)
-
-  class Meta:
-        verbose_name_plural = 'Expense Accounts'
-  def __str__(self):
-     return self.AccountNumber
-
-class WhatWeOwnAcctM(models.Model):
-  AccountNumber = models.CharField(max_length=40, null=True)
-  Description = models.CharField(max_length=255, null=True)
-  DrCrBal = models.CharField(max_length=20, null=True)
-
-  class Meta:
-        verbose_name_plural = 'Asset Accounts'
-  def __str__(self):
-     return self.AccountNumber
-
-class DebtsAcctM(models.Model):
-  AccountNumber = models.CharField(max_length=40, null=True)
-  Description = models.CharField(max_length=255, null=True)
-  DrCrBal = models.CharField(max_length=20, null=True)
-
-  class Meta:
-        verbose_name_plural = 'Liability Accounts'
-  def __str__(self):
-     return self.AccountNumber
-
-class NetworthAcctM(models.Model):
-  AccountNumber = models.CharField(max_length=40, null=True)
-  Description = models.CharField(max_length=255, null=True)
-  DrCrBal = models.CharField(max_length=20, null=True)
-
-  class Meta:
-        verbose_name_plural = 'Equity Accounts'
-  def __str__(self):
-     return self.AccountNumber
-  
+# *******************************************************************************
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< PersonM >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+# ******************************************************************************* 
 class PersonM(models.Model):
   LocationID = models.IntegerField(null=True)
   firstname = models.CharField(max_length=255, null=True)
@@ -89,9 +37,22 @@ class PersonM(models.Model):
     def __str__(self):
         return self.SLAccount
 
-# ################################################# 
-#     NEW STARTING 1/13   
-###################################################
+# *******************************************************************************
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<< FinStatements >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+# ******************************************************************************* 
+class FinStatements(models.Model):
+    FSName = models.CharField(max_length=240, default='')
+    FSCurrentDate = models.DateTimeField(auto_now_add=True)
+    FSFromDate = models.DateTimeField()
+    FSThroughDate = models.DateTimeField()
+    FSPostedDate = models.DateTimeField()
+
+    def __str__(self):	
+        return self.FSName
+
+# *******************************************************************************
+# <<<<<<<<<<<<<<<<<<<<<<<<<<< StatementSections >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+# ******************************************************************************* 
 class StatementSections(models.Model):	
     SSPersonFK = models.ForeignKey(PersonM, null=True, on_delete=models.CASCADE)	
     SSName = models.CharField(max_length=240, default='')	
@@ -110,6 +71,9 @@ class StatementSections(models.Model):
     def __str__(self):	
         return self.SSName
     
+# *******************************************************************************
+# <<<<<<<<<<<<<<<<<<<<<<<<<<< StatementLinesLine >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+# ******************************************************************************* 
 class StatementLinesLine(models.Model):		
     SLStatementSectionFK = models.ForeignKey('StatementSections', null=True, blank=True, on_delete=models.CASCADE)		
     SLStatementLineFK = models.ForeignKey('self', null=True, blank=True, on_delete=models.SET_NULL, related_name='predecessor')		
@@ -134,6 +98,9 @@ class StatementLinesLine(models.Model):
     def __str__(self):		
         return self.SLName
 
+# *******************************************************************************
+# <<<<<<<<<<<<<<<<<<<<<<<<< StatementLinesAccounts >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+# ******************************************************************************* 
 class StatementLineAccounts(models.Model):		
     SLAStatementSectionFK = models.ForeignKey('StatementSections', null=True, blank=True, on_delete=models.CASCADE)		
     SLAStatementLineFK = models.ForeignKey('StatementLinesLine', null=True, blank=True, on_delete=models.CASCADE)		
@@ -145,5 +112,74 @@ class StatementLineAccounts(models.Model):
     def __str__(self):		
         return self.SAAccount		
 
+# *******************************************************************************
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< CashInAcctM >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+# ******************************************************************************* 
+class CashInAcctM(models.Model):
+  Status = models.CharField(max_length=10, null=True)
+  AccountNumber = models.CharField(max_length=20, null=True)
+  Description = models.CharField(max_length=255, null=True)
+  Type = models.CharField(max_length=12, null=True)
+  Statement = models.CharField(max_length=40, null=True) 
+  Section = models.CharField(max_length=40, null=True) 
+  Sequence = models.IntegerField(null=True)
+  RollupType = models.CharField(max_length=60, null=True)
+
+  class Meta:
+        verbose_name_plural = 'Accounts'
+  def __str__(self):
+     return self.AccountNumber
+
+# *******************************************************************************
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< TransBatch >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+# ******************************************************************************* 
+class TransBatch(models.Model):
+  TransBatchName = models.CharField(max_length=120, null=True, unique=True)
+  TransBatchDate = models.DateField(null=True)
+  Created = models.DateTimeField(auto_now_add=True)
+  LastUpdated = models.DateTimeField(auto_now=True)
+
+  def __str__(self):
+        return self.TransBatchName
+
+  class Meta:
+        verbose_name_plural = 'Transaction Batch'
+  def __str__(self):
+     return self.TransBatchName
+
+# *******************************************************************************
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< TransHeader >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+# ******************************************************************************* 
+class TransHeader(models.Model):
+  TransBatchID = models.ForeignKey('TransBatch', null=True, on_delete=models.CASCADE)
+  TransDescription = models.CharField(max_length=120, null=True)
+  TransDate = models.DateField(null=True)
+  TransNote = models.CharField(max_length=240, null=True)
+  Created = models.DateTimeField(auto_now_add=True)
+  LastUpdated = models.DateTimeField(auto_now=True) 
+
+  class Meta:
+        verbose_name_plural = 'Transaction Header'
+  def __str__(self):
+     return self.TransDescription
+
+# *******************************************************************************
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< TransDetail >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+# ******************************************************************************* 
+class TransDetail(models.Model):
+  TransHeaderID = models.ForeignKey('TransHeader', null=True, on_delete=models.CASCADE)
+  Amount = models.IntegerField()
+  DrAccount = models.CharField(max_length=10, null=True)
+  CrAccount = models.CharField(max_length=10, null=True)
+  Created = models.DateTimeField(auto_now_add=True)
+  LastUpdated = models.DateTimeField(auto_now=True)
+
+  class Meta:
+        ordering = ['id']  # or any other field or fields
+
+  class Meta:
+        verbose_name_plural = 'Transaction Detail'
+  def __str__(self):
+     return self.Description
 
 

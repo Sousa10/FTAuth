@@ -2,7 +2,7 @@ from django import forms
 from django.forms import ModelForm
 from django.contrib.auth.forms import AuthenticationForm
 from .models import CashInAcctM, StatementSections, StatementLinesLine, StatementLineAccounts
-
+from .models import TransBatch
 
 INPUT_CLASSES = 'rounded-xl border form-control'
 
@@ -223,3 +223,16 @@ class StatementLineAccountsForm(forms.ModelForm):
                 'class': INPUT_CLASSES		
                 }),		
                 }		
+
+class TransBatchForm(forms.ModelForm):
+    TransBatchName = forms.CharField(label="Batch Name", required=True)
+    TransBatchDate = forms.CharField(label="Batch Date", required=True)
+
+    class Meta:
+        model = TransBatch
+        fields = ['TransBatchName', 'TransBatchDate']
+        # widgets = {
+        #     'TransBatchDate': DateInput(),
+        # }
+
+
