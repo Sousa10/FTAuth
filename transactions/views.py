@@ -60,8 +60,6 @@ def cashinacctm_update(request, pk):
     })
 
 def populate_from_csv(csv_file):
-    # reader = csv.reader(csv_file.read().decode('utf-8').splitlines())
-    # print(reader)
     file_data = csv_file.read().decode("utf-8")
     csv_data = file_data.split("\n")
     for row in csv_data:
@@ -196,13 +194,6 @@ def transaction_delete(request, pk):
 
     return redirect('LoginRegister:FTTransactions')
 
-def home(request):
-    name = "Kirk"
-    return render(request,
-                  'home.html', {
-                      'name': name
-                  })
-
 def show_construction(request):
     return render(request, 'transactions/show_construction.html', {})
 
@@ -243,12 +234,6 @@ def format_date(field):
 #------------------------------------------#
 def FinStatementsV(request):
     finstmts = FinStatements.objects.all()
-    
-
-
-
-
-
 
 ############################################
 #<<<<<<< StatementSections >>>>>>>>>>>>>>>>#

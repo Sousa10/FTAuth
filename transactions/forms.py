@@ -223,16 +223,3 @@ class StatementLineAccountsForm(forms.ModelForm):
                 'class': INPUT_CLASSES		
                 }),		
                 }		
-
-class TransBatchForm(forms.ModelForm):
-    TransBatchName = forms.CharField(label="Batch Name", required=True)
-    TransBatchDate = forms.CharField(label="Batch Date", required=True)
-
-    class Meta:
-        model = TransBatch
-        fields = ['TransBatchName', 'TransBatchDate']
-        # widgets = {
-        #     'TransBatchDate': DateInput(),
-        # }
-
-
