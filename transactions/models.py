@@ -34,9 +34,6 @@ class PersonM(models.Model):
   def __str__(self):
     return self.firstname
 
-    def __str__(self):
-        return self.SLAccount
-
 # *******************************************************************************
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<< FinStatements >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 # ******************************************************************************* 
@@ -144,8 +141,6 @@ class TransBatch(models.Model):
 
   class Meta:
         verbose_name_plural = 'Transaction Batch'
-  def __str__(self):
-     return self.TransBatchName
 
 # *******************************************************************************
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< TransHeader >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -175,11 +170,8 @@ class TransDetail(models.Model):
   LastUpdated = models.DateTimeField(auto_now=True)
 
   class Meta:
-        ordering = ['id']  # or any other field or fields
-
-  class Meta:
         verbose_name_plural = 'Transaction Detail'
   def __str__(self):
-     return self.Description
+     return self.Amount
 
 

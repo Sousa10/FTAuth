@@ -33,7 +33,7 @@
       <tbody>
         <tr>
           <td style="text-align: center; white-space: nowrap;">
-            <!-- <a class="add-button" href="{% url 'LoginRegister:FTFinances' %}">Add</a> -->
+            
             <a href="#" class="btn btn-primary listheaderbuttons" data-bs-toggle="modal" data-bs-target="#listHeaderModal"
               style="border-radius: 0%;">New</a>
             <a href="#" class="btn btn-primary listheaderbuttons" style="border-radius: 0%; margin: 0;" data-bs-toggle="modal"
@@ -57,7 +57,7 @@
                   <td colspan="2">{{ listheader.LHDescription }}</td>
                   <td colspan="2"></td>
                   <td style="text-align: center;">
-                    <!-- <a class="add-button" href="{% url 'LoginRegister:FTFinances' %}">Add</a> -->
+                    
                     {% if listheader %}
                     <a href="#" class="edit-header-button" data-bs-toggle="modal"
                       data-bs-target="#editHeaderModal" data-id="{{ listheader.id }}"
@@ -99,7 +99,7 @@
                   <td>{{ listdetail.LHName }}</td>
                   <td>
                     {% if listdetail %}
-                    <!-- <a class="add-button" href="{% url 'LoginRegister:FTFinances' %}">Add</a> -->
+                
                     <a href="#" class="edit-detail-button" data-bs-toggle="modal"
                     data-bs-target="#editdetailModal" data-id="{{ listdetail.id }}"
                     data-ListHeaderFK="{{ listdetail.ListHeaderFK.LHName }}"
