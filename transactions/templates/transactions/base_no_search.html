@@ -120,8 +120,7 @@
                             Finances Tutorials
                         </a>
                         <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}"
-                                    data-bs-toggle="modal">Overview</a></li>
+                            <li><a class="dropdown-item" href="#tutOverview" data-bs-toggle="modal">Overview</a></li>
                             <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}"
                                     data-bs-toggle="modal">How To Setup Your Accounts</a>
                             </li>
@@ -153,6 +152,7 @@
                     <li class="nav-item">
                         <a class="nav-link active" href="{% url 'LoginRegister:FTMainMenu' %}">Main Menu</a>
                     </li>                    
+
     </nav>
     {% block pageTitle %}
     {% endblock %}

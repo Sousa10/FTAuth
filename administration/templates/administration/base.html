@@ -73,11 +73,17 @@
                 <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Administration Tutorials
                 </a>
+
                 <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="#" data-bs-toggle="modal">Overview</a></li>
-                  <li><a class="dropdown-item" href="#" data-bs-toggle="modal">Tutorial #1</a></li>
-                  <li><a class="dropdown-item" href="#" data-bs-toggle="modal">Tutorial #2</a></li>
-                  <li><a class="dropdown-item" href="#" data-bs-toggle="modal">Tutorial #3</a></li>
+                  <li><a class="dropdown-item" href="#tutOverview" data-bs-toggle="modal">Overview</a></li>
+                  <li><a class="dropdown-item" href="#" data-bs-toggle="modal">How to Setup a Family Sharing Model</a></li>
+                  <li><a class="dropdown-item" href="#" data-bs-toggle="modal">How to Share Finances</a></li>
+                  <li><a class="dropdown-item" href="#" data-bs-toggle="modal">How to Share Calendar</a></li>
+                  <li><a class="dropdown-item" href="#" data-bs-toggle="modal">How to Share Lists & Planning</a></li>
+                  <li><a class="dropdown-item" href="#" data-bs-toggle="modal">How to Share Fitness & Sports</a></li>
+                  <li><a class="dropdown-item" href="#" data-bs-toggle="modal">How to Integrate with MS Outlook</a></li>
+                  <li><a class="dropdown-item" href="#" data-bs-toggle="modal">How to Integrate with Google Calendar</a></li>
+                  <li><a class="dropdown-item" href="#" data-bs-toggle="modal">How to Integrate with Apple Calendar</a></li>
                 </ul>
               </li>          
 
@@ -88,8 +94,6 @@
     <li class="nav-item">
         <a class="nav-link active" href="{% url 'LoginRegister:FTMainMenu' %}">Main Menu</a>
     </li>
-
-
 
   </main>
 
@@ -125,8 +129,6 @@
                     <img src="{% static 'Adv4.jpg' %}" style="height: 95%;" alt="Advpot2">
                 </a>
             </div>
-
-
 
         </div>
         <!-- Center Open Area -->
@@ -175,15 +177,6 @@
         </div>
     </div>
 </main>
-
-<!-- <footer class="mt-8 text-center"> -->
-  <!-- Spot 7 -->
-  <!-- <div style="width: 100%; height: 170px; background-color: #DDEBF7;"> -->
-      <!-- <a href="#ad7Modal" data-bs-toggle="modal"> -->
-          <!-- <img class="sponsor" src="{% static 'AdvSpot5B.jpg'%}" style="width: 1450px" alt="Sponsor"> -->
-      <!-- </a> -->
-  <!-- </div> -->
-<!-- </footer> -->
 
   <head>
   </head>
@@ -409,7 +402,24 @@
           </div>
       </div>
   </div>
+<!-- Tutorials -->
+  <!-- Modal Overview -->
+  <div class="modal fade" id="tutOverview" tabindex="-1" aria-labelledby="tutOverview" aria-hidden="true">
+    <div class="modal-dialog ads modal-xl">
+        <div class="modal-content">
+            <div class="modal-header primary">
+                <h5 class="modal-title" id="tutOverview">Administrative Overview Tutorial</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            </div>
+            <div class="modal-body">
+                Administrative Overview Tutorial
+            </div>
+        </div>
+    </div>
+</div>
 
+
+<!-- End Tutorials -->
 
   </nav>
   
