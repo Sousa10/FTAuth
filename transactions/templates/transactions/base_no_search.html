@@ -32,12 +32,24 @@
                             Setup Books
                         </a>
                         <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Income Statement</a></li>
-                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Balance Sheet Statement</a></li>
-                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Cash Flow Statement</a></li>
-                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Expense Analysis Statement</a></li>
-                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Budget Statement</a></li>
-                            <li><a class="dropdown-item" href="#">Statement Lines</a></li>                            
+                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Income
+                                    Statement</a></li>
+                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Balance Sheet
+                                    Statement</a></li>
+                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Cash Flow
+                                    Statement</a></li>
+                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Expense
+                                    Analysis Statement</a></li>
+                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Budget
+                                    Statement</a></li>
+                            <!-- <li><a class="dropdown-item" href="#">Statement Lines</a></li> -->
+                            <li>{% if first_section %}
+                                <a class="dropdown-item"
+                                    href="{% url 'transactions:statement_section_with_id' first_section.id %}">Statement Lines</a>
+                                {% else %}
+                                <a class="dropdown-item" href="{% url 'transactions:statement_section' %}">Statement Lines</a>
+                                {% endif %}
+                            </li>
                             <li><a class="dropdown-item" href="{% url 'transactions:accounts' %}">Accounts</a></li>
                         </ul>
                     </li>
@@ -145,7 +157,7 @@
 
                     <li class="nav-item">
                         <a class="nav-link active" href="{% url 'LoginRegister:FTMainMenu' %}">Main Menu</a>
-                    </li>                    
+                    </li>
     </nav>
     {% block pageTitle %}
     {% endblock %}
@@ -357,7 +369,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- FinSpot8 -->
         <div class="modal fade" id="FinSpot8" tabindex="-1" aria-labelledby="FinSpot8" aria-hidden="true">
             <div class="modal-dialog ads modal-xl">

@@ -4,40 +4,40 @@
 {% block title %}Lists & Planning{% endblock %}
 
 {% block pageimage %}
-<img style="float: left;" src="{% static 'ListsAndPlanning.jpg' %}" alt="Liststs and Planning Tile Missing" width="100" height="100">
+<img style="float: left;" src="{% static 'ListsAndPlanning.jpg' %}" alt="Liststs and Planning Tile Missing" width="100"
+  height="100">
 {% endblock %}
 
 {% block backurl %}{%url 'LoginRegister:FTMainMenu'%}{% endblock %}
 
 {% block pageTitle %}
-<div class="h1">
-  <a style="color:rgb(6, 6, 192)">
-    <p style="font-size:40px">
-      <h2>Statement Lines</h2>
-    </p>
-  </a>
-</div>
 {% endblock %}
 
 {% block content %}
 <div class="row text-center">
+  <div class="h1">
+    <a style="color:rgb(6, 6, 192)">
+      <p style="font-size:40px">
+        <h2>Statement Lines</h2>
+      </p>
+    </a>
+  </div>
   <div class="col-md-1">
   </div>
   <div class="col-md-10">
     <table style="border-bottom: none!important;">
       <thead>
         <tr>
-          <th style="text-align: center;">Statement Line</th>
+          <th style="text-align: center;">Statement Section</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td style="text-align: center; white-space: nowrap;">
-            <!-- <a class="add-button" href="{% url 'LoginRegister:FTFinances' %}">Add</a> -->
-            <a href="#" class="btn btn-primary listheaderbuttons" data-bs-toggle="modal" data-bs-target="#listHeaderModal"
+            <a href="#" class="btn btn-primary listheaderbuttons" data-bs-toggle="modal" data-bs-target="#sectionModal"
               style="border-radius: 0%;">New</a>
-            <a href="#" class="btn btn-primary listheaderbuttons" style="border-radius: 0%; margin: 0;" data-bs-toggle="modal"
-            data-bs-target="#selectedHeaderModal">Existing</a>
+            <a href="#" class="btn btn-primary listheaderbuttons" style="border-radius: 0%; margin: 0;"
+              data-bs-toggle="modal" data-bs-target="#selectedSectionModal">Existing</a>
           </td>
         </tr>
         <tr>
@@ -45,17 +45,19 @@
             <table style="margin-top: 0%;">
               <tbody>
                 <tr>
-                  {% if listheader %}
-                  <td>{{ listheader.LHName }}</td>
-                  <td colspan="2">{{ listheader.LHDescription }}</td>
+                  {% if section %}
+                  <td>{{ section.SSName }}</td>
+                  <td colspan="2">{{ section.SSDescription }}</td>
                   <td colspan="2"></td>
                   <td style="text-align: center;">
                     <!-- <a class="add-button" href="{% url 'LoginRegister:FTFinances' %}">Add</a> -->
-                    {% if listheader %}
-                    <a href="#" class="edit-header-button" data-bs-toggle="modal"
-                      data-bs-target="#editHeaderModal" data-id="{{ listheader.id }}"
-                      data-LHName="{{ listheader.LHName }}" data-LHDescription="{{ listheader.LHDescription }}" style="text-decoration: none;">{% bs_icon 'pencil' %}</a>
-                      <a href="{% url 'listsplan:listHeader_delete' listheader.id %}" class="delete-button">{% bs_icon 'trash' %}</a>
+                    {% if section %}
+                    <a href="#" class="edit-header-button" data-bs-toggle="modal" data-bs-target="#editHeaderModal"
+                      data-id="{{ section.id }}" data-LHName="{{ section.LHName }}"
+                      data-LHDescription="{{ section.SSDescription }}" style="text-decoration: none;">{% bs_icon
+                      'pencil' %}</a>
+                    <a href="{% url 'listsplan:listHeader_delete' listheader.id %}" class="delete-button">{% bs_icon
+                      'trash' %}</a>
                     {% endif %}
                     {% endif %}
                   </td>
@@ -69,7 +71,7 @@
     <table style="margin-top: 0%;">
       <thead>
         <tr>
-          <th style="text-align: center;">Details</th>
+          <th style="text-align: center;">Section Lines</th>
         </tr>
       </thead>
       <tbody>
@@ -78,28 +80,27 @@
             <table style="margin-top: 0%;">
               <thead>
                 <tr>
-                  <th>Item Number</th>
+                  <th>Line Name</th>
                   <th>Predecessor</th>
-                  <th>Item</th>
+                  <th>Description</th>
                   <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
-                {% for listdetail in listdetails %}
+                {% for line in statementlines %}
                 <tr>
-                  <td>{{ listdetail.LNNumber }}</td>
-                  <td>{{ listdetail.ListDetailFK.LHName }}</td>
-                  <td>{{ listdetail.LHName }}</td>
+                  <td>{{ line.SLName }}</td>
+                  <td>{{ line.SLStatementLineFK.SLName }}</td>
+                  <td>{{ line.SLDescription }}</td>
                   <td>
-                    {% if listdetail %}
-                    <!-- <a class="add-button" href="{% url 'LoginRegister:FTFinances' %}">Add</a> -->
-                    <a href="#" class="edit-detail-button" data-bs-toggle="modal"
-                    data-bs-target="#editdetailModal" data-id="{{ listdetail.id }}"
-                    data-ListHeaderFK="{{ listdetail.ListHeaderFK.LHName }}"
-                    data-ListItemName="{{ listdetail.LHName }}" data-LNNumber="{{ listdetail.LNNumber }}"
-                    data-ListDetailFK="{{ listdetail.ListDetailFK.LHName }}">{% bs_icon 'pencil' %}</a>
-                    <a href="{% url 'listsplan:listDetail_delete' listdetail.id %}"
-                      class="delete-button">{% bs_icon 'trash' %}</a>
+                    {% if line %}
+                    
+                    <a href="#" class="edit-detail-button" data-bs-toggle="modal" data-bs-target="#editdetailModal"
+                      data-id="{{ line.id }}" data-ListHeaderFK="{{ line.ListHeaderFK.LHName }}"
+                      data-ListItemName="{{ line.LHName }}" data-LNNumber="{{ listdetail.LNNumber }}"
+                      data-ListDetailFK="{{ line.ListDetailFK.LHName }}">{% bs_icon 'pencil' %}</a>
+                    <a href="{% url 'listsplan:listDetail_delete' line.id %}" class="delete-button">{% bs_icon 'trash'
+                      %}</a>
                     {% endif %}
                   </td>
                 </tr>
@@ -109,16 +110,16 @@
             <!-- Add navigation links. -->
             <div class="pagination">
               <span class="step-links">
-                {% if listdetails.has_previous %}
-                <a href="?page={{ listdetails.previous_page_number }}">previous</a>
+                {% if statementlines.has_previous %}
+                <a href="?page={{ statementlines.previous_page_number }}">previous</a>
                 {% endif %}
 
                 <span class="current">
-                  Page {{ listdetails.number }} of {{ listdetails.paginator.num_pages }}.
+                  Page {{ statementlines.number }} of {{ statementlines.paginator.num_pages }}.
                 </span>
 
-                {% if listdetails.has_next %}
-                <a href="?page={{ listdetails.next_page_number }}">next</a>
+                {% if statementlines.has_next %}
+                <a href="?page={{ statementlines.next_page_number }}">next</a>
                 {% endif %}
               </span>
             </div>
@@ -127,7 +128,7 @@
         <tr>
           <td colspan="3" class="text-center">
             <a class="add-button btn btn-primary listheaderbuttons" href="#" style="border-radius: 0%;"
-              data-bs-toggle="modal" data-bs-target="#listDetailModal">Add</a>
+              data-bs-toggle="modal" data-bs-target="#statementLineModal">Add</a>
           </td>
         </tr>
       </tbody>
@@ -136,39 +137,42 @@
   <div class="col-md-1">
   </div>
 
-  <!-- List Header Add Modal -->
-  <div class="modal fade" id="listHeaderModal" tabindex="-1" aria-labelledby="listHeaderModalLabel" aria-hidden="true">
+  <!-- Section Add Modal -->
+  <div class="modal fade" id="sectionModal" tabindex="-1" aria-labelledby="sectionModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">{{ title }}</h5>
+          <h5 class="modal-title" id="sectionModalLabel">{{ title }}</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
 
-        <form action="{% url 'transactions:statement_lines' listheader.id|default:'new' %}" method="post">
-        <!-- KMS 1/6 <form action="{% url 'listsplan:FTListChores' listheader.id|default:'new' %}" method="post"> -->
+        <form
+          action="{% if section.id %}{% url 'transactions:statement_section_with_id' section.id %}{% else %}{% url 'transactions:statement_section' %}{% endif %}"
+          method="post">
           <div class="modal-body">
             {% csrf_token %}
-            <div class="form-group">
-              <label for="{{ StatementLinesHeaderForm.LHName.id_for_label }}">Statement Line</label>
-              {{ StatementLinesHeaderForm.LHName }}
-            </div>
-            <div class="form-group">
-              <label for="{{ StatementLinesHeaderForm.LHDescription.id_for_label }}">Description</label>
-              {{ StatementLinesHeaderForm.LHDescription }}
-            </div>
-            {% if StatementLinesHeaderForm.errors or StatementLinesHeaderForm.non_field_errors %}
-            <div class="mb-3 p-6 bg-red-100 rounded-xl">
-              {% for field in StatementLinesHeaderForm %}
-              {{ field.errors }}
+            <div class="row">
+                {% for field in sectionForm %}
+                <div class="col-12 col-md-6 mb-3">
+                  <div class="form-floating"> <!-- Use floating labels for a neater look -->
+                    {{ field }} <!-- Render the field itself -->
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label> <!-- Render the label of the field -->
+                    {% if field.help_text %}
+                      <small class="form-text text-muted">{{ field.help_text }}</small>
+                    {% endif %}
+                    {% for error in field.errors %}
+                      <div class="alert alert-danger">{{ error }}</div>
+                    {% endfor %}
+                  </div>
+                </div>
+                {% if forloop.counter|divisibleby:2 %}
+                  </div><div class="row">
+                {% endif %}
               {% endfor %}
-
-              {{ StatementLinesHeaderForm.non_field_errors }}
             </div>
-            {% endif %}
           </div>
           <div class="modal-footer">
-            <input type="hidden" name="form_type" value="StatementLinesHeaderForm">
+            <input type="hidden" name="form_type" value="StatementSectionForm">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary">Submit</button>
           </div>
@@ -176,49 +180,49 @@
       </div>
     </div>
   </div>
-  <!-- List Detail Add Modal -->
-  <div class="modal fade" id="listDetailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+  <!-- Statement Line Add Modal -->
+  <div class="modal fade" id="statementLineModal" tabindex="-1" aria-labelledby="statementLineModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">{{ title }}</h5>
+          <h5 class="modal-title" id="sectionModalLabel">{{ title }}</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
-          <form action="{% url 'transactions:statement_lines' listheader.id|default:'new' %}" method="post">
-          <!-- KMS 1/6 <form action="{% url 'listsplan:FTListChores' listheader.id|default:'new' %}" method="post"> -->
-            {% csrf_token %}
-            <div class="form-group">
-              <label for="{{ StatementLinesDetailForm.ListHeaderFK.id_for_label }}">Statement Line</label>
-              {{ StatementLinesDetailForm.ListHeaderFK }}
-            </div>
-            <div class="form-group">
-              <label for="{{ StatementLinesDetailForm.ListDetailFK.id_for_label }}">Predecessor</label>
-              {{ StatementLinesDetailForm.ListDetailFK }}
-            </div>
-            <div class="form-group">
-              <label for="{{ StatementLinesDetailForm.SLNumber.id_for_label }}">List Item Number</label>
-              {{ StatementLinesDetailForm.LNNumber }}
-            </div>
-            <div class="form-group">
-              <label for="{{ StatementLinesDetailForm.LHName.id_for_label }}">List Item Name</label>
-              {{ StatementLinesDetailForm.LHName }}
-            </div>
-            {% if StatementLinesDetailForm.errors or StatementLinesHeaderForm.non_field_errors %}
-            <div class="mb-3 p-6 bg-red-100 rounded-xl">
-              {% for field in StatementLinesDetailForm %}
-              {{ field.errors }}
-              {% endfor %}
 
-              {{ StatementLinesDetailForm.non_field_errors }}
+        <form
+          action="{% if section.id %}{% url 'transactions:statement_section_with_id' section.id %}{% else %}{% url 'transactions:statement_section' %}{% endif %}"
+          method="post">
+          <div class="modal-body">
+            {% csrf_token %}
+            <div class="row">
+              {% for field in statementLinesForm %}
+                <div class="col-md-6 mb-3">
+                  <div class="d-flex align-items-center"> <!-- Flexbox for alignment -->
+                    <div class="w-50 pr-2"> <!-- Fixed width for label with padding-right -->
+                        <label for="{{ field.id_for_label }}" class="control-label form-label">{{ field.label }}</label>
+                    </div>
+                    <div class="flex-grow-1"> <!-- Field takes the remaining width -->
+                        {{ field }} <!-- Render the field itself -->
+                    </div>
+                  </div>
+                  {% if field.help_text %}
+                      <small class="form-text text-muted">{{ field.help_text }}</small>
+                  {% endif %}
+                  {% for error in field.errors %}
+                      <div class="alert alert-danger">{{ error }}</div>
+                  {% endfor %}
+                </div>
+                {% if forloop.counter|divisibleby:2 and not forloop.last %}
+                    </div><div class="row">
+                {% endif %}
+              {% endfor %}
             </div>
-            {% endif %}
-        </div>
-        <div class="modal-footer">
-          <input type="hidden" name="form_type" value="StatementLinesDetailForm">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary" name="ListDetailsTForm">Submit</button>
-        </div>
+          </div>
+          <div class="modal-footer">
+            <input type="hidden" name="form_type" value="StatementSectionForm">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
         </form>
       </div>
     </div>
@@ -285,7 +289,7 @@
             </div>
             <div class="form-group">
               <label for="{{ StatementLinesDetailForm.LNNumber.id_for_label }}">List Item Number</label>
-                {{ StatementLinesDetailForm.LNNumber }}
+              {{ StatementLinesDetailForm.LNNumber }}
             </div>
             <div class="form-group">
               <label for="{{ StatementLinesDetailForm.LHName.id_for_label }}">List Item Name</label>
@@ -312,7 +316,8 @@
   </div>
 
   <!-- selected header modal -->
-  <div class="modal fade" id="selectedHeaderModal" tabindex="-1" aria-labelledby="selectedHeaderModalLabel" aria-hidden="true">
+  <div class="modal fade" id="selectedSectionModal" tabindex="-1" aria-labelledby="selectedHeaderModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -320,25 +325,25 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
 
-        <form action="{% url 'transaction:statement_lines' listheader.id|default:'new' %}" method="post">
+        <form action="" method="post">
           <div class="modal-body">
             {% csrf_token %}
             <div class="form-group">
-              <label for="{{ StatementLinesHeaderForm.LHName.id_for_label }}">List or Plan Name</label>
-              {{ selectedHeaderForm.LHName }}
+              <label for="{{ selectedSectionForm.SSName.id_for_label }}">Section</label>
+              {{ selectedSectionForm.SSName }}
             </div>
-            {% if selectedHeaderForm.errors or selectedHeaderForm.non_field_errors %}
+            {% if selectedSectionForm.errors or selectedSectionForm.non_field_errors %}
             <div class="mb-3 p-6 bg-red-100 rounded-xl">
-              {% for field in selectedHeaderForm %}
+              {% for field in selectedSectionForm %}
               {{ field.errors }}
               {% endfor %}
 
-              {{ selectedHeaderForm.non_field_errors }}
+              {{ selectedSectionForm.non_field_errors }}
             </div>
             {% endif %}
           </div>
           <div class="modal-footer">
-            <input type="hidden" name="form_type" value="SelectedHeaderTForm">
+            <input type="hidden" name="form_type" value="SelectedSectionForm">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary">Submit</button>
           </div>
