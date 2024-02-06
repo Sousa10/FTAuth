@@ -50,7 +50,8 @@ class FinStatements(models.Model):
 # *******************************************************************************
 # <<<<<<<<<<<<<<<<<<<<<<<<<<< StatementSections >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 # ******************************************************************************* 
-class StatementSections(models.Model):	
+class StatementSections(models.Model):
+    FinStatementFK = models.ForeignKey('FinStatements', null=True, blank=True, on_delete=models.CASCADE)
     SSPersonFK = models.ForeignKey(PersonM, null=True, on_delete=models.CASCADE)	
     SSName = models.CharField(max_length=240, default='')	
     SSDescription = models.CharField(max_length=960, default='')	
@@ -76,7 +77,7 @@ class StatementLinesLine(models.Model):
     SLStatementLineFK = models.ForeignKey('self', null=True, blank=True, on_delete=models.SET_NULL, related_name='predecessor')		
     SLName = models.CharField(max_length=240)		
     SLDescription = models.CharField(max_length=240)		
-    SLIncomeStatement = models.CharField(max_length=3, null=True) 		
+    SLIncomeStatement = models.CharField(max_length=3, null=True) # Yes or no		
     SLIncomeStatementSection = models.CharField(max_length=80, null=True) 		
     SLIncomeStatementSequence = models.IntegerField(null=True) 		
     SLBalanceSheetStatement = models.CharField(max_length=3, null=True) 		
@@ -100,7 +101,7 @@ class StatementLinesLine(models.Model):
 # ******************************************************************************* 
 class StatementLineAccounts(models.Model):		
     SLAStatementSectionFK = models.ForeignKey('StatementSections', null=True, blank=True, on_delete=models.CASCADE)		
-    SLAStatementLineFK = models.ForeignKey('StatementLinesLine', null=True, blank=True, on_delete=models.CASCADE)		
+    SLAStatementLineFK = models.ForeignKey('StatementLinesLine', null=True, blank=True, on_delete=models.CASCADE, related_name='statementlineaccounts_set')		
     SLAStatementAccountFK = models.ForeignKey('self', null=True, blank=True, on_delete=models.SET_NULL, related_name='predecessor')		
     SAAccount = models.IntegerField()		
     SLAAccountType = models.CharField(max_length=12)		

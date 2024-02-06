@@ -48,7 +48,7 @@ class StatementSectionsForm(forms.ModelForm):
     class Meta:		
         model = StatementSections		
         fields = (		
-	              'SSPersonFK', 	
+	            #   'SSPersonFK', 	
                   'SSName', 	
                   'SSDescription', 	
                   'SSIncomeStatementSequence', 	
@@ -58,9 +58,9 @@ class StatementSectionsForm(forms.ModelForm):
                   'SSBudgetStatementSequence'	
                  )	
         widgets = {	
-	              'SSPersonFK': forms.TextInput(attrs={	
-                    'class': INPUT_CLASSES	
-                  }),	
+	            #   'SSPersonFK': forms.TextInput(attrs={	
+                #     'class': INPUT_CLASSES	
+                #   }),	
 	              'SSName': forms.TextInput(attrs={	
                     'class': INPUT_CLASSES	
                   }),	

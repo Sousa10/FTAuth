@@ -50,14 +50,11 @@
                   <td colspan="2">{{ section.SSDescription }}</td>
                   <td colspan="2"></td>
                   <td style="text-align: center;">
-                    <!-- <a class="add-button" href="{% url 'LoginRegister:FTFinances' %}">Add</a> -->
                     {% if section %}
                     <a href="#" class="edit-header-button" data-bs-toggle="modal" data-bs-target="#editHeaderModal"
                       data-id="{{ section.id }}" data-LHName="{{ section.LHName }}"
-                      data-LHDescription="{{ section.SSDescription }}" style="text-decoration: none;">{% bs_icon
-                      'pencil' %}</a>
-                    <a href="{% url 'listsplan:listHeader_delete' listheader.id %}" class="delete-button">{% bs_icon
-                      'trash' %}</a>
+                      data-LHDescription="{{ section.SSDescription }}" style="text-decoration: none;">{% bs_icon 'pencil' %}</a>
+                    <a href="#" class="delete-button">{% bs_icon 'trash' %}</a>
                     {% endif %}
                     {% endif %}
                   </td>
@@ -92,6 +89,14 @@
                   <td>{{ line.SLName }}</td>
                   <td>{{ line.SLStatementLineFK.SLName }}</td>
                   <td>{{ line.SLDescription }}</td>
+                  <td>
+                    {% for account in line.statementlineaccounts_set.all %}
+                      <!-- Display information for each account -->
+                      {{ account.SAAccount }} - {{ account.SLAAccountType }}<br>
+                    {% empty %}
+                      No accounts
+                    {% endfor %}
+                  </td>
                   <td>
                     {% if line %}
                     

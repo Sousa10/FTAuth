@@ -241,14 +241,14 @@ def FinStatementsV(request):
 #------------------------------------------#
        # StatementSectionsV 
 #------------------------------------------#
-def StatementSectionsV(request, statement_section_id=None):
+def StatementSectionsV(request, pk=None):
     first_section = StatementSections.objects.first()
     section = None
     lines = None
     page = None
 
-    if statement_section_id is not None:
-        section = get_object_or_404(StatementSections, id=statement_section_id)
+    if pk is not None:
+        section = get_object_or_404(StatementSections, id=pk)
         lines = StatementLinesLine.objects.filter(SLStatementSectionFK=section)
         # Show 10 ListDetailsT objects per page
         paginator = Paginator(lines, 2)
@@ -273,21 +273,23 @@ def StatementSectionsV(request, statement_section_id=None):
             if sectionForm.is_valid():
                 saved_section =sectionForm.save()
 
-                return redirect('transactions:statement_section_with_id', statement_section_id=saved_section.id)
+                return redirect('transactions:statement_section_with_id', pk=saved_section.id)
 
         elif form_type == 'StatementLinesForm':
             statementLinesForm = StatementLinesLineForm(request.POST)
             if statementLinesForm.is_valid():
                 statementLinesForm.save()
 
-                return redirect('transactions:statement_section_with_id', statement_section_id=section.id)
+                return redirect('transactions:statement_section_with_id', pk=section.id)
 
         elif form_type == 'SelectedSectionForm':
             selectedSectionForm = SectionSelectForm(request.POST)
             if selectedSectionForm.is_valid():
                 sectionName = selectedSectionForm.cleaned_data['SSName']
                 section = StatementSections.objects.get(SSName=sectionName)
-                statementLines = section.statementlinesline_set.all()
+                statementLines = section.statementlinesline_set.prefetch_related(
+                    'statementlineaccounts_set'
+                ).all()
                 # Show 10 ListDetailsT objects per page
                 paginator = Paginator(statementLines, 5)
                 # get page number for each ListHeaderT instance
@@ -295,7 +297,7 @@ def StatementSectionsV(request, statement_section_id=None):
                 page = paginator.get_page(page_number)
                 print(type(section.id))
 
-                return redirect('transactions:statement_section_with_id', statement_section_id=section.id)
+                return redirect('transactions:statement_section_with_id', pk=section.id)
 
     else:
         sectionForm = StatementSectionsForm()
