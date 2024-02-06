@@ -35,9 +35,10 @@ class PersonM(models.Model):
     return self.firstname
 
 # *******************************************************************************
-# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<< FinStatements >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+# <<<<<<<<<<<<<<<<<<<<<<<<<<< Financial Statements >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 # ******************************************************************************* 
 class FinStatements(models.Model):
+    FSPersonFK = models.ForeignKey(PersonM, null=True, on_delete=models.CASCADE)	
     FSName = models.CharField(max_length=240, default='')
     FSCurrentDate = models.DateTimeField(auto_now_add=True)
     FSFromDate = models.DateTimeField()
@@ -48,64 +49,38 @@ class FinStatements(models.Model):
         return self.FSName
 
 # *******************************************************************************
-# <<<<<<<<<<<<<<<<<<<<<<<<<<< StatementSections >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<< Statement Sections >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 # ******************************************************************************* 
 class StatementSections(models.Model):
-    FinStatementFK = models.ForeignKey('FinStatements', null=True, blank=True, on_delete=models.CASCADE)
+    FinStatementsFK = models.ForeignKey('FinStatements', null=True, blank=True, on_delete=models.CASCADE)
     SSPersonFK = models.ForeignKey(PersonM, null=True, on_delete=models.CASCADE)	
     SSName = models.CharField(max_length=240, default='')	
     SSDescription = models.CharField(max_length=960, default='')	
-    SSIncomeStatementYN = models.CharField(max_length=3, default='') 	
-    SSIncomeStatementSequence = models.CharField(max_length=3, default='') 	
-    SSBalanceSheetStatementYN = models.CharField(max_length=3, default='')	
-    SSBalanceSheetStatementSequence = models.CharField(max_length=3, default='')	
-    SSCashFlowStatementYN = models.CharField(max_length=3, default='')	
-    SSCashFlowStatementSequence = models.CharField(max_length=3, default='')	
-    SSExpenseStatementYN = models.CharField(max_length=3, default='')	
-    SSExpenseStatementSequence = models.CharField(max_length=3, default='')	
-    SSBudgetStatementYN = models.CharField(max_length=3, default='')	
-    SSBudgetStatementSequence = models.CharField(max_length=3, default='')	
 	
     def __str__(self):	
         return self.SSName
     
 # *******************************************************************************
-# <<<<<<<<<<<<<<<<<<<<<<<<<<< StatementLinesLine >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Section Lines >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 # ******************************************************************************* 
-class StatementLinesLine(models.Model):		
-    SLStatementSectionFK = models.ForeignKey('StatementSections', null=True, blank=True, on_delete=models.CASCADE)		
-    SLStatementLineFK = models.ForeignKey('self', null=True, blank=True, on_delete=models.SET_NULL, related_name='predecessor')		
+class SectionLines(models.Model):		
+    SLStatementSectionsFK = models.ForeignKey('StatementSections', null=True, blank=True, on_delete=models.CASCADE)		
+    SLPersonFK = models.ForeignKey(PersonM, null=True, on_delete=models.CASCADE)	
     SLName = models.CharField(max_length=240)		
     SLDescription = models.CharField(max_length=240)		
-    SLIncomeStatement = models.CharField(max_length=3, null=True) # Yes or no		
-    SLIncomeStatementSection = models.CharField(max_length=80, null=True) 		
-    SLIncomeStatementSequence = models.IntegerField(null=True) 		
-    SLBalanceSheetStatement = models.CharField(max_length=3, null=True) 		
-    SLBalanceSheetStatementSection = models.CharField(max_length=80, null=True) 		
-    SLBalanceSheetStatementSequence = models.IntegerField(null=True) 		
-    SLCashFlowStatement = models.CharField(max_length=3, null=True)		
-    SLCashFlowStatementSection = models.CharField(max_length=80, null=True) 		
-    SLCashFlowStatementSequence = models.IntegerField(null=True) 		
-    SLExpenseStatement = models.CharField(max_length=3, null=True) 		
-    SLExpenseStatementSection = models.CharField(max_length=80, null=True) 		
-    SLExpenseStatementSequence = models.IntegerField(null=True) 		
-    SLBudgetStatement = models.CharField(max_length=3, null=True) 		
-    SLBudgetStatementSection = models.CharField(max_length=80, null=True) 		
-    SLBudgetStatementSequence = models.IntegerField(null=True) 		
 		
     def __str__(self):		
         return self.SLName
 
 # *******************************************************************************
-# <<<<<<<<<<<<<<<<<<<<<<<<< StatementLinesAccounts >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Line Accounts >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 # ******************************************************************************* 
-class StatementLineAccounts(models.Model):		
-    SLAStatementSectionFK = models.ForeignKey('StatementSections', null=True, blank=True, on_delete=models.CASCADE)		
-    SLAStatementLineFK = models.ForeignKey('StatementLinesLine', null=True, blank=True, on_delete=models.CASCADE, related_name='statementlineaccounts_set')		
-    SLAStatementAccountFK = models.ForeignKey('self', null=True, blank=True, on_delete=models.SET_NULL, related_name='predecessor')		
-    SAAccount = models.IntegerField()		
-    SLAAccountType = models.CharField(max_length=12)		
-    SLADescription = models.CharField(max_length=240)		
+class LineAccounts(models.Model):		
+    LAStatementLineFK = models.ForeignKey('SectionLines', null=True, blank=True, on_delete=models.CASCADE, related_name='statementlineaccounts_set')		
+    LAPersonFK = models.ForeignKey(PersonM, null=True, on_delete=models.CASCADE)	
+    LAAccount = models.IntegerField()		
+    LAAccountType = models.CharField(max_length=12)		
+    LAADescription = models.CharField(max_length=240)		
 		
     def __str__(self):		
         return self.SAAccount		

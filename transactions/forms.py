@@ -1,8 +1,7 @@
 from django import forms
 from django.forms import ModelForm
 from django.contrib.auth.forms import AuthenticationForm
-from .models import CashInAcctM, StatementSections, StatementLinesLine, StatementLineAccounts
-from .models import TransBatch
+from .models import CashInAcctM, FinStatements, StatementSections, SectionLines, LineAccounts
 
 INPUT_CLASSES = 'rounded-xl border form-control'
 
@@ -44,174 +43,79 @@ class CashInAcctMForm(forms.ModelForm):
             })
         }
 
+class FinStatementsForm(forms.ModelForm):		
+    class Meta:		
+        model = FinStatements		
+        fields = (		
+                  'FSName',
+                  'FSFromDate',
+                  'FSThroughDate',
+                  'FSPostedDate'
+                 )
+        widgets = {
+                   'FSName': forms.TextInput(attrs={
+                     'class': INPUT_CLASSES
+                     }),
+                     'FSFromDate': forms.DateInput(attrs={
+                      'class': INPUT_CLASSES  
+                     }), 
+                     'FSThroughDate': forms.DateInput(attrs={
+                      'class': INPUT_CLASSES  
+                     }),  
+                     'FSPostedDate': forms.DateInput(attrs={
+                      'class': INPUT_CLASSES
+                     })
+                  }
+        
 class StatementSectionsForm(forms.ModelForm):		
     class Meta:		
         model = StatementSections		
         fields = (		
-	            #   'SSPersonFK', 	
                   'SSName', 	
-                  'SSDescription', 	
-                  'SSIncomeStatementSequence', 	
-                  'SSBalanceSheetStatementSequence', 		
-                  'SSCashFlowStatementSequence', 	
-                  'SSExpenseStatementSequence', 		
-                  'SSBudgetStatementSequence'	
+                  'SSDescription'	
                  )	
         widgets = {	
-	            #   'SSPersonFK': forms.TextInput(attrs={	
-                #     'class': INPUT_CLASSES	
-                #   }),	
 	              'SSName': forms.TextInput(attrs={	
                     'class': INPUT_CLASSES	
                   }),	
 	              'SSDescription': forms.TextInput(attrs={	
                     'class': INPUT_CLASSES	
-                  }),		
-	              'SSIncomeStatementSequence': forms.TextInput(attrs={	
-                    'class': INPUT_CLASSES	
-                  }),	
-	              'SSBalanceSheetStatementSequence': forms.TextInput(attrs={	
-                    'class': INPUT_CLASSES	
-                  }),	
-	              'SSCashFlowStatementSequence': forms.TextInput(attrs={	
-                    'class': INPUT_CLASSES	
-                  }),		
-	              'SSExpenseStatementSequence': forms.TextInput(attrs={	
-                    'class': INPUT_CLASSES	
-                  }),	
-	              'SSBudgetStatementSequence': forms.TextInput(attrs={	
-                    'class': INPUT_CLASSES	
-                  }),	
-                  }
+                  })
+                 }
         
-class StatementLinesLineForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        section = kwargs.pop('section', None)  # Get the passed section and remove from kwargs
-        super(StatementLinesLineForm, self).__init__(*args, **kwargs)
-        if section:
-            self.fields['SLStatementSectionFK'].initial = section
-
-            self.fields['SLStatementLineFK'].queryset = StatementLinesLine.objects.filter(SLStatementSectionFK=section)
-
+class SectionLinesForm(forms.ModelForm):
     class Meta:		
-        model = StatementLinesLine		
+        model = SectionLines		
         fields = (		
-                  'SLStatementSectionFK',		
-                  'SLStatementLineFK',		
                   'SLName',		
-                  'SLDescription',		
-                  'SLIncomeStatement',		
-                  'SLIncomeStatementSection',		
-                  'SLIncomeStatementSequence',		
-                  'SLBalanceSheetStatement', 		
-                  'SLBalanceSheetStatementSection',		
-                  'SLBalanceSheetStatementSequence',		
-                  'SLCashFlowStatement',
-                  'SLCashFlowStatementSection', 		
-                  'SLCashFlowStatementSequence',		
-                  'SLExpenseStatement',		
-                  'SLExpenseStatementSection',		
-                  'SLExpenseStatementSequence',		
-                  'SLBudgetStatement',		
-                  'SLBudgetStatementSection',		
-                  'SLBudgetStatementSequence'		
+                  'SLDescription'	
 	             )	
         widgets = {	
-                    'SLStatementSectionFK': forms.TextInput(attrs={		
-                    'class': INPUT_CLASSES	
-                    }),	
-                    'SLStatementLineFK': forms.TextInput(attrs={		
-                    'class': INPUT_CLASSES	
-                    }),	
                     'SLName': forms.TextInput(attrs={		
                     'class': INPUT_CLASSES	
                     }),	
                     'SLDescription': forms.TextInput(attrs={		
                     'class': INPUT_CLASSES	
-                    }),	
-                    'SLIncomeStatement': forms.TextInput(attrs={		
-                    'class': INPUT_CLASSES	
-                    }),	
-                    'SLIncomeStatementSection': forms.TextInput(attrs={		
-                    'class': INPUT_CLASSES	
-                    }),	
-                    'SLIncomeStatementSequence': forms.TextInput(attrs={		
-                    'class': INPUT_CLASSES	
-                    }),	
-                    'SLBalanceSheetStatement': forms.TextInput(attrs={		
-                    'class': INPUT_CLASSES	
-                    }),	
-                    'SLBalanceSheetStatementSection': forms.TextInput(attrs={ 		
-                    'class': INPUT_CLASSES	
-                    }),	
-                    'SLBalanceSheetStatementSequence': forms.TextInput(attrs={		
-                    'class': INPUT_CLASSES	
-                    }),	
-                    'SLCashFlowStatement': forms.TextInput(attrs={		
-                    'class': INPUT_CLASSES	
-                    }),	
-                    'SLCashFlowStatementSection': forms.TextInput(attrs={		
-                    'class': INPUT_CLASSES	
-                    }),	
-                    'SLCashFlowStatementSequence': forms.TextInput(attrs={		
-                    'class': INPUT_CLASSES	
-                    }),	
-                    'SLExpenseStatement': forms.TextInput(attrs={		
-                    'class': INPUT_CLASSES	
-                    }),	
-                    'SLExpenseStatementSection': forms.TextInput(attrs={		
-                    'class': INPUT_CLASSES	
-                    }),	
-                    'SLExpenseStatementSequence': forms.TextInput(attrs={		
-                    'class': INPUT_CLASSES	
-                    }),	
-                    'SLBudgetStatement': forms.TextInput(attrs={		
-                    'class': INPUT_CLASSES	
-                    }),	
-                    'SLBudgetStatementSection': forms.TextInput(attrs={		
-                    'class': INPUT_CLASSES	
-                    }),	
-                    'SLBudgetStatementSequence': forms.TextInput(attrs={		
-                    'class': INPUT_CLASSES	
-                    }),	
+                    })
                 } 	
 
-class StatementLineAccountsForm(forms.ModelForm):			
+class LineAccountsForm(forms.ModelForm):			
     class Meta:			
-        model = StatementLineAccounts		
+        model = LineAccounts		
         fields = (			
-         'SLAStatementSectionFK',			
-         'SLAStatementLineFK',			
-         'SLAStatementAccountFK',			
-         'SAAccount',			
-         'SLAAccountType',			
-         'SLADescription',			
+         'LAAccount',			
+         'LAAccountType',			
+         'LAADescription',			
 	          )		
     ordering = ['SAAccount']		
     widgets = {		
-                'SLAStatementSectionFK': forms.TextInput(attrs={			
+                'LAAccount': forms.TextInput(attrs={			
                 'class': INPUT_CLASSES		
                 }),		
-                'SLAStatementLineFK': forms.TextInput(attrs={			
+                'LAAccountType': forms.TextInput(attrs={			
                 'class': INPUT_CLASSES		
                 }),		
-                'SLAStatementAccountFK': forms.TextInput(attrs={			
-                'class': INPUT_CLASSES		
-                }),		
-                'SAAccount': forms.TextInput(attrs={			
-                'class': INPUT_CLASSES		
-                }),		
-                'SLAAccountType': forms.TextInput(attrs={			
-                'class': INPUT_CLASSES		
-                }),		
-                'SLADescription': forms.TextInput(attrs={			
+                'LAADescription': forms.TextInput(attrs={			
                 'class': INPUT_CLASSES		
                 }),		
                 }		
-
-class SectionSelectForm(forms.ModelForm):
-    class Meta:
-        model = StatementSections
-        fields = ['SSName']
-
-    SSName = forms.ModelChoiceField(queryset=StatementSections.objects.all(), widget=forms.Select(attrs={'class': INPUT_CLASSES}))
