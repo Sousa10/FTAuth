@@ -251,7 +251,7 @@ def StatementSectionsV(request, pk=None):
 
     if pk is not None:
         section = get_object_or_404(StatementSections, id=pk)
-        lines = SectionLines.objects.filter(SLStatementSectionFK=section)
+        lines = SectionLines.objects.filter(SLStatementSectionsFK=section)
         # Show 10 ListDetailsT objects per page
         paginator = Paginator(lines, 2)
         # get page number for each ListHeaderT instance
@@ -263,9 +263,9 @@ def StatementSectionsV(request, pk=None):
 
     sectionForm = StatementSectionsForm()
     if selected_section:
-        statementLinesForm = SectionLines(section=selected_section)
+        statementLinesForm = SectionLinesForm(section=selected_section)
     else:
-        statementLinesForm = SectionLines()
+        statementLinesForm = SectionLinesForm()
     selectedSectionForm = SectionSelectForm()
 
     if request.method == 'POST':
@@ -289,7 +289,7 @@ def StatementSectionsV(request, pk=None):
             if selectedSectionForm.is_valid():
                 sectionName = selectedSectionForm.cleaned_data['SSName']
                 section = StatementSections.objects.get(SSName=sectionName)
-                statementLines = section.statementlinesline_set.prefetch_related(
+                statementLines = section.sectionlines_set.prefetch_related(
                     'statementlineaccounts_set'
                 ).all()
                 #Show 10 ListDetailsT objects per page

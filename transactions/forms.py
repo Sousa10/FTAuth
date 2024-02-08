@@ -88,12 +88,12 @@ class SectionLinesForm(forms.ModelForm):
         section = kwargs.pop('section', None)  # Get the passed section and remove from kwargs
         super(SectionLinesForm, self).__init__(*args, **kwargs)
         if section:
-            self.fields['SLStatementSectionFK'].initial = section
+            self.fields['SLStatementSectionsFK'].initial = section
 
-            self.fields['SLStatementLineFK'].queryset = SectionLines.objects.filter(SLStatementSectionFK=section)
     class Meta:		
         model = SectionLines		
         fields = (		
+                  'SLStatementSectionsFK',
                   'SLName',		
                   'SLDescription'	
 	             )	

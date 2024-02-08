@@ -83,7 +83,7 @@ class LineAccounts(models.Model):
     LAADescription = models.CharField(max_length=240)		
 		
     def __str__(self):		
-        return self.SAAccount		
+        return self.LAAccount		
 
 # *******************************************************************************
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< CashInAcctM >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
