@@ -5,7 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.contrib.auth.forms import UserCreationForm
 from .models import CashInAcctM, PersonM, FinStatements, StatementSections, SectionLines, LineAccounts 
-from .forms import CashInAcctMForm, FinStatementsForm, StatementSectionsForm, SectionLinesForm, LineAccountsForm
+from .forms import CashInAcctMForm, FinStatementsForm, StatementSectionsForm, SectionLinesForm, LineAccountsForm, SectionSelectForm
 from django.core.paginator import Paginator
 from datetime import datetime
 import os
@@ -266,7 +266,7 @@ def StatementSectionsV(request, pk=None):
         statementLinesForm = SectionLines(section=selected_section)
     else:
         statementLinesForm = SectionLines()
-    # selectedSectionForm = SectionSelectForm()
+    selectedSectionForm = SectionSelectForm()
 
     if request.method == 'POST':
         form_type = request.POST.get('form_type')
@@ -284,32 +284,32 @@ def StatementSectionsV(request, pk=None):
 
                 return redirect('transactions:statement_section_with_id', pk=section.id)
 
-        # elif form_type == 'SelectedSectionForm':
-            # selectedSectionForm = SectionSelectForm(request.POST)
-            # if selectedSectionForm.is_valid():
-                # sectionName = selectedSectionForm.cleaned_data['SSName']
-                # section = StatementSections.objects.get(SSName=sectionName)
-                # statementLines = section.statementlinesline_set.prefetch_related(
-                    # 'statementlineaccounts_set'
-                # ).all()
-                # Show 10 ListDetailsT objects per page
-                # paginator = Paginator(statementLines, 5)
-                # get page number for each ListHeaderT instance
-                # page_number = request.GET.get('page', 1)
-                # page = paginator.get_page(page_number)
-                # print(type(section.id))
+        elif form_type == 'SelectedSectionForm':
+            selectedSectionForm = SectionSelectForm(request.POST)
+            if selectedSectionForm.is_valid():
+                sectionName = selectedSectionForm.cleaned_data['SSName']
+                section = StatementSections.objects.get(SSName=sectionName)
+                statementLines = section.statementlinesline_set.prefetch_related(
+                    'statementlineaccounts_set'
+                ).all()
+                #Show 10 ListDetailsT objects per page
+                paginator = Paginator(statementLines, 5)
+                #get page number for each ListHeaderT instance
+                page_number = request.GET.get('page', 1)
+                page = paginator.get_page(page_number)
+                print(type(section.id))
 
-                # return redirect('transactions:statement_section_with_id', pk=section.id)
+                return redirect('transactions:statement_section_with_id', pk=section.id)
 
     else:
         sectionForm = StatementSectionsForm()
         # selected_header = ListHeaderT.objects.get(id=listheader_id)
-        statementLinesForm = SectionLines(section=selected_section)
+        statementLinesForm = SectionLinesForm(section=selected_section)
     return render(request, 'transactions/statement_lines.html', {
         'sectionForm': sectionForm,
         'first_section': first_section,
         'statementLinesForm': statementLinesForm,
-        # 'selectedSectionForm': selectedSectionForm,
+        'selectedSectionForm': selectedSectionForm,
         'section': section,
         'statementlines': page,
         'title': 'Statement Sections and Lines',

@@ -84,6 +84,13 @@ class StatementSectionsForm(forms.ModelForm):
                  }
         
 class SectionLinesForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        section = kwargs.pop('section', None)  # Get the passed section and remove from kwargs
+        super(SectionLinesForm, self).__init__(*args, **kwargs)
+        if section:
+            self.fields['SLStatementSectionFK'].initial = section
+
+            self.fields['SLStatementLineFK'].queryset = SectionLines.objects.filter(SLStatementSectionFK=section)
     class Meta:		
         model = SectionLines		
         fields = (		
@@ -119,3 +126,10 @@ class LineAccountsForm(forms.ModelForm):
                 'class': INPUT_CLASSES		
                 }),		
                 }		
+
+class SectionSelectForm(forms.ModelForm):
+    class Meta:
+        model = StatementSections
+        fields = ['SSName']
+
+    SSName = forms.ModelChoiceField(queryset=StatementSections.objects.all(), widget=forms.Select(attrs={'class': INPUT_CLASSES}))
