@@ -133,3 +133,10 @@ class SectionSelectForm(forms.ModelForm):
         fields = ['SSName']
 
     SSName = forms.ModelChoiceField(queryset=StatementSections.objects.all(), widget=forms.Select(attrs={'class': INPUT_CLASSES}))
+
+class StatementSelectForm(forms.ModelForm):
+    class Meta:
+        model = FinStatements
+        fields = ['FSName']
+
+    FSName = forms.ModelChoiceField(queryset=FinStatements.objects.all(), widget=forms.Select(attrs={'class': INPUT_CLASSES}))
