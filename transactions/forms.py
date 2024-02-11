@@ -53,35 +53,40 @@ class FinStatementsForm(forms.ModelForm):
                   'FSPostedDate'
                  )
         widgets = {
-                   'FSName': forms.TextInput(attrs={
-                     'class': INPUT_CLASSES
-                     }),
-                     'FSFromDate': forms.DateInput(attrs={
-                      'class': INPUT_CLASSES  
-                     }), 
-                     'FSThroughDate': forms.DateInput(attrs={
-                      'class': INPUT_CLASSES  
-                     }),  
-                     'FSPostedDate': forms.DateInput(attrs={
-                      'class': INPUT_CLASSES
-                     })
-                  }
+            'FSName': forms.TextInput(attrs={
+                'class': INPUT_CLASSES
+                }),
+                'FSFromDate': forms.DateInput(attrs={
+                'class': INPUT_CLASSES  
+                }), 
+                'FSThroughDate': forms.DateInput(attrs={
+                'class': INPUT_CLASSES  
+                }),  
+                'FSPostedDate': forms.DateInput(attrs={
+                'class': INPUT_CLASSES
+                })
+            }
         
-class StatementSectionsForm(forms.ModelForm):		
+class StatementSectionsForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        statement = kwargs.pop('statement', None)  # Get the passed section and remove from kwargs
+        super(StatementSectionsForm, self).__init__(*args, **kwargs)
+        if statement:
+            self.fields['FinStatementsFK'].initial = statement	
     class Meta:		
         model = StatementSections		
         fields = (		
-                  'SSName', 	
-                  'SSDescription'	
-                 )	
+            'SSName', 	
+            'SSDescription'	
+        )	
         widgets = {	
-	              'SSName': forms.TextInput(attrs={	
-                    'class': INPUT_CLASSES	
-                  }),	
-	              'SSDescription': forms.TextInput(attrs={	
-                    'class': INPUT_CLASSES	
-                  })
-                 }
+            'SSName': forms.TextInput(attrs={	
+            'class': INPUT_CLASSES	
+            }),	
+            'SSDescription': forms.TextInput(attrs={	
+            'class': INPUT_CLASSES	
+            })
+        }
         
 class SectionLinesForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):

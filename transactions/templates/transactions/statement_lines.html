@@ -37,7 +37,7 @@
             <a href="#" class="btn btn-primary listheaderbuttons" data-bs-toggle="modal" data-bs-target="#sectionModal"
               style="border-radius: 0%;">New</a>
             <a href="#" class="btn btn-primary listheaderbuttons" style="border-radius: 0%; margin: 0;"
-              data-bs-toggle="modal" data-bs-target="#selectedSectionModal">Existing</a>
+              data-bs-toggle="modal" data-bs-target="#selectedStatementModal">Existing</a>
           </td>
         </tr>
         <tr>
@@ -370,21 +370,21 @@
           <div class="modal-body">
             {% csrf_token %}
             <div class="form-group">
-              <label for="{{ selectedSectionForm.SSName.id_for_label }}">Section</label>
-              {{ selectedSectionForm.SSName }}
+              <label for="{{ selectedStatementForm.FSName.id_for_label }}">Section</label>
+              {{ selectedStatementForm.FSName }}
             </div>
-            {% if selectedSectionForm.errors or selectedSectionForm.non_field_errors %}
+            {% if selectedStatementForm.errors or selectedStatementForm.non_field_errors %}
             <div class="mb-3 p-6 bg-red-100 rounded-xl">
-              {% for field in selectedSectionForm %}
+              {% for field in selectedStatementForm %}
               {{ field.errors }}
               {% endfor %}
 
-              {{ selectedSectionForm.non_field_errors }}
+              {{ selectedStatementForm.non_field_errors }}
             </div>
             {% endif %}
           </div>
           <div class="modal-footer">
-            <input type="hidden" name="form_type" value="SelectedSectionForm">
+            <input type="hidden" name="form_type" value="SelectedStatementForm">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary">Submit</button>
           </div>
