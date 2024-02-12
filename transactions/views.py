@@ -110,7 +110,6 @@ def populate_from_csv(csv_file):
             except ValueError:
                 print(f"Invalid amount format for entry: {fields[2]}")
 
-
 def FTTransactions(request, batch_id=None):
     if batch_id:
         transBatch = TransBatch.objects.get(id=batch_id)

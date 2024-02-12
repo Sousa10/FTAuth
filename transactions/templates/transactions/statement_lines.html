@@ -28,7 +28,7 @@
     <table style="border-bottom: none!important;">
       <thead>
         <tr>
-          <th style="text-align: center;">Statement Section</th>
+          <th style="text-align: center;">Statement</th>
         </tr>
       </thead>
       <tbody>
@@ -45,18 +45,16 @@
             <table style="margin-top: 0%;">
               <tbody>
                 <tr>
-                  {% if section %}
-                  <td>{{ section.SSName }}</td>
-                  <td colspan="2">{{ section.SSDescription }}</td>
-                  <td colspan="2"></td>
-                  <td style="text-align: center;">
-                    {% if section %}
+                  {% if statement %}
+                    <td>{{ statement.FSName }}</td>
+                    <td colspan="2">{{ statement.FSFromDate }}</td>
+                    <td colspan="2">{{ statement.FSThroughDate }}</td>
+                    <td style="text-align: center;">
                     <a href="#" class="edit-header-button" data-bs-toggle="modal" data-bs-target="#editHeaderModal"
                       data-id="{{ section.id }}" data-LHName="{{ section.LHName }}"
                       data-LHDescription="{{ section.SSDescription }}" style="text-decoration: none;">{% bs_icon 'pencil' %}</a>
                     <a href="#" class="delete-button">{% bs_icon 'trash' %}</a>
-                    {% endif %}
-                    {% endif %}
+                  {% endif %}
                   </td>
                 </tr>
               </tbody>
@@ -68,7 +66,153 @@
     <table style="margin-top: 0%;">
       <thead>
         <tr>
-          <th style="text-align: center;">Section Lines</th>
+          <th style="text-align: center;">Section</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="text-align: center; white-space: nowrap;">
+            <table style="margin-top: 0%;">
+              <thead>
+                <tr>
+                  <th>Line Name</th>
+                  <th>Predecessor</th>
+                  <th>Description</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for line in statementlines %}
+                <tr>
+                  <td>{{ line.SLName }}</td>
+                  <td>{{ line.SLStatementLineFK.SLName }}</td>
+                  <td>{{ line.SLDescription }}</td>
+                  <td>
+                    {% for account in line.statementlineaccounts_set.all %}
+                      <!-- Display information for each account -->
+                      {{ account.SAAccount }} - {{ account.SLAAccountType }}<br>
+                    {% empty %}
+                      No accounts
+                    {% endfor %}
+                  </td>
+                  <td>
+                    {% if line %}
+                    
+                    <a href="#" class="edit-detail-button" data-bs-toggle="modal" data-bs-target="#editdetailModal"
+                      data-id="{{ line.id }}" data-ListHeaderFK="{{ line.ListHeaderFK.LHName }}"
+                      data-ListItemName="{{ line.LHName }}" data-LNNumber="{{ listdetail.LNNumber }}"
+                      data-ListDetailFK="{{ line.ListDetailFK.LHName }}">{% bs_icon 'pencil' %}</a>
+                    <a href="{% url 'listsplan:listDetail_delete' line.id %}" class="delete-button">{% bs_icon 'trash'
+                      %}</a>
+                    {% endif %}
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            <!-- Add navigation links. -->
+            <div class="pagination">
+              <span class="step-links">
+                {% if statementlines.has_previous %}
+                <a href="?page={{ statementlines.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                  Page {{ statementlines.number }} of {{ statementlines.paginator.num_pages }}.
+                </span>
+
+                {% if statementlines.has_next %}
+                <a href="?page={{ statementlines.next_page_number }}">next</a>
+                {% endif %}
+              </span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3" class="text-center">
+            <a class="add-button btn btn-primary listheaderbuttons" href="#" style="border-radius: 0%;"
+              data-bs-toggle="modal" data-bs-target="#statementLineModal">Add</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table style="margin-top: 0%;">
+      <thead>
+        <tr>
+          <th style="text-align: center;">Lines</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="text-align: center; white-space: nowrap;">
+            <table style="margin-top: 0%;">
+              <thead>
+                <tr>
+                  <th>Line Name</th>
+                  <th>Predecessor</th>
+                  <th>Description</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for line in statementlines %}
+                <tr>
+                  <td>{{ line.SLName }}</td>
+                  <td>{{ line.SLStatementLineFK.SLName }}</td>
+                  <td>{{ line.SLDescription }}</td>
+                  <td>
+                    {% for account in line.statementlineaccounts_set.all %}
+                      <!-- Display information for each account -->
+                      {{ account.SAAccount }} - {{ account.SLAAccountType }}<br>
+                    {% empty %}
+                      No accounts
+                    {% endfor %}
+                  </td>
+                  <td>
+                    {% if line %}
+                    
+                    <a href="#" class="edit-detail-button" data-bs-toggle="modal" data-bs-target="#editdetailModal"
+                      data-id="{{ line.id }}" data-ListHeaderFK="{{ line.ListHeaderFK.LHName }}"
+                      data-ListItemName="{{ line.LHName }}" data-LNNumber="{{ listdetail.LNNumber }}"
+                      data-ListDetailFK="{{ line.ListDetailFK.LHName }}">{% bs_icon 'pencil' %}</a>
+                    <a href="{% url 'listsplan:listDetail_delete' line.id %}" class="delete-button">{% bs_icon 'trash'
+                      %}</a>
+                    {% endif %}
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            <!-- Add navigation links. -->
+            <div class="pagination">
+              <span class="step-links">
+                {% if statementlines.has_previous %}
+                <a href="?page={{ statementlines.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                  Page {{ statementlines.number }} of {{ statementlines.paginator.num_pages }}.
+                </span>
+
+                {% if statementlines.has_next %}
+                <a href="?page={{ statementlines.next_page_number }}">next</a>
+                {% endif %}
+              </span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3" class="text-center">
+            <a class="add-button btn btn-primary listheaderbuttons" href="#" style="border-radius: 0%;"
+              data-bs-toggle="modal" data-bs-target="#statementLineModal">Add</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table style="margin-top: 0%;">
+      <thead>
+        <tr>
+          <th style="text-align: center;">Accounts</th>
         </tr>
       </thead>
       <tbody>
@@ -370,7 +514,7 @@
           <div class="modal-body">
             {% csrf_token %}
             <div class="form-group">
-              <label for="{{ selectedStatementForm.FSName.id_for_label }}">Section</label>
+              <label for="{{ selectedStatementForm.FSName.id_for_label }}">Statement</label>
               {{ selectedStatementForm.FSName }}
             </div>
             {% if selectedStatementForm.errors or selectedStatementForm.non_field_errors %}
