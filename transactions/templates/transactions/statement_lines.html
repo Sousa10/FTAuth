@@ -78,14 +78,13 @@
             <table style="margin-top: 0%;">
               <thead>
                 <tr>
-                  <th>Line Name</th>
-                  <th>Predecessor</th>
+                  <th>Section Name</th>
                   <th>Description</th>
                   <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
-                {% for line in statementlines %}
+                {% for section in statementlines %}
                 <tr>
                   <td>{{ line.SLName }}</td>
                   <td>{{ line.SLStatementLineFK.SLName }}</td>
@@ -282,7 +281,7 @@
         <tr>
           <td colspan="3" class="text-center">
             <a class="add-button btn btn-primary listheaderbuttons" href="#" style="border-radius: 0%;"
-              data-bs-toggle="modal" data-bs-target="#statementLineModal">Add</a>
+              data-bs-toggle="modal" data-bs-target="#statementAccountModal">Add</a>
           </td>
         </tr>
       </tbody>
@@ -393,7 +392,54 @@
     <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="sectionModalLabel">{{ title }}</h5>
+          <h5 class="modal-title" id="sectionModalLabel">Add Lines</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <form
+          action="{% if section.id %}{% url 'transactions:statement_section_with_id' section.id %}{% else %}{% url 'transactions:statement_section' %}{% endif %}"
+          method="post">
+          <div class="modal-body">
+            {% csrf_token %}
+            <div class="row">
+              {% for field in statementLinesForm %}
+                <div class="col-md-6 mb-3">
+                  <div class="d-flex align-items-center"> <!-- Flexbox for alignment -->
+                    <div class="w-50 pr-2"> <!-- Fixed width for label with padding-right -->
+                        <label for="{{ field.id_for_label }}" class="control-label form-label">{{ field.label }}</label>
+                    </div>
+                    <div class="flex-grow-1"> <!-- Field takes the remaining width -->
+                        {{ field }} <!-- Render the field itself -->
+                    </div>
+                  </div>
+                  {% if field.help_text %}
+                      <small class="form-text text-muted">{{ field.help_text }}</small>
+                  {% endif %}
+                  {% for error in field.errors %}
+                      <div class="alert alert-danger">{{ error }}</div>
+                  {% endfor %}
+                </div>
+                {% if forloop.counter|divisibleby:2 and not forloop.last %}
+                    </div><div class="row">
+                {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+          <div class="modal-footer">
+            <input type="hidden" name="form_type" value="StatementSectionForm">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- Statement Accounts Add Modal -->
+  <div class="modal fade" id="statementAccountModal" tabindex="-1" aria-labelledby="statementAccountModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="sectionModalLabel">Add Accounts</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
 
@@ -523,42 +569,6 @@
     </div>
   </div>
 
-  <!-- selected section modal -->
-  <div class="modal fade" id="selectedSectionModal" tabindex="-1" aria-labelledby="selectedHeaderModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">{{ title }}</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-
-        <form action="" method="post">
-          <div class="modal-body">
-            {% csrf_token %}
-            <div class="form-group">
-              <label for="{{ selectedSectionForm.SSName.id_for_label }}">Section</label>
-              {{ selectedSectionForm.SSName }}
-            </div>
-            {% if selectedSectionForm.errors or selectedSectionForm.non_field_errors %}
-            <div class="mb-3 p-6 bg-red-100 rounded-xl">
-              {% for field in selectedSectionForm %}
-              {{ field.errors }}
-              {% endfor %}
-
-              {{ selectedSectionForm.non_field_errors }}
-            </div>
-            {% endif %}
-          </div>
-          <div class="modal-footer">
-            <input type="hidden" name="form_type" value="SelectedSectionForm">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
   <!-- selected statement modal -->
   <div class="modal fade" id="selectedStatementModal" tabindex="-1" aria-labelledby="selectedStatementModalLabel"
     aria-hidden="true">

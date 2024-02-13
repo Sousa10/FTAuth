@@ -303,7 +303,7 @@ def StatementSectionsV(request, pk=None):
                 statementName = selectedStatementForm.cleaned_data['FSName']
                 statement = FinStatements.objects.get(FSName=statementName)
                 statementSections = statement.statementsections_set.prefetch_related(
-                    'statementsectionlines_set'
+                    'statementsectionlines_set__statementlineaccounts_set'
                 ).all()
                 #Show 10 ListDetailsT objects per page
                 paginator = Paginator(statementSections, 5)
