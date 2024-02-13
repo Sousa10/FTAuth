@@ -274,7 +274,16 @@ def StatementSectionsV(request, pk=None):
 
     if request.method == 'POST':
         form_type = request.POST.get('form_type')
-        if form_type == 'StatementSectionForm':
+        # remember to refactor this to reduce or eliminate the ifs
+        if form_type == 'StatementForm':
+            print("inside statement form")
+            statementForm = FinStatementsForm(request.POST)
+            if statementForm.is_valid():
+                saved_statement =statementForm.save()
+
+                return redirect('transactions:statement_section_with_id', pk=saved_statement.id)
+            
+        elif form_type == 'StatementSectionForm':
             sectionForm = StatementSectionsForm(request.POST)
             if sectionForm.is_valid():
                 saved_section =sectionForm.save()
@@ -282,19 +291,19 @@ def StatementSectionsV(request, pk=None):
                 return redirect('transactions:statement_section_with_id', pk=saved_section.id)
 
         elif form_type == 'StatementLinesForm':
-            statementLinesForm = SectionLines(request.POST)
+            statementLinesForm = SectionLinesForm(request.POST)
             if statementLinesForm.is_valid():
-                statementLinesForm.save()
+                savedLine = statementLinesForm.save()
 
-                return redirect('transactions:statement_section_with_id', pk=section.id)
+                return redirect('transactions:statement_section_with_id', pk=savedLine.id)
 
         elif form_type == 'SelectedStatementForm':
             selectedStatementForm = StatementSelectForm(request.POST)
             if selectedStatementForm.is_valid():
-                statementName = selectedStatementForm.cleaned_data['SSName']
-                statement = FinStatements.objects.get(SSName=statementName)
-                statementSections = statement.sectionlines_set.prefetch_related(
-                    'statementlineaccounts_set'
+                statementName = selectedStatementForm.cleaned_data['FSName']
+                statement = FinStatements.objects.get(FSName=statementName)
+                statementSections = statement.statementsections_set.prefetch_related(
+                    'statementsectionlines_set'
                 ).all()
                 #Show 10 ListDetailsT objects per page
                 paginator = Paginator(statementSections, 5)

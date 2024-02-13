@@ -2,6 +2,7 @@
 {% load static %}
 {% load bootstrap_icons %}
 {% block title %}Lists & Planning{% endblock %}
+{% load custom_filters %}
 
 {% block pageimage %}
 <img style="float: left;" src="{% static 'ListsAndPlanning.jpg' %}" alt="Liststs and Planning Tile Missing" width="100"
@@ -25,6 +26,7 @@
   <div class="col-md-1">
   </div>
   <div class="col-md-10">
+    <!-- Statement -->
     <table style="border-bottom: none!important;">
       <thead>
         <tr>
@@ -34,7 +36,7 @@
       <tbody>
         <tr>
           <td style="text-align: center; white-space: nowrap;">
-            <a href="#" class="btn btn-primary listheaderbuttons" data-bs-toggle="modal" data-bs-target="#sectionModal"
+            <a href="#" class="btn btn-primary listheaderbuttons" data-bs-toggle="modal" data-bs-target="#statementModal"
               style="border-radius: 0%;">New</a>
             <a href="#" class="btn btn-primary listheaderbuttons" style="border-radius: 0%; margin: 0;"
               data-bs-toggle="modal" data-bs-target="#selectedStatementModal">Existing</a>
@@ -63,6 +65,7 @@
         </tr>
       </tbody>
     </table>
+    <!-- Section -->
     <table style="margin-top: 0%;">
       <thead>
         <tr>
@@ -131,11 +134,12 @@
         <tr>
           <td colspan="3" class="text-center">
             <a class="add-button btn btn-primary listheaderbuttons" href="#" style="border-radius: 0%;"
-              data-bs-toggle="modal" data-bs-target="#statementLineModal">Add</a>
+              data-bs-toggle="modal" data-bs-target="#sectionModal">Add</a>
           </td>
         </tr>
       </tbody>
     </table>
+    <!-- Lines -->
     <table style="margin-top: 0%;">
       <thead>
         <tr>
@@ -209,6 +213,7 @@
         </tr>
       </tbody>
     </table>
+    <!-- Accounts -->
     <table style="margin-top: 0%;">
       <thead>
         <tr>
@@ -286,12 +291,12 @@
   <div class="col-md-1">
   </div>
 
-  <!-- Section Add Modal -->
-  <div class="modal fade" id="sectionModal" tabindex="-1" aria-labelledby="sectionModalLabel" aria-hidden="true">
+  <!-- Statement Add Modal -->
+  <div class="modal fade" id="statementModal" tabindex="-1" aria-labelledby="statementModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="sectionModalLabel">{{ title }}</h5>
+          <h5 class="modal-title" id="statementModalLabel">Add Statement</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
 
@@ -301,11 +306,65 @@
           <div class="modal-body">
             {% csrf_token %}
             <div class="row">
-                {% for field in sectionForm %}
+                {% for field in statementForm %}
                 <div class="col-12 col-md-6 mb-3">
                   <div class="form-floating"> <!-- Use floating labels for a neater look -->
                     {{ field }} <!-- Render the field itself -->
                     <label for="{{ field.id_for_label }}">{{ field.label }}</label> <!-- Render the label of the field -->
+                    {% if field.help_text %}
+                      <small class="form-text text-muted">{{ field.help_text }}</small>
+                    {% endif %}
+                    {% for error in field.errors %}
+                      <div class="alert alert-danger">{{ error }}</div>
+                    {% endfor %}
+                  </div>
+                </div>
+                {% if forloop.counter|divisibleby:2 %}
+                  </div><div class="row">
+                {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+          <div class="modal-footer">
+            <input type="hidden" name="form_type" value="StatementForm">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- Section Add Modal -->
+  <div class="modal fade" id="sectionModal" tabindex="-1" aria-labelledby="sectionModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="sectionModalLabel">Add Section</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <form
+          action="{% if section.id %}{% url 'transactions:statement_section_with_id' section.id %}{% else %}{% url 'transactions:statement_section' %}{% endif %}"
+          method="post">
+          <div class="modal-body">
+            {% csrf_token %}
+            <div class="row">
+                {% for field in statementSectionsForm %}
+                <div class="col-12 mb-3">
+                  <div class="form-floating"> <!-- Use floating labels for a neater look -->
+                    {% if field|field_type == 'Select' %}
+                        <select class="form-select {{ INPUT_CLASSES }}" id="{{ field.id_for_label }}" name="{{ field.html_name }}">
+                            {% for option_key, option_value in field.field.choices %}
+                                <option value="{{ option_key }}" {% if field.value == option_key %}selected{% endif %}>
+                                    {{ option_value }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {% else %}
+                        {{ field }} <!-- Render the field itself -->
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label> <!-- Render the label of the field -->
+                    {% endif %}
                     {% if field.help_text %}
                       <small class="form-text text-muted">{{ field.help_text }}</small>
                     {% endif %}

@@ -64,7 +64,7 @@ class StatementSections(models.Model):
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Section Lines >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 # ******************************************************************************* 
 class SectionLines(models.Model):		
-    SLStatementSectionsFK = models.ForeignKey('StatementSections', null=True, blank=True, on_delete=models.CASCADE)		
+    SLStatementSectionsFK = models.ForeignKey('StatementSections', null=True, blank=True, on_delete=models.CASCADE, related_name='statementsectionlines_set')		
     SLPersonFK = models.ForeignKey(PersonM, null=True, on_delete=models.CASCADE)	
     SLName = models.CharField(max_length=240)		
     SLDescription = models.CharField(max_length=240)		

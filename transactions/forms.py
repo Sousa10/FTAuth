@@ -57,13 +57,13 @@ class FinStatementsForm(forms.ModelForm):
                 'class': INPUT_CLASSES
                 }),
                 'FSFromDate': forms.DateInput(attrs={
-                'class': INPUT_CLASSES  
+                'class': INPUT_CLASSES, 'type': 'date'  
                 }), 
                 'FSThroughDate': forms.DateInput(attrs={
-                'class': INPUT_CLASSES  
+                'class': INPUT_CLASSES, 'type': 'date'  
                 }),  
                 'FSPostedDate': forms.DateInput(attrs={
-                'class': INPUT_CLASSES
+                'class': INPUT_CLASSES, 'type': 'date'
                 })
             }
         
@@ -76,6 +76,7 @@ class StatementSectionsForm(forms.ModelForm):
     class Meta:		
         model = StatementSections		
         fields = (		
+            'FinStatementsFK',
             'SSName', 	
             'SSDescription'	
         )	
