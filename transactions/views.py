@@ -314,6 +314,7 @@ def StatementSectionsV(request, pk=None):
                 return redirect('transactions:statement_section_with_id', pk=statement.id)
     else:
         statementForm = FinStatementsForm()
+        statementLinesForm = SectionLinesForm()
         # selected_header = ListHeaderT.objects.get(id=listheader_id)
         statementSectionsForm = StatementSectionsForm(statement=selected_statement)
     return render(request, 'transactions/statement_lines.html', {
@@ -321,6 +322,7 @@ def StatementSectionsV(request, pk=None):
         'first_statement': first_statement,
         'statementSectionsForm': statementSectionsForm,
         'selectedStatementForm': selectedStatementForm,
+        'statementLinesForm': statementLinesForm,
         'statement': statement,
         'statementSections': page,
         'title': 'Statement Sections, Lines and Accounts',
