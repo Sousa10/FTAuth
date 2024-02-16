@@ -84,28 +84,18 @@
                 </tr>
               </thead>
               <tbody>
-                {% for section in statementlines %}
+                {% for section in statementSections %}
                 <tr>
-                  <td>{{ line.SLName }}</td>
-                  <td>{{ line.SLStatementLineFK.SLName }}</td>
-                  <td>{{ line.SLDescription }}</td>
+                  <td>{{ section.SSName }}</td>
+                  <td>{{ section.SSDescription }}</td>
                   <td>
-                    {% for account in line.statementlineaccounts_set.all %}
-                      <!-- Display information for each account -->
-                      {{ account.SAAccount }} - {{ account.SLAAccountType }}<br>
-                    {% empty %}
-                      No accounts
-                    {% endfor %}
-                  </td>
-                  <td>
-                    {% if line %}
+                    {% if section %}
                     
                     <a href="#" class="edit-detail-button" data-bs-toggle="modal" data-bs-target="#editdetailModal"
-                      data-id="{{ line.id }}" data-ListHeaderFK="{{ line.ListHeaderFK.LHName }}"
-                      data-ListItemName="{{ line.LHName }}" data-LNNumber="{{ listdetail.LNNumber }}"
-                      data-ListDetailFK="{{ line.ListDetailFK.LHName }}">{% bs_icon 'pencil' %}</a>
-                    <a href="{% url 'listsplan:listDetail_delete' line.id %}" class="delete-button">{% bs_icon 'trash'
-                      %}</a>
+                      data-id="{{ section.id }}" data-FinStatementsFK="{{ section.FinStatementsFK.FSName }}"
+                      data-SSName="{{ section.SSName }}" data-SSDescription="{{ section.SSDescription }}"
+                      >{% bs_icon 'pencil' %}</a>
+                    <a href="#" class="delete-button">{% bs_icon 'trash' %}</a>
                     {% endif %}
                   </td>
                 </tr>
@@ -389,7 +379,7 @@
   </div>
   <!-- Statement Line Add Modal -->
   <div class="modal fade" id="statementLineModal" tabindex="-1" aria-labelledby="statementLineModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="sectionModalLabel">Add Lines</h5>
@@ -403,22 +393,29 @@
             {% csrf_token %}
             <div class="row">
               {% for field in statementLinesForm %}
-                <div class="col-md-6 mb-3">
-                  <div class="d-flex align-items-center"> <!-- Flexbox for alignment -->
-                    <div class="w-50 pr-2"> <!-- Fixed width for label with padding-right -->
-                        <label for="{{ field.id_for_label }}" class="control-label form-label">{{ field.label }}</label>
-                    </div>
-                    <div class="flex-grow-1"> <!-- Field takes the remaining width -->
-                        {{ field }} <!-- Render the field itself -->
-                    </div>
-                  </div>
+              <div class="col-12 mb-3">
+                <div class="form-floating"> <!-- Use floating labels for a neater look -->
+                  {% if field|field_type == 'Select' %}
+                      <select class="form-select {{ INPUT_CLASSES }}" id="{{ field.id_for_label }}" name="{{ field.html_name }}">
+                          {% for option_key, option_value in field.field.choices %}
+                              <option value="{{ option_key }}" {% if field.value == option_key %}selected{% endif %}>
+                                  {{ option_value }}
+                              </option>
+                          {% endfor %}
+                      </select>
+                      <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                  {% else %}
+                      {{ field }} <!-- Render the field itself -->
+                      <label for="{{ field.id_for_label }}">{{ field.label }}</label> <!-- Render the label of the field -->
+                  {% endif %}
                   {% if field.help_text %}
-                      <small class="form-text text-muted">{{ field.help_text }}</small>
+                    <small class="form-text text-muted">{{ field.help_text }}</small>
                   {% endif %}
                   {% for error in field.errors %}
-                      <div class="alert alert-danger">{{ error }}</div>
+                    <div class="alert alert-danger">{{ error }}</div>
                   {% endfor %}
                 </div>
+              </div>
                 {% if forloop.counter|divisibleby:2 and not forloop.last %}
                     </div><div class="row">
                 {% endif %}
