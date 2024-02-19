@@ -244,7 +244,7 @@ statementForm = FinStatementsForm()
        # StatementSectionsV 
 #------------------------------------------#
 def StatementSectionsV(request, pk=None):
-    first_statement = StatementSections.objects.first()
+    # first_statement = StatementSections.objects.first()
     statement = None
     sections = None
     # first_section = StatementSections.objects.first()
@@ -296,6 +296,13 @@ def StatementSectionsV(request, pk=None):
                 savedLine = statementLinesForm.save()
 
                 return redirect('transactions:statement_section_with_id', pk=savedLine.id)
+            
+        elif form_type == 'StatementAccountForm':
+            statementAccountForm = LineAccountsForm(request.POST)
+            if statementAccountForm.is_valid():
+                savedAccount = statementAccountForm.save()
+
+                return redirect('transactions:statement_section_with_id', pk=savedAccount.id)
 
         elif form_type == 'SelectedStatementForm':
             selectedStatementForm = StatementSelectForm(request.POST)
@@ -315,14 +322,15 @@ def StatementSectionsV(request, pk=None):
     else:
         statementForm = FinStatementsForm()
         statementLinesForm = SectionLinesForm()
-        # selected_header = ListHeaderT.objects.get(id=listheader_id)
+        statementAccountForm = LineAccountsForm()
         statementSectionsForm = StatementSectionsForm(statement=selected_statement)
     return render(request, 'transactions/statement_lines.html', {
         'statementForm': statementForm,
-        'first_statement': first_statement,
+        # 'first_statement': first_statement,
         'statementSectionsForm': statementSectionsForm,
         'selectedStatementForm': selectedStatementForm,
         'statementLinesForm': statementLinesForm,
+        'statementAccountForm': statementAccountForm,
         'statement': statement,
         'statementSections': page,
         'title': 'Statement Sections, Lines and Accounts',

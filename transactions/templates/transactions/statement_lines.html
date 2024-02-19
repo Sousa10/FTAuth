@@ -45,12 +45,20 @@
         <tr>
           <td colspan="3" class="text-center">
             <table style="margin-top: 0%;">
+              <thead>
+                <tr>
+                  <th>Statement Name</th>
+                  <th>FSName</th>
+                  <th>FSThroughDate</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
               <tbody>
                 <tr>
                   {% if statement %}
                     <td>{{ statement.FSName }}</td>
-                    <td colspan="2">{{ statement.FSFromDate }}</td>
-                    <td colspan="2">{{ statement.FSThroughDate }}</td>
+                    <td>{{ statement.FSFromDate }}</td>
+                    <td>{{ statement.FSThroughDate }}</td>
                     <td style="text-align: center;">
                     <a href="#" class="edit-header-button" data-bs-toggle="modal" data-bs-target="#editHeaderModal"
                       data-id="{{ section.id }}" data-LHName="{{ section.LHName }}"
@@ -85,20 +93,20 @@
               </thead>
               <tbody>
                 {% for section in statementSections %}
-                <tr>
-                  <td>{{ section.SSName }}</td>
-                  <td>{{ section.SSDescription }}</td>
-                  <td>
-                    {% if section %}
-                    
-                    <a href="#" class="edit-detail-button" data-bs-toggle="modal" data-bs-target="#editdetailModal"
-                      data-id="{{ section.id }}" data-FinStatementsFK="{{ section.FinStatementsFK.FSName }}"
-                      data-SSName="{{ section.SSName }}" data-SSDescription="{{ section.SSDescription }}"
-                      >{% bs_icon 'pencil' %}</a>
-                    <a href="#" class="delete-button">{% bs_icon 'trash' %}</a>
-                    {% endif %}
-                  </td>
-                </tr>
+                  <tr>
+                    <td>{{ section.SSName }}</td>
+                    <td>{{ section.SSDescription }}</td>
+                    <td>
+                      {% if section %}
+                      
+                      <a href="#" class="edit-detail-button" data-bs-toggle="modal" data-bs-target="#editdetailModal"
+                        data-id="{{ section.id }}" data-FinStatementsFK="{{ section.FinStatementsFK.FSName }}"
+                        data-SSName="{{ section.SSName }}" data-SSDescription="{{ section.SSDescription }}"
+                        >{% bs_icon 'pencil' %}</a>
+                      <a href="#" class="delete-button">{% bs_icon 'trash' %}</a>
+                      {% endif %}
+                    </td>
+                  </tr>
                 {% endfor %}
               </tbody>
             </table>
@@ -142,24 +150,18 @@
               <thead>
                 <tr>
                   <th>Line Name</th>
-                  <th>Predecessor</th>
+                  <th>Section</th>
                   <th>Description</th>
                   <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
-                {% for line in statementlines %}
+                {% for line in section.statementsectionlines_set.all %}
                 <tr>
                   <td>{{ line.SLName }}</td>
-                  <td>{{ line.SLStatementLineFK.SLName }}</td>
+                  <td>{{ line.SLStatementSectionsFK.SSName }}</td>
                   <td>{{ line.SLDescription }}</td>
                   <td>
-                    {% for account in line.statementlineaccounts_set.all %}
-                      <!-- Display information for each account -->
-                      {{ account.SAAccount }} - {{ account.SLAAccountType }}<br>
-                    {% empty %}
-                      No accounts
-                    {% endfor %}
                   </td>
                   <td>
                     {% if line %}
@@ -215,8 +217,9 @@
             <table style="margin-top: 0%;">
               <thead>
                 <tr>
-                  <th>Line Name</th>
-                  <th>Predecessor</th>
+                  <th>Account</th>
+                  <th>Line</th>
+                  <th>Type</th>
                   <th>Description</th>
                   <th>Actions</th>
                 </tr>
@@ -433,7 +436,7 @@
   </div>
   <!-- Statement Accounts Add Modal -->
   <div class="modal fade" id="statementAccountModal" tabindex="-1" aria-labelledby="statementAccountModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="sectionModalLabel">Add Accounts</h5>
@@ -446,31 +449,27 @@
           <div class="modal-body">
             {% csrf_token %}
             <div class="row">
-              {% for field in statementLinesForm %}
-                <div class="col-md-6 mb-3">
-                  <div class="d-flex align-items-center"> <!-- Flexbox for alignment -->
-                    <div class="w-50 pr-2"> <!-- Fixed width for label with padding-right -->
-                        <label for="{{ field.id_for_label }}" class="control-label form-label">{{ field.label }}</label>
-                    </div>
-                    <div class="flex-grow-1"> <!-- Field takes the remaining width -->
-                        {{ field }} <!-- Render the field itself -->
-                    </div>
-                  </div>
-                  {% if field.help_text %}
+              {% for field in statementAccountForm %}
+                <div class="col-12 mb-3">
+                  <div class="form-floating"> <!-- Use floating labels for a neater look -->
+                    {{ field }} <!-- Render the field itself -->
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label> <!-- Render the label of the field -->
+                    {% if field.help_text %}
                       <small class="form-text text-muted">{{ field.help_text }}</small>
-                  {% endif %}
-                  {% for error in field.errors %}
+                    {% endif %}
+                    {% for error in field.errors %}
                       <div class="alert alert-danger">{{ error }}</div>
-                  {% endfor %}
+                    {% endfor %}
+                  </div>
                 </div>
-                {% if forloop.counter|divisibleby:2 and not forloop.last %}
+                {% if forloop.counter|divisibleby:2 %}
                     </div><div class="row">
                 {% endif %}
               {% endfor %}
             </div>
           </div>
           <div class="modal-footer">
-            <input type="hidden" name="form_type" value="StatementSectionForm">
+            <input type="hidden" name="form_type" value="StatementAccountForm">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary">Submit</button>
           </div>

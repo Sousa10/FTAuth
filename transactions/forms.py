@@ -119,19 +119,18 @@ class LineAccountsForm(forms.ModelForm):
          'LAAccount',			
          'LAAccountType',			
          'LAADescription',			
-	          )		
-    ordering = ['SAAccount']		
-    widgets = {		
-                'LAAccount': forms.TextInput(attrs={			
-                'class': INPUT_CLASSES		
-                }),		
-                'LAAccountType': forms.TextInput(attrs={			
-                'class': INPUT_CLASSES		
-                }),		
-                'LAADescription': forms.TextInput(attrs={			
-                'class': INPUT_CLASSES		
-                }),		
-                }		
+	          )				
+        widgets = {		
+                    'LAAccount': forms.NumberInput(attrs={			
+                    'class': INPUT_CLASSES		
+                    }),		
+                    'LAAccountType': forms.TextInput(attrs={			
+                    'class': INPUT_CLASSES		
+                    }),		
+                    'LAADescription': forms.TextInput(attrs={			
+                    'class': INPUT_CLASSES		
+                    }),		
+                    }		
 
 class SectionSelectForm(forms.ModelForm):
     class Meta:
