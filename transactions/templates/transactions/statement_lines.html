@@ -225,7 +225,7 @@
                 </tr>
               </thead>
               <tbody>
-                {% for line in statementlines %}
+                {% for account in line.statementlineaccounts_set.all %}
                 <tr>
                   <td>{{ line.SLName }}</td>
                   <td>{{ line.SLStatementLineFK.SLName }}</td>
@@ -426,7 +426,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <input type="hidden" name="form_type" value="StatementSectionForm">
+            <input type="hidden" name="form_type" value="StatementLinesForm">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary">Submit</button>
           </div>

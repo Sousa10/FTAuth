@@ -265,6 +265,8 @@ def StatementSectionsV(request, pk=None):
         selected_statement = None
 
     statementForm = FinStatementsForm()
+    statementLinesForm = SectionLinesForm()
+    statementAccountForm = LineAccountsForm()
     if selected_statement:
         statementSectionsForm = StatementSectionsForm(statement=selected_statement)
     else:
@@ -291,6 +293,7 @@ def StatementSectionsV(request, pk=None):
                 return redirect('transactions:statement_section_with_id', pk=saved_section.id)
 
         elif form_type == 'StatementLinesForm':
+            print("inside lines form")
             statementLinesForm = SectionLinesForm(request.POST)
             if statementLinesForm.is_valid():
                 savedLine = statementLinesForm.save()
@@ -319,11 +322,9 @@ def StatementSectionsV(request, pk=None):
                 page = paginator.get_page(page_number)
 
                 return redirect('transactions:statement_section_with_id', pk=statement.id)
-    else:
-        statementForm = FinStatementsForm()
-        statementLinesForm = SectionLinesForm()
-        statementAccountForm = LineAccountsForm()
-        statementSectionsForm = StatementSectionsForm(statement=selected_statement)
+    # else:
+        # statementForm = FinStatementsForm()
+        # statementSectionsForm = StatementSectionsForm(statement=selected_statement)
     return render(request, 'transactions/statement_lines.html', {
         'statementForm': statementForm,
         # 'first_statement': first_statement,
