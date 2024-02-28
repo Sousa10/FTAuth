@@ -452,8 +452,19 @@
               {% for field in statementAccountForm %}
                 <div class="col-12 mb-3">
                   <div class="form-floating"> <!-- Use floating labels for a neater look -->
-                    {{ field }} <!-- Render the field itself -->
-                    <label for="{{ field.id_for_label }}">{{ field.label }}</label> <!-- Render the label of the field -->
+                    {% if field|field_type == 'Select' %}
+                        <select class="form-select {{ INPUT_CLASSES }}" id="{{ field.id_for_label }}" name="{{ field.html_name }}">
+                            {% for option_key, option_value in field.field.choices %}
+                                <option value="{{ option_key }}" {% if field.value == option_key %}selected{% endif %}>
+                                    {{ option_value }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {% else %}
+                        {{ field }} <!-- Render the field itself -->
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label> <!-- Render the label of the field -->
+                    {% endif %}
                     {% if field.help_text %}
                       <small class="form-text text-muted">{{ field.help_text }}</small>
                     {% endif %}

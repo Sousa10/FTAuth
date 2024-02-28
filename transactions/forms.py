@@ -112,10 +112,16 @@ class SectionLinesForm(forms.ModelForm):
                     })
                 } 	
 
-class LineAccountsForm(forms.ModelForm):			
+class LineAccountsForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        line = kwargs.pop('line', None)  # Get the passed section and remove from kwargs
+        super(LineAccountsForm, self).__init__(*args, **kwargs)
+        if line:
+            self.fields['LAStatementLineFK'].initial = line			
     class Meta:			
         model = LineAccounts		
         fields = (			
+         'LAStatementLineFK',			
          'LAAccount',			
          'LAAccountType',			
          'LAADescription',			

@@ -256,7 +256,7 @@ def StatementSectionsV(request, pk=None):
         statement = get_object_or_404(FinStatements, id=pk)
         sections = StatementSections.objects.filter(FinStatementsFK=statement)
         # Show 10 ListDetailsT objects per page
-        paginator = Paginator(sections, 2)
+        paginator = Paginator(sections, 8)
         # get page number for each ListHeaderT instance
         page_number = request.GET.get('page', 1)
         page = paginator.get_page(page_number)
@@ -289,23 +289,29 @@ def StatementSectionsV(request, pk=None):
             sectionForm = StatementSectionsForm(request.POST)
             if sectionForm.is_valid():
                 saved_section =sectionForm.save()
+                related_statement = saved_section.FinStatementsFK
 
-                return redirect('transactions:statement_section_with_id', pk=saved_section.id)
+                return redirect('transactions:statement_section_with_id', pk=related_statement.id)
 
         elif form_type == 'StatementLinesForm':
             print("inside lines form")
             statementLinesForm = SectionLinesForm(request.POST)
             if statementLinesForm.is_valid():
                 savedLine = statementLinesForm.save()
+                related_section = savedLine.SLStatementSectionsFK
+                related_statement = related_section.FinStatementsFK
 
-                return redirect('transactions:statement_section_with_id', pk=savedLine.id)
+                return redirect('transactions:statement_section_with_id', pk=related_statement.id)
             
         elif form_type == 'StatementAccountForm':
             statementAccountForm = LineAccountsForm(request.POST)
             if statementAccountForm.is_valid():
                 savedAccount = statementAccountForm.save()
+                related_line = savedAccount.LAStatementLineFK
+                related_section = related_line.SLStatementSectionsFK
+                related_statement = related_section.FinStatementsFK
 
-                return redirect('transactions:statement_section_with_id', pk=savedAccount.id)
+                return redirect('transactions:statement_section_with_id', pk=related_statement.id)
 
         elif form_type == 'SelectedStatementForm':
             selectedStatementForm = StatementSelectForm(request.POST)
@@ -315,6 +321,7 @@ def StatementSectionsV(request, pk=None):
                 statementSections = statement.statementsections_set.prefetch_related(
                     'statementsectionlines_set__statementlineaccounts_set'
                 ).all()
+                print(statementSections)
                 #Show 10 ListDetailsT objects per page
                 paginator = Paginator(statementSections, 5)
                 #get page number for each ListHeaderT instance
