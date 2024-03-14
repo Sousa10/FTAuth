@@ -16,6 +16,14 @@ urlpatterns = [
     path('search_accounts', views.search_accounts, name='search_accounts' ),
     path('statement-sectionsV/', views.StatementSectionsV, name='statement_section'),
     path('statement-sectionsV/<int:pk>/', views.StatementSectionsV, name='statement_section_with_id'),
+    path('statement-sectionsV/delete/<int:pk>/', views.StatementSections_deleteV, name='section_delete'),
+    path('statement-sectionsV/update/<int:pk>/', views.StatementSections_updateV, name="section_update"),
+    path('statement/delete/<int:pk>/', views.Statement_deleteV, name='statement_delete'), # type: ignore
+    path('statement/update/<int:pk>/', views.statement_update, name='statement_update'), # type: ignore
+    path('statement-sectionsV/line/delete/<int:pk>/', views.SectionLines_deleteV, name='line_delete'),
+    path('statement-sectionsV/line/update/<int:pk>/', views.SectionLines_updateV, name='line_update'),
+    path('statement-sectionsV/account/delete/<int:pk>/', views.LineAccounts_deleteV, name='account_delete'),
+    path('statement-sectionsV/account/update/<int:pk>/', views.LineAccounts_updateV, name='account_update'),
     path('statement-linesline/<int:listheader_id>/', views.SectionLinesV, name='statement_linesline'),
     path('statement-line-accountsV/delete/<int:pk>/', views.LineAccountsV, name='StatementLinesDetails_delete'),
 ]

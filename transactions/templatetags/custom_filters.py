@@ -1,8 +1,7 @@
-# custom_filters.py
 from django import template
 
 register = template.Library()
 
 @register.filter
-def get_range(value):
-    return range(value)
+def field_type(field):
+    return field.field.widget.__class__.__name__

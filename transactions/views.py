@@ -1,3 +1,4 @@
+from sre_parse import State
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
@@ -5,13 +6,14 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.contrib.auth.forms import UserCreationForm
 from .models import CashInAcctM, PersonM, FinStatements, StatementSections, SectionLines, LineAccounts 
-from .forms import CashInAcctMForm, FinStatementsForm, StatementSectionsForm, SectionLinesForm, LineAccountsForm
+from .forms import CashInAcctMForm, FinStatementsForm, StatementSectionsForm, SectionLinesForm, LineAccountsForm, SectionSelectForm, StatementSelectForm
 from django.core.paginator import Paginator
 from datetime import datetime
 import os
 from LoginRegister.utils import increment_click_count
 from django.http import HttpResponseServerError
 import logging
+from django.urls import reverse
 logger = logging.getLogger(__name__)
 
 def home(request):
@@ -108,7 +110,6 @@ def populate_from_csv(csv_file):
                 )
             except ValueError:
                 print(f"Invalid amount format for entry: {fields[2]}")
-
 
 def FTTransactions(request, batch_id=None):
     if batch_id:
@@ -244,105 +245,166 @@ statementForm = FinStatementsForm()
        # StatementSectionsV 
 #------------------------------------------#
 def StatementSectionsV(request, pk=None):
-    first_section = StatementSections.objects.first()
-    section = None
-    lines = None
+    # first_statement = StatementSections.objects.first()
+    statement = None
+    sections = None
+    # first_section = StatementSections.objects.first()
+    # section = None
+    # lines = None
     page = None
 
     if pk is not None:
-        section = get_object_or_404(StatementSections, id=pk)
-        lines = SectionLines.objects.filter(SLStatementSectionFK=section)
+        statement = get_object_or_404(FinStatements, id=pk)
+        sections = StatementSections.objects.filter(FinStatementsFK=statement)
         # Show 10 ListDetailsT objects per page
-        paginator = Paginator(lines, 2)
+        paginator = Paginator(sections, 8)
         # get page number for each ListHeaderT instance
         page_number = request.GET.get('page', 1)
         page = paginator.get_page(page_number)
-        selected_section = section
+        selected_statement = statement
     else:
-        selected_section = None
+        selected_statement = None
 
-    sectionForm = StatementSectionsForm()
-    if selected_section:
-        statementLinesForm = SectionLines(section=selected_section)
+    statementForm = FinStatementsForm()
+    statementLinesForm = SectionLinesForm()
+    statementAccountForm = LineAccountsForm()
+    if selected_statement:
+        statementSectionsForm = StatementSectionsForm(statement=selected_statement)
     else:
-        statementLinesForm = SectionLines()
-    # selectedSectionForm = SectionSelectForm()
+        statementSectionsForm = StatementSectionsForm()
+    #selectedSectionForm = SectionSelectForm()
+    selectedStatementForm = StatementSelectForm()
 
     if request.method == 'POST':
         form_type = request.POST.get('form_type')
-        if form_type == 'StatementSectionForm':
+        # remember to refactor this to reduce or eliminate the ifs
+        if form_type == 'StatementForm':
+            print("inside statement form")
+            statementForm = FinStatementsForm(request.POST)
+            if statementForm.is_valid():
+                saved_statement =statementForm.save()
+
+                return redirect('transactions:statement_section_with_id', pk=saved_statement.id)
+            
+        elif form_type == 'StatementSectionForm':
             sectionForm = StatementSectionsForm(request.POST)
             if sectionForm.is_valid():
                 saved_section =sectionForm.save()
+                related_statement = saved_section.FinStatementsFK
 
-                return redirect('transactions:statement_section_with_id', pk=saved_section.id)
+                return redirect('transactions:statement_section_with_id', pk=related_statement.id)
 
         elif form_type == 'StatementLinesForm':
-            statementLinesForm = SectionLines(request.POST)
+            print("inside lines form")
+            statementLinesForm = SectionLinesForm(request.POST)
             if statementLinesForm.is_valid():
-                statementLinesForm.save()
+                savedLine = statementLinesForm.save()
+                related_section = savedLine.SLStatementSectionsFK
+                related_statement = related_section.FinStatementsFK
 
-                return redirect('transactions:statement_section_with_id', pk=section.id)
+                return redirect('transactions:statement_section_with_id', pk=related_statement.id)
+            
+        elif form_type == 'StatementAccountForm':
+            statementAccountForm = LineAccountsForm(request.POST)
+            if statementAccountForm.is_valid():
+                savedAccount = statementAccountForm.save()
+                related_line = savedAccount.LAStatementLineFK
+                related_section = related_line.SLStatementSectionsFK
+                related_statement = related_section.FinStatementsFK
 
-        # elif form_type == 'SelectedSectionForm':
-            # selectedSectionForm = SectionSelectForm(request.POST)
-            # if selectedSectionForm.is_valid():
-                # sectionName = selectedSectionForm.cleaned_data['SSName']
-                # section = StatementSections.objects.get(SSName=sectionName)
-                # statementLines = section.statementlinesline_set.prefetch_related(
-                    # 'statementlineaccounts_set'
-                # ).all()
-                # Show 10 ListDetailsT objects per page
-                # paginator = Paginator(statementLines, 5)
-                # get page number for each ListHeaderT instance
-                # page_number = request.GET.get('page', 1)
-                # page = paginator.get_page(page_number)
-                # print(type(section.id))
+                return redirect('transactions:statement_section_with_id', pk=related_statement.id)
 
-                # return redirect('transactions:statement_section_with_id', pk=section.id)
+        elif form_type == 'SelectedStatementForm':
+            selectedStatementForm = StatementSelectForm(request.POST)
+            if selectedStatementForm.is_valid():
+                statementName = selectedStatementForm.cleaned_data['FSName']
+                statement = FinStatements.objects.get(FSName=statementName)
+                statementSections = statement.statementsections_set.prefetch_related(
+                    'statementsectionlines_set',
+                    'statementsectionlines_set__statementlineaccounts_set'
+                ).all()
+                print(statementSections)
+                #Show 10 ListDetailsT objects per page
+                paginator = Paginator(statementSections, 5)
+                #get page number for each ListHeaderT instance
+                page_number = request.GET.get('page', 1)
+                page = paginator.get_page(page_number)
 
-    else:
-        sectionForm = StatementSectionsForm()
-        # selected_header = ListHeaderT.objects.get(id=listheader_id)
-        statementLinesForm = SectionLines(section=selected_section)
+                return redirect('transactions:statement_section_with_id', pk=statement.id)
+    # else:
+        # statementForm = FinStatementsForm()
+        # statementSectionsForm = StatementSectionsForm(statement=selected_statement)
     return render(request, 'transactions/statement_lines.html', {
-        'sectionForm': sectionForm,
-        'first_section': first_section,
+        'statementForm': statementForm,
+        # 'first_statement': first_statement,
+        'statementSectionsForm': statementSectionsForm,
+        'selectedStatementForm': selectedStatementForm,
         'statementLinesForm': statementLinesForm,
-        # 'selectedSectionForm': selectedSectionForm,
-        'section': section,
-        'statementlines': page,
-        'title': 'Statement Sections and Lines',
+        'statementAccountForm': statementAccountForm,
+        'statement': statement,
+        'statementSections': page,
+        'title': 'Statement Sections, Lines and Accounts',
     })
+
+#------------------------------------------#
+        # StatmentDelete
+#------------------------------------------#
+def Statement_deleteV(request, pk):
+    first_statement = FinStatements.objects.first()
+    statement = get_object_or_404(FinStatements, pk=pk)
+    statement.delete()
+
+    if first_statement:
+        return redirect('transactions:statement_section_with_id', pk=first_statement.id)
+    else:
+        return redirect('transactions:statement_section')
+
+#------------------------------------------#
+    # Statement_updateV
+#------------------------------------------#
+def statement_update(request, pk):
+    first_statement = FinStatements.objects.first()
+    statement = get_object_or_404(FinStatements, pk=pk)
+    if request.method == 'POST':
+        form = FinStatementsForm(request.POST, instance=statement)
+
+        if form.is_valid():
+            form.save()
+            fallback_url = reverse('transactions:statement_section_with_id', kwargs={'pk':first_statement.id})
+            return redirect(request.META.get('HTTP_REFERER', fallback_url))
+    else:
+        form = FinStatementsForm(instance=statement)
 
 #------------------------------------------#
     # StatementSections_updateV
 #------------------------------------------#
 def StatementSections_updateV(request, pk):
+    first_statement = FinStatements.objects.first()
     ssection = get_object_or_404(StatementSections, pk=pk)
     if request.method == 'POST':
         form = StatementSectionsForm(request.POST, instance=ssection)
 
         if form.is_valid():
+            print("form is valid")
             form.save()
-            return redirect('transations:sections', section_id=StatementSections.id)
-    else:
-        form = StatementSectionsForm(instance=ssection)
-
-    return render(request, 'sections.html', {
-        'form': form,
-        'ssection': ssection,
-        'title': 'Update Section'
-    })
+            fallback_url = reverse('transactions:statement_section_with_id', kwargs={'pk':first_statement.id})
+            return redirect(request.META.get('HTTP_REFERER', fallback_url))
+        else:
+            print("form is not valid")
+            print(form.errors)
 
 #------------------------------------------#
         # StatmentSectionsDelete
 #------------------------------------------#
 def StatementSections_deleteV(request, pk):
+    first_statement = FinStatements.objects.first()
     ssection = get_object_or_404(StatementSections, pk=pk)
     ssection.delete()
 
-    return redirect('transactions:StatementSections', sectionheader_id=sectionHeader.id)
+    if first_statement:
+        return redirect('transactions:statement_section_with_id', pk=first_statement.id)
+    else:
+        return redirect('transactions:statement_section')
 
 ############################################
 #<<<<<<<<<<<< Section Lines >>>>>>>>>>>>>>>#
@@ -374,12 +436,14 @@ def SectionLinesV(request):
         # StatementLinesLineUpdate
 #------------------------------------------#
 def SectionLines_updateV(request, pk):
+    first_statement = FinStatements.objects.first()
     slline = get_object_or_404(SectionLines, pk=pk)
     if request.method == 'POST':
         form = SectionLinesForm(request.POST, instance=slline)
         if form.is_valid():
             form.save()
-            return redirect('transactions:statement_lines')
+            fallback_url = reverse('transactions:statement_section_with_id', kwargs={'pk':first_statement.id})
+            return redirect(request.META.get('HTTP_REFERER', fallback_url))
     else:
         form = SectionLinesForm(instance=slline)
     return render(request, 'transactions:statement_lines.html', {
@@ -392,10 +456,14 @@ def SectionLines_updateV(request, pk):
         # StatementLinesLineDelete
 #------------------------------------------#
 def SectionLines_deleteV(request, pk):
-    listDetail = get_object_or_404(SectionLines, pk=pk)
-    listDetail.delete()
+    first_statement = FinStatements.objects.first()
+    line = get_object_or_404(SectionLines, pk=pk)
+    line.delete()
 
-    return redirect('transactions:statement_lines')
+    if first_statement:
+        return redirect('transactions:statement_section_with_id', pk=first_statement.id)
+    else:
+        return redirect('transactions:statement_section')
 
 ############################################
 #<<<<<<<<<<<<<< Line Accounts >>>>>>>>>>>>>#
@@ -423,25 +491,28 @@ def LineAccountsV(request):
 #           LineAccounts_updateV           
 #------------------------------------------#
 def LineAccounts_updateV(request, pk):
+    first_statement = FinStatements.objects.first()
     slaccount = get_object_or_404(LineAccounts, pk=pk)
     if request.method == 'POST':
         form = LineAccountsForm(request.POST, instance=slaccount)
         if form.is_valid():
             form.save()
-            return redirect('transactions:income_accts')
+            fallback_url = reverse('transactions:statement_section_with_id', kwargs={'pk':first_statement.id})
+            return redirect(request.META.get('HTTP_REFERER', fallback_url))
     else:
         form = LineAccountsForm(instance=slaccount)
-    return render(request, 'transactions/FTRevenueAccts.html', {
-        'form': form,
-        'slaccount': slaccount,
-        'title': 'Edit Account',
-    })
+        
+    return render(request, 'transactions:statement_lines.html', {})
 
 #------------------------------------------#
 #           LineAccounts_deleteV           
 #------------------------------------------#
 def LineAccounts_deleteV(request, pk):
+    first_statement = FinStatements.objects.first()
     slaccounts = get_object_or_404(LineAccounts, pk=pk)
     slaccounts.delete()
 
-    return redirect('transactions:accounts')
+    if first_statement:
+        return redirect('transactions:statement_section_with_id', pk=first_statement.id)
+    else:
+        return redirect('transactions:statement_section')

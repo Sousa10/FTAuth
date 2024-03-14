@@ -53,40 +53,53 @@ class FinStatementsForm(forms.ModelForm):
                   'FSPostedDate'
                  )
         widgets = {
-                   'FSName': forms.TextInput(attrs={
-                     'class': INPUT_CLASSES
-                     }),
-                     'FSFromDate': forms.DateInput(attrs={
-                      'class': INPUT_CLASSES  
-                     }), 
-                     'FSThroughDate': forms.DateInput(attrs={
-                      'class': INPUT_CLASSES  
-                     }),  
-                     'FSPostedDate': forms.DateInput(attrs={
-                      'class': INPUT_CLASSES
-                     })
-                  }
+            'FSName': forms.TextInput(attrs={
+                'class': INPUT_CLASSES
+                }),
+                'FSFromDate': forms.DateInput(attrs={
+                'class': INPUT_CLASSES, 'type': 'date'  
+                }), 
+                'FSThroughDate': forms.DateInput(attrs={
+                'class': INPUT_CLASSES, 'type': 'date'  
+                }),  
+                'FSPostedDate': forms.DateInput(attrs={
+                'class': INPUT_CLASSES, 'type': 'date'
+                })
+            }
         
-class StatementSectionsForm(forms.ModelForm):		
+class StatementSectionsForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        statement = kwargs.pop('statement', None)  # Get the passed section and remove from kwargs
+        super(StatementSectionsForm, self).__init__(*args, **kwargs)
+        if statement:
+            self.fields['FinStatementsFK'].initial = statement	
     class Meta:		
         model = StatementSections		
         fields = (		
-                  'SSName', 	
-                  'SSDescription'	
-                 )	
+            'FinStatementsFK',
+            'SSName', 	
+            'SSDescription'	
+        )	
         widgets = {	
-	              'SSName': forms.TextInput(attrs={	
-                    'class': INPUT_CLASSES	
-                  }),	
-	              'SSDescription': forms.TextInput(attrs={	
-                    'class': INPUT_CLASSES	
-                  })
-                 }
+            'SSName': forms.TextInput(attrs={	
+            'class': INPUT_CLASSES	
+            }),	
+            'SSDescription': forms.TextInput(attrs={	
+            'class': INPUT_CLASSES	
+            })
+        }
         
 class SectionLinesForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        section = kwargs.pop('section', None)  # Get the passed section and remove from kwargs
+        super(SectionLinesForm, self).__init__(*args, **kwargs)
+        if section:
+            self.fields['SLStatementSectionsFK'].initial = section
+
     class Meta:		
         model = SectionLines		
         fields = (		
+                  'SLStatementSectionsFK',
                   'SLName',		
                   'SLDescription'	
 	             )	
@@ -99,23 +112,42 @@ class SectionLinesForm(forms.ModelForm):
                     })
                 } 	
 
-class LineAccountsForm(forms.ModelForm):			
+class LineAccountsForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        line = kwargs.pop('line', None)  # Get the passed section and remove from kwargs
+        super(LineAccountsForm, self).__init__(*args, **kwargs)
+        if line:
+            self.fields['LAStatementLineFK'].initial = line			
     class Meta:			
         model = LineAccounts		
         fields = (			
+         'LAStatementLineFK',			
          'LAAccount',			
          'LAAccountType',			
          'LAADescription',			
-	          )		
-    ordering = ['SAAccount']		
-    widgets = {		
-                'LAAccount': forms.TextInput(attrs={			
-                'class': INPUT_CLASSES		
-                }),		
-                'LAAccountType': forms.TextInput(attrs={			
-                'class': INPUT_CLASSES		
-                }),		
-                'LAADescription': forms.TextInput(attrs={			
-                'class': INPUT_CLASSES		
-                }),		
-                }		
+	          )				
+        widgets = {		
+                    'LAAccount': forms.NumberInput(attrs={			
+                    'class': INPUT_CLASSES		
+                    }),		
+                    'LAAccountType': forms.TextInput(attrs={			
+                    'class': INPUT_CLASSES		
+                    }),		
+                    'LAADescription': forms.TextInput(attrs={			
+                    'class': INPUT_CLASSES		
+                    }),		
+                    }		
+
+class SectionSelectForm(forms.ModelForm):
+    class Meta:
+        model = StatementSections
+        fields = ['SSName']
+
+    SSName = forms.ModelChoiceField(queryset=StatementSections.objects.all(), widget=forms.Select(attrs={'class': INPUT_CLASSES}))
+
+class StatementSelectForm(forms.ModelForm):
+    class Meta:
+        model = FinStatements
+        fields = ['FSName']
+
+    FSName = forms.ModelChoiceField(queryset=FinStatements.objects.all(), widget=forms.Select(attrs={'class': INPUT_CLASSES}))
