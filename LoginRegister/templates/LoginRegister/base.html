@@ -1,8 +1,25 @@
 {% load static %}
+
+<!-- ************************************************* -->
+<!-- ********************* CONTENTS ****************** -->
+<!-- ************************************************* -->
+<!-- *                                               * -->
+<!-- * Like all "base.html" templates for each       * -->
+<!-- * application, this template is organized into  * -->
+<!-- * 3 Sections:                                   * -->
+<!-- *    1. Initialization,                         * -->
+<!-- *    2. Menu Bar & Navigation, and              * -->
+<!-- *    3. Advertising                             * -->
+<!-- *                                               * -->
+<!-- ************************************************* -->
+
+<!-- ************************************************* -->
+<!-- ***************** INITIALIZATION **************** -->
+<!-- ************************************************* -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %} | FamilyTracker</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -11,17 +28,21 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 </head>
 
+<!-- ************************************************* -->
+<!-- ************* MENU BAR & NAVIGATION ************* -->
+<!-- ************************************************* -->
+
 <body style="background-color:#DDEBF7;">
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #0f496f;">
             <div class="container-fluid">
                 {% if messages %}
-                {% for message in messages %}
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    {{ message }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" area-label="Close"></button>
-                </div>
-                {% endfor %}
+                    {% for message in messages %}
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" area-label="Close"></button>
+                        </div>
+                    {% endfor %}
                 {% endif %}
 
                 <a class="navbar-brand" href="#">TRAXX</a>
@@ -64,6 +85,17 @@
                         <a class="nav-link active" href="#About1" data-bs-toggle="modal">About</a>
                     </li>
 
+                    <li class="nav-item dropdown active">
+                        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Sponsors
+                        </a>
+                        <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#SponNote" data-bs-toggle="modal">A Note to Our Sponsors</a></li>
+                            <li><a class="dropdown-item" href="#PotSponNote" data-bs-toggle="modal">A Note to Our Potential Sponsors</a></li>
+                        </ul>
+                    </li>
+
                     <li class="nav-item">
                         <a class="nav-link active" href="{% url 'members:logout' %}">Logout</a>
                     </li>
@@ -71,234 +103,7 @@
                 </ul>
 
         </nav>
-        {% block pageTitle %}
-        {% endblock %}
     </header>
-
-    <main class="container-fluid mt-4">
-        <div class="row" style="margin: 0 5px;">
-            <!-- Left Margin Advertising -->
-            <div class="col-md-2" style="text-align: left;">
-
-                <!-- Spot 1 -->
-                <div style="width: 100%; height: 170px; background-color: #DDEBF7;">
-                    <a href="#exampleModal" data-bs-toggle="modal">
-                        <img src="{% static 'MM1.jpg' %}" style="height: 95%;" alt="AdvSpot1">
-                    </a>
-                </div>
-
-                <!-- Spot 2 -->
-                <div style="width: 100%; height: 170px; background-color: #DDEBF7;">
-                    <a href="#ad2Modal" data-bs-toggle="modal">
-                        <img src="{% static 'MM2.jpg' %}" style="height: 95%;" alt="Advpot2">
-                    </a>
-                </div>
-
-                <!-- Spot 3 -->
-                <div style="width: 100%; height: 170px; background-color: #DDEBF7;">
-                    <a href="#ad3Modal" data-bs-toggle="modal">
-                        <img src="{% static 'MM3.jpg' %}" style="height: 95%;" alt="Advpot2">
-                    </a>
-                </div>
-
-            </div>
-            <!-- Center Open Area -->
-            <div class="col-md-8" style="text-align: center;">
-                {% block content %}
-                {% endblock %}
-            </div>
-
-            <!-- Right Margin Advertising -->
-            <div class="col-md-2" style="text-align: right;">
-
-                <!-- Spot 4 -->
-                <div style="width: 100%; height: 170px; background-color: #DDEBF7;">
-                    <a href="#ad4Modal" data-bs-toggle="modal">
-                        <img src="{% static 'MM4.jpg' %}" style="height: 95%;" alt="Advpot2">
-                    </a>
-                </div>
-
-                <!-- Spot 5 -->
-                <div style="width: 100%; height: 170px; background-color: #DDEBF7;">
-                    <a href="#ad5Modal" data-bs-toggle="modal">
-                        <img src="{% static 'MM5.jpg' %}" style="height: 95%;" alt="Advpot2">
-                    </a>
-                </div>
-
-                <!-- Spot 6 -->
-                <div style="width: 100%; height: 170px; background-color: #DDEBF7;">
-                    <a href="#ad6Modal" data-bs-toggle="modal">
-                        <img src="{% static 'MM6.jpg' %}" style="height: 95%;" alt="Advpot2">
-                    </a>
-                </div>
-
-            </div>
-    </main>
-
-    <footer class="mt-4 text-center">
-        <!-- Spot 7 -->
-        <div style="width: 100%; height: 170px; background-color: #DDEBF7;">
-            <a href="#ad7Modal" data-bs-toggle="modal">
-                <img class="sponsor" src="{% static 'MM7.jpg' %}" style="height: 200px" alt="Sponsor">
-            </a>
-        </div>
-    </footer>
-
-    <br>
-
-    <!-- Modal AdvSpot1 -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog ads modal-xl">
-            <div class="modal-content">
-                <div class="modal-header primary">
-                    <h5 class="modal-title" id="exampleModalLabel">On-Line Luxury Cars for Less</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                </div>
-                <div class="modal-body">
-                    Message/Description:</br></br>
-                    Contact Information:</br>
-                    URL:</br>
-                    Promotion Code:</br>
-                    Imbedded Audio/Video:</br>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal AdvSpot2 -->
-    <div class="modal fade" id="ad2Modal" tabindex="-1" aria-labelledby="ad2ModalLabel" aria-hidden="true">
-        <div class="modal-dialog ads modal-xl">
-            <div class="modal-content">
-                <div class="modal-header primary">
-                    <h5 class="modal-title" id="ad2ModalLabel">Frank Lloyd Wright Inspired Bathrooms</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                </div>
-                <div class="modal-body">
-                    Message/Description: Inspired by one of the greatest architects of all time Frank Lloyd Wright. Sleak, modern lines and
-                    unparalleled Quality.  We provide design and build services, and a lifetime
-                    warranty.</br></br>
-                    
-                    Contact Information:</br>
-                    URL:</br>
-                    Promotion Code:</br>
-                    Imbedded Audio/Video:</br>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal AdvSpot3 -->
-    <div class="modal fade" id="ad3Modal" tabindex="-1" aria-labelledby="ad2ModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
-            <div class="modal-content">
-                <div class="modal-header primary">
-                    <h5 class="modal-title" id="ad3ModalLabel">Watch the US Open!</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                        style="color: white!important;">
-                </div>
-                <div class="modal-body">
-                    Message/Description:  The Worlds Greatest Golfers on one of the foremost tests in Golf... Pebble Beach.</br></br>
-                    
-                    Contact Information:</br>
-                    URL:</br>
-                    Promotion Code:</br>
-                    Imbedded Audio/Video:</br>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal AdvSpot4 -->
-    <div class="modal fade" id="ad4Modal" tabindex="-1" aria-labelledby="ad2ModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
-            <div class="modal-content">
-                <div class="modal-header primary">
-                    <h5 class="modal-title" id="ad3ModalLabel">Let Your Voice Be Heard!</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                </div>
-                <div class="modal-body">
-                    Message/Description:  Voting is one of the greatest privileges and responsibilities of being a US
-                    citizen.  Irrespective of you political party or affiliation, it's critically important that
-                    your voice be heard.<br><br>
-                    
-                    Contact Information:</br>
-                    URL:</br>
-                    Promotion Code:</br>
-                    Imbedded Audio/Video:</br>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal AdvSpot5 -->
-    <div class="modal fade" id="ad5Modal" tabindex="-1" aria-labelledby="ad5ModalLabel" aria-hidden="true">
-        <div class="modal-dialog ads modal-xl">
-            <div class="modal-content">
-                <div class="modal-header primary">
-                    <h5 class="modal-title" id="ad5ModalLabel">The Best Mattress Money can Buy</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                </div>
-                <div class="modal-body">
-                    Message/Description:  You spend a third of your life on your mattress. It should be a comfortable and healthful
-                    experience.  Our hand-crafted matress' are unique in their quality, support, and luxury.<br><br>
-                    
-                    Contact Information:</br>
-                    URL:</br>
-                    Promotion Code:</br>
-                    Imbedded Audio/Video:</br>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal AdvSpot6 -->
-    <div class="modal fade" id="ad6Modal" tabindex="-1" aria-labelledby="ad6ModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
-            <div class="modal-content">
-                <div class="modal-header primary">
-                    <h5 class="modal-title" id="ad6ModalLabel">Watch Monday Night Football</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                </div>
-                <div class="modal-body">
-                    Message/Description:  Extend your weekend, pop some corn, or order some hot wings, grab a cold beverage and Watch Monday
-                    Night Football.  Great moments happen on Monday Night Football, the stars of the game, the
-                    great plays, and all the excitement!</br></br>
-
-                    Contact Information:</br>
-                    URL:</br>
-                    Promotion Code:</br>
-                    Imbedded Audio/Video:</br>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal AdvSpot7 -->
-    <div class="modal fade" id="ad7Modal" tabindex="-1" aria-labelledby="ad7ModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
-            <div class="modal-content">
-                <div class="modal-header primary">
-                    <h5 class="modal-title" id="ad7ModalLabel">Paradise Island in the Bahamas!!!</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                </div>
-                <div class="modal-body">
-                    Message/Description:  The name Paradise Island could not be more fitting. Awaiting you here are idyllic beaches, exciting
-                    nightlife and popular attractions like Atlantis, the largest resort in the Caribbean, with a casino,
-                    water park and aquarium.<br><br>To let you experience an all-inclusive Paradise Island holiday, RIU
-                    Hotels & Resorts offers you the Hotel Riu Palace Paradise Island, located on the beachfront of the
-                    soft white sand Cove Beach. There you can relax under the warm Caribbean sun, enjoy a pleasant stroll on
-                    the shore, or practise different aquatic sports like water skiing, jet ski, windsurfing and kite
-                    surfing.<br><br>
-                    
-                    Contact Information:</br>
-                    URL:</br>
-                    Promotion Code:</br>
-                    Imbedded Audio/Video:</br>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Modal Supp1 -->
     <div class="modal fade" id="Supp1Label" tabindex="-1" aria-labelledby="Supp1Label" aria-hidden="true">
         <div class="modal-dialog ads modal-xl">
@@ -689,12 +494,270 @@
         </div>
     </div>
 
+    <!-- Modal SponNote -->
+    <div class="modal fade" id="SponNote" tabindex="-1" aria-labelledby="SponNoteLabel" aria-hidden="true">
+        <div class="modal-dialog ads modal-xl" style="overflow-y: scroll; max-height:95%; margin-top: 5px; margin-bottom: 5px;">
+            <div class="modal-content">
+                <div class="modal-header primary">
+                    <h5 class="modal-title" id="SponNoteLabel">A Note to Our Sponsors</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </div>
+                <div class="modal-body">
+                        This will be a note to our current sponsors (Advertisers) on TRAXX 
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal PotSponNote -->
+    <div class="modal fade" id="PotSponNote" tabindex="-1" aria-labelledby="PotSponNoteLabel" aria-hidden="true">
+        <div class="modal-dialog ads modal-xl" style="overflow-y: scroll; max-height:95%; margin-top: 5px; margin-bottom: 5px;">
+            <div class="modal-content">
+                <div class="modal-header primary">
+                    <h5 class="modal-title" id="PotSponNoteLabel">A Note to Our Potential Sponsors</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </div>
+                <div class="modal-body">
+                        This will be a note to our potential sponsors (Advertisers) on TRAXX 
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
         crossorigin="anonymous"></script>
     <!-- <script src="{% static 'js/child.js' %}"></script> -->
     <script src="{% static 'js/jquery-3.7.0.min.js' %}"></script>
     {% block modal-script %}{% endblock %}
-</body>
 
+<!-- ************************************************* -->
+<!-- ****************** ADVERTISING ****************** -->
+<!-- ************************************************* -->
+
+<main class="container-fluid mt-4">
+    <div class="row" style="margin: 0 5px;">
+        <!-- Left Margin Advertising -->
+        <div class="col-md-2" style="text-align: left;">
+
+            <!-- Spot 1 -->
+            <div style="width: 100%; height: 170px; background-color: #DDEBF7;">
+                <a href="#exampleModal" data-bs-toggle="modal">
+                    <img src="{% static 'MM1.jpg' %}" style="height: 95%;" alt="AdvSpot1">
+                </a>
+            </div>
+
+            <!-- Spot 2 -->
+            <div style="width: 100%; height: 170px; background-color: #DDEBF7;">
+                <a href="#ad2Modal" data-bs-toggle="modal">
+                    <img src="{% static 'MM2.jpg' %}" style="height: 95%;" alt="Advpot2">
+                </a>
+            </div>
+
+            <!-- Spot 3 -->
+            <div style="width: 100%; height: 170px; background-color: #DDEBF7;">
+                <a href="#ad3Modal" data-bs-toggle="modal">
+                    <img src="{% static 'MM3.jpg' %}" style="height: 95%;" alt="Advpot2">
+                </a>
+            </div>
+
+        </div>
+        <!-- Center Open Area -->
+        <div class="col-md-8" style="text-align: center;">
+            {% block content %}
+            {% endblock %}
+        </div>
+
+        <!-- Right Margin Advertising -->
+        <div class="col-md-2" style="text-align: right;">
+
+            <!-- Spot 4 -->
+            <div style="width: 100%; height: 170px; background-color: #DDEBF7;">
+                <a href="#ad4Modal" data-bs-toggle="modal">
+                    <img src="{% static 'MM4.jpg' %}" style="height: 95%;" alt="Advpot2">
+                </a>
+            </div>
+
+            <!-- Spot 5 -->
+            <div style="width: 100%; height: 170px; background-color: #DDEBF7;">
+                <a href="#ad5Modal" data-bs-toggle="modal">
+                    <img src="{% static 'MM5.jpg' %}" style="height: 95%;" alt="Advpot2">
+                </a>
+            </div>
+
+            <!-- Spot 6 -->
+            <div style="width: 100%; height: 170px; background-color: #DDEBF7;">
+                <a href="#ad6Modal" data-bs-toggle="modal">
+                    <img src="{% static 'MM6.jpg' %}" style="height: 95%;" alt="Advpot2">
+                </a>
+            </div>
+
+        </div>
+</main>
+<!-- ************* BELOW IS FOR MAIN MENU ONLY ******** -->
+    <footer class="mt-4 text-center">
+        <!-- Spot 7 -->
+        <div style="width: 100%; height: 170px; background-color: #DDEBF7;">
+            <a href="#ad7Modal" data-bs-toggle="modal">
+                <img class="sponsor" src="{% static 'MM7.jpg' %}" style="height: 200px" alt="Sponsor">
+            </a>
+        </div>
+    </footer>
+
+    <!-- Modal AdvSpot1 -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog ads modal-xl">
+            <div class="modal-content">
+                <div class="modal-header primary">
+                    <h5 class="modal-title" id="exampleModalLabel">On-Line Luxury Cars for Less</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </div>
+                <div class="modal-body">
+                    Message/Description:</br></br>
+                    Contact Information:</br>
+                    URL:</br>
+                    Promotion Code:</br>
+                    Imbedded Audio/Video:</br>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal AdvSpot2 -->
+    <div class="modal fade" id="ad2Modal" tabindex="-1" aria-labelledby="ad2ModalLabel" aria-hidden="true">
+        <div class="modal-dialog ads modal-xl">
+            <div class="modal-content">
+                <div class="modal-header primary">
+                    <h5 class="modal-title" id="ad2ModalLabel">Frank Lloyd Wright Inspired Bathrooms</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </div>
+                <div class="modal-body">
+                    Message/Description: Inspired by one of the greatest architects of all time Frank Lloyd Wright. Sleak, modern lines and
+                    unparalleled Quality.  We provide design and build services, and a lifetime
+                    warranty.</br></br>
+                    
+                    Contact Information:</br>
+                    URL:</br>
+                    Promotion Code:</br>
+                    Imbedded Audio/Video:</br>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal AdvSpot3 -->
+    <div class="modal fade" id="ad3Modal" tabindex="-1" aria-labelledby="ad2ModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header primary">
+                    <h5 class="modal-title" id="ad3ModalLabel">Watch the US Open!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        style="color: white!important;">
+                </div>
+                <div class="modal-body">
+                    Message/Description:  The Worlds Greatest Golfers on one of the foremost tests in Golf... Pebble Beach.</br></br>
+                    
+                    Contact Information:</br>
+                    URL:</br>
+                    Promotion Code:</br>
+                    Imbedded Audio/Video:</br>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal AdvSpot4 -->
+    <div class="modal fade" id="ad4Modal" tabindex="-1" aria-labelledby="ad2ModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header primary">
+                    <h5 class="modal-title" id="ad3ModalLabel">Let Your Voice Be Heard!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </div>
+                <div class="modal-body">
+                    Message/Description:  Voting is one of the greatest privileges and responsibilities of being a US
+                    citizen.  Irrespective of you political party or affiliation, it's critically important that
+                    your voice be heard.<br><br>
+                    
+                    Contact Information:</br>
+                    URL:</br>
+                    Promotion Code:</br>
+                    Imbedded Audio/Video:</br>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal AdvSpot5 -->
+    <div class="modal fade" id="ad5Modal" tabindex="-1" aria-labelledby="ad5ModalLabel" aria-hidden="true">
+        <div class="modal-dialog ads modal-xl">
+            <div class="modal-content">
+                <div class="modal-header primary">
+                    <h5 class="modal-title" id="ad5ModalLabel">The Best Mattress Money can Buy</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </div>
+                <div class="modal-body">
+                    Message/Description:  You spend a third of your life on your mattress. It should be a comfortable and healthful
+                    experience.  Our hand-crafted matress' are unique in their quality, support, and luxury.<br><br>
+                    
+                    Contact Information:</br>
+                    URL:</br>
+                    Promotion Code:</br>
+                    Imbedded Audio/Video:</br>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal AdvSpot6 -->
+    <div class="modal fade" id="ad6Modal" tabindex="-1" aria-labelledby="ad6ModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header primary">
+                    <h5 class="modal-title" id="ad6ModalLabel">Watch Monday Night Football</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </div>
+                <div class="modal-body">
+                    Message/Description:  Extend your weekend, pop some corn, or order some hot wings, grab a cold beverage and Watch Monday
+                    Night Football.  Great moments happen on Monday Night Football, the stars of the game, the
+                    great plays, and all the excitement!</br></br>
+
+                    Contact Information:</br>
+                    URL:</br>
+                    Promotion Code:</br>
+                    Imbedded Audio/Video:</br>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal AdvSpot7 -->
+    <div class="modal fade" id="ad7Modal" tabindex="-1" aria-labelledby="ad7ModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header primary">
+                    <h5 class="modal-title" id="ad7ModalLabel">Paradise Island in the Bahamas!!!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </div>
+                <div class="modal-body">
+                    Message/Description:  The name Paradise Island could not be more fitting. Awaiting you here are idyllic beaches, exciting
+                    nightlife and popular attractions like Atlantis, the largest resort in the Caribbean, with a casino,
+                    water park and aquarium.<br><br>To let you experience an all-inclusive Paradise Island holiday, RIU
+                    Hotels & Resorts offers you the Hotel Riu Palace Paradise Island, located on the beachfront of the
+                    soft white sand Cove Beach. There you can relax under the warm Caribbean sun, enjoy a pleasant stroll on
+                    the shore, or practise different aquatic sports like water skiing, jet ski, windsurfing and kite
+                    surfing.<br><br>
+                    
+                    Contact Information:</br>
+                    URL:</br>
+                    Promotion Code:</br>
+                    Imbedded Audio/Video:</br>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- ************************************************* -->
+<!-- *********************** END ********************* -->
+<!-- ************************************************* -->
+</body>
 </html>
