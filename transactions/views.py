@@ -13,6 +13,7 @@ import os
 from LoginRegister.utils import increment_click_count
 from django.http import HttpResponseServerError
 import logging
+from django.urls import reverse
 logger = logging.getLogger(__name__)
 
 def home(request):
@@ -319,6 +320,7 @@ def StatementSectionsV(request, pk=None):
                 statementName = selectedStatementForm.cleaned_data['FSName']
                 statement = FinStatements.objects.get(FSName=statementName)
                 statementSections = statement.statementsections_set.prefetch_related(
+                    'statementsectionlines_set',
                     'statementsectionlines_set__statementlineaccounts_set'
                 ).all()
                 print(statementSections)
@@ -345,33 +347,64 @@ def StatementSectionsV(request, pk=None):
     })
 
 #------------------------------------------#
+        # StatmentDelete
+#------------------------------------------#
+def Statement_deleteV(request, pk):
+    first_statement = FinStatements.objects.first()
+    statement = get_object_or_404(FinStatements, pk=pk)
+    statement.delete()
+
+    if first_statement:
+        return redirect('transactions:statement_section_with_id', pk=first_statement.id)
+    else:
+        return redirect('transactions:statement_section')
+
+#------------------------------------------#
+    # Statement_updateV
+#------------------------------------------#
+def statement_update(request, pk):
+    first_statement = FinStatements.objects.first()
+    statement = get_object_or_404(FinStatements, pk=pk)
+    if request.method == 'POST':
+        form = FinStatementsForm(request.POST, instance=statement)
+
+        if form.is_valid():
+            form.save()
+            fallback_url = reverse('transactions:statement_section_with_id', kwargs={'pk':first_statement.id})
+            return redirect(request.META.get('HTTP_REFERER', fallback_url))
+    else:
+        form = FinStatementsForm(instance=statement)
+
+#------------------------------------------#
     # StatementSections_updateV
 #------------------------------------------#
 def StatementSections_updateV(request, pk):
+    first_statement = FinStatements.objects.first()
     ssection = get_object_or_404(StatementSections, pk=pk)
     if request.method == 'POST':
         form = StatementSectionsForm(request.POST, instance=ssection)
 
         if form.is_valid():
+            print("form is valid")
             form.save()
-            return redirect('transations:sections', section_id=StatementSections.id)
-    else:
-        form = StatementSectionsForm(instance=ssection)
-
-    return render(request, 'sections.html', {
-        'form': form,
-        'ssection': ssection,
-        'title': 'Update Section'
-    })
+            fallback_url = reverse('transactions:statement_section_with_id', kwargs={'pk':first_statement.id})
+            return redirect(request.META.get('HTTP_REFERER', fallback_url))
+        else:
+            print("form is not valid")
+            print(form.errors)
 
 #------------------------------------------#
         # StatmentSectionsDelete
 #------------------------------------------#
 def StatementSections_deleteV(request, pk):
+    first_statement = FinStatements.objects.first()
     ssection = get_object_or_404(StatementSections, pk=pk)
     ssection.delete()
 
-    return redirect('transactions:StatementSections', sectionheader_id=sectionHeader.id)
+    if first_statement:
+        return redirect('transactions:statement_section_with_id', pk=first_statement.id)
+    else:
+        return redirect('transactions:statement_section')
 
 ############################################
 #<<<<<<<<<<<< Section Lines >>>>>>>>>>>>>>>#
@@ -403,12 +436,14 @@ def SectionLinesV(request):
         # StatementLinesLineUpdate
 #------------------------------------------#
 def SectionLines_updateV(request, pk):
+    first_statement = FinStatements.objects.first()
     slline = get_object_or_404(SectionLines, pk=pk)
     if request.method == 'POST':
         form = SectionLinesForm(request.POST, instance=slline)
         if form.is_valid():
             form.save()
-            return redirect('transactions:statement_lines')
+            fallback_url = reverse('transactions:statement_section_with_id', kwargs={'pk':first_statement.id})
+            return redirect(request.META.get('HTTP_REFERER', fallback_url))
     else:
         form = SectionLinesForm(instance=slline)
     return render(request, 'transactions:statement_lines.html', {
@@ -421,10 +456,14 @@ def SectionLines_updateV(request, pk):
         # StatementLinesLineDelete
 #------------------------------------------#
 def SectionLines_deleteV(request, pk):
-    listDetail = get_object_or_404(SectionLines, pk=pk)
-    listDetail.delete()
+    first_statement = FinStatements.objects.first()
+    line = get_object_or_404(SectionLines, pk=pk)
+    line.delete()
 
-    return redirect('transactions:statement_lines')
+    if first_statement:
+        return redirect('transactions:statement_section_with_id', pk=first_statement.id)
+    else:
+        return redirect('transactions:statement_section')
 
 ############################################
 #<<<<<<<<<<<<<< Line Accounts >>>>>>>>>>>>>#
@@ -452,25 +491,28 @@ def LineAccountsV(request):
 #           LineAccounts_updateV           
 #------------------------------------------#
 def LineAccounts_updateV(request, pk):
+    first_statement = FinStatements.objects.first()
     slaccount = get_object_or_404(LineAccounts, pk=pk)
     if request.method == 'POST':
         form = LineAccountsForm(request.POST, instance=slaccount)
         if form.is_valid():
             form.save()
-            return redirect('transactions:income_accts')
+            fallback_url = reverse('transactions:statement_section_with_id', kwargs={'pk':first_statement.id})
+            return redirect(request.META.get('HTTP_REFERER', fallback_url))
     else:
         form = LineAccountsForm(instance=slaccount)
-    return render(request, 'transactions/FTRevenueAccts.html', {
-        'form': form,
-        'slaccount': slaccount,
-        'title': 'Edit Account',
-    })
+        
+    return render(request, 'transactions:statement_lines.html', {})
 
 #------------------------------------------#
 #           LineAccounts_deleteV           
 #------------------------------------------#
 def LineAccounts_deleteV(request, pk):
+    first_statement = FinStatements.objects.first()
     slaccounts = get_object_or_404(LineAccounts, pk=pk)
     slaccounts.delete()
 
-    return redirect('transactions:accounts')
+    if first_statement:
+        return redirect('transactions:statement_section_with_id', pk=first_statement.id)
+    else:
+        return redirect('transactions:statement_section')

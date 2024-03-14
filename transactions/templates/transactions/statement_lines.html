@@ -48,7 +48,7 @@
               <thead>
                 <tr>
                   <th>Statement Name</th>
-                  <th>FSName</th>
+                  <th>FSFromDate</th>
                   <th>FSThroughDate</th>
                   <th>Actions</th>
                 </tr>
@@ -60,9 +60,9 @@
                     <td>{{ statement.FSFromDate }}</td>
                     <td>{{ statement.FSThroughDate }}</td>
                     <td style="text-align: center;">
-                    <a href="#" class="edit-header-button" data-bs-toggle="modal" data-bs-target="#editHeaderModal"
-                      data-id="{{ section.id }}" data-LHName="{{ section.LHName }}"
-                      data-LHDescription="{{ section.SSDescription }}" style="text-decoration: none;">{% bs_icon 'pencil' %}</a>
+                    <a href="#" class="edit-statement-button" data-bs-toggle="modal" data-bs-target="#editStatementModal"
+                      data-id="{{ statement.id }}" data-FSName="{{ statement.FSName }}" data-FSFromDate="{{ statement.FSFromDate|date:'Y-m-d' }}" 
+                      data-FSThroughDate="{{ statement.FSThroughDate|date:'Y-m-d' }}" data-FSPostedDate="{{ statement.FSPostedDate|date:'Y-m-d' }}" style="text-decoration: none;">{% bs_icon 'pencil' %}</a>
                     <a href="#" class="delete-button">{% bs_icon 'trash' %}</a>
                   {% endif %}
                   </td>
@@ -73,544 +73,122 @@
         </tr>
       </tbody>
     </table>
-    <!-- Section -->
-    <table style="margin-top: 0%;">
-      <thead>
-        <tr>
-          <th style="text-align: center;">Section</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td style="text-align: center; white-space: nowrap;">
-            <table style="margin-top: 0%;">
-              <thead>
-                <tr>
-                  <th>Section Name</th>
-                  <th>Description</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for section in statementSections %}
-                  <tr>
-                    <td>{{ section.SSName }}</td>
-                    <td>{{ section.SSDescription }}</td>
-                    <td>
-                      {% if section %}
-                      
-                      <a href="#" class="edit-detail-button" data-bs-toggle="modal" data-bs-target="#editdetailModal"
-                        data-id="{{ section.id }}" data-FinStatementsFK="{{ section.FinStatementsFK.FSName }}"
-                        data-SSName="{{ section.SSName }}" data-SSDescription="{{ section.SSDescription }}"
-                        >{% bs_icon 'pencil' %}</a>
-                      <a href="#" class="delete-button">{% bs_icon 'trash' %}</a>
-                      {% endif %}
-                    </td>
-                  </tr>
-                {% endfor %}
-              </tbody>
-            </table>
-            <!-- Add navigation links. -->
-            <div class="pagination">
-              <span class="step-links">
-                {% if statementlines.has_previous %}
-                <a href="?page={{ statementlines.previous_page_number }}">previous</a>
-                {% endif %}
+    <!-- Sections -->
+<table style="margin-top: 0%;">
+  <thead>
+    <tr>
+      <th colspan="3" style="text-align: center;">Section</th>
+    </tr>
+    <tr>
+      <th>Section Name</th>
+      <th>Description</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for section in statementSections %}
+      <tr>
+        <td>{{ section.SSName }}</td>
+        <td>{{ section.SSDescription }}</td>
+        <td>
+          <!-- Actions for editing/deleting sections -->
+          {% if section %}          
+          <a href="#" class="edit-section-button" data-bs-toggle="modal" data-bs-target="#editSectionModal"
+            data-id="{{ section.id }}" data-FinStatementsFK="{{ section.FinStatementsFK.id }}"
+            data-SSName="{{ section.SSName }}" data-SSDescription="{{ section.SSDescription }}"
+            >{% bs_icon 'pencil' %}</a>
+          <a href="{% url 'transactions:section_delete' section.id %}" class="delete-button">{% bs_icon 'trash' %}</a>
+          {% endif %}
+        </td>
+      </tr>
 
-                <span class="current">
-                  Page {{ statementlines.number }} of {{ statementlines.paginator.num_pages }}.
-                </span>
-
-                {% if statementlines.has_next %}
-                <a href="?page={{ statementlines.next_page_number }}">next</a>
-                {% endif %}
-              </span>
-            </div>
-          </td>
-        </tr>
+      <!-- Lines within each Section -->
+      {% for line in section.statementsectionlines_set.all %}
         <tr>
-          <td colspan="3" class="text-center">
-            <a class="add-button btn btn-primary listheaderbuttons" href="#" style="border-radius: 0%;"
-              data-bs-toggle="modal" data-bs-target="#sectionModal">Add</a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <!-- Lines -->
-    <table style="margin-top: 0%;">
-      <thead>
-        <tr>
-          <th style="text-align: center;">Lines</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td style="text-align: center; white-space: nowrap;">
-            <table style="margin-top: 0%;">
+          <td colspan="3">
+            <table style="width:100%">
               <thead>
                 <tr>
                   <th>Line Name</th>
-                  <th>Section</th>
                   <th>Description</th>
                   <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
-                {% for line in section.statementsectionlines_set.all %}
                 <tr>
                   <td>{{ line.SLName }}</td>
-                  <td>{{ line.SLStatementSectionsFK.SSName }}</td>
                   <td>{{ line.SLDescription }}</td>
                   <td>
-                  </td>
-                  <td>
+                    <!-- Actions for editing/deleting lines -->
                     {% if line %}
-                    
-                    <a href="#" class="edit-detail-button" data-bs-toggle="modal" data-bs-target="#editdetailModal"
-                      data-id="{{ line.id }}" data-ListHeaderFK="{{ line.ListHeaderFK.LHName }}"
-                      data-ListItemName="{{ line.LHName }}" data-LNNumber="{{ listdetail.LNNumber }}"
-                      data-ListDetailFK="{{ line.ListDetailFK.LHName }}">{% bs_icon 'pencil' %}</a>
-                    <a href="{% url 'listsplan:listDetail_delete' line.id %}" class="delete-button">{% bs_icon 'trash'
-                      %}</a>
-                    {% endif %}
+                      
+                      <a href="#" class="edit-line-button" data-bs-toggle="modal" data-bs-target="#editLineModal"
+                        data-id="{{ line.id }}" data-SectionFK="{{ line.SLStatementSectionsFK.id }}"
+                        data-SLName="{{ line.SLName }}" data-SLDescription="{{ line.SLDescription }}"
+                        >{% bs_icon 'pencil' %}</a>
+                      <a href="{% url 'transactions:line_delete' line.id %}" class="delete-button">{% bs_icon 'trash' %}</a>
+                      {% endif %}
                   </td>
                 </tr>
-                {% endfor %}
-              </tbody>
-            </table>
-            <!-- Add navigation links. -->
-            <div class="pagination">
-              <span class="step-links">
-                {% if statementlines.has_previous %}
-                <a href="?page={{ statementlines.previous_page_number }}">previous</a>
-                {% endif %}
 
-                <span class="current">
-                  Page {{ statementlines.number }} of {{ statementlines.paginator.num_pages }}.
-                </span>
-
-                {% if statementlines.has_next %}
-                <a href="?page={{ statementlines.next_page_number }}">next</a>
-                {% endif %}
-              </span>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3" class="text-center">
-            <a class="add-button btn btn-primary listheaderbuttons" href="#" style="border-radius: 0%;"
-              data-bs-toggle="modal" data-bs-target="#statementLineModal">Add</a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <!-- Accounts -->
-    <table style="margin-top: 0%;">
-      <thead>
-        <tr>
-          <th style="text-align: center;">Accounts</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td style="text-align: center; white-space: nowrap;">
-            <table style="margin-top: 0%;">
-              <thead>
-                <tr>
-                  <th>Account</th>
-                  <th>Line</th>
-                  <th>Type</th>
-                  <th>Description</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
+                <!-- Accounts within each Line -->
                 {% for account in line.statementlineaccounts_set.all %}
-                <tr>
-                  <td>{{ line.SLName }}</td>
-                  <td>{{ line.SLStatementLineFK.SLName }}</td>
-                  <td>{{ line.SLDescription }}</td>
-                  <td>
-                    {% for account in line.statementlineaccounts_set.all %}
-                      <!-- Display information for each account -->
-                      {{ account.SAAccount }} - {{ account.SLAAccountType }}<br>
-                    {% empty %}
-                      No accounts
-                    {% endfor %}
-                  </td>
-                  <td>
-                    {% if line %}
-                    
-                    <a href="#" class="edit-detail-button" data-bs-toggle="modal" data-bs-target="#editdetailModal"
-                      data-id="{{ line.id }}" data-ListHeaderFK="{{ line.ListHeaderFK.LHName }}"
-                      data-ListItemName="{{ line.LHName }}" data-LNNumber="{{ listdetail.LNNumber }}"
-                      data-ListDetailFK="{{ line.ListDetailFK.LHName }}">{% bs_icon 'pencil' %}</a>
-                    <a href="{% url 'listsplan:listDetail_delete' line.id %}" class="delete-button">{% bs_icon 'trash'
-                      %}</a>
-                    {% endif %}
-                  </td>
-                </tr>
-                {% endfor %}
+                  <tr>
+                    <td colspan="3">
+                      <table style="width:100%">
+                        <thead>
+                          <tr>
+                            <th>Account</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                            <th>Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>{{ account.LAAccount }}</td>
+                            <td>{{ account.LAAccountType }}</td>
+                            <td>{{ account.LAADescription }}</td>
+                            <td>
+                              <!-- Actions for editing/deleting accounts -->
+                              {% if account %}
+                              <a href="#" class="edit-account-button" data-bs-toggle="modal" data-bs-target="#editAccountModal"
+                                data-id="{{ account.id }}" data-LAStatementLineFK="{{ account.LAStatementLineFK.id }}"
+                                data-LAAccount="{{ account.LAAccount }}" data-LAAccountType="{{ account.LAAccountType }}" 
+                                data-LAADescription="{{ account.LAADescription }}">{% bs_icon 'pencil' %}</a>
+                              <a href="{% url 'transactions:account_delete' account.id %}" class="delete-button">{% bs_icon 'trash' %}</a>
+                              {% endif %}
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                {% endfor %} <!-- End Accounts loop -->
               </tbody>
             </table>
-            <!-- Add navigation links. -->
-            <div class="pagination">
-              <span class="step-links">
-                {% if statementlines.has_previous %}
-                <a href="?page={{ statementlines.previous_page_number }}">previous</a>
-                {% endif %}
-
-                <span class="current">
-                  Page {{ statementlines.number }} of {{ statementlines.paginator.num_pages }}.
-                </span>
-
-                {% if statementlines.has_next %}
-                <a href="?page={{ statementlines.next_page_number }}">next</a>
-                {% endif %}
-              </span>
-            </div>
           </td>
         </tr>
-        <tr>
-          <td colspan="3" class="text-center">
-            <a class="add-button btn btn-primary listheaderbuttons" href="#" style="border-radius: 0%;"
-              data-bs-toggle="modal" data-bs-target="#statementAccountModal">Add</a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+      {% endfor %} <!-- End Lines loop -->
+
+    {% endfor %} <!-- End Sections loop -->
+
+    <!-- Buttons for adding new account, line, and section -->
+    <tr>
+      <td colspan="3" class="text-center">
+        <!-- Add Account Button -->
+        <a class="add-button btn btn-primary" href="#" data-bs-toggle="modal" data-bs-target="#statementAccountModal">Add Account</a>
+        <!-- Add Line Button -->
+        <a class="add-button btn btn-primary" href="#" data-bs-toggle="modal" data-bs-target="#statementLineModal">Add Line</a>
+        <!-- Add Section Button -->
+        <a class="add-button btn btn-primary" href="#" data-bs-toggle="modal" data-bs-target="#sectionModal">Add Section</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
   </div>
   <div class="col-md-1">
-  </div>
-
-  <!-- Statement Add Modal -->
-  <div class="modal fade" id="statementModal" tabindex="-1" aria-labelledby="statementModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="statementModalLabel">Add Statement</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-
-        <form
-          action="{% if section.id %}{% url 'transactions:statement_section_with_id' section.id %}{% else %}{% url 'transactions:statement_section' %}{% endif %}"
-          method="post">
-          <div class="modal-body">
-            {% csrf_token %}
-            <div class="row">
-                {% for field in statementForm %}
-                <div class="col-12 col-md-6 mb-3">
-                  <div class="form-floating"> <!-- Use floating labels for a neater look -->
-                    {{ field }} <!-- Render the field itself -->
-                    <label for="{{ field.id_for_label }}">{{ field.label }}</label> <!-- Render the label of the field -->
-                    {% if field.help_text %}
-                      <small class="form-text text-muted">{{ field.help_text }}</small>
-                    {% endif %}
-                    {% for error in field.errors %}
-                      <div class="alert alert-danger">{{ error }}</div>
-                    {% endfor %}
-                  </div>
-                </div>
-                {% if forloop.counter|divisibleby:2 %}
-                  </div><div class="row">
-                {% endif %}
-              {% endfor %}
-            </div>
-          </div>
-          <div class="modal-footer">
-            <input type="hidden" name="form_type" value="StatementForm">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-  <!-- Section Add Modal -->
-  <div class="modal fade" id="sectionModal" tabindex="-1" aria-labelledby="sectionModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="sectionModalLabel">Add Section</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-
-        <form
-          action="{% if section.id %}{% url 'transactions:statement_section_with_id' section.id %}{% else %}{% url 'transactions:statement_section' %}{% endif %}"
-          method="post">
-          <div class="modal-body">
-            {% csrf_token %}
-            <div class="row">
-                {% for field in statementSectionsForm %}
-                <div class="col-12 mb-3">
-                  <div class="form-floating"> <!-- Use floating labels for a neater look -->
-                    {% if field|field_type == 'Select' %}
-                        <select class="form-select {{ INPUT_CLASSES }}" id="{{ field.id_for_label }}" name="{{ field.html_name }}">
-                            {% for option_key, option_value in field.field.choices %}
-                                <option value="{{ option_key }}" {% if field.value == option_key %}selected{% endif %}>
-                                    {{ option_value }}
-                                </option>
-                            {% endfor %}
-                        </select>
-                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                    {% else %}
-                        {{ field }} <!-- Render the field itself -->
-                        <label for="{{ field.id_for_label }}">{{ field.label }}</label> <!-- Render the label of the field -->
-                    {% endif %}
-                    {% if field.help_text %}
-                      <small class="form-text text-muted">{{ field.help_text }}</small>
-                    {% endif %}
-                    {% for error in field.errors %}
-                      <div class="alert alert-danger">{{ error }}</div>
-                    {% endfor %}
-                  </div>
-                </div>
-                {% if forloop.counter|divisibleby:2 %}
-                  </div><div class="row">
-                {% endif %}
-              {% endfor %}
-            </div>
-          </div>
-          <div class="modal-footer">
-            <input type="hidden" name="form_type" value="StatementSectionForm">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-  <!-- Statement Line Add Modal -->
-  <div class="modal fade" id="statementLineModal" tabindex="-1" aria-labelledby="statementLineModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="sectionModalLabel">Add Lines</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-
-        <form
-          action="{% if section.id %}{% url 'transactions:statement_section_with_id' section.id %}{% else %}{% url 'transactions:statement_section' %}{% endif %}"
-          method="post">
-          <div class="modal-body">
-            {% csrf_token %}
-            <div class="row">
-              {% for field in statementLinesForm %}
-              <div class="col-12 mb-3">
-                <div class="form-floating"> <!-- Use floating labels for a neater look -->
-                  {% if field|field_type == 'Select' %}
-                      <select class="form-select {{ INPUT_CLASSES }}" id="{{ field.id_for_label }}" name="{{ field.html_name }}">
-                          {% for option_key, option_value in field.field.choices %}
-                              <option value="{{ option_key }}" {% if field.value == option_key %}selected{% endif %}>
-                                  {{ option_value }}
-                              </option>
-                          {% endfor %}
-                      </select>
-                      <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                  {% else %}
-                      {{ field }} <!-- Render the field itself -->
-                      <label for="{{ field.id_for_label }}">{{ field.label }}</label> <!-- Render the label of the field -->
-                  {% endif %}
-                  {% if field.help_text %}
-                    <small class="form-text text-muted">{{ field.help_text }}</small>
-                  {% endif %}
-                  {% for error in field.errors %}
-                    <div class="alert alert-danger">{{ error }}</div>
-                  {% endfor %}
-                </div>
-              </div>
-                {% if forloop.counter|divisibleby:2 and not forloop.last %}
-                    </div><div class="row">
-                {% endif %}
-              {% endfor %}
-            </div>
-          </div>
-          <div class="modal-footer">
-            <input type="hidden" name="form_type" value="StatementLinesForm">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-  <!-- Statement Accounts Add Modal -->
-  <div class="modal fade" id="statementAccountModal" tabindex="-1" aria-labelledby="statementAccountModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="sectionModalLabel">Add Accounts</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-
-        <form
-          action="{% if section.id %}{% url 'transactions:statement_section_with_id' section.id %}{% else %}{% url 'transactions:statement_section' %}{% endif %}"
-          method="post">
-          <div class="modal-body">
-            {% csrf_token %}
-            <div class="row">
-              {% for field in statementAccountForm %}
-                <div class="col-12 mb-3">
-                  <div class="form-floating"> <!-- Use floating labels for a neater look -->
-                    {% if field|field_type == 'Select' %}
-                        <select class="form-select {{ INPUT_CLASSES }}" id="{{ field.id_for_label }}" name="{{ field.html_name }}">
-                            {% for option_key, option_value in field.field.choices %}
-                                <option value="{{ option_key }}" {% if field.value == option_key %}selected{% endif %}>
-                                    {{ option_value }}
-                                </option>
-                            {% endfor %}
-                        </select>
-                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                    {% else %}
-                        {{ field }} <!-- Render the field itself -->
-                        <label for="{{ field.id_for_label }}">{{ field.label }}</label> <!-- Render the label of the field -->
-                    {% endif %}
-                    {% if field.help_text %}
-                      <small class="form-text text-muted">{{ field.help_text }}</small>
-                    {% endif %}
-                    {% for error in field.errors %}
-                      <div class="alert alert-danger">{{ error }}</div>
-                    {% endfor %}
-                  </div>
-                </div>
-                {% if forloop.counter|divisibleby:2 %}
-                    </div><div class="row">
-                {% endif %}
-              {% endfor %}
-            </div>
-          </div>
-          <div class="modal-footer">
-            <input type="hidden" name="form_type" value="StatementAccountForm">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-
-  <!-- Edit header modal -->
-  <div class="modal" id="editHeaderModal" tabindex="-1" aria-labelledby="editHeaderModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header text-center">
-          <h5 class="modal-title" id="exampleModalLabel">{{ title }}</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-
-        <form action="" method="post" id="editHeaderForm">
-          <div class="modal-body">
-            {% csrf_token %}
-            <div class="form-group">
-              <label for="{{ form.AccountNumber.id_for_label }}">Header Name</label>
-              {{ listHeaderForm.LHName }}
-            </div>
-            <div class="form-group">
-              <label for="{{ form.Description.id_for_label }}">Description</label>
-              {{ listHeaderForm.LHDescription }}
-            </div>
-            {% if listHeaderForm.errors or listHeaderForm.non_field_errors %}
-            <div class="mb-3 p-6 bg-red-100 rounded-xl">
-              {% for field in StatementLinesHeaderForm %}
-              {{ field.errors }}
-              {% endfor %}
-
-              {{ StatementLinesHeaderForm.non_field_errors }}
-            </div>
-            {% endif %}
-          </div>
-          <div class="modal-footer">
-            <input type="hidden" name="form_type" value="ListHeaderTForm">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-  <!-- Edit detail modal -->
-  <div class="modal fade" id="editDetailModal" tabindex="-1" aria-labelledby="editDetailModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-detail">
-          <h5 class="modal-title" id="detailModalLabel">{{ title }}</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-
-        <form action="" method="post" id="editDetailForm">
-          <div class="modal-body">
-            {% csrf_token %}
-            <div class="form-group">
-              <label for="{{ StatementLinesDetailForm.ListHeaderFK.id_for_label }}">List Header</label>
-              {{ StatementLinesDetailForm.ListHeaderFK }}
-            </div>
-            <div class="form-group">
-              <label for="{{ StatementLinesDetailForm.ListDetailFK.id_for_label }}">Predecessor</label>
-              {{ StatementLinesDetailForm.ListDetailFK }}
-            </div>
-            <div class="form-group">
-              <label for="{{ StatementLinesDetailForm.LNNumber.id_for_label }}">List Item Number</label>
-              {{ StatementLinesDetailForm.LNNumber }}
-            </div>
-            <div class="form-group">
-              <label for="{{ StatementLinesDetailForm.LHName.id_for_label }}">List Item Name</label>
-              {{ StatementLinesDetailForm.LHName }}
-            </div>
-            {% if StatementLinesDetailForm.errors or StatementLinesHeaderForm.non_field_errors %}
-            <div class="mb-3 p-6 bg-red-100 rounded-xl">
-              {% for field in StatementLinesDetailForm %}
-              {{ field.errors }}
-              {% endfor %}
-
-              {{ StatementLinesDetailForm.non_field_errors }}
-            </div>
-            {% endif %}
-          </div>
-          <div class="modal-footer">
-            <input type="hidden" name="form_type" value="ListDetailTForm">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-
-  <!-- selected statement modal -->
-  <div class="modal fade" id="selectedStatementModal" tabindex="-1" aria-labelledby="selectedStatementModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Select the Statement</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-
-        <form action="" method="post">
-          <div class="modal-body">
-            {% csrf_token %}
-            <div class="form-group">
-              <label for="{{ selectedStatementForm.FSName.id_for_label }}">Statement</label>
-              {{ selectedStatementForm.FSName }}
-            </div>
-            {% if selectedStatementForm.errors or selectedStatementForm.non_field_errors %}
-            <div class="mb-3 p-6 bg-red-100 rounded-xl">
-              {% for field in selectedStatementForm %}
-              {{ field.errors }}
-              {% endfor %}
-
-              {{ selectedStatementForm.non_field_errors }}
-            </div>
-            {% endif %}
-          </div>
-          <div class="modal-footer">
-            <input type="hidden" name="form_type" value="SelectedStatementForm">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </div>
-        </form>
-      </div>
-    </div>
   </div>
 
 </div>
@@ -618,51 +196,96 @@
 {% block modal-script %}
 <script>
   $(document).ready(function () {
-    $('.edit-header-button').click(function (e) {
+    $('.edit-statement-button').click(function (e) {
       e.preventDefault();
 
-      let listId = $(this).data('id');
-      let listName = $(this).data('lhname');
-      let listheaderDescription = $(this).data('lhdescription');
-
+      let statementId = $(this).data('id');
+      let statementFSName = $(this).data('fsname');
+      let statementFromDate = $(this).data('fsfromdate');
+      let statementThroughDate = $(this).data('fsthroughdate');
+      let statementPostedDate = $(this).data('fsposteddate');
+      console.log(typeof statementFromDate);
       // Fill the form with data
-      $('#editHeaderForm input[name="LHName"]').val(listName);
-      $('#editHeaderForm input[name="LHDescription"]').val(listheaderDescription);
+      $('#editStatementForm input[name="FSName"]').val(statementFSName);
+      $('#editStatementForm input[name="FSFromDate"]').val(statementFromDate);
+      $('#editStatementForm input[name="FSThroughDate"]').val(statementThroughDate);
+      $('#editStatementForm input[name="FSPostedDate"]').val(statementPostedDate);
 
       // Update form's action attribute
       // Assuming your URL for updating account is '/update_account/<id>'
-      $('#editHeaderForm').attr('action', '{% url "listsplan:listHeader_update" 0 %}'.replace('0', listId));
+      $('#editStatementForm').attr('action', '{% url "transactions:statement_update" 0 %}'.replace('0', statementId));
 
     });
 
-    $('.edit-detail-button').click(function (e) {
+    $('.edit-section-button').click(function (e) {
       e.preventDefault();
 
-      let listDetailId = $(this).data('id');
-      let ListHeaderFK = $(this).data('listheaderfk');
-      let predecessor = $(this).data('listdetailfk');
-      let listDetailNumber = $(this).data('lnnumber');
-      let ListItemName = $(this).data('listitemname');
-      console.log(ListHeaderFK);
+      let sectionId = $(this).data('id');
+      let statementFK = $(this).data('finstatementsfk');
+      let sectionName = $(this).data('ssname');
+      let sectionDescription = $(this).data('ssdescription');
+      console.log(sectionDescription);
 
       // Fill the form with data
-      $("#id_ListHeaderFK option").each(function () {
-        if ($(this).text() == ListHeaderFK) {
-          $(this).attr('selected', 'selected');
-        }
-      });
-      $("#id_ListDetailFK option").each(function () {
-        if ($(this).text() == predecessor) {
-          $(this).attr('selected', 'selected');
-        }
-      });
-      $('#editDetailForm input[name="ListDetailFK"]').val(predecessor);
-      $('#editDetailForm input[name="LNNumber"]').val(listDetailNumber);
-      $('#editDetailForm input[name="LHName"]').val(ListItemName);
+      // $("#id_FinStatementsFK option").each(function () {
+      //   if ($(this).text() == statementFK) {
+      //     $(this).attr('selected', 'selected');
+      //   }
+      // });
+      $('#editSectionForm input[name="SSName"]').val(sectionName);
+      $('#editSectionForm input[name="SSDescription"]').val(sectionDescription);
 
-      $('#editDetailModal').modal('show');
+      // $('#editDetailModal').modal('show');
 
-      $('#editDetailForm').attr('action', '{% url "listsplan:listDetail_update" 0 %}'.replace('0', listDetailId));
+      $('#editSectionForm').attr('action', '{% url "transactions:section_update" 0 %}'.replace('0', sectionId));
+    });
+
+    $('.edit-line-button').click(function (e) {
+      e.preventDefault();
+
+      let lineId = $(this).data('id');
+      let sectionFK = $(this).data('sectionfk').toString();
+      let lineName = $(this).data('slname');
+      let lineDescription = $(this).data('sldescription');
+
+       // Clear any previous selection
+      $("#id_SLStatementSectionsFK option:selected").removeAttr("selected");
+
+
+       // Set the new selection
+      $("#id_SLStatementSectionsFK option").filter(function() {
+          return $(this).val() == sectionFK; // Match string representation
+      }).attr('selected', true);
+      
+      $('#editLineForm input[name="SLName"]').val(lineName);
+      $('#editLineForm input[name="SLDescription"]').val(lineDescription);
+
+      $('#editLineForm').attr('action', '{% url "transactions:line_update" 0 %}'.replace('0', lineId));
+    });
+
+    $('.edit-account-button').click(function (e) {
+      e.preventDefault();
+
+      let accountId = $(this).data('id');
+      let lineFK = $(this).data('lastatementlinefk').toString();
+      let account = $(this).data('laaccount');
+      let accountType = $(this).data('laaccounttype');
+      let accountDescription = $(this).data('laadescription');
+
+       // Clear any previous selection
+      $("#id_LAStatementLineFK option:selected").removeAttr("selected");
+
+
+       // Set the new selection
+      $("#id_LAStatementLineFK option").filter(function() {
+          return $(this).val() == lineFK; // Match string representation
+      }).attr('selected', true);
+      
+      $('#editAccountForm input[name="LAAccount"]').val(account);
+      $('#editAccountForm input[name="LAAccountType"]').val(accountType);
+      $('#editAccountForm input[name="LAADescription"]').val(accountDescription);
+
+      $('#editAccountForm').attr('action', '{% url "transactions:account_update" 0 %}'.replace('0', accountId));
     });
 
   });

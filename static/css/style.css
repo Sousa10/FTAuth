@@ -208,7 +208,9 @@ a {
 .placeholder {
   font-size: 11px;
 }
-.edit-header-button, .edit-detail-button, .edit-header-button:hover, .edit-detail-button:hover{
+.edit-header-button, .edit-detail-button, .edit-header-button:hover, 
+.edit-detail-button:hover, .edit-statement-button, .edit-section-button,
+.edit-line-button, .edit-account-button{
   color: #5c636a;
 }
 .delete-button, .delete-button:hover {
