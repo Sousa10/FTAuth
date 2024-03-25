@@ -1,45 +1,64 @@
+<!-- ************************************************* -->
+<!-- ********************* CONTENTS ****************** -->
+<!-- ************************************************* -->
+<!-- *                                               * -->
+<!-- * Like all "base.html" templates for each       * -->
+<!-- * application, this template is organized into  * -->
+<!-- * 3 Sections:                                   * -->
+<!-- *    1. Initialization,                         * -->
+<!-- *    2. Menu Bar & Navigation, and              * -->
+<!-- *    3. Advertising                             * -->
+<!-- *                                               * -->
+<!-- ************************************************* -->
+
+<!-- ************************************************* -->
+<!-- ***************** INITIALIZATION **************** -->
+<!-- ************************************************* -->
+
 <!doctype html>
 <html lang="en">
 {% load static %}
+{% load bootstrap_icons %}
 
 <head>
+
     <!-- Required meta tags -->
     <meta charset="utf-8">
+    <title>{% block title %}{% endblock %} | Calendar</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+
 </head>
 
-<body style="background-color:#DDEBF7;">
+<!-- ************************************************* -->
+<!-- ************* MENU BAR & NAVIGATION ************* -->
+<!-- ************************************************* -->
 
-    <!-- </head><nav class="navbar navbar-expand-lg navbar-dark bg-dark"> -->
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #0f496f;">
-        <div class="container-fluid">
-            <!-- <a class="navbar-brand" href="#">Navbar</a> -->
-            <a class="navbar-brand" href="#">TRAXX</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+<body style="background-color:#DDEBF7;">
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #0f496f;">
+            <div class="container-fluid">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" area-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                <a class="navbar-brand" href="#">TRAXX</a>
+
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
                     <li class="nav-item">
-                        <a class="nav-link active" href="{% url 'calendar:calendar' %}">Calendar</a>
+                        <a class="nav-link active" href="#Overview" data-bs-toggle="modal">Overview</a>
                     </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#">Events</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#">Venues</a>
-                    </li>
-
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown active">
                         <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             Download
@@ -51,17 +70,29 @@
                         </ul>
                     </li>
 
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
+                    <li class="nav-item dropdown active">
+                        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Support
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="#Supp1" data-bs-toggle="modal">Support</a></li>
-                            <li><a class="dropdown-item" href="#Sugg1" data-bs-toggle="modal">Suggestions</a>
-                            </li>
-                            <li><a class="dropdown-item" href="#Serv1" data-bs-toggle="modal">Service
-                                    Requests</a></li>
+                            <li><a class="dropdown-item" href="#Sugg1" data-bs-toggle="modal">Suggestions</a></li>
+                            <li><a class="dropdown-item" href="#Serv1" data-bs-toggle="modal">Service Requests</a></li>
+                        </ul>
+                    </li>                  
+
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#About1" data-bs-toggle="modal">About</a>
+                    </li>
+
+                    <li class="nav-item dropdown active">
+                        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Sponsors
+                        </a>
+                        <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#SponNote" data-bs-toggle="modal">A Note to Our Sponsors</a></li>
+                            <li><a class="dropdown-item" href="#PotSponNote" data-bs-toggle="modal">A Note to Our Potential Sponsors</a></li>
                         </ul>
                     </li>
 
@@ -71,26 +102,362 @@
                             CalendarTutorials
                         </a>
                         <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal">Overview</a></li>
-                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal">How to Create a Venue</a></li>
-                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal">How to Schedule an Event</a></li>
-                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal">How to Schedule a Repeating Event</a></li>
-                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal">How to Invite Attendees</a></li>
-                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal">How to Share My Calendar</a></li>
-                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal">How to Integrate with MS Outlook</a></li>
-                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal">How to Integrate with Google Calendar</a></li>
-                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal">How to Integrate with Apple Calendar</a></li>
+                            <li><a class="dropdown-item" href="#Tut1" data-bs-toggle="modal">How to Create a Venue</a></li>
+                            <li><a class="dropdown-item" href="#Tut2" data-bs-toggle="modal">How to Schedule an Event</a></li>
+                            <li><a class="dropdown-item" href="#Tut3" data-bs-toggle="modal">How to Schedule a Repeating Event</a></li>
+                            <li><a class="dropdown-item" href="#Tut4" data-bs-toggle="modal">How to Invite Attendees</a></li>
+                            <li><a class="dropdown-item" href="#Tut5" data-bs-toggle="modal">How to Share My Calendar</a></li>
+                            <li><a class="dropdown-item" href="#Tut6" data-bs-toggle="modal">How to Integrate with MS Outlook</a></li>
+                            <li><a class="dropdown-item" href="#Tut7" data-bs-toggle="modal">How to Integrate with Google Calendar</a></li>
+                            <li><a class="dropdown-item" href="#Tut8" data-bs-toggle="modal">How to Integrate with Apple Calendar</a></li>
                         </ul>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link active" href="#About1" data-bs-toggle="modal">About</a>
+                        <a class="nav-link active" href="#">Events</a>
                     </li>
 
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Venues</a>
+                    </li>
 
                     <li class="nav-item">
                         <a class="nav-link active" href="{% url 'LoginRegister:FTMainMenu' %}">Main Menu</a>
                     </li>
+
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Modal Supp1 -->
+    <div class="modal fade" id="Supp1" tabindex="-1" aria-labelledby="Supp1Label" aria-hidden="true">
+        <div class="modal-dialog ads modal-xl">
+            <div class="modal-content">
+                <div class="modal-header primary">
+                    <h5 class="modal-title" id="exampleModalLabel">Support: 24-hours/day 365-days/year!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </div>
+                <div class="modal-body">
+                    TRAXX refuses to accept anything short of a delighted member. If we can help in any way, or
+                    you run into issues, please feel free to contact us at "support@css-traxx.com" and we will respond
+                    via email, or contact you at your
+                    convenience. Our intent is to constantly improve and make TRAXX the premier Individual Resource &
+                    Communication Management Solution available on the internet today.
+                    <br><br>TRAXX will always be free for all our members and incredibly easy to use with rich feature
+                    and functionality. Thank you for your continued support and for using TRAXX and spreading the word.
+                    We appreciate all feedback!
+                    <br><br>Kirk Shelton<br>Founder & CEO
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Sugg1 -->
+    <div class="modal fade" id="Sugg1" tabindex="-1" aria-labelledby="Sugg1Label" aria-hidden="true">
+        <div class="modal-dialog ads modal-xl">
+            <div class="modal-content">
+                <div class="modal-header primary">
+                    <h5 class="modal-title" id="Sugg1Label">Thoughts? Help us Make Family Tracker Better</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </div>
+                <div class="modal-body">
+                    TRAXX welcomes thoughts and suggestions. Please Email us at "support@css-traxx.com". We will respond
+                    to all suggestions, or answer any inquiries at your convenience.<br><br>Thank you for your continued
+                    support and for using TRAXX.
+                    <br><br>Kirk Shelton<br>Founder & CEO
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Serv1 -->
+    <div class="modal fade" id="Serv1" tabindex="-1" aria-labelledby="Serv1Label" aria-hidden="true">
+        <div class="modal-dialog ads modal-xl">
+            <div class="modal-content">
+                <div class="modal-header primary">
+                    <h5 class="modal-title" id="Serv1Label">Enter a Service Request</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </div>
+                <divr class="modal-body">
+                    Service Request: Enter Short Description<br>
+                    Error or Issue: Enter Details<br>
+                    Navigation to Error or Issue:<br>
+                    Started Occuring: mm/dd/yyyy<br>
+                    Email "support@css-traxx.com"<br>
+                    Response Requested: via Email / via Phone Call<br>
+                    Response Phone Number:<br>
+                    Response Email: <br><br>
+                    Our intent is to constantly improve and make TRAXX the premier Individual Resource & Communication
+                    Management Solution available on the internet today.
+                    <br><br>TRAXX will always be free for all our members and incredibly easy to use with rich feature
+                    and functionality. Thank you for your continued support and for using TRAXX and spreading the word.
+                    We appreciate all feedback!
+                    <br><br>Kirk Shelton<br>Founder & CEO
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal About1 -->
+    <div class="modal fade" id="About1" tabindex="-1" aria-labelledby="About1Label" aria-hidden="true">
+        <div class="modal-dialog ads modal-xl"
+            style="overflow-y: scroll; max-height:95%; margin-top: 5px; margin-bottom: 5px;">
+            <div class="modal-content">
+                <div class="modal-header primary">
+                    <h5 class="modal-title" id="About1Label">A Story of Success</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </div>
+                <div class="modal-body">
+                    The TRAXX Resource & Communication Management System was created by Kirk Shelton
+                    the founder and Managing Principal of "Cliffs Software Solutions" (CSS). Kirk has
+                    extensive experience building and managing startup technology concerns and
+                    the innovative use of technology to develop and deliver exceptional value to clients.
+                    His experience includes business development, successfully delivering large, complex,
+                    multi-disciplined projects, developing and delivering custom software solutions
+                    and integrations, and building feature rich extensions to enhance existing platform
+                    software solutions.<br>
+                    M.B.A. Economics and Finance, Honors, Wayne State University, Detroit, MI<br>
+                    B.S. Management Information Systems, Honors, Oakland University, Rochester Hills, MI
+                    <br><br>
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    The CSS Board of Advisors Includes: Edward J. Sanz, Michael Onak, Rui Sousa, and Lisa Shelton.
+                    <br><br>
+                    Edward J. Sanz, CFA, CTP<br>
+                    Managing Partner, ABTV<br>
+                    Mr. Sanz is a senior finance and restructuring professional with over thirty years
+                    of experience as a CFO, interim manager, and financial consultant to business owners,
+                    boards of directors and senior management in the U.S. and abroad. He manages a
+                    consulting firm that advises companies requiring transformation or solving complex
+                    financial and operational problems.<br>He began his career in commercial lending and
+                    public accounting and has since been in senior financial management roles and an
+                    advisor to business owners, company management and boards of directors. Mr. Sanz
+                    has authored articles for industry journals and chapters of the Turnaround Management
+                    Association's Body of Knowledge and has spoken on a number of related topics. He
+                    currently serves on the Board of the Carolinas Chapter of the Turnaround Management
+                    Association (TMA) where he was also a past President. He also served on the
+                    Board of Trustees of TMA Global, where he chaired the Certification Oversight
+                    Committee which oversees the administration of the Certified Turnaround Professional
+                    (CTP) designation.
+                    Mr. Sanz graduated from the University of Virginia with a Bachelor of Science in
+                    Commerce and received his Master's in Business Administration with honors from
+                    Emory University. He holds Chartered Financial Analyst (CFA) and Certified Turnaround
+                    Professional (CTP) designations.<br><br>
+                    Michael Onak<br>
+                    Senior Partner (retired)<br>
+                    Ernst & Young LLP
+                    Michael Onak ran the Banking Consulting practice in the Americas. He has been in
+                    professional services for over 30 years focused primarily on the Financial Services
+                    Industry. Michael has served E&Y's largest clients and built and grown large consulting
+                    practices. He has held many Americas and global leadership positions at E&Y.<br>
+                    Mr. Onak Graduated from Northern Illinois University with a Bachelor of Science Degree
+                    <br><br>
+                    Rui Sousa<br>
+                    Lead Engineer & Software Development Manager, Cliffs Software Solutions, LLC
+                    In addition to being an international advisor to Cliffs Software Solutions, Mr. Sousa
+                    is a talented, experienced software developer with extensive Python, Django, and Java
+                    Script experience. He has been integral to the early development of TRAXX with a
+                    strong emphasis on best practices, object orientation and reusability.<br>
+                    B.A. Computer Science, University of Cabo Verde, Praia Cabo Verde
+                    <br><br>
+                    Lisa Shelton<br>
+                    Lisa is an experienced IT and Accounting professional having run multiple IT and
+                    Accounting departments. She has been successful in multiple enterprise package selections
+                    and implementations. Lisa brings the "Practical Magic" to TRAXX with a heavy emphasis
+                    on the user interface, simplicity and useability.<br>
+                    M.B.A. University of Detroit, Detroit, MI<br>
+                    B.S. Accouting, Nothwood University, Midland, MI<br><br>
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    CSS CORE VALUES:
+                    <br><br>
+                    SERVICE & CUSTOMER ORIENTATION: Incredibly easy to do business with. Simple straight
+                    forward pricing and service offerings. Being service-minded or customer-oriented means that
+                    we care about providing a quality experience to the clients we serve. This value extends to
+                    supporting our community and our associates. Valuing service means that we aim to provide a
+                    meaningful experience to the people we serve and support.<br><br>
+                    INTEGRITY: Valuing integrity in the workplace means that we strive to do the right thing,
+                    even when we know no one else is looking. CSS highly values honesty, transparency and a
+                    commitment to doing what is best for our clients, teammates, and company. The growth of a
+                    company follows the professional growth of its employees. Valuing growth
+                    means that we have the drive to continuously improve both ourselves and our company. Growth
+                    is based on mutual success. CSS is a company that develops its staff and provides an
+                    environment that fosters personal and professional development.<br><br>
+                    ACCOUNTABILITY: Is a willingness to accept and embrace responsibility for one's actions
+                    and the impact on the enterprise.<br><br>
+                    INNOVATION: Challenging ourselves to see what is possible to better meet the needs of
+                    fellow associates, clients and company. CSS will always be a work in progress, striving to
+                    improve and do better, thinking of creative ways to solve tough problems and take calculated
+                    risks. Finding new ways to solve a problem can help the company move forward.<br><br>
+                    CREATIVITY AND TENACITY: The un-relenting use of our creative or original ideas, particularly
+                    in the creation of high-value software solutions and professional services for our clients.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Tut1 -->
+    <div class="modal fade" id="Tut1" tabindex="-1" aria-labelledby="PotSponNoteLabel" aria-hidden="true">
+        <div class="modal-dialog ads modal-xl"
+            style="overflow-y: scroll; max-height:95%; margin-top: 5px; margin-bottom: 5px;">
+            <div class="modal-content">
+                <div class="modal-header primary">
+                    <h5 class="modal-title" id="Tut1">How to Create a Venue</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </div>
+                <div class="modal-body">
+                    This will be Tutorial on How to Create a Venue
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Tut2 -->
+    <div class="modal fade" id="Tut2" tabindex="-1" aria-labelledby="PotSponNoteLabel" aria-hidden="true">
+        <div class="modal-dialog ads modal-xl"
+            style="overflow-y: scroll; max-height:95%; margin-top: 5px; margin-bottom: 5px;">
+            <div class="modal-content">
+                <div class="modal-header primary">
+                    <h5 class="modal-title" id="Tut2">How to Schedule an Event</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </div>
+                <div class="modal-body">
+                    This will be Tutorial on How to Schedule an Event
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Tut3 -->
+    <div class="modal fade" id="Tut3" tabindex="-1" aria-labelledby="PotSponNoteLabel" aria-hidden="true">
+        <div class="modal-dialog ads modal-xl"
+            style="overflow-y: scroll; max-height:95%; margin-top: 5px; margin-bottom: 5px;">
+            <div class="modal-content">
+                <div class="modal-header primary">
+                    <h5 class="modal-title" id="Tut3">How to Schedule a Repeating Event</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </div>
+                <div class="modal-body">
+                    This will be Tutorial on How to Schedule a Repeating Event
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal Tut4 -->
+    <div class="modal fade" id="Tut4" tabindex="-1" aria-labelledby="PotSponNoteLabel" aria-hidden="true">
+        <div class="modal-dialog ads modal-xl"
+            style="overflow-y: scroll; max-height:95%; margin-top: 5px; margin-bottom: 5px;">
+            <div class="modal-content">
+                <div class="modal-header primary">
+                    <h5 class="modal-title" id="Tut4">How to Invite Attendees</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </div>
+                <div class="modal-body">
+                    This will be Tutorial on How to Invite Attendees
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Tut5 -->
+    <div class="modal fade" id="Tut5" tabindex="-1" aria-labelledby="PotSponNoteLabel" aria-hidden="true">
+        <div class="modal-dialog ads modal-xl"
+            style="overflow-y: scroll; max-height:95%; margin-top: 5px; margin-bottom: 5px;">
+            <div class="modal-content">
+                <div class="modal-header primary">
+                    <h5 class="modal-title" id="Tut5">How to Share My Calendar</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </div>
+                <div class="modal-body">
+                    This will be Tutorial on How to Share My Calendar
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal Tut6 -->
+    <div class="modal fade" id="Tut6" tabindex="-1" aria-labelledby="PotSponNoteLabel" aria-hidden="true">
+        <div class="modal-dialog ads modal-xl"
+            style="overflow-y: scroll; max-height:95%; margin-top: 5px; margin-bottom: 5px;">
+            <div class="modal-content">
+                <div class="modal-header primary">
+                    <h5 class="modal-title" id="Tut6">How to Integrate with MS Outlook</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </div>
+                <div class="modal-body">
+                    This will be Tutorial on How to Integrate with MS Outlook
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Tut7 -->
+    <div class="modal fade" id="Tut7" tabindex="-1" aria-labelledby="PotSponNoteLabel" aria-hidden="true">
+        <div class="modal-dialog ads modal-xl"
+            style="overflow-y: scroll; max-height:95%; margin-top: 5px; margin-bottom: 5px;">
+            <div class="modal-content">
+                <div class="modal-header primary">
+                    <h5 class="modal-title" id="Tut7">How to Integrate with Google Calendar</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </div>
+                <div class="modal-body">
+                    This will be Tutorial on How to Integrate with Google Calendar
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Tut8 -->
+    <div class="modal fade" id="Tut8" tabindex="-1" aria-labelledby="PotSponNoteLabel" aria-hidden="true">
+        <div class="modal-dialog ads modal-xl"
+            style="overflow-y: scroll; max-height:95%; margin-top: 5px; margin-bottom: 5px;">
+            <div class="modal-content">
+                <div class="modal-header primary">
+                    <h5 class="modal-title" id="Tut8">How to Integrate with Apple Calendar</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </div>
+                <div class="modal-body">
+                    This will be Tutorial on How to Integrate with Apple Calendar
+                </div>
+            </div>
+        </div>
+    </div>
+
+   <!-- Modal Calendar -->
+   <div class="modal fade" id="Overview" tabindex="-1" aria-labelledby="OverviewLabel" aria-hidden="true">
+    <div class="modal-dialog ads modal-xl">
+        <div class="modal-content">
+            <div class="modal-header primary">
+                <h5 class="modal-title" id="AdministrationLabel">The Calendar Application</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            </div>
+            <div class="modal-body">
+                The Calendar application is integrated with Microsoft Outlook, Google Calendar, 
+                and Apple Calendar.  Integration can be configured to be bi-directional, or inbound
+                only.  In this manner, the TRAXX Calendar may be one's central calendaring system with 
+                both personal and professional events all in one place without the need to publish
+                personal events, meetings, and plans.<br><br>
+                TRAXX Calendar includes all standard calendar functionality and allows one to 
+                schedule events and meetings, define venues, and identify event participants.
+        </div>
+        </div>
+    </div>
+</div>
+
+<!-- ************************************************* -->
+<!-- ****************** ADVERTISING ****************** -->
+<!-- ************************************************* -->
+
+
+
 
     </nav>
 
