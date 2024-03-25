@@ -14,6 +14,8 @@ from LoginRegister.utils import increment_click_count
 from django.http import HttpResponseServerError
 import logging
 from django.urls import reverse
+from django.db.models import Sum
+
 logger = logging.getLogger(__name__)
 
 def home(request):
@@ -247,7 +249,7 @@ statementForm = FinStatementsForm()
 def StatementSectionsV(request, pk=None):
     # first_statement = StatementSections.objects.first()
     statement = None
-    sections = None
+    statementSections = None
     # first_section = StatementSections.objects.first()
     # section = None
     # lines = None
@@ -255,9 +257,9 @@ def StatementSectionsV(request, pk=None):
 
     if pk is not None:
         statement = get_object_or_404(FinStatements, id=pk)
-        sections = StatementSections.objects.filter(FinStatementsFK=statement)
+        statementSections = StatementSections.objects.filter(FinStatementsFK=statement)
         # Show 10 ListDetailsT objects per page
-        paginator = Paginator(sections, 8)
+        paginator = Paginator(statementSections, 8)
         # get page number for each ListHeaderT instance
         page_number = request.GET.get('page', 1)
         page = paginator.get_page(page_number)
@@ -323,7 +325,11 @@ def StatementSectionsV(request, pk=None):
                     'statementsectionlines_set',
                     'statementsectionlines_set__statementlineaccounts_set'
                 ).all()
-                print(statementSections)
+
+                 # Calculate totals for each section
+                for section in statementSections:
+                    section.total = sum(line.statementlineaccounts_set.aggregate(Sum('LAAccount')).get('LAAccount__sum', 0) for line in section.statementsectionlines_set.all())
+                    print(section.total)
                 #Show 10 ListDetailsT objects per page
                 paginator = Paginator(statementSections, 5)
                 #get page number for each ListHeaderT instance
