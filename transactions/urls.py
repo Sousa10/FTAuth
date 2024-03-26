@@ -26,4 +26,5 @@ urlpatterns = [
     path('statement-sectionsV/account/update/<int:pk>/', views.LineAccounts_updateV, name='account_update'),
     path('statement-linesline/<int:listheader_id>/', views.SectionLinesV, name='statement_linesline'),
     path('statement-line-accountsV/delete/<int:pk>/', views.LineAccountsV, name='StatementLinesDetails_delete'),
+    path('cash-flow-statement/<int:pk>/', views.cash_flow_statement_view, name='cash_flow_statement'),
 ]

@@ -522,3 +522,19 @@ def LineAccounts_deleteV(request, pk):
         return redirect('transactions:statement_section_with_id', pk=first_statement.id)
     else:
         return redirect('transactions:statement_section')
+    
+
+def cash_flow_statement_view(request, statement_id):
+    # Get your statement, sections, lines, and accounts based on the statement_id
+    statement = get_object_or_404(FinStatements, pk=statement_id)
+    sections = StatementSections.objects.filter(FinStatementsFK=statement).prefetch_related('sectionlines_set__lineaccounts_set')
+    
+    # Calculate totals for each section
+    for section in sections:
+        section.total = sum(line.lineaccounts_set.aggregate(Sum('LAAccount')).get('LAAccount__sum', 0) for line in section.sectionlines_set.all())
+
+    context = {
+        'statement': statement,
+        'sections': sections,
+    }
+    return render(request, 'transactions/cash_flow_statement.html', context)
