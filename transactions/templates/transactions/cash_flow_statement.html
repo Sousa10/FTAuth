@@ -3,10 +3,31 @@
 {% load bootstrap_icons %}
 {% block title %}Lists & Planning{% endblock %}
 {% load custom_filters %}
+{% load humanize %}
 
 {% block content %}
 <p class="text-center" style="font-weight: bold;">Person or Family Name: {{ statement.FSName }}</p>
 <p class="text-center" style="font-weight: bold;">For Period From {{ statement.FSFromDate }} through {{ statement.FSThroughDate }}</p>
+
+<form method="get" action="{% url 'transactions:cash_flow_statement' %}" class="mb-3">
+    <div class="row g-3 align-items-center justify-content-center">
+      <div class="col-auto">
+        <label for="from_date" class="col-form-label">From:</label>
+      </div>
+      <div class="col-auto">
+        <input type="date" id="from_date" name="from_date" value="{{ from_date }}" class="form-control">
+      </div>
+      <div class="col-auto">
+        <label for="through_date" class="col-form-label">Through:</label>
+      </div>
+      <div class="col-auto">
+        <input type="date" id="through_date" name="through_date" value="{{ through_date }}" class="form-control">
+      </div>
+      <div class="col-auto">
+        <button type="submit" class="btn btn-primary">View Statement</button>
+      </div>
+    </div>
+  </form>
 
 <table>
     {% for section in statementSections %}

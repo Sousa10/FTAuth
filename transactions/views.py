@@ -524,17 +524,32 @@ def LineAccounts_deleteV(request, pk):
         return redirect('transactions:statement_section')
     
 
-def cash_flow_statement_view(request, statement_id):
-    # Get your statement, sections, lines, and accounts based on the statement_id
-    statement = get_object_or_404(FinStatements, pk=statement_id)
-    sections = StatementSections.objects.filter(FinStatementsFK=statement).prefetch_related('sectionlines_set__lineaccounts_set')
+def cash_flow_statement_view(request):
+    # Get dates from GET parameters
+    from_date = request.GET.get('from_date')
+    through_date = request.GET.get('through_date')
     
-    # Calculate totals for each section
-    for section in sections:
-        section.total = sum(line.lineaccounts_set.aggregate(Sum('LAAccount')).get('LAAccount__sum', 0) for line in section.sectionlines_set.all())
+    if from_date and through_date:
+        statements = FinStatements.objects.filter(FSFromDate__gte=from_date, FSThroughDate__lte=through_date)
+    else:
+        # Fallback if no dates are specified; adjust as needed
+        statements = FinStatements.objects.all()
+    
+    # Assuming you want to show the first statement as an example
+    statement = statements.first()
 
+    # If a statement is available, calculate the totals
+    if statement:
+        sections = StatementSections.objects.filter(FinStatementsFK=statement).prefetch_related('statementsectionlines_set__statementlineaccounts_set')
+        for section in sections:
+            section.total = sum(line.statementlineaccounts_set.aggregate(Sum('LAAccount')).get('LAAccount__sum', 0) for line in section.statementsectionlines_set.all())
+    else:
+        sections = None
+    
     context = {
         'statement': statement,
         'sections': sections,
+        'from_date': from_date,
+        'through_date': through_date,
     }
     return render(request, 'transactions/cash_flow_statement.html', context)
