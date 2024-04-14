@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 # #################################################
 #     NEW STARTING 1/21
@@ -44,12 +45,12 @@ class PersonM(models.Model):
 
 class FinStatements(models.Model):
     FSPersonFK = models.ForeignKey(
-        PersonM, null=True, on_delete=models.CASCADE)
+        settings.AUTH_USER_MODEL, null=True, on_delete=models.CASCADE)
     FSName = models.CharField(max_length=240, default='')
-    FSCurrentDate = models.DateTimeField(auto_now_add=True)
-    FSFromDate = models.DateTimeField()
-    FSThroughDate = models.DateTimeField()
-    FSPostedDate = models.DateTimeField()
+    FSCurrentDate = models.DateField(auto_now_add=True)
+    FSFromDate = models.DateField()
+    FSThroughDate = models.DateField()
+    FSPostedDate = models.DateField()
 
     def __str__(self):
         return self.FSName

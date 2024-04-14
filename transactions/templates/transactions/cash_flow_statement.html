@@ -1,0 +1,50 @@
+{% extends 'transactions/base_no_search.html' %}
+{% load static %}
+{% load bootstrap_icons %}
+{% block title %}Lists & Planning{% endblock %}
+{% load custom_filters %}
+{% load humanize %}
+
+{% block content %}
+<p class="text-center" style="font-weight: bold;">Person or Family Name: {{ statement.FSName }}</p>
+
+<form method="get" action="{% url 'transactions:cash_flow_statement' %}" class="mb-3">
+    <div class="row g-3 align-items-center justify-content-center">
+      <div class="col-auto">
+        <label for="from_date" class="col-form-label">From:</label>
+      </div>
+      <div class="col-auto">
+        <input type="date" id="from_date" name="from_date" value="{{ from_date }}" class="form-control">
+      </div>
+      <div class="col-auto">
+        <label for="through_date" class="col-form-label">Through:</label>
+      </div>
+      <div class="col-auto">
+        <input type="date" id="through_date" name="through_date" value="{{ through_date }}" class="form-control">
+      </div>
+      <div class="col-auto">
+        <button type="submit" class="btn btn-primary">View Statement</button>
+      </div>
+    </div>
+  </form>
+
+  <table>
+    {% for section in sections %}
+        <tr>
+            <td colspan="2" class="section-header">{{ section.SSName }}</td>
+        </tr>
+        {% for line in section.lines_with_totals %}
+            <tr>
+                <td class="line-item">{{ line.SLName }}</td>
+                <td class="account-value"><strong>{{ line.total|intcomma }}</strong></td>
+            </tr>
+        {% endfor %}
+        <tr>
+            <td class="line-item"><strong>Net Cash Flow from {{ section.SSName }}</strong></td>
+            <td class="account-value"><strong>{{ section.total|intcomma }}</strong></td>
+        </tr>
+    {% endfor %}
+</table>
+
+
+{% endblock %}

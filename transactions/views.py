@@ -14,6 +14,9 @@ from LoginRegister.utils import increment_click_count
 from django.http import HttpResponseServerError
 import logging
 from django.urls import reverse
+from django.db.models import Sum
+from django.contrib.auth.decorators import login_required
+
 logger = logging.getLogger(__name__)
 
 def home(request):
@@ -244,10 +247,11 @@ statementForm = FinStatementsForm()
 #------------------------------------------#
        # StatementSectionsV 
 #------------------------------------------#
+@login_required
 def StatementSectionsV(request, pk=None):
     # first_statement = StatementSections.objects.first()
     statement = None
-    sections = None
+    statementSections = None
     # first_section = StatementSections.objects.first()
     # section = None
     # lines = None
@@ -255,9 +259,9 @@ def StatementSectionsV(request, pk=None):
 
     if pk is not None:
         statement = get_object_or_404(FinStatements, id=pk)
-        sections = StatementSections.objects.filter(FinStatementsFK=statement)
+        statementSections = StatementSections.objects.filter(FinStatementsFK=statement)
         # Show 10 ListDetailsT objects per page
-        paginator = Paginator(sections, 8)
+        paginator = Paginator(statementSections, 8)
         # get page number for each ListHeaderT instance
         page_number = request.GET.get('page', 1)
         page = paginator.get_page(page_number)
@@ -282,7 +286,9 @@ def StatementSectionsV(request, pk=None):
             print("inside statement form")
             statementForm = FinStatementsForm(request.POST)
             if statementForm.is_valid():
-                saved_statement =statementForm.save()
+                saved_statement =statementForm.save(commit=False)
+                saved_statement.FSPersonFK = request.user  # Set the current user
+                saved_statement.save()
 
                 return redirect('transactions:statement_section_with_id', pk=saved_statement.id)
             
@@ -323,7 +329,11 @@ def StatementSectionsV(request, pk=None):
                     'statementsectionlines_set',
                     'statementsectionlines_set__statementlineaccounts_set'
                 ).all()
-                print(statementSections)
+
+                 # Calculate totals for each section
+                for section in statementSections:
+                    section.total = sum(line.statementlineaccounts_set.aggregate(Sum('LAAccount')).get('LAAccount__sum', 0) for line in section.statementsectionlines_set.all())
+                    print(section.total)
                 #Show 10 ListDetailsT objects per page
                 paginator = Paginator(statementSections, 5)
                 #get page number for each ListHeaderT instance
@@ -516,3 +526,47 @@ def LineAccounts_deleteV(request, pk):
         return redirect('transactions:statement_section_with_id', pk=first_statement.id)
     else:
         return redirect('transactions:statement_section')
+    
+@login_required
+def cash_flow_statement_view(request):
+    # Get dates from GET parameters
+    from_date = request.GET.get('from_date')
+    print(from_date)
+    through_date = request.GET.get('through_date')
+    
+    if from_date and through_date:
+        statements = FinStatements.objects.filter(
+            FSPersonFK=request.user,
+            FSFromDate__gte=from_date,
+            FSThroughDate__lte=through_date)
+        print(request.user)
+    else:
+        # Fallback if no dates are specified; adjust as needed
+        statements = FinStatements.objects.all()
+    
+    # Assuming you want to show the first statement as an example
+    statement = statements.first()
+
+     # If a statement is available, calculate the totals
+    sections = []
+    if statement:
+        sections_query = StatementSections.objects.filter(FinStatementsFK=statement).prefetch_related('statementsectionlines_set__statementlineaccounts_set')
+        for section in sections_query:
+            lines = section.statementsectionlines_set.all()
+            for line in lines:
+                # Calculate the sum of accounts for each line
+                line_accounts_sum = line.statementlineaccounts_set.aggregate(total=Sum('LAAccount'))['total'] or 0
+                line.total = line_accounts_sum
+            # Add lines with totals back to the section
+            section.lines_with_totals = lines
+            # Calculate the total for the section
+            section.total = sum(line.total for line in lines)
+            sections.append(section)
+    
+    context = {
+        'statement': statement,
+        'sections': sections,
+        'from_date': from_date,
+        'through_date': through_date,
+    }
+    return render(request, 'transactions/cash_flow_statement.html', context)

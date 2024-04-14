@@ -243,3 +243,31 @@ a {
   width: 100%; /* Makes the button expand to the width of its container */
   margin-bottom: 10px; /* Adds space between buttons */
 }
+
+.modal-header {
+  display: flex;
+  justify-content: center;
+}
+
+.modal-header .modal-title {
+  flex-grow: 1;
+  text-align: center;
+}
+
+.modal-header .btn-close {
+  position: absolute;
+  right: 1rem; /* Adjust the value as needed */
+  top: 0.5rem; /* Adjust the value as needed */
+}
+
+.section-header {
+  font-weight: bold;
+  text-decoration: underline;
+}
+.line-item {
+  padding-left: 20px;
+}
+.account-value {
+  text-align: right;
+  padding-right: 20px;
+}

@@ -1,7 +1,7 @@
 {% extends 'transactions/base_no_search.html' %}
 {% load static %}
 {% load bootstrap_icons %}
-{% block title %}Lists & Planning{% endblock %}
+{% block title %}Transactions{% endblock %}
 {% load custom_filters %}
 
 {% block pageimage %}
@@ -40,6 +40,8 @@
               style="border-radius: 0%;">New</a>
             <a href="#" class="btn btn-primary listheaderbuttons" style="border-radius: 0%; margin: 0;"
               data-bs-toggle="modal" data-bs-target="#selectedStatementModal">Existing</a>
+              <a href="#" class="btn btn-primary listheaderbuttons" style="border-radius: 0%; margin: 0;"
+              data-bs-toggle="modal" data-bs-target="#cashFlowStatementModal">Cash Flow Statement</a>
           </td>
         </tr>
         <tr>
@@ -226,12 +228,6 @@
       let sectionDescription = $(this).data('ssdescription');
       console.log(sectionDescription);
 
-      // Fill the form with data
-      // $("#id_FinStatementsFK option").each(function () {
-      //   if ($(this).text() == statementFK) {
-      //     $(this).attr('selected', 'selected');
-      //   }
-      // });
       $('#editSectionForm input[name="SSName"]').val(sectionName);
       $('#editSectionForm input[name="SSDescription"]').val(sectionDescription);
 

@@ -1,4 +1,5 @@
 {% load custom_filters %}
+{% load humanize %}
 <!-- Statement Add Modal -->
 <div class="modal fade" id="statementModal" tabindex="-1" aria-labelledby="statementModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -437,6 +438,44 @@
             <button type="submit" class="btn btn-primary">Submit</button>
           </div>
         </form>
+      </div>
+    </div>
+  </div>
+  <!-- cash flow statement modal -->
+  <div class="modal fade" id="cashFlowStatementModal" tabindex="-1" aria-labelledby="cashFlowStatementModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header" style="padding: 0; color: white; height: 90px;">
+          <h5 class="modal-title w-100 text-center" id="exampleModalLabel" style="background-color: #213186;">Cash Flow Statement</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+          <div class="modal-body">
+            <p class="text-center" style="font-weight: bold;">Person or Family Name: {{ statement.FSName }}</p>
+            <p class="text-center" style="font-weight: bold;">For Period From {{ statement.FSFromDate }} through {{ statement.FSThroughDate }}</p>
+
+            <table>
+                {% for section in statementSections %}
+                    <tr>
+                        <td colspan="2" class="section-header">{{ section.SSName }}</td>
+                    </tr>
+                    {% for line in section.statementsectionlines_set.all %}
+                        <tr>
+                            <td class="line-item">{{ line.SLName }}</td>
+                            <td class="account-value">
+                                {% for account in line.statementlineaccounts_set.all %}
+                                    {{ account.LAAccount | intcomma }}
+                                {% endfor %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <td class="line-item"><strong>Net Cash Flow from {{ section.SSName }}</strong></td>
+                        <td class="account-value"><strong>{{ section.total }}</strong></td>
+                    </tr>
+                {% endfor %}
+            </table>
+          </div>
       </div>
     </div>
   </div>
