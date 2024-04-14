@@ -7,7 +7,6 @@
 
 {% block content %}
 <p class="text-center" style="font-weight: bold;">Person or Family Name: {{ statement.FSName }}</p>
-<p class="text-center" style="font-weight: bold;">For Period From {{ statement.FSFromDate }} through {{ statement.FSThroughDate }}</p>
 
 <form method="get" action="{% url 'transactions:cash_flow_statement' %}" class="mb-3">
     <div class="row g-3 align-items-center justify-content-center">
@@ -29,25 +28,23 @@
     </div>
   </form>
 
-<table>
-    {% for section in statementSections %}
+  <table>
+    {% for section in sections %}
         <tr>
             <td colspan="2" class="section-header">{{ section.SSName }}</td>
         </tr>
-        {% for line in section.statementsectionlines_set.all %}
+        {% for line in section.lines_with_totals %}
             <tr>
                 <td class="line-item">{{ line.SLName }}</td>
-                <td class="account-value">
-                    {% for account in line.statementlineaccounts_set.all %}
-                        {{ account.LAAccount | intcomma }}
-                    {% endfor %}
-                </td>
+                <td class="account-value"><strong>{{ line.total|intcomma }}</strong></td>
             </tr>
         {% endfor %}
         <tr>
             <td class="line-item"><strong>Net Cash Flow from {{ section.SSName }}</strong></td>
-            <td class="account-value"><strong>{{ section.total }}</strong></td>
+            <td class="account-value"><strong>{{ section.total|intcomma }}</strong></td>
         </tr>
     {% endfor %}
 </table>
+
+
 {% endblock %}
