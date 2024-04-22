@@ -12,6 +12,7 @@ django-embed-video = "*"
 pillow = "*"
 django-bootstrap-icons = "*"
 django-fontawesome = "*"
+django-dotenv = "*"
 
 [dev-packages]
 

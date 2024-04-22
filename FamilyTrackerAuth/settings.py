@@ -21,12 +21,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-l&z4pk38)d#_w#uusaajy1zixgzk)2&$a_*uk#*!vb%u=p=zv!'
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-l&z4pk38)d#_w#uusaajy1zixgzk)2&$a_*uk#*!vb%u=p=zv!')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = (os.environ.get('DEBUG')) == "1"
 
 ALLOWED_HOSTS = []
+if not DEBUG:
+    ALLOWED_HOSTS += [os.environ.get('ALLOWED_HOST')]
 
 LOGIN_URL = '/members/main_menu_login/'
 LOGIN_REDIRECT_URL = '/LoginRegister/FTMainMenu'
