@@ -13,6 +13,7 @@ pillow = "*"
 django-bootstrap-icons = "*"
 django-fontawesome = "*"
 django-dotenv = "*"
+gunicorn = "*"
 
 [dev-packages]
 
