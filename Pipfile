@@ -14,7 +14,7 @@ django-bootstrap-icons = "*"
 django-fontawesome = "*"
 django-dotenv = "*"
 gunicorn = "*"
-psycopg2-binary
+psycopg2-binary="*"
 
 [dev-packages]
 
