@@ -8,7 +8,7 @@ app_name = 'LoginRegister'
 
 urlpatterns = [
     path('LoginRegister/', views.LoginRegister, name='LoginRegister'),
-    path('LoginRegister/FTMainMenu/', views.FTMainMenu, name='FTMainMenu'),
+    path('', views.FTMainMenu, name='FTMainMenu'),
     # path('LoginRegister/FTFinances/', views.FTFinances, name='FTFinances'),
     # path('cashinacctm/update/<int:pk>/', views.cashinacctm_update, name='cashinacctm_update'),
     # path('cashinacctm/delete/<int:pk>/', views.cashinacctm_delete, name='cashinacctm_delete'),
