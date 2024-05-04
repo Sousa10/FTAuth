@@ -1,3 +1,4 @@
+staticfiles/
 db.sqlite3
 LoginRegister/migrations/__pycache__/
 FamilyTrackerAuth/__pycache__/
@@ -26,3 +27,5 @@ cal/migrations/__pycache__/
 calendar10/__pycache__/
 calendar10/migrations/__pycache__/
 fitness/templatetags/__pycache__/
+
+.env
