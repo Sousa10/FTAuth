@@ -59,7 +59,7 @@ INSTALLED_APPS = [
     'listsplan',
     'administration',
     'django_bootstrap_icons',
-    'storages'
+    'storages',
 ]
 
 MIDDLEWARE = [
