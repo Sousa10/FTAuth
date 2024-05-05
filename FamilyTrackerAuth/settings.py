@@ -30,8 +30,10 @@ print("Debug Mode:", DEBUG)
 print("Allowed Host from Environment:", os.environ.get('DJANGO_ALLOWED_HOST'))
 
 ALLOWED_HOSTS = []
-if not DEBUG:
-    ALLOWED_HOSTS += [os.environ.get('DJANGO_ALLOWED_HOST')]
+if DEBUG:
+    ALLOWED_HOSTS.append('localhost')
+if os.environ.get('DJANGO_ALLOWED_HOST'):
+    ALLOWED_HOSTS.append(os.environ.get('DJANGO_ALLOWED_HOST'))
 
 print("ALLOWED_HOSTS after environment setting:", ALLOWED_HOSTS)
 
