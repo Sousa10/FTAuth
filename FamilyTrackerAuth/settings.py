@@ -37,6 +37,8 @@ if os.environ.get('DJANGO_ALLOWED_HOST'):
 
 print("ALLOWED_HOSTS after environment setting:", ALLOWED_HOSTS)
 
+ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOST', '').split(',')
+
 LOGIN_URL = '/members/main_menu_login/'
 LOGIN_REDIRECT_URL = '/LoginRegister/FTMainMenu'
 LOGOUT_REDIRECT_URL = '/members/main_menu_login/'
