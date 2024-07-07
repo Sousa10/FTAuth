@@ -47,7 +47,7 @@ def cashinacctm_delete(request, pk):
     cashinacctm = get_object_or_404(CashInAcctM, pk=pk)
     cashinacctm.delete()
 
-    return redirect('transactions:income_accts')
+    return redirect('transactions:accounts')
 
 def cashinacctm_update(request, pk):
     cashinacctm = get_object_or_404(CashInAcctM, pk=pk)
@@ -55,7 +55,7 @@ def cashinacctm_update(request, pk):
         form = CashInAcctMForm(request.POST, instance=cashinacctm)
         if form.is_valid():
             form.save()
-            return redirect('transactions:income_accts')
+            return redirect('transactions:accounts')
     else:
         form = CashInAcctMForm(instance=cashinacctm)
     return render(request, 'transactions/FTRevenueAccts.html', {
@@ -209,10 +209,20 @@ def accounts(request):
     page = request.GET.get('page')
     accounts_p = p.get_page(page)
     nums = "x" * accounts_p.paginator.num_pages
+
+    if request.method == 'POST':
+        form = CashInAcctMForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('transactions:accounts')
+    else:
+        accountForm = CashInAcctMForm()
+
     return render(request, 'transactions/accounts.html', {
         'accounts_list': accounts_list,
         'accounts_p':accounts_p,
-        'nums':nums
+        'nums':nums,
+        'accountForm': accountForm
         })
 
 def show_account(request, account_id):
