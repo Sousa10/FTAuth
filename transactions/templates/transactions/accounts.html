@@ -21,8 +21,8 @@
           <td><a href="{% url 'transactions:cashinacctm_delete' account.id %}">Delete</a></td>
           <td><a href="#" data-id="{{ account.id }}"
             data-Status="{{ account.Status }}"
-            data-AccountNumber="{{ account.AccountNumber }}" data-Description="{{ account.Description }}"
-            data-Statement="{{ account.Statement }}" data-Section="{{ account.Section }}">Update</a></td>
+            data-AccountNumber="{{ account.AccountNumber }}" data-Description="{{ account.Description }}" data-Type="{{ account.Type }}"
+            data-Statement="{{ account.Statement }}" data-Section="{{ account.Section }}" data-bs-toggle="modal" data-bs-target="#addAccountModal" id="editAccountButton">Update</a></td>
       </tr>
     {% endfor %}
   </table> 
@@ -60,7 +60,7 @@
       </div>
 
       <form
-        action="{% url 'transactions:accounts' %}" method="post">
+        action="{% url 'transactions:accounts' %}" method="post" id="accountForm">
         <div class="modal-body">
           {% csrf_token %}
           <div class="row">
@@ -92,4 +92,40 @@
     </div>
   </div>
 </div>
+{% endblock %}
+{% block modal-script %}
+<script>
+  $(document).ready(function () {
+    
+    $('#editAccountButton').click(function (e) {
+      e.preventDefault();
+
+      let id = $(this).data('id');
+      let status = $(this).data('status');
+      let accountNumber = $(this).data('accountnumber');
+      let description = $(this).data('description');
+      let type = $(this).data('type');
+      let statement = $(this).data('statement');
+      let section = $(this).data('section');
+
+      // Fill the form with data
+      // $("#id_ListHeaderFK option").each(function () {
+      //   if ($(this).text() == ListHeaderFK) {
+      //     $(this).attr('selected', 'selected');
+      //   }
+      // });
+      
+      $('#accountForm input[name="Status"]').val(status);
+      $('#accountForm input[name="AccountNumber"]').val(accountNumber);
+      $('#accountForm input[name="Description"]').val(description);
+      $('#accountForm input[name="Type"]').val(type);
+      $('#accountForm input[name="Statement"]').val(statement);
+      $('#accountForm input[name="Section"]').val(section);
+
+      $('#accountForm').attr('action', '{% url "transactions:cashinacctm_update" 0 %}'.replace('0', id));
+    });
+
+  });
+
+</script>
 {% endblock %}
