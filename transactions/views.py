@@ -58,7 +58,7 @@ def cashinacctm_update(request, pk):
             return redirect('transactions:accounts')
     else:
         form = CashInAcctMForm(instance=cashinacctm)
-    return render(request, 'transactions/FTRevenueAccts.html', {
+    return render(request, 'transactions/accounts.html', {
         'form': form,
         'cashinacctm': cashinacctm,
         'title': 'Edit Cash In Account',
