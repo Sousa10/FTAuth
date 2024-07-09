@@ -35,11 +35,16 @@
                             Setup Books
                         </a>
                         <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Income Statement</a></li>
-                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Balance Sheet Statement</a></li>
-                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Cash Flow Statement</a></li>
-                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Expense Analysis Statement</a></li>
-                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Budget Statement</a></li>
+                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Income
+                                    Statement</a></li>
+                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Balance Sheet
+                                    Statement</a></li>
+                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Cash Flow
+                                    Statement</a></li>
+                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Expense
+                                    Analysis Statement</a></li>
+                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Budget
+                                    Statement</a></li>
                             <li><a class="dropdown-item" href="#">Statement Lines</a></li>
                             <li><a class="dropdown-item" href="{% url 'transactions:accounts' %}">Accounts</a></li>
                         </ul>
@@ -160,17 +165,16 @@
                     <li class="nav-item">
                         <a class="nav-link active" href="#">Main Menu</a>
                     </li>
+                </ul>
+                <form class="d-flex ms-auto" method=POST action="{% url 'transactions:search_accounts' %}">
+                    {% csrf_token %}
+                    <input class="form-control me-2" type="search" placeholder="Search Accounts"
+                        aria-label="Search Excercises" name="searched">
+                    <button class="btn btn-outline-secondary" type="submit">Search</button>
+                </form>
 
-                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                    <form class="d-flex" method=POST action="{% url 'transactions:search_accounts' %}">
-                        {% csrf_token %}
-                        <input class="form-control me-2" type="search" placeholder="Search Accounts"
-                            aria-label="Search Excercises" name="searched">
-                        <button class="btn btn-outline-secondary" type="submit">Search</button>
-                    </form>
-
-
+            </div>
+        </div>
     </nav>
     {% block pageTitle %}
     {% endblock %}
@@ -382,7 +386,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- FinSpot8 -->
         <div class="modal fade" id="FinSpot8" tabindex="-1" aria-labelledby="FinSpot8" aria-hidden="true">
             <div class="modal-dialog ads modal-xl">
