@@ -114,8 +114,6 @@ class CashInAcctM(models.Model):
     AccountNumber = models.CharField(max_length=20, null=True)
     Description = models.CharField(max_length=255, null=True)
     Type = models.CharField(max_length=12, null=True)
-    Statement = models.CharField(max_length=40, null=True)
-    Section = models.CharField(max_length=40, null=True)
     Sequence = models.IntegerField(null=True)
     RollupType = models.CharField(max_length=60, null=True)
 
