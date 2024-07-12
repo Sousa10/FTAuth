@@ -5,50 +5,52 @@
 {% endblock %}
 {% block content %}
 <p style="text-align:center">
-  <div class="h1">
-    <a style="color:rgb(6, 6, 192)">
-      <p style="font-size:40px">
-        <h2>Accounts</h2>
-      </p>
-    </a>
-  </div>
+<div class="h1">
+  <a style="color:rgb(6, 6, 192)">
+    <p style="font-size:40px">
+      <h2>Accounts</h2>
+    </p>
+  </a>
+</div>
 </p>
 <center>
   <table style="width:100%" class="table table-bordered table-striped table-hover">
     {% for account in accounts_p %}
-      <tr class="table-secondary table-active">
-          <td><a href="{% url 'transactions:show_account' account.id %}">{{ account.AccountNumber }}&nbsp&nbsp:&nbsp&nbsp{{ account.Type }}&nbsp&nbsp:&nbsp&nbsp{{ account.Description }}</a></td>
-          <td><a href="{% url 'transactions:cashinacctm_delete' account.id %}">Delete</a></td>
-          <td><a href="#" data-id="{{ account.id }}"
-            data-Status="{{ account.Status }}"
-            data-AccountNumber="{{ account.AccountNumber }}" data-Description="{{ account.Description }}" data-Type="{{ account.Type }}"
-            data-Statement="{{ account.Statement }}" data-Section="{{ account.Section }}" data-bs-toggle="modal" data-bs-target="#addAccountModal" id="editAccountButton">Update</a></td>
-      </tr>
+    <tr class="table-secondary table-active">
+      <td><a href="{% url 'transactions:show_account' account.id %}">{{ account.AccountNumber }}&nbsp&nbsp:&nbsp&nbsp{{
+          account.Type }}&nbsp&nbsp:&nbsp&nbsp{{ account.Description }}</a></td>
+      <td><a href="{% url 'transactions:cashinacctm_delete' account.id %}">Delete</a></td>
+      <td><a href="#" data-id="{{ account.id }}" data-Status="{{ account.Status }}"
+          data-AccountNumber="{{ account.AccountNumber }}" data-Description="{{ account.Description }}"
+          data-Type="{{ account.Type }}" data-Statement="{{ account.Statement }}" data-Section="{{ account.Section }}"
+          data-bs-toggle="modal" data-bs-target="#addAccountModal" id="editAccountButton">Update</a></td>
+    </tr>
     {% endfor %}
-  </table> 
+  </table>
 </center>
 <nav aria-label="Page navigation example">
   <ul class="pagination justify-content-center">
-  
-  {% if accounts_p.has_previous %}
-      <li class="page-item"><a class="page-link" href="?page=1">&laquo First</a></li>
-      <li class="page-item"><a class="page-link" href="?page={{ accounts_p.previous_page_number }}">Previous</a></li>
-  {% endif %}
-  
-  {% for i in nums %}
-      <li class="page-item"><a class="page-link" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
-  {% endfor %}
-  
-  {% if excer_p.has_next %}
-      <li class="page-item"><a class="page-link" href="?page={{ accounts_p.next_page_number }}">Next</a></li>
-      <li class="page-item"><a class="page-link" href="?page={{ accounts_p.paginator.num_pages }}">Last &raquo</a></li>
-  {% endif %}
-  </ul>
-  </nav>
 
-  <!-- Add Account Button -->
+    {% if accounts_p.has_previous %}
+    <li class="page-item"><a class="page-link" href="?page=1">&laquo First</a></li>
+    <li class="page-item"><a class="page-link" href="?page={{ accounts_p.previous_page_number }}">Previous</a></li>
+    {% endif %}
+
+    {% for i in nums %}
+    <li class="page-item"><a class="page-link" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
+    {% endfor %}
+
+    {% if excer_p.has_next %}
+    <li class="page-item"><a class="page-link" href="?page={{ accounts_p.next_page_number }}">Next</a></li>
+    <li class="page-item"><a class="page-link" href="?page={{ accounts_p.paginator.num_pages }}">Last &raquo</a></li>
+    {% endif %}
+  </ul>
+</nav>
+
+<!-- Add Account Button -->
 <div class="text-center my-4">
-  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAccountModal">Add Account</button>
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAccountModal"
+    id="addAccountButton">Add Account</button>
 </div>
 
 <div class="modal fade" id="addAccountModal" tabindex="-1" aria-labelledby="accountModalLabel" aria-hidden="true">
@@ -59,27 +61,27 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
-      <form
-        action="{% url 'transactions:accounts' %}" method="post" id="accountForm">
+      <form action="{% url 'transactions:accounts' %}" method="post" id="accountForm">
         <div class="modal-body">
           {% csrf_token %}
           <div class="row">
-              {% for field in accountForm %}
-              <div class="col-12 col-md-6 mb-3">
-                <div class="form-floating"> <!-- Use floating labels for a neater look -->
-                  {{ field }} <!-- Render the field itself -->
-                  <label for="{{ field.id_for_label }}">{{ field.label }}</label> <!-- Render the label of the field -->
-                  {% if field.help_text %}
-                    <small class="form-text text-muted">{{ field.help_text }}</small>
-                  {% endif %}
-                  {% for error in field.errors %}
-                    <div class="alert alert-danger">{{ error }}</div>
-                  {% endfor %}
-                </div>
+            {% for field in accountForm %}
+            <div class="col-12 col-md-6 mb-3">
+              <div class="form-floating"> <!-- Use floating labels for a neater look -->
+                {{ field }} <!-- Render the field itself -->
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label> <!-- Render the label of the field -->
+                {% if field.help_text %}
+                <small class="form-text text-muted">{{ field.help_text }}</small>
+                {% endif %}
+                {% for error in field.errors %}
+                <div class="alert alert-danger">{{ error }}</div>
+                {% endfor %}
               </div>
-              {% if forloop.counter|divisibleby:2 %}
-                </div><div class="row">
-              {% endif %}
+            </div>
+            {% if forloop.counter|divisibleby:2 %}
+          </div>
+          <div class="row">
+            {% endif %}
             {% endfor %}
           </div>
         </div>
@@ -96,7 +98,7 @@
 {% block modal-script %}
 <script>
   $(document).ready(function () {
-    
+
     $('#editAccountButton').click(function (e) {
       e.preventDefault();
 
@@ -114,7 +116,7 @@
       //     $(this).attr('selected', 'selected');
       //   }
       // });
-      
+
       $('#accountForm input[name="Status"]').val(status);
       $('#accountForm input[name="AccountNumber"]').val(accountNumber);
       $('#accountForm input[name="Description"]').val(description);
@@ -125,6 +127,19 @@
       $('#accountForm').attr('action', '{% url "transactions:cashinacctm_update" 0 %}'.replace('0', id));
     });
 
+    $('#addAccountButton').click(function (e) {
+      e.preventDefault();
+
+      // Clear the form fields
+      $('#accountForm input[name="Status"]').val('');
+      $('#accountForm input[name="AccountNumber"]').val('');
+      $('#accountForm input[name="Description"]').val('');
+      $('#accountForm input[name="Type"]').val('');
+      $('#accountForm input[name="Statement"]').val('');
+      $('#accountForm input[name="Section"]').val('');
+      // Reset the form action
+      $('#accountForm').attr('action', '{% url "transactions:accounts" %}');
+    });
   });
 
 </script>
