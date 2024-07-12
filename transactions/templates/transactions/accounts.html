@@ -17,8 +17,7 @@
   <table style="width:100%" class="table table-bordered table-striped table-hover">
     {% for account in accounts_p %}
     <tr class="table-secondary table-active">
-      <td><a href="{% url 'transactions:show_account' account.id %}">{{ account.AccountNumber }}&nbsp&nbsp:&nbsp&nbsp{{
-          account.Type }}&nbsp&nbsp:&nbsp&nbsp{{ account.Description }}</a></td>
+      <td><a href="{% url 'transactions:show_account' account.id %}">{{ account.AccountNumber }}&nbsp&nbsp:&nbsp&nbsp{{ account.Type }}&nbsp&nbsp:&nbsp&nbsp{{ account.Description }}</a></td>
       <td><a href="{% url 'transactions:cashinacctm_delete' account.id %}">Delete</a></td>
       <td><a href="#" data-id="{{ account.id }}" data-Status="{{ account.Status }}"
           data-AccountNumber="{{ account.AccountNumber }}" data-Description="{{ account.Description }}"
