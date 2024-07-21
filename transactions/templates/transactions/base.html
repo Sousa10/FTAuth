@@ -15,11 +15,8 @@
 </head>
 
 <body style="background-color:#DDEBF7;">
-
-    <!-- </head><nav class="navbar navbar-expand-lg navbar-dark bg-dark"> -->
     <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #0f496f;">
         <div class="container-fluid">
-            <!-- <a class="navbar-brand" href="#">Navbar</a> -->
             <a class="navbar-brand" href="#">TRAXX</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -35,17 +32,23 @@
                             Setup Books
                         </a>
                         <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Income
+                            <!-- <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Income
                                     Statement</a></li>
                             <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Balance Sheet
-                                    Statement</a></li>
-                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Cash Flow
-                                    Statement</a></li>
-                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Expense
+                                    Statement</a></li> -->
+                            <!-- <li><a class="dropdown-item" href="{% url 'transactions:cash_flow_statement' %}">Cash Flow
+                                    Statement</a></li> -->
+                            <!-- <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Expense
                                     Analysis Statement</a></li>
                             <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Budget
-                                    Statement</a></li>
-                            <li><a class="dropdown-item" href="#">Statement Lines</a></li>
+                                    Statement</a></li> -->
+                            <li>{% if first_section %}
+                                <a class="dropdown-item"
+                                    href="{% url 'transactions:statement_section_with_id' first_section.id %}">Financial Statements</a>
+                                {% else %}
+                                <a class="dropdown-item" href="{% url 'transactions:statement_section' %}">Financial Statements</a>
+                                {% endif %}
+                            </li>
                             <li><a class="dropdown-item" href="{% url 'transactions:accounts' %}">Accounts</a></li>
                         </ul>
                     </li>
@@ -75,7 +78,7 @@
                                     Statement</a></li>
                             <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Balance
                                     Sheet</a></li>
-                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Cash Flow
+                            <li><a class="dropdown-item" href="{% url 'transactions:cash_flow_statement' %}">Cash Flow
                                     Statement</a></li>
                             <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Expense
                                     Analysis</a></li>
@@ -163,7 +166,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Main Menu</a>
+                        <a class="nav-link active" href="{% url 'LoginRegister:FTMainMenu' %}">Main Menu</a>
                     </li>
                 </ul>
                 <form class="d-flex ms-auto" method=POST action="{% url 'transactions:search_accounts' %}">
@@ -185,30 +188,30 @@
             <div class="col-md-2 order-md-1 order-2" style="text-align: left;">
 
                 <!-- FinSpot1 -->
-                <div style="width: 100%; height: 150px; background-color: #DDEBF7;" class="d-flex flex-column mb-3">
+                <div style="width: 100%; height: auto; background-color: #DDEBF7;" class="d-flex flex-column">
                     <a href="#FinSpot1" data-bs-toggle="modal">
                         <img src="{% static 'Fin1.jpg' %}" style="height: 95%;" alt="FinSpot1" class="img-fluid">
                     </a>
                 </div>
 
                 <!-- FinSpot2 -->
-                <div style="width: 100%; height: 150px; background-color: #DDEBF7;" class="d-flex flex-column mb-3">
+                <div style="width: 100%; height: auto; background-color: #DDEBF7;" class="d-flex flex-column">
                     <a href="#FinSpot2" data-bs-toggle="modal">
-                        <img src="{% static 'Fin2.jpg' %}" style="height: 95%;" alt="#FinSpot2" class="img-fluid">
+                        <img src="{% static 'Fin2.jpg' %}" style="height: 100%;" alt="#FinSpot2" class="img-fluid">
                     </a>
                 </div>
 
                 <!-- FinSpot3 -->
-                <div style="width: 100%; height: 150px; background-color: #DDEBF7;" class="d-flex flex-column mb-3">
+                <div style="width: 100%; height: auto; background-color: #DDEBF7;" class="d-flex flex-column">
                     <a href="#FinSpot3" data-bs-toggle="modal">
-                        <img src="{% static 'Fin3v2.jpg' %}" style="height: 95%;" alt="FinSpot3" class="img-fluid">
+                        <img src="{% static 'Fin3v2.jpg' %}" style="height: 100%;" alt="FinSpot3" class="img-fluid">
                     </a>
                 </div>
 
                 <!-- FinSpot4 -->
-                <div style="width: 100%; height: 150px; background-color: #DDEBF7;" class="d-flex flex-column mb-3">
+                <div style="width: 100%; height: auto; background-color: #DDEBF7;" class="d-flex flex-column">
                     <a href="#FinSpot4" data-bs-toggle="modal">
-                        <img src="{% static 'Fin4.jpg' %}" style="height: 95%;" alt="FinSpot4" class="img-fluid">
+                        <img src="{% static 'Fin4.jpg' %}" style="height: 100%;" alt="FinSpot4" class="img-fluid">
                     </a>
                 </div>
 
@@ -225,30 +228,30 @@
             <div class="col-md-2 order-md-3 order-3" style="text-align: right;">
 
                 <!-- FinSpot5 -->
-                <div style="width: 100%; height: 150px; background-color: #DDEBF7;" class="d-flex flex-column mb-3">
+                <div style="width: 100%; height: auto; background-color: #DDEBF7;" class="d-flex flex-column">
                     <a href="#FinSpot5" data-bs-toggle="modal">
-                        <img src="{% static 'Fin5.jpg' %}" style="height: 95%;" alt="FinSpot5" class="img-fluid">
+                        <img src="{% static 'Fin5.jpg' %}" style="height: 100%;" alt="FinSpot5" class="img-fluid">
                     </a>
                 </div>
 
                 <!-- FinSpot6 -->
-                <div style="width: 100%; height: 150px; background-color: #DDEBF7;" class="d-flex flex-column mb-3">
+                <div style="width: 100%; height: auto; background-color: #DDEBF7;" class="d-flex flex-column">
                     <a href="#FinSpot6" data-bs-toggle="modal">
-                        <img src="{% static 'Fin6.jpg' %}" style="height: 95%;" alt="FinSpot6" class="img-fluid">
+                        <img src="{% static 'Fin6.jpg' %}" style="height: 100%;" alt="FinSpot6" class="img-fluid">
                     </a>
                 </div>
 
                 <!-- FinSpot7 -->
-                <div style="width: 100%; height: 150px; background-color: #DDEBF7;" class="d-flex flex-column mb-3">
+                <div style="width: 100%; height: auto; background-color: #DDEBF7;" class="d-flex flex-column">
                     <a href="#FinSpot7" data-bs-toggle="modal">
-                        <img src="{% static 'Fin7.jpg' %}" style="height: 95%;" alt="FinSpot7" class="img-fluid">
+                        <img src="{% static 'Fin7.jpg' %}" style="height: 100%;" alt="FinSpot7" class="img-fluid">
                     </a>
                 </div>
 
                 <!-- FinSpot8 -->
-                <div style="width: 100%; height: 150px; background-color: #DDEBF7;" class="d-flex flex-column mb-3">
+                <div style="width: 100%; height: auto; background-color: #DDEBF7;" class="d-flex flex-column">
                     <a href="#FinSpot8" data-bs-toggle="modal">
-                        <img src="{% static 'Fin8.jpg' %}" style="height: 95%;" alt="FinSpot8" class="img-fluid">
+                        <img src="{% static 'Fin8.jpg' %}" style="height: 100%;" alt="FinSpot8" class="img-fluid">
                     </a>
                 </div>
             </div>
