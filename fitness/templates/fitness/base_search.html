@@ -161,6 +161,16 @@
                         <a class="nav-link active" href="{% url 'LoginRegister:FTMainMenu' %}">Main Menu</a>
                     </li>
 
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    <form class="d-flex" method=POST action="{% url 'fitness:search_workouts' %}">
+                        {% csrf_token %}
+                        <input class="form-control me-2"
+                        type="search" placeholder="Search Excercises" aria-label="Search Excercises" name="searched">
+                        <button class="btn btn-outline-secondary" type="submit">Search</button>
+                    </form> 
+                         
 
                     <!-- <li class="nav-item"> -->
                         <!-- <a class="nav-link active" href="#Overview" data-bs-toggle="modal">Overview</a> -->

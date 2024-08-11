@@ -38,6 +38,55 @@
     </div>
 </div>
 
+ // Kirk New 7_26
+
+{% block modal-script %}
+<script>
+  $(document).ready(function () {
+
+    $('#editExcerciseButton').click(function (e) {
+      e.preventDefault();
+
+      let id = $(this).data('id');
+      let reference = $(this).data('Reference');
+      let region = $(this).data('Region');
+      let excercise = $(this).data('Exercise');
+      let description = $(this).data('Description');
+      let instructions = $(this).data('Instructions');
+
+      // Fill the form with data
+      // $("#id_ListHeaderFK option").each(function () {
+      //   if ($(this).text() == ListHeaderFK) {
+      //     $(this).attr('selected', 'selected');
+      //   }
+      // });
+
+      $('#excerciseForm input[name="Reference"]').val(reference);
+      $('#excerciseForm input[name="Region"]').val(region);
+      $('#excerciseForm input[name="Exercise"]').val(excercise);
+      $('#excerciseForm input[name="Description"]').val(description);
+      $('#excerciseForm input[name="Instructions"]').val(instructions);
+
+      $('#excerciseForm').attr('action', '{% url "fitness:excercise_update" 0 %}'.replace('0', id));
+    });
+
+    $('#addExcerciseButton').click(function (e) {
+      e.preventDefault();
+
+      // Clear the form fields
+      $('#excerciseForm input[name="Reference"]').val('');
+      $('#excerciseForm input[name="Region"]').val('');
+      $('#excerciseForm input[name="Exercise"]').val('');
+      $('#excerciseForm input[name="Description"]').val('');
+      $('#excerciseForm input[name="Instructions"]').val('');
+
+      // Reset the form action
+      $('#excerciseForm').attr('action', '{% url "fitness:excercises" %}');
+    });
+  });
+
+</script>
+{% endblock %}
 
 
 

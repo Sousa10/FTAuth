@@ -199,7 +199,7 @@ def excercises(request):
     excercise_list = ExcerciseList.objects.all()
 
     # Set up Pagination
-    p = Paginator(ExcerciseList.objects.all(), 8)
+    p = Paginator(ExcerciseList.objects.all(), 11)
     page = request.GET.get('page')
     excer_p = p.get_page(page)
     nums = "x" * excer_p.paginator.num_pages

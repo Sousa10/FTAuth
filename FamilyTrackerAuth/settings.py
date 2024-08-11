@@ -185,7 +185,7 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
 
-from .cdn.conf import * #noqa
+#from .cdn.conf import * #noqa
 
 # https://traxx.nyc3.digitaloceanspaces.com
 
