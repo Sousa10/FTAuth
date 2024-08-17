@@ -63,6 +63,14 @@
                         <a class="nav-link active" href="#Overview" data-bs-toggle="modal">Overview</a>
                     </li>
 
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#Lists" data-bs-toggle="modal">Lists</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#Plans" data-bs-toggle="modal">Plans</a>
+                    </li>
+
                     <li class="nav-item dropdown active">
                         <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
@@ -78,6 +86,30 @@
                     <li class="nav-item dropdown active">
                         <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
+                            Lists & Planning Tutorials
+                        </a>
+                        <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#Tut1" data-bs-toggle="modal">How to Create a Simple List</a></li>
+                            <li><a class="dropdown-item" href="#Tut2" data-bs-toggle="modal">How to Share a List</a></li>
+                            <li><a class="dropdown-item" href="#Tut3" data-bs-toggle="modal">How to Define a Simple Plan/Project</a></li>
+                            <li><a class="dropdown-item" href="#Tut4" data-bs-toggle="modal">How to Share a Plan/Project</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown active">
+                        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Trivia & Hints
+                        </a>
+                        <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#Trivia" data-bs-toggle="modal">Trivia of the Day</a></li>
+                            <li><a class="dropdown-item" href="#Hint" data-bs-toggle="modal">Tip of the Day</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown active">
+                        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
                             Support
                         </a>
                         <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
@@ -85,10 +117,6 @@
                             <li><a class="dropdown-item" href="#Sugg1" data-bs-toggle="modal">Suggestions</a></li>
                             <li><a class="dropdown-item" href="#Serv1" data-bs-toggle="modal">Service Requests</a></li>
                         </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#About1" data-bs-toggle="modal">About</a>
                     </li>
 
                     <li class="nav-item dropdown active">
@@ -102,28 +130,8 @@
                         </ul>
                     </li>
 
-                    <li class="nav-item dropdown active">
-                        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Trivia & Hints
-                        </a>
-                        <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal">Trivia of the Day</a></li>
-                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal">Tip of the Day</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item dropdown active">
-                        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Lists & Planning Tutorials
-                        </a>
-                        <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#Tut1" data-bs-toggle="modal">How to Create a Simple List</a></li>
-                            <li><a class="dropdown-item" href="#Tut2" data-bs-toggle="modal">How to Share a List</a></li>
-                            <li><a class="dropdown-item" href="#Tut3" data-bs-toggle="modal">How to Define a Simple Plan/Project</a></li>
-                            <li><a class="dropdown-item" href="#Tut4" data-bs-toggle="modal">How to Share a Plan/Project</a></li>
-                        </ul>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#About1" data-bs-toggle="modal">About</a>
                     </li>
 
                     <li class="nav-item">
@@ -352,6 +360,82 @@
             </div>
         </div>
     </div>
+
+<!-- Modal Trivia -->
+<div class="modal fade" id="Trivia" tabindex="-1" aria-labelledby="TriviaLabel" aria-hidden="true">
+    <div class="modal-dialog ads modal-xl"
+        style="overflow-y: scroll; max-height:95%; margin-top: 5px; margin-bottom: 5px;">
+        <div class="modal-content">
+            <div class="modal-header primary">
+                <h5 class="modal-title" id="TriviaLabel">Trivia of the Day</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            </div>
+            <div class="modal-body">
+                Planning is the process of setting goals and defining the actions necessary to achieve those goals
+                <br><br>
+                Answer: True
+                <br><br><br>
+                Why are budgets useful in the planning process? 
+                <br><br>
+                Answer: Help communicate goals and provide a basis for evaluation.
+                <br><br><br>
+                They understood the importance of transportation and thus emerged as the first regional planners of the world:
+                <br><br>
+                1. The Greeks<br>
+                2. The Romans<br>
+                3. The Sumerians<br>
+                4. The Egyptians<br>
+                <br>
+                Answer: 2. The Romans
+                <br><br>
+            </div>
+        </div>
+    </div>
+  </div>
+  
+  <!-- Modal Hint -->
+  <div class="modal fade" id="Hint" tabindex="-1" aria-labelledby="HintLabel" aria-hidden="true">
+    <div class="modal-dialog ads modal-xl"
+        style="overflow-y: scroll; max-height:95%; margin-top: 5px; margin-bottom: 5px;">
+        <div class="modal-content">
+            <div class="modal-header primary">
+                <h5 class="modal-title" id="TriviaLabel">Hint of the Day</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            </div>
+            <div class="modal-body">
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                BENEFITS OF USING LISTS<br>
+                1. Externalizing what we need to remember.
+                <br>
+                Lists are useful because they document what we ordinarily forget. Memory strongly prefers internal structure, and without this structure, remembering is hard work. Unlike stories—in which events are connected by cause and effect—items on a list have no internal structure, except verticality. The first item on a list does not cause the second. A series needs to be written—otherwise, we will forget what’s on it.
+                <br><br>
+                2. Remembering across contexts.
+                <br>
+                When we retrieve a memory, it is often retrieved in context. Without the right context, we have difficulty remembering. That’s why people can forget why they came into a room—the initial encoding context was in a different room. Lists provide an effective, context-free method for remembering.
+                <br><br>
+                3. Resonating with our serial processing.
+                <br>
+                We naturally take things one at a time. What feels like parallel processing is often sequential, with several tasks performed one at a time quickly. The linear layout of a list is friendly to our serial processing.
+                <br><br>
+                4. Adding without restructuring.
+                <br>
+                We can amend a list by simply adding to it. A list is not an outline that requires rearrangement with each additional item. (If we want a carefully ordered sequence, we can simply renumber and then reorder.)
+                <br><br>
+                5. Generating new items.
+                <br>
+                While creating a list, a new item can act as a retrieval cue for another item. Each new item on a list can encourage memory for another important item.
+                <br><br>
+                6. Concision.
+                <br>
+                Lists convey a lot of information in relatively few words. Lists are concise and orderly distillations—small and digestible, like tapas.            </div>
+        </div>
+    </div>
+  </div>
+
 
     <!-- Modal Tut1 -->
     <div class="modal fade" id="Tut1" tabindex="-1" aria-labelledby="PotSponNoteLabel" aria-hidden="true">

@@ -1,5 +1,8 @@
 {% load custom_filters %}
 {% load humanize %}
+{% load static %}
+{% load bootstrap_icons %}   
+
 <!-- Statement Add Modal -->
 <div class="modal fade" id="statementModal" tabindex="-1" aria-labelledby="statementModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -482,15 +485,15 @@
 
 <!-- Modal Supp1 -->
 <div class="modal fade" id="Supp1" tabindex="-1" aria-labelledby="Supp1Label" aria-hidden="true">
-    <div class="modal-dialog ads">
+    <div class="modal-dialog ads modal-xl">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header primary">
                 <h5 class="modal-title" id="Supp1Label">Support: 24-hours/day 365-days/year!!!</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
             </div>
             <div class="modal-body">
                 Family Tracker refuses to accept anything short of a delighted user. If we can help in any way, or
-                you run into issues, please feel free to call: (800) 333-4444.<br><br>For less urgent requests or
+                you run into issues, please feel free to call: (704) 607-4291.<br><br>For less urgent requests or
                 issues, please log a "Service Request" and we will respond via email, or contact you at your
                 convenience.<br><br>Our intent is to constantly improve, make Family Tracker the most family
                 friendly, easy to use, and useful internet application on the market today.<br><br>Thank you for
@@ -503,15 +506,15 @@
 
 <!-- Modal Sugg1 -->
 <div class="modal fade" id="Sugg1" tabindex="-1" aria-labelledby="Sugg1Label" aria-hidden="true">
-    <div class="modal-dialog ads">
+    <div class="modal-dialog ads modal-xl">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header primary">
                 <h5 class="modal-title" id="Sugg1Label">Thoughts? Help us Make Family Tracker Better</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
             </div>
             <div class="modal-body">
-                Family Tracker welcomes thoughts and suggestions.<br><br>Please feel free to call: (800)
-                333-4444.<br> Or, Email us: "https://www.FamilyTrackerSuggestions.com"<br><br>We will answer all
+                Family Tracker welcomes thoughts and suggestions.<br><br>Please feel free to call: (704)
+                607-4291.<br> Or, Email us: "kirk.shelton@BallantyneTechnologyGroup.com"<br><br>We will answer all
                 calls or contact you at your convenience.<br><br>Thank you for your continued support and using
                 Family Tracker.<br><br>We appreciate all feedback!
             </div>
@@ -521,16 +524,16 @@
 
 <!-- Modal Serv1 -->
 <div class="modal fade" id="Serv1" tabindex="-1" aria-labelledby="Serv1Label" aria-hidden="true">
-    <div class="modal-dialog ads">
+    <div class="modal-dialog ads modal-xl">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header primary">
                 <h5 class="modal-title" id="Serv1Label">Send Us a Service Request</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
             </div>
             <div class="modal-body">
                 <br>If you run into any issues, or just have a Navigation or Feature question, please feel free to
-                call:<br>(800) 111-2222<br><br>Alternatively, Email us:
-                "https://www.FamilyTrackerServiceRequest.com"<br><br>Please includ the following in your Email:<br>
+                call:<br>(704) 607-4291<br><br>Alternatively, Email us:
+                "kirk.shelton@BallantyneTechnologyGroup.com"<br><br>Please include the following in your Email:<br>
                 1. Preference to be called or Email Response<br> 2. Issue or question short description<br> 3. Issue
                 or question full description, including navigation<br> 4. How long you have been experiencing the
                 issue<br> 5. Best time to call if that is your preference<br><br>We will answer all calls or contact
@@ -540,39 +543,216 @@
     </div>
 </div>
 
+<!-- Modal Overview -->
+<div class="modal fade" id="Overview" tabindex="-1" aria-labelledby="OverviewLabel" aria-hidden="true">
+  <div class="modal-dialog ads modal-xl">
+      style="overflow-y: scroll; max-height:95%; margin-top: 5px; margin-bottom: 5px;">
+      <div class="modal-content">
+          <div class="modal-header primary">
+              <h5 class="modal-title" id="OverviewLabel">Overview</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+          </div>
+          <div class="modal-body">
+              <br>The Finances application is a complete individual or household bookkeeping sytem, including:<br> 
+              <br>1) Income Statement, <br>2) Balance Sheet, <br>3) Cash Flow Statement, <br>4) Expense Analsys, 
+              and <br>5) Budgeting.  
+              <br><br>The application features antomated transaction capture & upload from your bank statement.  
+              The set of books is seeded with over 130 accounts, with predefined financial statemens, sections 
+              and lines.  The "Setup Books" tab allows you to add, delete or update accounts or financial 
+              statements that come pre-seeded with TRAXX.  The "Bookkeeping" tab allows you to upload transactions 
+              from your bank financial statements, enter manual transactions, or Post current net income to 
+              retained earnings.  Moving Net earnings from the income statement to the balance sheet.  The "Reporting" 
+              tab allows you to run any of your financial statements and optionally download the report.
+          </div>
+      </div>
+  </div>
+</div>
+
 <!-- Modal About1 -->
 <div class="modal fade" id="About1" tabindex="-1" aria-labelledby="About1Label" aria-hidden="true">
-    <div class="modal-dialog ads">
-        <div class="modal-content">
-            <div class="modal-header">
+  <div class="modal-dialog ads modal-xl" 
+      style="overflow-y: scroll; max-height:95%; margin-top: 5px; margin-bottom: 5px;">
+      <div class="modal-content">
+            <div class="modal-header primary">
                 <h5 class="modal-title" id="About1Label">A Story of Success</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
             </div>
             <div class="modal-body">
-                <br>Family Tracker was founded by Kirk Shelton the founder and Managing Principal of "Cliffs
-                Software Solutions". Kirk is the Chief Technical Officer (CTO) and the lead engineer for the Family
-                Tracker application.<br><br>Cliffs Software Solutions is now a subsidiary of "Round Table Venture
-                Group LLC" (RTVG).<br><br>RTVG is a private investment group and family office owned and managed by
-                their Principals. They invest in direct to consumer growth-oriented companies including e-commerce,
-                health and fitness, technology, healthcare and other core businesses. The focus is on providing
-                capital and operational expertise to dynamic and disruptive growth companies.<br><br>Principals each
-                bring a unique skill set and RTVG collectively works as a team with their portfolio companies to
-                achieve success. Principals have operated businesses as CEOs, COOs and other leadership positions.
-                They tend to invest in companies that see the value of their active involvement.<br><br>It was a
-                natural fit between Cliffs Software Solution and the Round Table Venture Group with a "Shared
-                Philosophy"<br>&nbsp&nbsp&nbsp&nbsp* We believe in passionate people that are curious and like to
-                win… because we like to win.<br>&nbsp&nbsp&nbsp&nbsp* We believe in open dialogue and honest
-                debate.<br>&nbsp&nbsp&nbsp&nbsp* We believe in building true partnerships and working closely with
-                our portfolio companies.<br>&nbsp&nbsp&nbsp&nbsp* We believe in execution.<br>&nbsp&nbsp&nbsp&nbsp*
-                We believe in learning from others and applying what we’ve learned.<br><br>We also offer custom
-                development services to bring our clients solutions visions quickly into focus and ready for
-                use.<br><br>For more information regarding custom solution development: Please send an Email to
-                "https://FamilyTrackerDevInq.com" or call us: (800) 111-2222<br><br>We will promptly respond to all
-                inquiries. Thank you for using "Family Tracker" !!!
-            </div>
+              The TRAXX Resource & Communication Management System was created by Kirk Shelton
+              the founder and Managing Principal of "Cliffs Software Solutions" (CSS). Kirk has
+              extensive experience building and managing startup technology concerns and
+              the innovative use of technology to develop and deliver exceptional value to clients.
+              His experience includes business development, successfully delivering large, complex,
+              multi-disciplined projects, developing and delivering custom software solutions
+              and integrations, and building feature rich extensions to enhance existing platform
+              software solutions.<br>
+              M.B.A. Economics and Finance, Honors, Wayne State University, Detroit, MI<br>
+              B.S. Management Information Systems, Honors, Oakland University, Rochester Hills, MI
+              <br><br>
+              &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+              &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+              &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+              The CSS Board of Advisors Includes: Edward J. Sanz, Michael Onak, Rui Sousa, and Lisa Shelton.
+              <br><br>
+              Edward J. Sanz, CFA, CTP<br>
+              Managing Partner, ABTV<br>
+              Mr. Sanz is a senior finance and restructuring professional with over thirty years
+              of experience as a CFO, interim manager, and financial consultant to business owners,
+              boards of directors and senior management in the U.S. and abroad. He manages a
+              consulting firm that advises companies requiring transformation or solving complex
+              financial and operational problems.<br>He began his career in commercial lending and
+              public accounting and has since been in senior financial management roles and an
+              dvisor to business owners, company management and boards of directors. Mr. Sanz
+              has authored articles for industry journals and chapters of the Turnaround Management
+              Association's Body of Knowledge and has spoken on a number of related topics. He
+              currently serves on the Board of the Carolinas Chapter of the Turnaround Management
+              Association (TMA) where he was also a past President. He also served on the
+              Board of Trustees of TMA Global, where he chaired the Certification Oversight
+              Committee which oversees the administration of the Certified Turnaround Professional
+              (CTP) designation.
+              Mr. Sanz graduated from the University of Virginia with a Bachelor of Science in
+              Commerce and received his Master's in Business Administration with honors from
+              Emory University. He holds Chartered Financial Analyst (CFA) and Certified Turnaround
+              Professional (CTP) designations.<br><br>
+              Michael Onak<br>
+              Senior Partner (retired)<br>
+              Ernst & Young LLP
+              Michael Onak ran the Banking Consulting practice in the Americas. He has been in
+              professional services for over 30 years focused primarily on the Financial Services
+              Industry. Michael has served E&Y's largest clients and built and grown large consulting
+              practices. He has held many Americas and global leadership positions at E&Y.<br>
+              Mr. Onak Graduated from Northern Illinois University with a Bachelor of Science Degree
+              <br><br>
+              Rui Sousa<br>
+              Lead Engineer & Software Development Manager, Cliffs Software Solutions, LLC
+              In addition to being an international advisor to Cliffs Software Solutions, Mr. Sousa
+              is a talented, experienced software developer with extensive Python, Django, and Java
+              Script experience. He has been integral to the early development of TRAXX with a
+              strong emphasis on best practices, object orientation and reusability.<br>
+              B.A. Computer Science, University of Cabo Verde, Praia Cabo Verde
+              <br><br>
+              Lisa Shelton<br>
+              Lisa is an experienced IT and Accounting professional having run multiple IT and
+              Accounting departments. She has been successful in multiple enterprise package selections
+              and implementations. Lisa brings the "Practical Magic" to TRAXX with a heavy emphasis
+              on the user interface, simplicity and useability.<br>
+              M.B.A. University of Detroit, Detroit, MI<br>
+              B.S. Accouting, Nothwood University, Midland, MI<br><br>
+              &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+              &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+              &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+              &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+              &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+              &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+              &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+              &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+              CSS CORE VALUES:
+              <br><br>
+              SERVICE & CUSTOMER ORIENTATION: Incredibly easy to do business with. Simple straight
+              forward pricing and service offerings. Being service-minded or customer-oriented means that
+              we care about providing a quality experience to the clients we serve. This value extends to
+              supporting our community and our associates. Valuing service means that we aim to provide a
+              meaningful experience to the people we serve and support.<br><br>
+              INTEGRITY: Valuing integrity in the workplace means that we strive to do the right thing,
+              even when we know no one else is looking. CSS highly values honesty, transparency and a
+              commitment to doing what is best for our clients, teammates, and company. The growth of a
+              company follows the professional growth of its employees. Valuing growth
+              means that we have the drive to continuously improve both ourselves and our company. Growth
+              is based on mutual success. CSS is a company that develops its staff and provides an
+              environment that fosters personal and professional development.<br><br>
+              ACCOUNTABILITY: Is a willingness to accept and embrace responsibility for one's actions
+              and the impact on the enterprise.<br><br>
+              INNOVATION: Challenging ourselves to see what is possible to better meet the needs of
+              fellow associates, clients and company. CSS will always be a work in progress, striving to
+              improve and do better, thinking of creative ways to solve tough problems and take calculated
+              risks. Finding new ways to solve a problem can help the company move forward.<br><br>
+              CREATIVITY AND TENACITY: The un-relenting use of our creative or original ideas, particularly
+              in the creation of high-value software solutions and professional services for our clients.
+          </div>
         </div>
     </div>
 </div>
+
+    <!-- Modal SponNote -->
+    <div class="modal fade" id="SponNote" tabindex="-1" aria-labelledby="SponNoteLabel" aria-hidden="true">
+      <div class="modal-dialog ads modal-xl" style="overflow-y: scroll; max-height:95%; margin-top: 5px; margin-bottom: 5px;">
+          <div class="modal-content">
+              <div class="modal-header primary">
+                  <h5 class="modal-title" id="SponNoteLabel">A Note to Our Sponsors</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+              </div>
+              <div class="modal-body">
+                      This will be a note to our current sponsors (Advertisers) on TRAXX 
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <!-- Modal PotSponNote -->
+  <div class="modal fade" id="PotSponNote" tabindex="-1" aria-labelledby="PotSponNoteLabel" aria-hidden="true">
+      <div class="modal-dialog ads modal-xl" style="overflow-y: scroll; max-height:95%; margin-top: 5px; margin-bottom: 5px;">
+          <div class="modal-content">
+              <div class="modal-header primary">
+                  <h5 class="modal-title" id="PotSponNoteLabel">A Note to Our Potential Sponsors</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+              </div>
+              <div class="modal-body">
+                      This will be a note to our potential sponsors (Advertisers) on TRAXX 
+              </div>
+          </div>
+      </div>
+  </div>
+
+<!-- Modal Trivia -->
+<div class="modal fade" id="Trivia" tabindex="-1" aria-labelledby="TriviaLabel" aria-hidden="true">
+  <div class="modal-dialog ads modal-xl"
+      style="overflow-y: scroll; max-height:95%; margin-top: 5px; margin-bottom: 5px;">
+      <div class="modal-content">
+          <div class="modal-header primary">
+              <h5 class="modal-title" id="TriviaLabel">Trivia of the Day</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+          </div>
+          <div class="modal-body">
+            Although they each use their own version of the currency, Argentina, Chile, Colombia, Cuba, the Dominican Republic, Mexico, the Philippines, and Uruguay all use a currency with what four-letter name?
+            <br><br>
+            Answer: Peso  
+            <br><br><br>
+            In economics, the Laffer curve describes the relationship between the rate of which 
+            compulsory financial charge and the resulting revenue? According to Benjamin Franklin, 
+            only this financial charge and death are certainties in life.
+            <br><br>
+            Answer: Taxes  
+            <br><br><br>   
+            "The Oracle of Omaha" is a nickname often used to describe what legendary American 
+            investor and CEO of Berkshire Hathaway?
+            <br><br>
+            Answer: Warren Buffett
+            <br><br>
+          </div>
+      </div>
+  </div>
+</div>
+
+<!-- Modal Hint -->
+<div class="modal fade" id="Hint" tabindex="-1" aria-labelledby="HintLabel" aria-hidden="true">
+  <div class="modal-dialog ads modal-xl"
+      style="overflow-y: scroll; max-height:95%; margin-top: 5px; margin-bottom: 5px;">
+      <div class="modal-content">
+          <div class="modal-header primary">
+              <h5 class="modal-title" id="TriviaLabel">Hint of the Day</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+          </div>
+          <div class="modal-body">
+              Using a credit card and making full payment before interest accrues helps to track
+              Finances, where money is being sent and is easily uploada into TRAXX where it expenditures
+              may be further tracked and analyzed.<br><br>As an additional benefit, you are able to use "Other Peoples Money" or 
+              OPM, for up to 30 days.<br><br>However, it is important to always pay the balance in full 
+              prior to being due to avoid very high credit card interest charges.           
+          </div>
+      </div>
+  </div>
+</div>
+
 
 <!-- Modal AdvSpot1 -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

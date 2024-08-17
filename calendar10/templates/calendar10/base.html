@@ -58,6 +58,14 @@
                         <a class="nav-link active" href="#Overview" data-bs-toggle="modal">Overview</a>
                     </li>
 
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Events</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Venues</a>
+                    </li>
+
                     <li class="nav-item dropdown active">
                         <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
@@ -67,43 +75,6 @@
                             <li><a class="dropdown-item" href="#">Download Text File</a></a></li>
                             <li><a class="dropdown-item" href="#">Download CSV File</a></li>
                             <li><a class="dropdown-item" href="#">Download PDF File</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item dropdown active">
-                        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Support
-                        </a>
-                        <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#Supp1" data-bs-toggle="modal">Support</a></li>
-                            <li><a class="dropdown-item" href="#Sugg1" data-bs-toggle="modal">Suggestions</a></li>
-                            <li><a class="dropdown-item" href="#Serv1" data-bs-toggle="modal">Service Requests</a></li>
-                        </ul>
-                    </li>                  
-
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#About1" data-bs-toggle="modal">About</a>
-                    </li>
-
-                    <li class="nav-item dropdown active">
-                        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Sponsors
-                        </a>
-                        <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#SponNote" data-bs-toggle="modal">A Note to Our Sponsors</a></li>
-                            <li><a class="dropdown-item" href="#PotSponNote" data-bs-toggle="modal">A Note to Our Potential Sponsors</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item dropdown active">
-                        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Trivia & Hints
-                        </a>
-                        <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal">Trivia of the Day</a></li>
-                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal">Tip of the Day</a></li>
                         </ul>
                     </li>
 
@@ -124,12 +95,40 @@
                         </ul>
                     </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#">Events</a>
+                    <li class="nav-item dropdown active">
+                        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Trivia & Hints
+                        </a>
+                        <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#Trivia" data-bs-toggle="modal">Trivia of the Day</a></li>
+                            <li><a class="dropdown-item" href="#Hint" data-bs-toggle="modal">Tip of the Day</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown active">
+                        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Support
+                        </a>
+                        <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#Supp1" data-bs-toggle="modal">Support</a></li>
+                            <li><a class="dropdown-item" href="#Sugg1" data-bs-toggle="modal">Suggestions</a></li>
+                            <li><a class="dropdown-item" href="#Serv1" data-bs-toggle="modal">Service Requests</a></li>
+                        </ul>
+                    </li>                  
+
+                    <li class="nav-item dropdown active">
+                        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Sponsors
+                        </a>
+                        <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#SponNote" data-bs-toggle="modal">A Note to Our Sponsors</a></li>
+                            <li><a class="dropdown-item" href="#PotSponNote" data-bs-toggle="modal">A Note to Our Potential Sponsors</a></li>
+                        </ul>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Venues</a>
+                        <a class="nav-link active" href="#About1" data-bs-toggle="modal">About</a>
                     </li>
 
                     <li class="nav-item">
@@ -208,6 +207,92 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal SponNote -->
+    <div class="modal fade" id="SponNote" tabindex="-1" aria-labelledby="SponNoteLabel" aria-hidden="true">
+        <div class="modal-dialog ads modal-xl" style="overflow-y: scroll; max-height:95%; margin-top: 5px; margin-bottom: 5px;">
+            <div class="modal-content">
+                <div class="modal-header primary">
+                    <h5 class="modal-title" id="SponNoteLabel">A Note to Our Sponsors</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </div>
+                <div class="modal-body">
+                        This will be a note to our current sponsors (Advertisers) on TRAXX 
+                </div>
+            </div>
+        </div>
+    </div>
+  
+    <!-- Modal PotSponNote -->
+    <div class="modal fade" id="PotSponNote" tabindex="-1" aria-labelledby="PotSponNoteLabel" aria-hidden="true">
+        <div class="modal-dialog ads modal-xl" style="overflow-y: scroll; max-height:95%; margin-top: 5px; margin-bottom: 5px;">
+            <div class="modal-content">
+                <div class="modal-header primary">
+                    <h5 class="modal-title" id="PotSponNoteLabel">A Note to Our Potential Sponsors</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </div>
+                <div class="modal-body">
+                        This will be a note to our potential sponsors (Advertisers) on TRAXX 
+                </div>
+            </div>
+        </div>
+    </div>
+  
+<!-- Modal Trivia -->
+<div class="modal fade" id="Trivia" tabindex="-1" aria-labelledby="TriviaLabel" aria-hidden="true">
+    <div class="modal-dialog ads modal-xl"
+        style="overflow-y: scroll; max-height:95%; margin-top: 5px; margin-bottom: 5px;">
+        <div class="modal-content">
+            <div class="modal-header primary">
+                <h5 class="modal-title" id="TriviaLabel">Trivia of the Day</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            </div>
+            <div class="modal-body">
+                This mythical creature is the national animal of Scotland
+                <br><br>
+                Answer: Unicorn
+                <br><br><br>
+                What is the most haunted state in the U.S. in terms of ghost sightings?
+                <br><br>
+                Answer: Texax
+                <br><br><br>
+                On an average day, how long does an employee spend looking for lost files or other items?
+                <br><br>
+                Answer: 12.6 miles
+                <br><br>
+            </div>
+        </div>
+    </div>
+  </div>
+  
+  <!-- Modal Hint -->
+  <div class="modal fade" id="Hint" tabindex="-1" aria-labelledby="HintLabel" aria-hidden="true">
+    <div class="modal-dialog ads modal-xl"
+        style="overflow-y: scroll; max-height:95%; margin-top: 5px; margin-bottom: 5px;">
+        <div class="modal-content">
+            <div class="modal-header primary">
+                <h5 class="modal-title" id="TriviaLabel">Hint of the Day</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            </div>
+            <div class="modal-body">
+                To conduct effective meetings, you need to:<br><br>
+                1. Define the meeting objectives and create an agenda.<br>
+                2. Send calendar invites and establish the type of meeting.<br>
+                3. Create a safe space for collaboration and strategically choose attendees.<br>
+                4. Appoint important roles such as facilitator, timekeeper, and note-taker.<br>
+                5. Start and end on time and stay on track with the agenda.<br><br>
+            </div>
+        </div>
+    </div>
+  </div>
+  
+
+
+
+
+
+
+
 
     <!-- Modal About1 -->
     <div class="modal fade" id="About1" tabindex="-1" aria-labelledby="About1Label" aria-hidden="true">
