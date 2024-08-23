@@ -38,8 +38,6 @@
     </div>
 </div>
 
- // Kirk New 7_26
-
 {% block modal-script %}
 <script>
   $(document).ready(function () {
@@ -67,7 +65,7 @@
       $('#excerciseForm input[name="Description"]').val(description);
       $('#excerciseForm input[name="Instructions"]').val(instructions);
 
-      $('#excerciseForm').attr('action', '{% url "fitness:excercise_update" 0 %}'.replace('0', id));
+      $('#excerciseForm').attr('action', '{% url "fitness:exercise_update" 0 %}'.replace('0', id));
     });
 
     $('#addExcerciseButton').click(function (e) {

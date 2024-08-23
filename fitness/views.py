@@ -62,6 +62,18 @@ def AddExcercise(request):
             submitted = True
     return render(request, 'fitness/AddExcercise.html', {'form':form, 'submitted':submitted})
 
+def exercise_update(request, pk):
+    exercise = get_object_or_404(ExcerciseList, pk=pk)
+    if request.method == 'POST':
+        form = ExcerciseForm(request.POST, instance=exercise)
+
+        if form.is_valid():
+            form.save()
+            fallback_url = reverse('fitness:statement_section_with_id', kwargs={'pk':first_statement.id})
+            return redirect(request.META.get('HTTP_REFERER', fallback_url))
+    else:
+        form = ExcerciseForm(instance=exercise)
+
 def AddRoutine(request):
     submitted = False
     if request.method == "POST":
