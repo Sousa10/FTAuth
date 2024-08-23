@@ -26,22 +26,16 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#Overview" data-bs-toggle="modal">Overview</a>
+                    </li>
+
                     <li class="nav-item dropdown active">
                         <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             Setup Books
                         </a>
                         <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
-                            <!-- <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Income
-                                    Statement</a></li>
-                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Balance Sheet
-                                    Statement</a></li> -->
-                            <!-- <li><a class="dropdown-item" href="{% url 'transactions:cash_flow_statement' %}">Cash Flow
-                                    Statement</a></li> -->
-                            <!-- <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Expense
-                                    Analysis Statement</a></li>
-                            <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}">Budget
-                                    Statement</a></li> -->
                             <li>{% if first_section %}
                                 <a class="dropdown-item"
                                     href="{% url 'transactions:statement_section_with_id' first_section.id %}">Financial Statements</a>
@@ -109,30 +103,7 @@
                     <li class="nav-item dropdown active">
                         <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
-                            Support
-                        </a>
-                        <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#Supp1" data-bs-toggle="modal">Support</a></li>
-                            <li><a class="dropdown-item" href="#Sugg1" data-bs-toggle="modal">Suggestions</a></li>
-                            <li><a class="dropdown-item" href="#Serv1" data-bs-toggle="modal">Service Requests</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item dropdown active">
-                        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Trivia & Hints
-                        </a>
-                        <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal">Trivia of the Day</a></li>
-                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal">Tip of the Day</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item dropdown active">
-                        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Finances Tutorials
+                            Finance Tutorials
                         </a>
                         <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="{% url 'transactions:show_construction' %}"
@@ -161,6 +132,40 @@
                         </ul>
                     </li>
 
+                    <li class="nav-item dropdown active">
+                        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Trivia & Hints
+                        </a>
+                        <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#Trivia" data-bs-toggle="modal">Trivia of the Day</a></li>
+                            <li><a class="dropdown-item" href="#Hint" data-bs-toggle="modal">Tip of the Day</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown active">
+                        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Support
+                        </a>
+                        <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#Supp1" data-bs-toggle="modal">Support</a></li>
+                            <li><a class="dropdown-item" href="#Sugg1" data-bs-toggle="modal">Suggestions</a></li>
+                            <li><a class="dropdown-item" href="#Serv1" data-bs-toggle="modal">Service Requests</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown active">
+                        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Sponsors
+                        </a>
+                        <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#SponNote" data-bs-toggle="modal">A Note to Our Sponsors</a></li>
+                            <li><a class="dropdown-item" href="#PotSponNote" data-bs-toggle="modal">A Note to Our Potential Sponsors</a></li>
+                        </ul>
+                    </li>
+
                     <li class="nav-item">
                         <a class="nav-link active" href="#About1" data-bs-toggle="modal">About</a>
                     </li>
@@ -169,12 +174,14 @@
                         <a class="nav-link active" href="{% url 'LoginRegister:FTMainMenu' %}">Main Menu</a>
                     </li>
                 </ul>
+<!--                 
                 <form class="d-flex ms-auto" method=POST action="{% url 'transactions:search_accounts' %}">
                     {% csrf_token %}
                     <input class="form-control me-2" type="search" placeholder="Search Accounts"
                         aria-label="Search Excercises" name="searched">
                     <button class="btn btn-outline-secondary" type="submit">Search</button>
-                </form>
+                </form> 
+-->
 
             </div>
         </div>

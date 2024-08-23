@@ -2,6 +2,7 @@
 <html lang="en">
 {% load static %}
 {% load bootstrap_icons %}
+{% include 'fitness/modals.html' %}
 
 <head>
     <meta charset="UTF-8">
@@ -33,6 +34,10 @@
                 </button>
 
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#Overview" data-bs-toggle="modal">Overview</a>
+                    </li>
 
                     <li class="nav-item dropdown active">
                         <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
@@ -117,6 +122,21 @@
                     <li class="nav-item dropdown active">
                         <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
+                            Fantasy Footbal
+                        </a>
+                        <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#">Setup League</a></li>
+                            <li><a class="dropdown-item" href="#">Conduct Draft</a></li>
+                            <li><a class="dropdown-item" href="#">Manage Team & Starters</a></li>
+                            <li><a class="dropdown-item" href="#">View Teams & Starters</a></li>
+                            <li><a class="dropdown-item" href="#">Post Weekly Stats and Update Standings</a></li>
+                            <li><a class="dropdown-item" href="#">View Standings</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown active">
+                        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
                             Download
                         </a>
                         <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
@@ -153,6 +173,38 @@
                         </ul>
                     </li>
 
+                    <li class="nav-item dropdown active">
+                        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Trivia & Hints
+                        </a>
+                        <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#Trivia" data-bs-toggle="modal">Trivia of the Day</a></li>
+                            <li><a class="dropdown-item" href="#Hint" data-bs-toggle="modal">Hint of the Day</a></li>
+                        </ul>
+                    
+                        <li class="nav-item dropdown active">
+                            <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Support
+                            </a>
+                            <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#Supp1" data-bs-toggle="modal">Support</a></li>
+                                <li><a class="dropdown-item" href="#Sugg1" data-bs-toggle="modal">Suggestions</a></li>
+                                <li><a class="dropdown-item" href="#Serv1" data-bs-toggle="modal">Service Requests</a></li>
+                            </ul>
+                        </li>
+    
+                        <li class="nav-item dropdown active">
+                            <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Sponsors
+                            </a>
+                            <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#SponNote" data-bs-toggle="modal">A Note to Our Sponsors</a></li>
+                                <li><a class="dropdown-item" href="#PotSponNote" data-bs-toggle="modal">A Note to Our Potential Sponsors</a></li>
+                            </ul>
+                        </li>
+    
                     <li class="nav-item">
                         <a class="nav-link active" href="#About1" data-bs-toggle="modal">About</a>
                     </li>
