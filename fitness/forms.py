@@ -42,14 +42,14 @@ class ExcerciseForm(ModelForm):
     class Meta:
         model = ExcerciseList
         fields = ('Reference', 'Region', 'Area', 'Exercise', 'Description', 'Instructions')
-        labels = {
-            'Reference': '',
-            'Region': '',
-            'Area': '',
-            'Exercise': '',
-            'Description': '',
-            'Instructions': '',
-        }
+        # labels = {
+        #     'Reference': '',
+        #     'Region': '',
+        #     'Area': '',
+        #     'Exercise': '',
+        #     'Description': '',
+        #     'Instructions': '',
+        # }
         widgets = {
             'Reference': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Reference'}),
             'Region': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Region'}),

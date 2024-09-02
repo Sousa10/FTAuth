@@ -19,11 +19,18 @@
     <th class="table-primary">
       <h4 class="text-center">All Excercises</h4>
     </th>
+    <th class="table-primary" colspan="2">
+      <h4 class="text-center">Actions</h4>
+    </th>
     {% for excercise in excer_p %}
     <tr class="table-secondary table-active">
       <td><a href="{% url 'fitness:show_excercise' excercise.id %}">{{ excercise.Reference }}&nbsp&nbsp:&nbsp&nbsp{{ excercise.Region }}&nbsp&nbsp:&nbsp&nbsp{{ excercise.Area }}&nbsp&nbsp:&nbsp&nbsp{{ excercise.Exercise }}</a>
       </td>
-      
+      <td><a href="{% url 'fitness:exercise_delete' excercise.id %}">Delete</a></td>
+      <td><a href="#" data-id="{{ excercise.id }}" data-Reference="{{ excercise.Reference }}"
+          data-Region="{{ excercise.Region }}" data-Area="{{ excercise.Area }}"
+          data-Exercise="{{ excercise.Exercise }}" data-Description="{{ excercise.Description }}" data-Instructions="{{ excercise.Instructions }}"
+          data-bs-toggle="modal" data-bs-target="#addExerciseModal" id="editExerciseButton">Update</a></td>
     </tr>
     {% endfor %}
   </table>
@@ -48,5 +55,96 @@
   </ul>
 </nav>
 
+<!-- Add Account Button -->
+<div class="text-center my-4">
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addExerciseModal"
+    id="addExerciseButton">Add Exercice</button>
+</div>
 
+<div class="modal fade" id="addExerciseModal" tabindex="-1" aria-labelledby="exerciseModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="accountModalLabel">Add Exercise</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <form action="{% url 'fitness:excercises' %}" method="post" id="exerciseForm">
+        <div class="modal-body">
+          {% csrf_token %}
+          <div class="row">
+            {% for field in exerciseForm %}
+            <div class="col-12 col-md-6 mb-3">
+              <div class="form-floating"> <!-- Use floating labels for a neater look -->
+                {{ field }} <!-- Render the field itself -->
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label> <!-- Render the label of the field -->
+                {% if field.help_text %}
+                <small class="form-text text-muted">{{ field.help_text }}</small>
+                {% endif %}
+                {% for error in field.errors %}
+                <div class="alert alert-danger">{{ error }}</div>
+                {% endfor %}
+              </div>
+            </div>
+            {% if forloop.counter|divisibleby:2 %}
+          </div>
+          <div class="row">
+            {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+        <div class="modal-footer">
+          <input type="hidden" name="form_type" value="StatementForm">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block modal-script %}
+<script>
+  $(document).ready(function () {
+
+    $('#editExerciseButton').click(function (e) {
+      e.preventDefault();
+      
+      let id = $(this).data('id');
+      let reference = $(this).data('reference');
+      let region = $(this).data('region');
+      let area = $(this).data('area');
+      let exercise = $(this).data('exercise');
+      let description = $(this).data('description');
+      let instructions = $(this).data('instructions');
+      console.log('description: '+ description + 'instructions:' + instructions)
+
+      $('#exerciseForm input[name="Reference"]').val(reference);
+      $('#exerciseForm input[name="Region"]').val(region);
+      $('#exerciseForm input[name="Area"]').val(area);
+      $('#exerciseForm input[name="Exercise"]').val(exercise);
+      $('#exerciseForm textarea[name="Description"]').val(description);
+      $('#exerciseForm textarea[name="Instructions"]').val(instructions);
+
+      $('#exerciseForm').attr('action', '{% url "fitness:exercise_update" 0 %}'.replace('0', id));
+    });
+
+    $('#addExerciseButton').click(function (e) {
+      e.preventDefault();
+
+      // Clear the form fields
+      $('#exerciseForm input[name="Reference"]').val('');
+      $('#exerciseForm input[name="Region"]').val('');
+      $('#exerciseForm input[name="Area"]').val('');
+      $('#exerciseForm input[name="Exercise"]').val('');
+      $('#exerciseForm input[name="Description"]').val('');
+      $('#exerciseForm input[name="Instructions"]').val('');
+      // Reset the form action
+      $('#accountForm').attr('action', '{% url "fitness:excercises" %}');
+    });
+  });
+
+</script>
 {% endblock %}

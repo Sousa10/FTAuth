@@ -62,18 +62,6 @@ def AddExcercise(request):
             submitted = True
     return render(request, 'fitness/AddExcercise.html', {'form':form, 'submitted':submitted})
 
-def exercise_update(request, pk):
-    exercise = get_object_or_404(ExcerciseList, pk=pk)
-    if request.method == 'POST':
-        form = ExcerciseForm(request.POST, instance=exercise)
-
-        if form.is_valid():
-            form.save()
-            fallback_url = reverse('fitness:statement_section_with_id', kwargs={'pk':first_statement.id})
-            return redirect(request.META.get('HTTP_REFERER', fallback_url))
-    else:
-        form = ExcerciseForm(instance=exercise)
-
 def AddRoutine(request):
     submitted = False
     if request.method == "POST":
@@ -215,11 +203,37 @@ def excercises(request):
     page = request.GET.get('page')
     excer_p = p.get_page(page)
     nums = "x" * excer_p.paginator.num_pages
+
+    if request.method == 'POST':
+        form = ExcerciseForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('fitness:excercises')
+    else:
+        exerciseForm = ExcerciseForm()
+        # print(exerciseForm)
+
     return render(request, 'fitness/excercises.html', {
+        'exerciseForm': exerciseForm,
         'excercise_list': excercise_list,
         'excer_p':excer_p,
         'nums':nums
         })
+
+def exercise_update(request, pk):
+    exercice = get_object_or_404(ExcerciseList, pk=pk)
+    if request.method == 'POST':
+        form = ExcerciseForm(request.POST, instance=exercice)
+        if form.is_valid():
+            form.save()
+            return redirect('fitness:excercises')
+    else:
+        form = ExcerciseForm(instance=exercice)
+    return render(request, 'fitness/excercises.html', {
+        'form': form,
+        'exercice': exercice,
+        'title': 'Edit Cash In Account',
+    })
 
 def golf_courses(request):
     course_list = golf_course.objects.all()
@@ -262,3 +276,9 @@ def golf_rounds(request):
         'round_p':round_p,
         'nums':nums
         })
+
+def exercise_delete(request, pk):
+    exercise = get_object_or_404(ExcerciseList, pk=pk)
+    exercise.delete()
+
+    return redirect('fitness:excercises')
