@@ -139,8 +139,8 @@
       $('#exerciseForm input[name="Region"]').val('');
       $('#exerciseForm input[name="Area"]').val('');
       $('#exerciseForm input[name="Exercise"]').val('');
-      $('#exerciseForm input[name="Description"]').val('');
-      $('#exerciseForm input[name="Instructions"]').val('');
+      $('#exerciseForm textarea[name="Description"]').val('');
+      $('#exerciseForm textarea[name="Instructions"]').val('');
       // Reset the form action
       $('#accountForm').attr('action', '{% url "fitness:excercises" %}');
     });
